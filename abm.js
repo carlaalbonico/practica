@@ -2,7 +2,7 @@
 addEventListener("load",load)
  
 //variable del servidor
-var miBackEnd = '';
+var miBackEnd = '/pushupGym/serv/';
 
 //DOM
 function $(nombre)

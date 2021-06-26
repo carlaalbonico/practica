@@ -2,7 +2,7 @@
 addEventListener("load",load)
  
 //variable del servidor
-var miBackEnd = '';
+var miBackEnd = '../PushupGym/serv/';
 
 //DOM
 function $(nombre)
@@ -14,7 +14,51 @@ function $(nombre)
 function load(){
     //alert(boton)
     document.getElementById("btnEnviar").addEventListener("click",enviarParametrosPOST)
-    
+
+}
+
+
+
+function click(event){
+    enviarMsjeServidor(miBackEnd, retornoDelClick)
+    //se suele mostrar antes de la respuesta del servidor
+    alert("despues de la llamada");
+
+}
+
+function retornoDelClick(respuesta){
+    alert(respuesta); 
+
+    $("usuario").value=respuesta; 
+}
+
+function enviarMsjeServidor(servidor, funcionARealizar){
+
+    //declaro el objeto
+    var xmlhttp = new XMLHttpRequest(); 
+
+    //indico hacia donde va el mensaje
+    xmlhttp.open ("GET", miBackEnd, true); 
+
+    //seteo el evento
+    xmlhttp.onreadystatechange = function(){
+        //veo si llego la respuesta del servidor
+        if(xmlhttp.readyState==XMLHttpRequest.DONE){
+            //reviso si la respuesta del servidor es la correcta
+            if(xmlhttp.status==200){
+                console.log(xmlhttp.response);
+                funcionARealizar(xmlhttp.responseText);
+
+            }else{
+                alert("ocurrio un error")
+            };
+        }
+    }
+
+    //envio el mensaje 
+    xmlhttp.send();
+
+
 }
 
 
@@ -41,7 +85,7 @@ function enviarParametrosPOST(){
                 alert(xmlhttp.responseText);
 
             }else{
-                alert("ocurrio un error");
+                alert("ocurrio un erroraca");
             };
         }
     }
