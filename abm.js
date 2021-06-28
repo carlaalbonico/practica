@@ -13,7 +13,27 @@ function $(nombre)
 
 function load(){
     //alert(boton)
+    document.getElementById('txtNewEmail').addEventListener("keyup", validar);
+    document.getElementById('txtNewPass').addEventListener("keyup", validar);
     document.getElementById("btnGuardar").addEventListener("click",enviarParametrosPOST)
+}
+
+function validar(){
+
+    var newEmail = document.getElementById('txtNewEmail').value;
+    var newPass = document.getElementById('txtNewPass').value;
+
+    var pattPass = new RegExp(/(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,}$/);
+    var pattEmail = new RegExp(/^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/);
+
+    var resultadoNewPass = pattPass.test(newPass);
+    var resultadoNewEmail = pattEmail.test(newEmail);
+
+    if( resultadoNewEmail && resultadoNewPass ){
+        $('btnGuardar').disabled = false;
+    }else{
+        $('btnGuardar').disabled = true;
+    }
 }
 
 

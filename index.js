@@ -13,8 +13,28 @@ function $(nombre)
 
 function load(){
     //alert(boton)
-    document.getElementById("btnEnviar").addEventListener("click",enviarParametrosPOST)
+    document.getElementById('txtEmail').addEventListener("keyup", validar);
+    document.getElementById('txtPass').addEventListener("keyup", validar);
+    document.getElementById("btnEnviar").addEventListener("click",enviarParametrosPOST);
 
+}
+
+function validar(){
+
+    var email = document.getElementById('txtEmail').value;
+    var pass = document.getElementById('txtPass').value;
+
+    var pattPass = new RegExp(/(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,}$/);
+    var pattEmail = new RegExp(/^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/);
+
+    var resultadoPass = pattPass.test(pass);
+    var resultadoEmail = pattEmail.test(email);
+
+    if( resultadoEmail && resultadoPass ){
+        $('btnEnviar').disabled = false;
+    }else{
+        $('btnEnviar').disabled = true;
+    }
 }
 
 
