@@ -2,7 +2,7 @@
 addEventListener("load",load)
  
 //variable del servidor
-var miBackEnd = '/pushupGym/serv/';
+var miBackEnd = '/practica/serv/';
 
 //DOM
 function $(nombre)
@@ -15,7 +15,7 @@ function load(){
     //alert(boton)
     document.getElementById('txtNewEmail').addEventListener("keyup", validar);
     document.getElementById('txtNewPass').addEventListener("keyup", validar);
-    document.getElementById("btnGuardar").addEventListener("click",enviarParametrosPOST)
+    document.getElementById("btnGuardar").addEventListener("click",click)
 }
 
 function validar(){
@@ -36,8 +36,17 @@ function validar(){
     }
 }
 
+function click(){
 
-function enviarParametrosPOST(){
+    enviarParametrosPOST(miBackEnd, retornoDelClick);
+}
+
+function retornoDelClick(respuesta){
+    $("btnGuardar").disabled=true;
+    $("respuesta").innerHTML=respuesta;
+}
+
+function enviarParametrosPOST(servidor, funcionARealizar){
 
     //declaro el objeto
     var xmlhttp = new XMLHttpRequest(); 
@@ -49,7 +58,7 @@ function enviarParametrosPOST(){
     datos.append("newPass",$("txtNewPass").value);
       
     //indico hacia donde va el mensaje
-    xmlhttp.open ("POST", miBackEnd, true); 
+    xmlhttp.open ("POST", servidor, true);
 
     //seteo el evento
     xmlhttp.onreadystatechange = function(){
@@ -57,11 +66,9 @@ function enviarParametrosPOST(){
         if(xmlhttp.readyState==XMLHttpRequest.DONE){
             //reviso si la respuesta del servidor es la correcta
             if(xmlhttp.status==200){
-                console.log(xmlhttp.response);
-                alert(xmlhttp.responseText);
-
+                funcionARealizar(xmlhttp.responseText);
             }else{
-                alert("ocurrio un errorcwewe3")
+                alert("ocurrio un error");
             };
         }
     }

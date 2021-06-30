@@ -50,21 +50,22 @@
     
     
         <div class="form-floating">
-          <input type="text" class="form-control" id="txtNewEmail" >
+          <input type="text" class="form-control" id="txtNewEmail" autofocus>
           <label>Correo Electronico:</label>
         </div>
         <div class="form-floating">
           <input type="password" class="form-control" id="txtNewPass" >
           <label>Contraseña: </label>
+          <small id="restLongContra">
+            Mínimo 8 caracteres, 1 letra mayúscula, 1 minúscula y 1 número
+          </small>
         </div>
-
-
-        <button class="w-100 btn btn-lg btn-primary" type="submit" id="btnGuardar" disabled>Guardar</button>
+        <button class="w-100 btn btn-lg btn-primary" type="button" id="btnGuardar" disabled>Guardar</button>
         
-          
-          
-      </div>
       </form>
+      <div>
+        <p id="respuesta"></p>
+      </div>
     </main>
     
     

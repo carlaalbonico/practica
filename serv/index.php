@@ -1,7 +1,7 @@
 <?php
 	 
     function conectar(){
-    $conexion= mysqli_connect("127.0.0.1","root","","pushupgym");
+    $conexion= mysqli_connect("remotemysql.com","2PCWh7y5Lf","09enEZGbMN","2PCWh7y5Lf");
         if (!$conexion) {
     	echo "Error al conectar base";
         }
@@ -13,50 +13,51 @@
     if(isset($_POST['email']) && isset($_POST['pass'])){
         $email = $_POST['email'];
         $password = $_POST['pass'];
-        
-        echo "<script> alert('los datos han llegado hasta aca')</script>";
+        $emailGuardado = "";
+        $passwordGuardada = "";
+        $resultado;
                      
         $db = conectar();
-        $consultar = "select password from usuario where email = '$email'";
-        $query = mysqli_query($db,$consultar);
-        
-		    $array = mysqli_fetch_array($query);
-            
-    
-        $passwordGuardada = $array['password']; 
-       
-        if (password_verify($password , $passwordGuardada)) {
-            header("Location:index.html");
-        } 
-        else {
-            echo "Password incorrect.";
-        };
+        $consultar = "SELECT email, contrasena FROM Usuario WHERE email = '$email'";
 
-        echo "<script> alert('los datos han llegado hasta aca')</script>";
+        $resultado = mysqli_query($db, $consultar);
 
+        if (mysqli_num_rows($resultado) != 0){
+            while ($obj = mysqli_fetch_object($resultado)) {
+              $emailGuardado = $obj->email;
+              $passwordGuardada = $obj->contrasena;
+            }
+            mysqli_free_result($resultado);
 
-
+            if (password_verify($password, $passwordGuardada)) {
+                echo "Acceso correcto";
+            } 
+            else {
+                echo "Contraseña incorrecta";
+            } 
+        }
+        else{
+            echo "Correo no registrado";
+        }
     }
 
     if(isset($_POST['newEmail']) && isset($_POST['newPass'])){
         $newEmail = $_POST['newEmail'];
         $newPassword = $_POST['newPass'];
-       
-        
+             
         $hashedPass = password_hash($newPassword, PASSWORD_DEFAULT);
-           
         
-
         $db = conectar();
-        $insertar = "INSERT INTO usuario (`email`, `password`) VALUES ('$newEmail', '$hashedPass')";
+        $insertar = "INSERT INTO Usuario (`email`, `contrasena`) VALUES ('$newEmail', '$hashedPass')";
     
         $agregar=mysqli_query($db,$insertar);
-        echo "<script> alert('los datos han sido agregados')</script>";
 
-        if(!$agregar){
-        
-        echo"<h3> no se ha agregado el producto</h3>";}
-
+        if($agregar){
+            echo "Usuario generado correctamente";
+        }
+        else{
+            echo "Usuario no generado";
+        }
     }
 
  ?>

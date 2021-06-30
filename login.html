@@ -49,7 +49,7 @@
         <h1 class="h3 mb-3 fw-normal">Bienvenido</h1>
     
         <div class="form-floating">
-          <input type="email" class="form-control" id="txtEmail" placeholder="name@example.com">
+          <input type="email" class="form-control" id="txtEmail" placeholder="name@example.com" autofocus>
           <label for="floatingInput">Email </label>
         </div>
         <div class="form-floating">
@@ -58,14 +58,17 @@
         </div>
  
         
-        <button class="w-100 btn btn-lg btn-primary" type="submit" id="btnEnviar" disabled>Ingresar</button>
-        
-          <div class="mb-4">¿No tienes una cuenta? 
-              <a href="signin.html">Registrate</a>
-          </div>
-          
-      </div>
+        <button class="w-100 btn btn-lg btn-primary" type="button" id="btnEnviar" disabled>Ingresar</button>
+        <!--
+        <div class="mb-4">¿No tienes una cuenta? 
+          <a href="signin.html">Registrate</a>
+        </div>
+        -->
       </form>
+
+      <div>
+        <p id="respuesta"></p>
+      </div>
     </main>
     
     

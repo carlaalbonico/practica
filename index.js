@@ -2,12 +2,12 @@
 addEventListener("load",load)
  
 //variable del servidor
-var miBackEnd = '../PushupGym/serv/';
+var miBackEnd = '/practica/serv/';
 
 //DOM
 function $(nombre)
 {
-    return document.getElementById(nombre)
+    return document.getElementById(nombre);
 }
 
 
@@ -15,7 +15,7 @@ function load(){
     //alert(boton)
     document.getElementById('txtEmail').addEventListener("keyup", validar);
     document.getElementById('txtPass').addEventListener("keyup", validar);
-    document.getElementById("btnEnviar").addEventListener("click",enviarParametrosPOST);
+    document.getElementById("btnEnviar").addEventListener("click",click);
 
 }
 
@@ -39,17 +39,20 @@ function validar(){
 
 
 
-function click(event){
-    enviarMsjeServidor(miBackEnd, retornoDelClick)
+function click(){
+    //enviarMsjeServidor(miBackEnd, retornoDelClick);
+    $("btnEnviar").disabled=true;
+    enviarParametrosPOST(miBackEnd, retornoDelClick);
     //se suele mostrar antes de la respuesta del servidor
-    alert("despues de la llamada");
+    //alert("despues de la llamada");
 
 }
 
 function retornoDelClick(respuesta){
-    alert(respuesta); 
-
-    $("usuario").value=respuesta; 
+    $("txtEmail").value = "";
+    $("txtPass").value = "";
+    $("respuesta").innerHTML=respuesta;
+    
 }
 
 function enviarMsjeServidor(servidor, funcionARealizar){
@@ -58,7 +61,7 @@ function enviarMsjeServidor(servidor, funcionARealizar){
     var xmlhttp = new XMLHttpRequest(); 
 
     //indico hacia donde va el mensaje
-    xmlhttp.open ("GET", miBackEnd, true); 
+    xmlhttp.open ("GET", servidor, true);
 
     //seteo el evento
     xmlhttp.onreadystatechange = function(){
@@ -82,7 +85,7 @@ function enviarMsjeServidor(servidor, funcionARealizar){
 }
 
 
-function enviarParametrosPOST(){
+function enviarParametrosPOST(servidor, funcionARealizar){
 
     //declaro el objeto
     var xmlhttp = new XMLHttpRequest(); 
@@ -93,7 +96,7 @@ function enviarParametrosPOST(){
     datos.append("pass",$("txtPass").value);
 
     //indico hacia donde va el mensaje
-    xmlhttp.open ("POST", miBackEnd, true); 
+    xmlhttp.open ("POST", servidor, true); 
 
     //seteo el evento
     xmlhttp.onreadystatechange = function(){
@@ -101,11 +104,9 @@ function enviarParametrosPOST(){
         if(xmlhttp.readyState==XMLHttpRequest.DONE){
             //reviso si la respuesta del servidor es la correcta
             if(xmlhttp.status==200){
-                console.log(xmlhttp.response);
-                alert(xmlhttp.responseText);
-
+                funcionARealizar(xmlhttp.response);
             }else{
-                alert("ocurrio un erroraca");
+                alert("ocurrio un error");
             };
         }
     }
