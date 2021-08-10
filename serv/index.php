@@ -1,44 +1,30 @@
 <?php
-	 
-    function conectar(){
-    $conexion= mysqli_connect("remotemysql.com","2PCWh7y5Lf","09enEZGbMN","2PCWh7y5Lf");
-        if (!$conexion) {
-    	echo "Error al conectar base";
-        }
-				
-    return $conexion;
-    }
 
+    require 'accesoADatos/AccesoDatos.php';
     
     if(isset($_POST['email']) && isset($_POST['pass'])){
         $email = $_POST['email'];
         $password = $_POST['pass'];
-        $emailGuardado = "";
-        $passwordGuardada = "";
-        $resultado;
-                     
-        $db = conectar();
-        $consultar = "SELECT email, contrasena FROM Usuario WHERE email = '$email'";
 
-        $resultado = mysqli_query($db, $consultar);
+        $objAccesoDatos = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT email, contrasena FROM Usuario WHERE email=?");
+        $consulta->execute(array($email));
+        $arregloUsuario = $consulta->fetch();
 
-        if (mysqli_num_rows($resultado) != 0){
-            while ($obj = mysqli_fetch_object($resultado)) {
-              $emailGuardado = $obj->email;
-              $passwordGuardada = $obj->contrasena;
-            }
-            mysqli_free_result($resultado);
+        if(!$arregloUsuario){
+            echo 'No existe usuario';
+            die();
+        }
 
-            if (password_verify($password, $passwordGuardada)) {
-                echo "Acceso correcto";
-            } 
-            else {
-                echo "Contraseña incorrecta";
-            } 
+        //var_dump($arregloUsuario);
+
+        if(password_verify($password, $arregloUsuario['contrasena'])){
+            echo "Acceso correcto";
         }
         else{
-            echo "Correo no registrado";
+            echo "Contraseña incorrecta";
         }
+        
     }
 
     if(isset($_POST['newEmail']) && isset($_POST['newPass'])){
@@ -47,12 +33,10 @@
              
         $hashedPass = password_hash($newPassword, PASSWORD_DEFAULT);
         
-        $db = conectar();
-        $insertar = "INSERT INTO Usuario (`email`, `contrasena`) VALUES ('$newEmail', '$hashedPass')";
-    
-        $agregar=mysqli_query($db,$insertar);
+        $objAccesoDatos = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDatos->prepararConsulta("INSERT INTO Usuario (`email`, `contrasena`) VALUES (?,?)");
 
-        if($agregar){
+        if($consulta->execute(array($newEmail, $hashedPass))){
             echo "Usuario generado correctamente";
         }
         else{
