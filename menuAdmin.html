@@ -15,7 +15,7 @@
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     
     <!-- agrego javascript-->
-   <script src="login.js"></script>
+   <script src="index.js"></script>
   
    
 
@@ -27,37 +27,19 @@
       
       
     
-    <title>Login</title>
+    <title>Push UP</title>
     
 </header>
 <body  class="text-center" id="contenedor">
     
-    <main class="form-signin">
-      <form>
-        <!--<img class="mb-4" src="img/logo.png"  alt="" width="200" height="">-->
-        <h1 class="h3 mb-3 fw-normal">Bienvenido</h1>
+    <main class="form-menu">
+        <h1 class="h3 mb-3 fw-normal">Atencion al Socio</h1>
+        <br>
+        <button class="w-100 btn btn-lg btn-primary" type="button" id="btnConsultar" disabled>Consultar socio</button>
+        <br>
+        <br>
+        <button class="w-100 btn btn-lg btn-primary" type="button" id="btnRegistrar" disabled>Registrar socio</button>
     
-        <div class="form-floating">
-          <input type="email" class="form-control" id="txtEmail" placeholder="name@example.com" autofocus>
-          <label for="floatingInput">Email </label>
-        </div>
-        <div class="form-floating">
-          <input type="password" class="form-control" id="txtPass" placeholder="Contraseña">
-          <label for="floatingPassword">Contraseña</label>
-        </div>
- 
-        
-        <button class="w-100 btn btn-lg btn-primary" type="button" id="btnEnviar" disabled>Ingresar</button>
-        <!--
-        <div class="mb-4">¿No tienes una cuenta? 
-          <a href="signin.html">Registrate</a>
-        </div>
-        -->
-      </form>
-
-      <div>
-        <p id="respuesta"></p>
-      </div>
     </main>
     
     
@@ -66,4 +48,3 @@
 
 
 </html>
- 

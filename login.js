@@ -40,11 +40,10 @@ function validar(){
 
 
 function click(){
-    //enviarMsjeServidor(miBackEnd, retornoDelClick);
+    
     $("btnEnviar").disabled=true;
     enviarParametrosPOST(miBackEnd, retornoDelClick);
-    //se suele mostrar antes de la respuesta del servidor
-    //alert("despues de la llamada");
+   
 
 }
 
