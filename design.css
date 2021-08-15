@@ -8,7 +8,7 @@ body {
   align-items: center;
   padding-top: 40px;
   padding-bottom: 40px;
-  background-color: rgb(103 99 99);
+  background-color: rgb(245, 245, 245);
   
 }
 
@@ -50,4 +50,12 @@ body {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+.form-menu {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+  
 }
