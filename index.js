@@ -51,7 +51,13 @@ function click(){
 function retornoDelClick(respuesta){
     $("txtEmail").value = "";
     $("txtPass").value = "";
-    $("respuesta").innerHTML=respuesta;
+
+    if(respuesta){
+        window.location.assign("http://localhost/practica/administrativo.php");
+    }
+    else{
+        $("respuesta").innerHTML="Usuario o contraseña errónea";
+    }
     
 }
 
