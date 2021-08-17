@@ -3,6 +3,7 @@ addEventListener("load",load)
  
 //variable del servidor
 var miBackEnd = '/practica/serv/';
+//var miBackEnd = 'http://localhost:555/';
 
 //DOM
 function $(nombre)
@@ -42,7 +43,7 @@ function validar(){
 function click(){
     
     $("btnEnviar").disabled=true;
-    enviarParametrosPOST(miBackEnd, retornoDelClick);
+    enviarParametrosPOST(miBackEnd + 'Usuario', retornoDelClick);
    
 
 }
@@ -51,7 +52,9 @@ function retornoDelClick(respuesta){
     $("txtEmail").value = "";
     $("txtPass").value = "";
 
-    if(respuesta){
+    //$("respuesta").innerHTML=respuesta;
+    
+    if(respuesta == "Acceso correcto"){
         window.location.assign("http://localhost/practica/administrativo.php");
     }
     else{

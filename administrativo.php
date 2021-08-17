@@ -1,17 +1,15 @@
 <?php
-    /*
-        Iniciar una nueva sesión o reanudar la existente
-    */
-    session_start();
-
-    if( isset($_SESSION['email'])){
-        echo 'Bienvenido '. $_SESSION['email'];
-        echo '<br><a href="serv/index.php?sesion=cerrar">Cerrar Sesión</a>';
-    }
-    else{
-        header('Location:login.html');
-    }
-
+  session_start();
+  
+  //var_dump($_SESSION['email']);
+  //die();
+  if( isset($_SESSION['email'])){
+    echo 'Bienvenido '. $_SESSION['email'];
+    echo '<br><a href="serv/index.php?sesion=cerrar">Cerrar Sesión</a>';
+  }
+  else{
+    header('Location:login.html');
+  }
 ?>
 
 <!doctype html>
