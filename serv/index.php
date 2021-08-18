@@ -9,7 +9,7 @@
         $password = $_POST['pass'];
 
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDatos->prepararConsulta("SELECT idUsuario, email, contrasena FROM Usuario WHERE email=?");
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT idUsuario, email, contrasena FROM usuario WHERE email=?");
         $consulta->execute(array($email));
         $arregloUsuario = $consulta->fetch();
 
@@ -50,7 +50,7 @@
         $hashedPass = password_hash($newPassword, PASSWORD_DEFAULT);
         
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDatos->prepararConsulta("INSERT INTO Usuario (`email`, `contrasena`) VALUES (?,?)");
+        $consulta = $objAccesoDatos->prepararConsulta("INSERT INTO usuario (`email`, `contrasena`) VALUES (?,?)");
 
         if($consulta->execute(array($newEmail, $hashedPass))){
             echo "Usuario generado correctamente";
