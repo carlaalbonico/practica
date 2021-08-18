@@ -2,8 +2,8 @@
 addEventListener("load",load)
  
 //variable del servidor
-var miBackEnd = '/practica/serv/';
-//var miBackEnd = 'http://localhost:555/';
+//var miBackEnd = '/practica/serv/';
+var miBackEnd = 'http://localhost:555/';
 
 //DOM
 function $(nombre)
@@ -55,7 +55,7 @@ function retornoDelClick(respuesta){
     //$("respuesta").innerHTML=respuesta;
     
     if(respuesta == "Acceso correcto"){
-        window.location.assign("http://localhost/practica/administrativo.php");
+        window.location.assign("http://localhost/practica/menuAdmin.html");
     }
     else{
         $("respuesta").innerHTML="Usuario o contraseña errónea";

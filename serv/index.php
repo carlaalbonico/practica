@@ -14,7 +14,7 @@
         $arregloUsuario = $consulta->fetch();
 
         if(!$arregloUsuario){
-            echo false;
+            echo "No existe usuario";
             die();
         }
 
@@ -30,10 +30,10 @@
             
             SesionControlador::iniciar($email);
             
-            echo true;
+            echo "Acceso correcto";
         }
         else{
-            echo false;
+            echo "Contraseña incorrecta";
         }
         
     }
