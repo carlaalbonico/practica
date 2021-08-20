@@ -22,7 +22,7 @@ function load(){
 
 function clickConsultar(){
     
-    enviarParametrosGET(miBackEnd + "socio/consultar",abrirConsultar); 
+    enviarParametrosGET(miBackEnd + "socio/consultar",abrirConsultar);
 }
 
 function abrirConsultar(){

@@ -52,15 +52,25 @@ function retornoDelClick(respuesta){
     $("txtEmail").value = "";
     $("txtPass").value = "";
 
+    var objetoUsuario = JSON.parse(respuesta);
     //$("respuesta").innerHTML=respuesta;
-    
+    if(objetoUsuario['email'] == null){
+        $("respuesta").innerHTML="Correo o contraseña errónea";
+    }
+
+    if(objetoUsuario['email'] != null){
+        document.cookie = "email="+objetoUsuario['email'];
+        window.location.assign("http://localhost/practica/administrativo.php");
+    }
+    /*
     if(respuesta == "Acceso correcto"){
-        window.location.assign("http://localhost/practica/menuAdmin.html");
+        document.cookie = "email=saidaluna21@gmail.com";
+        window.location.assign("http://localhost/practica/administrativo.php");
     }
     else{
         $("respuesta").innerHTML="Usuario o contraseña errónea";
     }
-    
+    */
 }
 
 function enviarMsjeServidor(servidor, funcionARealizar){
