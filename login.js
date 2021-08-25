@@ -2,7 +2,8 @@
 addEventListener("load",load)
  
 //variable del servidor
-var miBackEnd = '/practica/serv/';
+//var miBackEnd = '/practica/serv/';
+var miBackEnd = 'http://localhost:555/';
 
 //DOM
 function $(nombre)
@@ -42,7 +43,7 @@ function validar(){
 function click(){
     
     $("btnEnviar").disabled=true;
-    enviarParametrosPOST(miBackEnd, retornoDelClick);
+    enviarParametrosPOST(miBackEnd + 'Usuario', retornoDelClick);
    
 
 }
@@ -50,8 +51,26 @@ function click(){
 function retornoDelClick(respuesta){
     $("txtEmail").value = "";
     $("txtPass").value = "";
-    $("respuesta").innerHTML=respuesta;
-    
+
+    var objetoUsuario = JSON.parse(respuesta);
+    //$("respuesta").innerHTML=respuesta;
+    if(objetoUsuario['email'] == null){
+        $("respuesta").innerHTML="Correo o contraseña errónea";
+    }
+
+    if(objetoUsuario['email'] != null){
+        document.cookie = "email="+objetoUsuario['email'];
+        window.location.assign("http://localhost/practica/administrativo.php");
+    }
+    /*
+    if(respuesta == "Acceso correcto"){
+        document.cookie = "email=saidaluna21@gmail.com";
+        window.location.assign("http://localhost/practica/administrativo.php");
+    }
+    else{
+        $("respuesta").innerHTML="Usuario o contraseña errónea";
+    }
+    */
 }
 
 function enviarMsjeServidor(servidor, funcionARealizar){
