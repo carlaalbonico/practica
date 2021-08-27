@@ -93,7 +93,7 @@ function click(){
 
 function respuestaDeServidor(respuesta){
     var objetoUsuario = JSON.parse(respuesta);
-    $("respuesta").innerHTML="Correo o contraseña errónea";
+    $("respuesta").innerHTML=respuesta;
 }
 
 function enviarInfoDeSocio(servidor, funcionARealizar){
