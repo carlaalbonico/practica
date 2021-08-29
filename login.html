@@ -30,40 +30,47 @@
     <title>Login</title>
     
 </header>
-<body  class="text-center" id="contenedor">
-    
-    <main class="form-signin">
-      <form>
-        <!--<img class="mb-4" src="img/logo.png"  alt="" width="200" height="">-->
-        <h1 class="h3 mb-3 fw-normal">Bienvenido</h1>
-    
-        <div class="form-floating">
-          <input type="email" class="form-control" id="txtEmail" placeholder="name@example.com" autofocus>
-          <label for="floatingInput">Email</label>
-        </div>
-        <div class="form-floating">
-          <input type="password" class="form-control" id="txtPass" placeholder="Contraseña">
-          <label for="floatingPassword">Contraseña</label>
-        </div>
- 
-        <button class="w-100 btn btn-lg btn-primary" type="button" id="btnEnviar" disabled>Ingresar</button>
-        
-        <div class="mb-4">¿Olvido la contraseña?
-          <a href="recuperarContrasenia.html">Recupere su cuenta</a>
-        </div>
+<body  >
+  <nav class="navbar navbar-dark bg-dark ">
+    <header class="d-flex justify-content-center py-3">
+        <a class="navbar-brand" href="#">PUSH UP</a>
 
-        <div class="mb-4">¿No tienes una cuenta? 
-          <a href="signin.html">Registrate</a>
-        </div>
-        
-      </form>
+    </header>
+  </nav>
 
-      <div>
-        <p id="respuesta"></p>
-      </div>
-    </main>
-    
-    
+  <div class="text-center"  id="contenedor">
+      <main class="form-signin">
+        <form>
+          <!--<img class="mb-4" src="img/logo.png"  alt="" width="200" height="">-->
+          <h1 class="h3 mb-3 fw-normal">Bienvenido</h1>
+      
+          <div class="form-floating">
+            <input type="email" class="form-control" id="txtEmail" placeholder="name@example.com" autofocus>
+            <label for="floatingInput">Email</label>
+          </div>
+          <div class="form-floating">
+            <input type="password" class="form-control" id="txtPass" placeholder="Contraseña">
+            <label for="floatingPassword">Contraseña</label>
+          </div>
+  
+          <button class="w-100 btn btn-lg btn-primary" type="button" id="btnEnviar" disabled>Ingresar</button>
+          
+          <div class="mb-4">¿Olvido la contraseña?
+            <a href="recuperarContrasenia.html">Recupere su cuenta</a>
+          </div>
+
+          <div class="mb-4">¿No tienes una cuenta? 
+            <a href="signin.html">Registrate</a>
+          </div>
+          
+        </form>
+
+        <div>
+          <p id="respuesta"></p>
+        </div>
+      </main>
+      
+  </div>  
         
 </body>
 
