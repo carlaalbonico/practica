@@ -15,7 +15,7 @@ function load(){
 }
 
 function comprobarCorreo(){
-    var Email = $('txtNewEmail').value;
+    var Email = $('txtEmail').value;
     var pattEmail = new RegExp(/^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/);
     var testEmail = pattEmail.test(Email);
 
