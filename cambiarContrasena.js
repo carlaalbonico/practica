@@ -15,16 +15,16 @@ function $(nombre)
 function load(){
     //alert(boton)
     
-    document.getElementById("txtContrasenia").addEventListener("keyup", validar);
-    document.getElementById("txtRepetidaContrasenia").addEventListener("keyup", validar);
+    document.getElementById("txtContrasena").addEventListener("keyup", validar);
+    document.getElementById("txtRepetidaContrasena").addEventListener("keyup", validar);
     document.getElementById("btnGuardar").addEventListener("click",click);
 
 }
 
 function validar(){
 
-    var pass1 = document.getElementById("txtContrasenia").value;
-    var pass2 = document.getElementById("txtRepetidaContrasenia").value;
+    var pass1 = document.getElementById("txtContrasena").value;
+    var pass2 = document.getElementById("txtRepetidaContrasena").value;
 
     var pattPass = new RegExp(/(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,}$/);
     
@@ -51,9 +51,9 @@ function click(){
 }
 
 function retornoDelClick(respuesta){
-    $("txtContrasenia").value = "";
-    $("txtRepetidaContrasenia").value = "";
-
+    $("txtContrasena").value = "";
+    $("txtRepetidaContrasena").value = "";
+    
     
 }
 
@@ -91,11 +91,11 @@ function enviarParametrosPOST(servidor, funcionARealizar){
 
     //declaro el objeto
     var xmlhttp = new XMLHttpRequest(); 
-
+    let email = sessionStorage.getItem("usuario");
     //agrega datos para pasar por POST
     var datos = new FormData();
-    datos.append("email",$("txtEmail").value);
-    datos.append("contrasenaNueva",$("txtPass").value);
+    datos.append("email",email);// parametro de la sesion 
+    datos.append("contrasenaNueva",$("txtContrasena").value);
 
     //indico hacia donde va el mensaje
     xmlhttp.open ("POST", servidor, true); 

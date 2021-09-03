@@ -37,7 +37,7 @@ function click(){
 }
 
 function respuestaDeServidor(respuesta){
-    var objetoUsuario = JSON.parse(respuesta);
+    //var objetoUsuario = JSON.parse(respuesta);
     $("respuesta").innerHTML=respuesta;
 }
 
