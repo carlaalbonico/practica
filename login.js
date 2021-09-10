@@ -82,7 +82,7 @@ function clickGuardar(){
 function retornoDelClickGuardar(respuesta){
     $("txtContrasena").value = "";
     $("txtRepetidaContrasena").value = "";
-    
+    $("respuesta").innerHTML="Las contraseña ha sido cambiada correctamente";
     
 }
 
@@ -138,6 +138,12 @@ function retornoDelClick(respuesta){
         oculta_muestra('cuadroLogin');
         
     }
+
+    if(objetoUsuario['email'] != null && objetoUsuario['idPerfil'] == 'SOC' && objetoUsuario['origenDeContrasena'] == 'USU'){
+        $("respuesta").innerHTML="socio ingreso correctamente";
+        
+    }
+
 }
 
 function enviarMsjeServidor(servidor, funcionARealizar){
