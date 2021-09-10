@@ -134,11 +134,9 @@ function retornoDelClick(respuesta){
         //window.location.assign("http://localhost/practica/cambiarContrasena.html");
         let email = sessionStorage.getItem("usuario");
         $("emailUsuario").innerHTML=email;
-
-        window.onload = function(){/*hace que se cargue la función lo que predetermina que div estará oculto */
-            oculta_muestra('cuadroContrasenaNueva');
-            oculta_muestra('cuadroLogin');
-        }
+        oculta_muestra('cuadroContrasenaNueva');
+        oculta_muestra('cuadroLogin');
+        
     }
 }
 
