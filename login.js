@@ -61,7 +61,7 @@ function validarContrasenia(){
     var pattPass = new RegExp(/(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,}$/);
     
 
-    var resultadoPass = pattPass.test(pass);
+    var resultadoPass = pattPass.test(pass1);
     if( pass1 !== pass2){
     $("respuesta").innerHTML="Las contraseñas no coinciden";
     }
