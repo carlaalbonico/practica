@@ -16,12 +16,17 @@ function load(){
     //alert(boton)
     muestra('cuadroLogin');
     oculta_muestra('cuadroContrasenaNueva');
-    document.getElementById('txtEmail').addEventListener("keyup", validar);
-    document.getElementById('txtPass').addEventListener("keyup", validar);
+    document.getElementById('txtEmail').addEventListener("keyup", validarLogin);
+    document.getElementById('txtPass').addEventListener("keyup", validarLogin);
     document.getElementById("btnEnviar").addEventListener("click",click);
+    //de cambiar contraseña
+    document.getElementById("txtContrasena").addEventListener("keyup", validarContrasenia);
+    document.getElementById("txtRepetidaContrasena").addEventListener("keyup", validarContrasenia);
+    document.getElementById("btnGuardar").addEventListener("click",clickGuardar);
+
 } 
 
-function validar(){
+function validarLogin(){
 
     var email = document.getElementById('txtEmail').value;
     var pass = document.getElementById('txtPass').value;
@@ -47,6 +52,38 @@ function click(){
     enviarParametrosPOST(miBackEnd + 'Usuario', retornoDelClick);
    
 
+}
+
+function validarContrasenia(){
+    var pass1 = document.getElementById("txtContrasena").value;
+    var pass2 = document.getElementById("txtRepetidaContrasena").value;
+
+    var pattPass = new RegExp(/(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,}$/);
+    
+
+    var resultadoPass = pattPass.test(pass);
+    if( pass1 !== pass2){
+    $("respuesta").innerHTML="Las contraseñas no coinciden";
+    }
+    if( pass1 == pass2 && resultadoPass ){
+        $("btnGuardar").disabled = false;
+    }else{
+        $("btnGuardar").disabled = true;
+    }
+}    
+
+function clickGuardar(){
+    
+    $("btnGuardar").disabled=true;
+    enviarParamCambiarContraseñaPOST(miBackEnd + 'Usuario/CambioDeContrasena', retornoDelClickGuardar);
+   
+
+}
+function retornoDelClickGuardar(respuesta){
+    $("txtContrasena").value = "";
+    $("txtRepetidaContrasena").value = "";
+    
+    
 }
 
 function oculta_muestra(id){
@@ -95,7 +132,8 @@ function retornoDelClick(respuesta){
     if(objetoUsuario['email'] != null && objetoUsuario['origenDeContrasena'] == 'SIS'){
         sessionStorage.setItem("usuario",objetoUsuario['email']);
         //window.location.assign("http://localhost/practica/cambiarContrasena.html");
-
+        let email = sessionStorage.getItem("usuario");
+        $("emailUsuario").innerHTML=email;
 
         window.onload = function(){/*hace que se cargue la función lo que predetermina que div estará oculto */
             oculta_muestra('cuadroContrasenaNueva');
@@ -143,6 +181,39 @@ function enviarParametrosPOST(servidor, funcionARealizar){
     var datos = new FormData();
     datos.append("email",$("txtEmail").value);
     datos.append("pass",$("txtPass").value);
+
+    //indico hacia donde va el mensaje
+    xmlhttp.open ("POST", servidor, true); 
+
+    //seteo el evento
+    xmlhttp.onreadystatechange = function(){
+        //veo si llego la respuesta del servidor
+        if(xmlhttp.readyState==XMLHttpRequest.DONE){
+            //reviso si la respuesta del servidor es la correcta
+            if(xmlhttp.status==200){
+                funcionARealizar(xmlhttp.response);
+            }else{
+                alert("ocurrio un error");
+            };
+        }
+    }
+    //esto va siempre cuando se hace un formulario
+    xmlhttp.setRequestHeader("enctype","multipart/form-data");
+
+    //envio el mensaje 
+    xmlhttp.send(datos);
+
+
+}
+function enviarParamCambiarContraseñaPOST(servidor, funcionARealizar){
+
+    //declaro el objeto
+    var xmlhttp = new XMLHttpRequest(); 
+    let email = sessionStorage.getItem("usuario");
+    //agrega datos para pasar por POST
+    var datos = new FormData();
+    datos.append("email",email);// parametro de la sesion 
+    datos.append("contrasenaNueva",$("txtContrasena").value);
 
     //indico hacia donde va el mensaje
     xmlhttp.open ("POST", servidor, true); 
