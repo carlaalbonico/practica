@@ -14,11 +14,12 @@ function $(nombre)
 
 function load(){
     //alert(boton)
+    muestra('cuadroLogin');
+    oculta_muestra('cuadroContrasenaNueva');
     document.getElementById('txtEmail').addEventListener("keyup", validar);
     document.getElementById('txtPass').addEventListener("keyup", validar);
     document.getElementById("btnEnviar").addEventListener("click",click);
-
-}
+} 
 
 function validar(){
 
@@ -48,13 +49,29 @@ function click(){
 
 }
 
-function muestra_oculta(id){
+function oculta_muestra(id){
+    if (document.getElementById){ //se obtiene el id
+    var el = document.getElementById(id); 
+    el.style.display = (el.style.display == 'none') ? 'block' : 'none'; 
+    
+    //se define la variable "el" igual a nuestro div
+       // if (el.style.display === 'block') {
+        //el.style.display = 'none';
+       // } //damos un atributo display:none que oculta el div
+    }
+
+}
+
+function muestra(id){
     if (document.getElementById){ //se obtiene el id
     var el = document.getElementById(id); //se define la variable "el" igual a nuestro div
-    el.style.display = (el.style.display == 'none') ? 'block' : 'none'; //damos un atributo display:none que oculta el div
+
+    el.style.display = (el.style.display == 'block') ? 'none' : 'block'; 
+        //if (el.style.display === 'none') {
+        //el.style.display = 'block';
+        //} //damos un atributo display:none que oculta el div
     }
-   
-    
+
 }
    
     
@@ -80,8 +97,9 @@ function retornoDelClick(respuesta){
         //window.location.assign("http://localhost/practica/cambiarContrasena.html");
 
 
-        window.onload = function(){/*hace que se cargue la función lo que predetermina que div estará oculto hasta llamar a la función nuevamente*/
-            muestra_oculta('cuadroContrasenaNueva');/* "contenido_a_mostrar" es el nombre que le dimos al DIV */
+        window.onload = function(){/*hace que se cargue la función lo que predetermina que div estará oculto */
+            oculta_muestra('cuadroContrasenaNueva');
+            oculta_muestra('cuadroLogin');
         }
     }
 }
