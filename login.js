@@ -61,7 +61,7 @@ function validarContrasenia(){
     var pattPass = new RegExp(/(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,}$/);
     
 
-    var resultadoPass = pattPass.test(pass);
+    var resultadoPass = pattPass.test(pass1);
     if( pass1 !== pass2){
     $("respuesta").innerHTML="Las contraseñas no coinciden";
     }
@@ -82,7 +82,7 @@ function clickGuardar(){
 function retornoDelClickGuardar(respuesta){
     $("txtContrasena").value = "";
     $("txtRepetidaContrasena").value = "";
-    
+    $("respuesta").innerHTML="Las contraseña ha sido cambiada correctamente";
     
 }
 
@@ -134,12 +134,16 @@ function retornoDelClick(respuesta){
         //window.location.assign("http://localhost/practica/cambiarContrasena.html");
         let email = sessionStorage.getItem("usuario");
         $("emailUsuario").innerHTML=email;
-
-        window.onload = function(){/*hace que se cargue la función lo que predetermina que div estará oculto */
-            oculta_muestra('cuadroContrasenaNueva');
-            oculta_muestra('cuadroLogin');
-        }
+        oculta_muestra('cuadroContrasenaNueva');
+        oculta_muestra('cuadroLogin');
+        
     }
+
+    if(objetoUsuario['email'] != null && objetoUsuario['idPerfil'] == 'SOC' && objetoUsuario['origenDeContrasena'] == 'USU'){
+        $("respuesta").innerHTML="socio ingreso correctamente";
+        
+    }
+
 }
 
 function enviarMsjeServidor(servidor, funcionARealizar){

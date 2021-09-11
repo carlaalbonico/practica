@@ -107,6 +107,31 @@ function muestra(id){
 
 }
 
+function mostrarTabla(valor){
+
+   
+    var analiza =JSON.parse(valor); 
+    console.log(analiza); 
+
+    var opciones=[]; 
+
+
+    analiza.forEach(element => {
+        opciones.push('<tr >'+
+        '<th scope="row">'+element.nombre+'</th>'+
+        '<td>'+element.apellido+'</td>'+
+        '<td>'+element.direccion+'</td>'+
+        '<td>'+element.telefono+'</td>'+
+        '</tr>' );
+        
+    });
+
+    $('tableProducto').innerHTML=opciones;
+    
+
+
+}
+
 function enviarParametrosGET(servidor,funcionARealizar){
 
     //Declaro el objeto
