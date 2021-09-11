@@ -9,12 +9,19 @@ function $(nombre)
 }
 
 function load(){
+    //boton para cerrar sesion 
+    document.getElementById("logOut").addEventListener("click",cerrarSesion);
+    
     $('txtNewEmail').addEventListener("change", comprobarCorreo);
     $('txtNewNombre').addEventListener("keyup", validarCampos);
     $('txtNewApellido').addEventListener("keyup", validarCampos);
     $('txtNewDireccion').addEventListener("keyup", validarCampos);
     $('numNewTelefono').addEventListener("keyup", validarCampos);
     $('btnGuardar').addEventListener("click",click);
+}
+
+function cerrarSesion() {
+    sessionStorage.clear()
 }
 
 function comprobarCorreo(){
