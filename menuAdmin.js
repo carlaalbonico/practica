@@ -12,7 +12,9 @@ function $(nombre)
 
 
 function load(){
-    
+    //boton para cerrar sesion 
+    document.getElementById("logOut").addEventListener("click",cerrarSesion);
+
     document.$("btnConsultar").addEventListener("click",clickConsultar);
     
     document.$("btnRegistrar").addEventListener("click",clickRegistrar);
@@ -20,7 +22,13 @@ function load(){
     document.getElementById('txtEmail').addEventListener("keyup", validar);
     
     document.getElementById("btnConsultarSocio").addEventListener("click",click);
+
 }
+
+function cerrarSesion() {
+    sessionStorage.clear()
+}
+
 function validar(){
 
     var email = document.getElementById('txtEmail').value;
