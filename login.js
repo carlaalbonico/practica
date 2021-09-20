@@ -13,7 +13,7 @@ function $(nombre)
 
 
 function load(){
-    //alert(boton)
+    oculta_muestra('cartel');
     muestra('cuadroLogin');
     oculta_muestra('cuadroContrasenaNueva');
     document.getElementById('txtEmail').addEventListener("keyup", validarLogin);
@@ -25,67 +25,6 @@ function load(){
     document.getElementById("btnGuardar").addEventListener("click",clickGuardar);
 
 } 
-
-function validarLogin(){
-
-    var email = document.getElementById('txtEmail').value;
-    var pass = document.getElementById('txtPass').value;
-
-    var pattPass = new RegExp(/(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,}$/);
-    var pattEmail = new RegExp(/^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/);
-
-    var resultadoPass = pattPass.test(pass);
-    var resultadoEmail = pattEmail.test(email);
-
-    if( resultadoEmail && resultadoPass ){
-        $('btnEnviar').disabled = false;
-    }else{
-        $('btnEnviar').disabled = true;
-    }
-}
-
-
-
-function click(){
-    
-    $("btnEnviar").disabled=true;
-    enviarParametrosPOST(miBackEnd + 'Usuario', retornoDelClick);
-   
-
-}
-
-function validarContrasenia(){
-    var pass1 = document.getElementById("txtContrasena").value;
-    var pass2 = document.getElementById("txtRepetidaContrasena").value;
-
-    var pattPass = new RegExp(/(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,}$/);
-    
-
-    var resultadoPass = pattPass.test(pass1);
-    if( pass1 !== pass2){
-    $("respuesta").innerHTML="Las contraseñas no coinciden";
-    }
-    if( pass1 == pass2 && resultadoPass ){
-        $("btnGuardar").disabled = false;
-    }else{
-        $("btnGuardar").disabled = true;
-    }
-}    
-
-function clickGuardar(){
-    
-    $("btnGuardar").disabled=true;
-    enviarParamCambiarContraseñaPOST(miBackEnd + 'Usuario/CambioDeContrasena', retornoDelClickGuardar);
-   
-
-}
-function retornoDelClickGuardar(respuesta){
-    $("txtContrasena").value = "";
-    $("txtRepetidaContrasena").value = "";
-    $("respuesta").innerHTML="Las contraseña ha sido cambiada correctamente";
-    
-}
-
 function oculta_muestra(id){
     if (document.getElementById){ //se obtiene el id
     var el = document.getElementById(id); 
@@ -111,15 +50,80 @@ function muestra(id){
 
 }
    
+function validarLogin(){
+
+    var email = document.getElementById('txtEmail').value;
+    var pass = document.getElementById('txtPass').value;
+
+    var pattPass = new RegExp(/(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,}$/);
+    var pattEmail = new RegExp(/^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/);
+
+    var resultadoPass = pattPass.test(pass);
+    var resultadoEmail = pattEmail.test(email);
+
+    if( resultadoEmail && resultadoPass ){
+        $('btnEnviar').disabled = false;
+    }else{
+        $('btnEnviar').disabled = true;
+    }
+}
+
+
+
+function click(){
+    
+    $("btnEnviar").disabled=true;
+    enviarParametrosPOST(miBackEnd + 'Usuario', retornoDelClick);
+    muestra('cartel'); 
+    $("respuesta").innerHTML="procesando informacion";
+
+}
+
+function validarContrasenia(){
+    var pass1 = document.getElementById("txtContrasena").value;
+    var pass2 = document.getElementById("txtRepetidaContrasena").value;
+
+    var pattPass = new RegExp(/(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,}$/);
+    
+
+    var resultadoPass = pattPass.test(pass1);
+    if( pass1 !== pass2){
+    
+    $("respuesta").innerHTML="Las contraseñas no coinciden";
+    }
+    if( pass1 == pass2 && resultadoPass ){
+        $("btnGuardar").disabled = false;
+    }else{
+        $("btnGuardar").disabled = true;
+    }
+}    
+
+function clickGuardar(){
+    muestra('cartel');
+    $("respuesta").innerHTML="procesando informacion";
+    $("btnGuardar").disabled=true;
+    enviarParamCambiarContraseñaPOST(miBackEnd + 'Usuario/CambioDeContrasena', retornoDelClickGuardar);
+   
+
+}
+function retornoDelClickGuardar(respuesta){
+    $("txtContrasena").value = "";
+    $("txtRepetidaContrasena").value = "";
+    $("respuesta").innerHTML="Las contraseña ha sido cambiada correctamente";
+    
+}
+
+
     
 
 function retornoDelClick(respuesta){
     $("txtEmail").value = "";
     $("txtPass").value = "";
-
+    
     var objetoUsuario = JSON.parse(respuesta);
 
     if(objetoUsuario['email'] == null){
+        $("respuesta").style.color = 'red';
         $("respuesta").innerHTML="Correo o contraseña errónea";
     }
 
@@ -140,6 +144,7 @@ function retornoDelClick(respuesta){
     }
 
     if(objetoUsuario['email'] != null && objetoUsuario['idPerfil'] == 'SOC' && objetoUsuario['origenDeContrasena'] == 'USU'){
+        
         $("respuesta").innerHTML="socio ingreso correctamente";
         
     }

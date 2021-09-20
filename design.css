@@ -2,15 +2,32 @@ html,
 body {
   height: 100%;
 }
+#fondo{ 
+  background-color: rgb(245, 245, 245);
+}
 
+#respuesta{
+  align-items: center;
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+  
+}
+
+#cartel {
+  display: flex;
+  align-items: center;
+  padding-top: 40px;
+  
+}
 #contenedor {
   display: flex;
   align-items: center;
   padding-top: 40px;
-  padding-bottom: 40px;
-  background-color: rgb(245, 245, 245);
   
 }
+
 
 .form-abm {
   width: 100%;
@@ -54,8 +71,35 @@ body {
 
 .form-menu {
   width: 100%;
-  max-width: 330px;
-  padding: 15px;
+  max-width: 1140px;
+  padding: 30px;
   margin: auto;
-  
+ 
+}
+.alert-dismissible .close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: .75rem 1.25rem;
+  color: inherit;
+}
+
+.alert {
+  position: relative;
+  padding: .75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+}
+.fade.show {
+  opacity: 1;
+}
+.close {
+  float: right;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  opacity: .5;
 }

@@ -33,7 +33,8 @@ function comprobarCorreo(){
 function click(){
     $("btnEnviar").disabled=true;
     enviarEmailRecuperacion(miBackEnd + 'Usuario/Recuperacion', respuestaDeServidor);
-    
+    muestra('cartel');
+    $("respuesta").innerHTML="procesando informacion";
 }
 
 function respuestaDeServidor(respuesta){

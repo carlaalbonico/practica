@@ -20,7 +20,8 @@ function load(){
     document.getElementById("btnConsultarSocio").addEventListener("click",click);
 }
 function cerrarSesion() {
-    sessionStorage.clear()
+    sessionStorage.clear();
+    window.location.assign("http://localhost/practica/login.html");
 }
 
 function validar(){
@@ -53,7 +54,7 @@ function retornoDelClick(respuesta){
     var objetoUsuario = JSON.parse(respuesta);
     //$("respuesta").innerHTML=respuesta;
     if(objetoUsuario['email'] == null){
-        $("respuesta").innerHTML="Correo errónea";
+        $("respuesta").innerHTML="correoerroneo";
     }
 
     if(objetoUsuario['email'] != null){

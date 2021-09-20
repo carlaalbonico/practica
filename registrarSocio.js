@@ -9,6 +9,7 @@ function $(nombre)
 }
 
 function load(){
+    oculta_muestra('cartel');
     //boton para cerrar sesion 
     document.getElementById("logOut").addEventListener("click",cerrarSesion);
     
@@ -21,7 +22,8 @@ function load(){
 }
 
 function cerrarSesion() {
-    sessionStorage.clear()
+    sessionStorage.clear();
+    window.location.assign("http://localhost/practica/login.html");
 }
 
 function comprobarCorreo(){
@@ -91,6 +93,14 @@ function validarCampos(){
     }else{
         $('btnGuardar').disabled = true;
     }
+}
+function oculta_muestra(id){
+    if (document.getElementById){ //se obtiene el id
+    var el = document.getElementById(id); 
+    el.style.display = (el.style.display == 'none') ? 'block' : 'none'; 
+
+    }
+
 }
 
 function click(){
