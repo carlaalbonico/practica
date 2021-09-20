@@ -23,6 +23,7 @@ function load(){
     document.getElementById("txtContrasena").addEventListener("keyup", validarContrasenia);
     document.getElementById("txtRepetidaContrasena").addEventListener("keyup", validarContrasenia);
     document.getElementById("btnGuardar").addEventListener("click",clickGuardar);
+    document.getElementById("btnClose").addEventListener("click",oculta);
 
 } 
 function oculta_muestra(id){
@@ -46,6 +47,14 @@ function muestra(id){
         //if (el.style.display === 'none') {
         //el.style.display = 'block';
         //} //damos un atributo display:none que oculta el div
+    }
+
+}
+function oculta(){
+    if (document.getElementById){ //se obtiene el id
+    var el = document.getElementById('cartel'); 
+    el.style.display = (el.style.display == 'none') ? 'block' : 'none'; 
+    
     }
 
 }

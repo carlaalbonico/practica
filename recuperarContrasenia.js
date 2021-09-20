@@ -12,6 +12,16 @@ function load(){
     $('txtEmail').addEventListener("change", comprobarCorreo);
    
     $('btnEnviar').addEventListener("click",click);
+    document.getElementById("btnClose").addEventListener("click",oculta);
+}
+
+function oculta(){
+    if (document.getElementById){ //se obtiene el id
+    var el = document.getElementById('cartel'); 
+    el.style.display = (el.style.display == 'none') ? 'block' : 'none'; 
+    
+    }
+
 }
 
 function comprobarCorreo(){

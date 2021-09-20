@@ -12,15 +12,25 @@ function load(){
     oculta_muestra('cartel');
     //boton para cerrar sesion 
     document.getElementById("logOut").addEventListener("click",cerrarSesion);
-    
+    document.getElementById("btnClose").addEventListener("click",oculta);
     $('txtNewEmail').addEventListener("change", comprobarCorreo);
     $('txtNewNombre').addEventListener("keyup", validarCampos);
     $('txtNewApellido').addEventListener("keyup", validarCampos);
     $('txtNewDireccion').addEventListener("keyup", validarCampos);
     $('numNewTelefono').addEventListener("keyup", validarCampos);
     $('btnGuardar').addEventListener("click",click);
+    
 }
 
+
+function oculta(){
+    if (document.getElementById){ //se obtiene el id
+    var el = document.getElementById('cartel'); 
+    el.style.display = (el.style.display == 'none') ? 'block' : 'none'; 
+    
+    }
+
+}
 function cerrarSesion() {
     sessionStorage.clear();
     window.location.assign("http://localhost/practica/login.html");
