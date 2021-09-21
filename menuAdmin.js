@@ -12,21 +12,53 @@ function $(nombre)
 
 
 function load(){
+    muestra('botonesAdmin'); 
+    oculta_muestra('consultarSocio'); 
+    oculta_muestra('cartel');
     //boton para cerrar sesion 
     document.getElementById("logOut").addEventListener("click",cerrarSesion);
 
-    document.$("btnConsultar").addEventListener("click",clickConsultar);
+    document.getElementById("btnConsultar").addEventListener("click",clickConsultar);
     
-    document.$("btnRegistrar").addEventListener("click",clickRegistrar);
+    document.getElementById("btnRegistrar").addEventListener("click",clickRegistrar);
 
     document.getElementById('txtEmail').addEventListener("keyup", validar);
     
     document.getElementById("btnConsultarSocio").addEventListener("click",click);
-
+    document.getElementById("btnClose").addEventListener("click",oculta);
 }
 
 function cerrarSesion() {
-    sessionStorage.clear()
+    sessionStorage.clear();
+    window.location.assign("http://localhost/practica/login.html");
+}
+
+
+function oculta_muestra(id){
+    if (document.getElementById){ //se obtiene el id
+    var el = document.getElementById(id); 
+    el.style.display = (el.style.display == 'none') ? 'block' : 'none'; 
+    
+    }
+
+}
+
+function muestra(id){
+    if (document.getElementById){ //se obtiene el id
+    var el = document.getElementById(id); //se define la variable "el" igual a nuestro div
+
+    el.style.display = (el.style.display == 'block') ? 'none' : 'block'; 
+        
+    }
+
+}
+function oculta(){
+    if (document.getElementById){ //se obtiene el id
+    var el = document.getElementById('cartel'); 
+    el.style.display = (el.style.display == 'none') ? 'block' : 'none'; 
+    
+    }
+
 }
 
 function validar(){
@@ -48,9 +80,10 @@ function validar(){
 
 function click(){
     
-    $("btnEnviar").disabled=true;
+    $('btnConsultarSocio').disabled=true;
     enviarParametrosPOST(miBackEnd + 'Usuario', retornoDelClick);
-   
+    muestra('cartel');
+    $("respuesta").innerHTML="procesando informacion";
 }
  
 function retornoDelClick(respuesta){
@@ -59,7 +92,8 @@ function retornoDelClick(respuesta){
     var objetoUsuario = JSON.parse(respuesta);
     //$("respuesta").innerHTML=respuesta;
     if(objetoUsuario['email'] == null){
-        $("respuesta").innerHTML="Correo errónea";
+        
+        $("respuesta").innerHTML="Correo erróneo";
     }
 
     if(objetoUsuario['email'] != null){
@@ -70,75 +104,23 @@ function retornoDelClick(respuesta){
 }
 
 function clickConsultar(){
-    
-    enviarParametrosGET(miBackEnd + "socio/consultar",abrirConsultar);
+    oculta_muestra('botonesAdmin'); 
+    muestra('consultarSocio'); 
+    //enviarParametrosGET(miBackEnd + "socio/consultar",abrirConsultar);
 }
 
-function abrirConsultar(){
-    oculta_muestra('consultarSocio');
-   
-   // window.location.assign("http://localhost/practica/consultarSocio.html");//aca va el enlace de la pagina consulta; 
-}
+
 
 function clickRegistrar(){
-    enviarParametrosGET(miBackEnd + "socio/registrar",abrirRegistrar); 
+    window.location.assign("http://localhost/practica/registrarSocio.html");//aca va el enlace de la pagina registrar; 
 }
 
 function abrirRegistrar(){
-     window.location.assign("http://localhost/practica/registrarSocio.html");//aca va el enlace de la pagina registrar; 
-}
-
-
-
-function oculta_muestra(id){
-    if (document.getElementById){ //se obtiene el id
-    var el = document.getElementById(id); 
-    el.style.display = (el.style.display == 'none') ? 'block' : 'none'; 
     
-    //se define la variable "el" igual a nuestro div
-       // if (el.style.display === 'block') {
-        //el.style.display = 'none';
-       // } //damos un atributo display:none que oculta el div
-    }
-
 }
 
-function muestra(id){
-    if (document.getElementById){ //se obtiene el id
-    var el = document.getElementById(id); //se define la variable "el" igual a nuestro div
-
-    el.style.display = (el.style.display == 'block') ? 'none' : 'block'; 
-        //if (el.style.display === 'none') {
-        //el.style.display = 'block';
-        //} //damos un atributo display:none que oculta el div
-    }
-
-}
-
-function mostrarTabla(valor){
-
-   
-    var analiza =JSON.parse(valor); 
-    console.log(analiza); 
-
-    var opciones=[]; 
 
 
-    analiza.forEach(element => {
-        opciones.push('<tr >'+
-        '<th scope="row">'+element.nombre+'</th>'+
-        '<td>'+element.apellido+'</td>'+
-        '<td>'+element.direccion+'</td>'+
-        '<td>'+element.telefono+'</td>'+
-        '</tr>' );
-        
-    });
-
-    $('tableProducto').innerHTML=opciones;
-    
-
-
-}
 
 function enviarParametrosGET(servidor,funcionARealizar){
 

@@ -6,7 +6,7 @@
    
    <!-- agrego css-->
    <link rel="stylesheet" href="design.css">
-
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -26,16 +26,16 @@
     <title>Push UP</title>
     
 </head>
-<body  >
+<body id="fondo" >
     <nav class="navbar navbar-dark bg-dark ">
-        <header class="d-flex justify-content-center py-3">
+        <header class="container d-flex justify-content-between">
             <a class="navbar-brand" href="#">PUSH UP</a>
        
 
             <ul class="nav nav-pills">
 
                 <li class="nav-item ">
-                    <a class="nav-link active" href="#">Socio</a>
+                    <a class="nav-link active" href="http://localhost/practica/menuAdmin.html">Socio</a>
                 </li>
 
                 <li class="nav-item">
@@ -53,43 +53,51 @@
                 
             </ul>
 
-            <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="logOut">Cerrar Sesión</button>
+            <ul>
+                <button class="btn btn-outline-light my-2 my-sm-0" type="button" id="perfil">Perfil</button>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="logOut">Cerrar Sesión</button>
+            
+            </ul>
+            
         </header>
     </nav>
     <div class="text-center" id="contenedor">
-            <main class="form-abm">
-            <form>
-                <!--<img class="mb-4" src="img/logo.png"  alt="" width="200" height="">-->
-                <h1 class="h3 mb-3 fw-normal">Registrar Socio</h1>
-            
-            
-                <div class="form-floating">
-                <input type="text" class="form-control" id="txtNewEmail" autofocus>
-                <label>Correo Electronico:</label>
-                </div>
-                <div class="form-floating">
-                <input type="text" class="form-control" id="txtNewNombre" >
-                <label>Nombre: </label>
-                </div>
-                <div class="form-floating">
-                    <input type="text" class="form-control" id="txtNewApellido" >
-                    <label>Apellido: </label>
-                </div>
-                <div class="form-floating">
-                    <input type="text" class="form-control" id="txtNewDireccion" >
-                    <label>Direccion: </label>
-                </div>
-                <div class="form-floating">
-                    <input type="text" class="form-control" id="numNewTelefono" >
-                    <label>Telefono: </label>
-                </div>
-                <button class="w-100 btn btn-lg btn-primary" type="button" id="btnGuardar" disabled>Guardar</button>
+        <main class="form-abm">
+                <form>
+                    <!--<img class="mb-4" src="img/logo.png"  alt="" width="200" height="">-->
+                    <h1 class="h3 mb-3 fw-normal">Registrar Socio</h1>
                 
-            </form>
-            <div>
-                <p id="respuesta"></p>
-            </div>
-            </main>
+                
+                    <div class="form-floating">
+                    <input type="text" class="form-control" id="txtNewEmail" autofocus>
+                    <label>Correo Electronico:</label>
+                    </div>
+                    <div class="form-floating">
+                    <input type="text" class="form-control" id="txtNewNombre" >
+                    <label>Nombre: </label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="txtNewApellido" >
+                        <label>Apellido: </label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="txtNewDireccion" >
+                        <label>Direccion: </label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="numNewTelefono" >
+                        <label>Telefono: </label>
+                    </div>
+                    <button class="w-100 btn btn-lg btn-primary" type="button" id="btnGuardar" disabled>Guardar</button>
+                    
+                </form>
+                <div id="cartel" class="alert alert-dark alert-dismissible fade show" role="alert">
+                    <p id="respuesta"></p>
+                    <button type="button" class="close" id="btnClose" > 
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+        </main>
     </div>
     
         
