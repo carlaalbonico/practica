@@ -22,7 +22,7 @@ function load(){
     
     document.getElementById("btnRegistrar").addEventListener("click",clickRegistrar);
 
-    document.getElementById('txtEmail').addEventListener("keyup", validar);
+   // document.getElementById('txtEmail').addEventListener("keyup", validar);
     
     document.getElementById("btnConsultarSocio").addEventListener("click",click);
     document.getElementById("btnClose").addEventListener("click",oculta);
@@ -81,15 +81,19 @@ function validar(){
 function click(){
     
     $('btnConsultarSocio').disabled=true;
-    enviarParametrosPOST(miBackEnd + 'Usuario', retornoDelClick);
+
+    //enviarMensajeAlServidor("/Provincias/Backend/?provincia="+ valorProvincia,cargarOpcionesLocalidad);
+    enviarParametrosPOST(miBackEnd + 'Socio/?', retornoDelClick);
     muestra('cartel');
     $("respuesta").innerHTML="procesando informacion";
 }
  
 function retornoDelClick(respuesta){
-    $("txtEmail").value = "";
+    //$("txtEmail").value = "";
     
     var objetoUsuario = JSON.parse(respuesta);
+        
+
     //$("respuesta").innerHTML=respuesta;
     if(objetoUsuario['email'] == null){
         
@@ -98,15 +102,31 @@ function retornoDelClick(respuesta){
 
     if(objetoUsuario['email'] != null){
         document.cookie = "email="+objetoUsuario['email'];
-        window.location.assign("http://localhost/practica/administrativo.php");
+        window.location.assign("http://localhost/practica/menuAdminParaUnSocio.html");
     }
+
+    
     
 }
 
-function clickConsultar(){
+function clickConsultar(){//oculta la botonera y visualiza el campo para escribir el email 
     oculta_muestra('botonesAdmin'); 
     muestra('consultarSocio'); 
-    //enviarParametrosGET(miBackEnd + "socio/consultar",abrirConsultar);
+    //enviarMensajeAlServidor("/Provincias/Backend/", cargarOpcionesProvincia);
+    enviarParametrosGET(miBackEnd + 'Socio',cargarOpcionesConsultar); 
+    //enviarParametrosGET(miBackEnd + 'Socio',retornoDelClick);
+}
+
+function cargarOpcionesConsultar(nroSocio){
+    var email = JSON.parse(nroSocio);
+    email.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
+    var opciones = ['<option value=0>Selecciones una provincia</option>']
+
+    email.forEach(element => {
+        email.push('<option value="' + element.nroSocio + '">' + element.email + '</option>');
+    });
+
+    $("slctEmail").innerHTML = opciones;
 }
 
 
@@ -114,12 +134,6 @@ function clickConsultar(){
 function clickRegistrar(){
     window.location.assign("http://localhost/practica/registrarSocio.html");//aca va el enlace de la pagina registrar; 
 }
-
-function abrirRegistrar(){
-    
-}
-
-
 
 
 function enviarParametrosGET(servidor,funcionARealizar){
