@@ -117,13 +117,13 @@ function clickConsultar(){//oculta la botonera y visualiza el campo para escribi
     //enviarParametrosGET(miBackEnd + 'Socio',retornoDelClick);
 }
 
-function cargarOpcionesConsultar(nroSocio){
+function cargarOpcionesConsultar(){
     var email = JSON.parse(nroSocio);
     email.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
-    var opciones = ['<option value=0>Selecciones una provincia</option>']
+    var opciones = ['<option value=0>Seleccione un socio</option>']
 
     email.forEach(element => {
-        email.push('<option value="' + element.nroSocio + '">' + element.email + '</option>');
+        opciones.push('<option value="' + element.nroSocio + '">' + element.email + '</option>');
     });
 
     $("slctEmail").innerHTML = opciones;
