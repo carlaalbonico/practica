@@ -16,7 +16,11 @@ function load(){
     //para ocultar los menus
     muestra('botonesAdmin'); 
     oculta_muestra('consultarSocio'); 
-
+    
+    oculta_muestra('botonesAdminParaUnSocio'); 
+    
+    oculta_muestra('formularioModificarSocio'); 
+    
     //para ocultar cartel del mensaje
     oculta_muestra('cartel');
 
@@ -35,7 +39,7 @@ function load(){
     //cuando escribe un nombre y hace click en buscar
     document.getElementById("btnBuscar").addEventListener("click",clickBuscar);
     //cuando elige el socio y hace click en boton consultar socio
-    document.getElementById("btnConsultarSocio").addEventListener("click",click);
+    document.getElementById("btnConsultarSocio").addEventListener("click",clickConsultarSocio);
     //close del mensaje 
     document.getElementById("btnClose").addEventListener("click",oculta);
 }
@@ -92,36 +96,39 @@ function validar(){
 
 
 
-function click(){
+function clickConsultarSocio(){
     
     $('btnConsultarSocio').disabled=true;
 
     //enviarMensajeAlServidor("/Provincias/Backend/?provincia="+ valorProvincia,cargarOpcionesLocalidad);
     var idSocio= document.getElementById("slctEmail").value; 
     
-    enviarParametrosGET(miBackEnd + 'Socio/'+idSocio, retornoDelClick);
+    enviarParametrosGET(miBackEnd + 'Socio/'+idSocio, retornoDelClickConsultarSocio);
     muestra('cartel');
     $("respuesta").innerHTML="procesando informacion";
 }
  
-function retornoDelClick(respuesta){
+function retornoDelClickConsultarSocio(respuesta){
     //$("txtEmail").value = "";
-    
-    var objetoUsuario = JSON.parse(respuesta);
+    muestra('botonesAdminParaUnSocio'); 
+   
+
+    var socio = JSON.parse(respuesta);
+    alert(socio); 
+    $("nombreSocio").innerHTML = socio.nombre;
+    $("apellidoSocio").innerHTML = socio.apellido;
+    $("direccionSocio").innerHTML = socio.direccion;
+    $("telefonoSocio").innerHTML = socio.telefono;
+    $("correoSocio").innerHTML = socio.correo;
+    $("estadoSocio").innerHTML = socio.estado;
+    $("altaSocio").innerHTML = socio.fechaDeAlta;
         
 
     //$("respuesta").innerHTML=respuesta;
-    if(objetoUsuario['nroSocio'] == null){
+    if(socio['nroSocio'] == null){
         
         $("respuesta").innerHTML="Seleccione un socio";
-    }else{
-
-    //if(objetoUsuario['nroSocio'] != null){
-    document.cookie = "nroSocio="+objetoUsuario['nroSocio'];// preguntar
-        window.location.assign("http://localhost/practica/socio/menuAdminParaUnSocio.html");
     }
-
-    
      
 }
 
