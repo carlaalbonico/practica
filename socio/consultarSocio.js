@@ -2,7 +2,7 @@
 addEventListener("load",load)
  
 //variable del servidor
-var miBackEnd = '/practica/serv/';
+var miBackEnd = 'http://localhost:555/';
 
 //DOM
 function $(nombre)
@@ -12,8 +12,12 @@ function $(nombre)
 
 
 function load(){
+
     //boton para cerrar sesion 
     document.getElementById("logOut").addEventListener("click",cerrarSesion);
+    //boton para perfil usuario logueado
+    document.getElementById("perfil").addEventListener("click",mostrarPerfil);
+    
 
     document.getElementById('txtEmail').addEventListener("keyup", validar);
     

@@ -139,7 +139,7 @@ function retornoDelClick(respuesta){
     if(objetoUsuario['email'] != null && objetoUsuario['idPerfil'] == 'ADMIN' && objetoUsuario['origenDeContrasena'] == 'USU'){
         //document.cookie = "email="+objetoUsuario['email'];
         sessionStorage.setItem("usuario",objetoUsuario['email']);
-        window.location.assign("http://localhost/practica/menuAdmin.html");
+        window.location.assign("http://localhost/practica/socio/menuAdminSocio.html");
     }
     
     if(objetoUsuario['email'] != null && objetoUsuario['origenDeContrasena'] == 'SIS'){
