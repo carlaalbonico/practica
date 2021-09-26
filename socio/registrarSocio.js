@@ -12,6 +12,10 @@ function load(){
     oculta_muestra('cartel');
     //boton para cerrar sesion 
     document.getElementById("logOut").addEventListener("click",cerrarSesion);
+    //boton para perfil usuario logueado
+    document.getElementById("perfil").addEventListener("click",mostrarPerfil);
+    
+
     document.getElementById("btnClose").addEventListener("click",oculta);
     $('txtNewEmail').addEventListener("change", comprobarCorreo);
     $('txtNewNombre').addEventListener("keyup", validarCampos);
@@ -34,6 +38,9 @@ function oculta(){
 function cerrarSesion() {
     sessionStorage.clear();
     window.location.assign("http://localhost/practica/login.html");
+}
+function mostrarPerfil(){
+    window.location.assign("http://localhost/practica/perfilUsuario.html");
 }
 
 function comprobarCorreo(){

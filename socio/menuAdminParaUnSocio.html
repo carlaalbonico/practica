@@ -15,7 +15,7 @@
    
    
    <!-- agrego css-->
-   <link rel="stylesheet" href="design.css">
+   <link rel="stylesheet" href="../design.css">
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -45,7 +45,7 @@
             <ul class="nav nav-pills">
 
                 <li class="nav-item ">
-                    <a class="nav-link active" href="http://localhost/practica/menuAdmin.html">Socio</a>
+                    <a class="nav-link active" href="http://localhost/practica/socio/menuAdminSocio.html">Socio</a>
                 </li>
 
                 <li class="nav-item">
@@ -81,7 +81,7 @@
                 <h1 class="mb-1 text-center">SOCIO</h1>
                 <div class="form-boton text-center">
                     <button class="btn btn-lg btn-primary btn-block" type="button" id="btnRegistrarPago" >Registrar pago</button>
-                    <button class="btn btn-lg btn-primary btn-block" type="button" id="btnRegistrarCuota" >Registrar Cuota</button>
+                    <button class="btn btn-lg btn-primary btn-block" type="button" id="btnRegistrarCuota" >Generar Cuota</button>
                     <button class="btn btn-lg btn-primary btn-block" type="button" id="btnEstadoDeuda" >Ver estado de deuda</button>
                     <button class="btn btn-lg btn-primary btn-block" type="button" id="btnInscribirSocioClase" >Inscribir a clase</button>
                 </div>
@@ -105,12 +105,7 @@
                     </div>
                     <span class="text-muted" id="apellidoSocio"></span>
                 </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                    <h6 class="my-0">DNI:</h6>
-                    </div>
-                    <span class="text-muted" id="dniSocio"></span>
-                </li>
+            
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
                     <h6 class="my-0">Direccion:</h6>
@@ -167,12 +162,7 @@
                     </div>
                     <input type="text" class="form-control" id="apellidoSocioModificar" placeholder="" value="" required="">
                 </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                    <h6 class="my-0">DNI:</h6>
-                    </div>
-                    <input type="text" class="form-control" id="dniSocioModificar" placeholder="" value="" required="">
-                </li>
+                
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
                     <h6 class="my-0">Direccion:</h6>

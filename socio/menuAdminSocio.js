@@ -12,19 +12,29 @@ function $(nombre)
 
 
 function load(){
+
+    //para ocultar los menus
     muestra('botonesAdmin'); 
     oculta_muestra('consultarSocio'); 
+
+    //para ocultar cartel del mensaje
     oculta_muestra('cartel');
+
+    //validar el campo ingresado
+    // document.getElementById('txtEmail').addEventListener("keyup", validar);
+
     //boton para cerrar sesion 
     document.getElementById("logOut").addEventListener("click",cerrarSesion);
-
+    //boton para perfil usuario logueado
+    document.getElementById("perfil").addEventListener("click",mostrarPerfil);
+    
+    //cuando elige la opcion de consultar socio en el menu
     document.getElementById("btnConsultar").addEventListener("click",clickConsultar);
-    
+    //cuando elige la opcion de registrar socio en el menu
     document.getElementById("btnRegistrar").addEventListener("click",clickRegistrar);
-
-   // document.getElementById('txtEmail').addEventListener("keyup", validar);
-    
+    //cuando elige el socio y hace click en boton consultar socio
     document.getElementById("btnConsultarSocio").addEventListener("click",click);
+    //close del mensaje 
     document.getElementById("btnClose").addEventListener("click",oculta);
 }
 
@@ -32,7 +42,9 @@ function cerrarSesion() {
     sessionStorage.clear();
     window.location.assign("http://localhost/practica/login.html");
 }
-
+function mostrarPerfil(){
+    window.location.assign("http://localhost/practica/perfilUsuario.html");
+}
 
 function oculta_muestra(id){
     if (document.getElementById){ //se obtiene el id
@@ -63,11 +75,11 @@ function oculta(){
 
 function validar(){
 
-    var email = document.getElementById('txtEmail').value;
+    var nombre = document.getElementById('slctEmail').value;
 
-    var pattEmail = new RegExp(/^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/);
+    var pattEmail = new RegExp(/^([a-zA-Z0-9._%-])*$/);
 
-    var resultadoEmail = pattEmail.test(email);
+    var resultadoNombre = pattEmail.test(nombre);
 
     if( resultadoEmail ){
         $('btnConsultarSocio').disabled = false;
@@ -83,7 +95,9 @@ function click(){
     $('btnConsultarSocio').disabled=true;
 
     //enviarMensajeAlServidor("/Provincias/Backend/?provincia="+ valorProvincia,cargarOpcionesLocalidad);
-    enviarParametrosPOST(miBackEnd + 'Socio/?', retornoDelClick);
+    var idSocio= document.getElementById("slctEmail").value; 
+    
+    enviarParametrosGET(miBackEnd + 'Socio/'+idSocio, retornoDelClick);
     muestra('cartel');
     $("respuesta").innerHTML="procesando informacion";
 }
@@ -95,14 +109,14 @@ function retornoDelClick(respuesta){
         
 
     //$("respuesta").innerHTML=respuesta;
-    if(objetoUsuario['email'] == null){
+    if(objetoUsuario['nroSocio'] == null){
         
-        $("respuesta").innerHTML="Correo erróneo";
-    }
+        $("respuesta").innerHTML="Seleccione un socio";
+    }else{
 
-    if(objetoUsuario['email'] != null){
-        document.cookie = "email="+objetoUsuario['email'];
-        window.location.assign("http://localhost/practica/menuAdminParaUnSocio.html");
+    //if(objetoUsuario['nroSocio'] != null){
+    document.cookie = "nroSocio="+objetoUsuario['nroSocio'];// preguntar
+        window.location.assign("http://localhost/practica/socio/menuAdminParaUnSocio.html");
     }
 
     
@@ -117,22 +131,22 @@ function clickConsultar(){//oculta la botonera y visualiza el campo para escribi
     //enviarParametrosGET(miBackEnd + 'Socio',retornoDelClick);
 }
 
-function cargarOpcionesConsultar(){
-    var email = JSON.parse(nroSocio);
-    email.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
+function cargarOpcionesConsultar(nroSocio){
+    var socios = JSON.parse(nroSocio);
+    socios.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
     var opciones = ['<option value=0>Seleccione un socio</option>']
 
-    email.forEach(element => {
-        opciones.push('<option value="' + element.nroSocio + '">' + element.email + '</option>');
+    socios.forEach(element => {
+        opciones.push('<option value="' + element.nroSocio + '">' + element.nombre +' '+ element.apellido + '</option>');
     });
-
+    
     $("slctEmail").innerHTML = opciones;
 }
 
 
 
 function clickRegistrar(){
-    window.location.assign("http://localhost/practica/registrarSocio.html");//aca va el enlace de la pagina registrar; 
+    window.location.assign("http://localhost/practica/socio/registrarSocio.html");//aca va el enlace de la pagina registrar; 
 }
 
 
