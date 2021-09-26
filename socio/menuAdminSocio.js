@@ -32,6 +32,8 @@ function load(){
     document.getElementById("btnConsultar").addEventListener("click",clickConsultar);
     //cuando elige la opcion de registrar socio en el menu
     document.getElementById("btnRegistrar").addEventListener("click",clickRegistrar);
+    //cuando escribe un nombre y hace click en buscar
+    document.getElementById("btnBuscar").addEventListener("click",clickBuscar);
     //cuando elige el socio y hace click en boton consultar socio
     document.getElementById("btnConsultarSocio").addEventListener("click",click);
     //close del mensaje 
@@ -120,23 +122,35 @@ function retornoDelClick(respuesta){
     }
 
     
-    
+     
 }
 
 function clickConsultar(){//oculta la botonera y visualiza el campo para escribir el email 
     oculta_muestra('botonesAdmin'); 
     muestra('consultarSocio'); 
     //enviarMensajeAlServidor("/Provincias/Backend/", cargarOpcionesProvincia);
-    enviarParametrosGET(miBackEnd + 'Socio',cargarOpcionesConsultar); 
+   
     //enviarParametrosGET(miBackEnd + 'Socio',retornoDelClick);
+}
+function clickBuscar(){
+    enviarParametrosGET(miBackEnd + 'Socio',cargarOpcionesConsultar); 
 }
 
 function cargarOpcionesConsultar(nroSocio){
+    var nombreBuscar = document.getElementById('txtNombreBuscar').value;
     var socios = JSON.parse(nroSocio);
     socios.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
+    var sociosFiltrados= socios.filter( item =>{
+        var nombreMin= item.nombre.toLowerCase(); 
+        return nombreMin.includes(nombreBuscar.toLowerCase())
+    }); 
+    
+    
+
+
     var opciones = ['<option value=0>Seleccione un socio</option>']
 
-    socios.forEach(element => {
+    sociosFiltrados.forEach(element => {
         opciones.push('<option value="' + element.nroSocio + '">' + element.nombre +' '+ element.apellido + '</option>');
     });
     
