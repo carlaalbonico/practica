@@ -16,12 +16,13 @@ function load(){
     //para ocultar los menus
     muestra('botonesAdmin'); 
     oculta_muestra('consultarSocio'); 
-
+    
+    oculta_muestra('botonesAdminParaUnSocio'); 
+    
+    oculta_muestra('formularioModificarSocio'); 
+    
     //para ocultar cartel del mensaje
     oculta_muestra('cartel');
-
-    //validar el campo ingresado
-    // document.getElementById('txtEmail').addEventListener("keyup", validar);
 
     //boton para cerrar sesion 
     document.getElementById("logOut").addEventListener("click",cerrarSesion);
@@ -32,10 +33,15 @@ function load(){
     document.getElementById("btnConsultar").addEventListener("click",clickConsultar);
     //cuando elige la opcion de registrar socio en el menu
     document.getElementById("btnRegistrar").addEventListener("click",clickRegistrar);
+    //cuando escribe un nombre y hace click en buscar
+    document.getElementById("btnBuscar").addEventListener("click",clickBuscar);
     //cuando elige el socio y hace click en boton consultar socio
-    document.getElementById("btnConsultarSocio").addEventListener("click",click);
+    document.getElementById("btnConsultarSocio").addEventListener("click",clickConsultarSocio);
+
+    document.getElementById("btnModificar").addEventListener("click",clickModificarSocio);
     //close del mensaje 
     document.getElementById("btnClose").addEventListener("click",oculta);
+    $('btnConsultarSocio').disabled=true;
 }
 
 function cerrarSesion() {
@@ -59,7 +65,7 @@ function muestra(id){
     if (document.getElementById){ //se obtiene el id
     var el = document.getElementById(id); //se define la variable "el" igual a nuestro div
 
-    el.style.display = (el.style.display == 'block') ? 'none' : 'block'; 
+     el.style.display = "block"; 
         
     }
 
@@ -67,76 +73,102 @@ function muestra(id){
 function oculta(){
     if (document.getElementById){ //se obtiene el id
     var el = document.getElementById('cartel'); 
-    el.style.display = (el.style.display == 'none') ? 'block' : 'none'; 
+    el.style.display ='none'; 
     
     }
 
 }
 
-function validar(){
-
-    var nombre = document.getElementById('slctEmail').value;
-
-    var pattEmail = new RegExp(/^([a-zA-Z0-9._%-])*$/);
-
-    var resultadoNombre = pattEmail.test(nombre);
-
-    if( resultadoEmail ){
-        $('btnConsultarSocio').disabled = false;
-    }else{
-        $('btnConsultarSocio').disabled = true;
-    }
-}
 
 
 
-function click(){
-    
-    $('btnConsultarSocio').disabled=true;
+
+function clickConsultarSocio(){
 
     //enviarMensajeAlServidor("/Provincias/Backend/?provincia="+ valorProvincia,cargarOpcionesLocalidad);
     var idSocio= document.getElementById("slctEmail").value; 
     
-    enviarParametrosGET(miBackEnd + 'Socio/'+idSocio, retornoDelClick);
+    enviarParametrosGET(miBackEnd + 'Socio/'+idSocio, retornoDelClickConsultarSocio);
     muestra('cartel');
+  
     $("respuesta").innerHTML="procesando informacion";
 }
  
-function retornoDelClick(respuesta){
-    //$("txtEmail").value = "";
-    
-    var objetoUsuario = JSON.parse(respuesta);
+function retornoDelClickConsultarSocio(respuesta){
+    oculta_muestra('cartel');
+
+    muestra('botonesAdminParaUnSocio'); 
+    oculta('formularioModificarSocio'); 
+     
+    var socio = JSON.parse(respuesta);
+    $("nroSocio").innerHTML = socio.nroSocio;
+    $("nombreSocio").innerHTML = socio.nombre;
+    $("apellidoSocio").innerHTML = socio.apellido;
+    $("direccionSocio").innerHTML = socio.direccion;
+    $("telefonoSocio").innerHTML = socio.telefono;
+    $("correoSocio").innerHTML = socio.correo;
+    $("estadoSocio").innerHTML = socio.estado;
+    $("altaSocio").innerHTML = socio.fechaDeAlta;
         
 
     //$("respuesta").innerHTML=respuesta;
-    if(objetoUsuario['nroSocio'] == null){
+    if(socio['nroSocio'] == null){
         
         $("respuesta").innerHTML="Seleccione un socio";
-    }else{
-
-    //if(objetoUsuario['nroSocio'] != null){
-    document.cookie = "nroSocio="+objetoUsuario['nroSocio'];// preguntar
-        window.location.assign("http://localhost/practica/socio/menuAdminParaUnSocio.html");
     }
+     
+}
+function clickModificarSocio(){
 
+    //enviarMensajeAlServidor("/Provincias/Backend/?provincia="+ valorProvincia,cargarOpcionesLocalidad);
+    var idSocioMod= document.getElementById("slctEmail").value; 
     
+    enviarParametrosGET(miBackEnd + 'Socio/'+idSocioMod, retornoDelClickModificarSocio);
+   
+}
+function retornoDelClickModificarSocio(respuesta){
+    oculta_muestra('cartel');
+    oculta_muestra('botonesAdminParaUnSocio');
+    muestra('formularioModificarSocio'); 
     
+    var socioMod = JSON.parse(respuesta);
+    
+   console.log(socioMod); 
+    
+    /*document.formularioModificarSocio.nombreSocioModificar.value = socioMod.nombre;
+    $("apellidoSocioModificar").innerHTML = socioMod.apellido;
+    $("direccionSocioModificar").innerHTML = socioMod.direccion;
+    $("telefonoSocioModificar").innerHTML = socioMod.telefono;
+    $('correoSocioModificar').innerHTML = socioMod.correo;*/
+
+     
 }
 
 function clickConsultar(){//oculta la botonera y visualiza el campo para escribir el email 
     oculta_muestra('botonesAdmin'); 
     muestra('consultarSocio'); 
     //enviarMensajeAlServidor("/Provincias/Backend/", cargarOpcionesProvincia);
-    enviarParametrosGET(miBackEnd + 'Socio',cargarOpcionesConsultar); 
+   
     //enviarParametrosGET(miBackEnd + 'Socio',retornoDelClick);
+}
+function clickBuscar(){
+    $('btnConsultarSocio').disabled=false;
+    enviarParametrosGET(miBackEnd + 'Socio',cargarOpcionesConsultar); 
 }
 
 function cargarOpcionesConsultar(nroSocio){
+    var nombreBuscar = document.getElementById('txtNombreBuscar').value;
     var socios = JSON.parse(nroSocio);
     socios.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
+    var sociosFiltrados= socios.filter( item =>{
+        var nombreMin= item.nombre.toLowerCase(); 
+        return nombreMin.includes(nombreBuscar.toLowerCase())
+    }); 
+    
+    
     var opciones = ['<option value=0>Seleccione un socio</option>']
 
-    socios.forEach(element => {
+    sociosFiltrados.forEach(element => {
         opciones.push('<option value="' + element.nroSocio + '">' + element.nombre +' '+ element.apellido + '</option>');
     });
     

@@ -17,6 +17,7 @@ function load(){
     
 
     document.getElementById("btnClose").addEventListener("click",oculta);
+    
     $('txtNewEmail').addEventListener("change", comprobarCorreo);
     $('txtNewNombre').addEventListener("keyup", validarCampos);
     $('txtNewApellido').addEventListener("keyup", validarCampos);
