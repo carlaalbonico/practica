@@ -37,6 +37,8 @@ function load(){
     document.getElementById("btnBuscar").addEventListener("click",clickBuscar);
     //cuando elige el socio y hace click en boton consultar socio
     document.getElementById("btnConsultarSocio").addEventListener("click",clickConsultarSocio);
+
+    document.getElementById("btnModificar").addEventListener("click",clickModificarSocio);
     //close del mensaje 
     document.getElementById("btnClose").addEventListener("click",oculta);
     $('btnConsultarSocio').disabled=true;
@@ -96,10 +98,10 @@ function retornoDelClickConsultarSocio(respuesta){
     oculta_muestra('cartel');
 
     muestra('botonesAdminParaUnSocio'); 
-    
-
+    oculta('formularioModificarSocio'); 
+     
     var socio = JSON.parse(respuesta);
-    alert(socio); 
+    $("nroSocio").innerHTML = socio.nroSocio;
     $("nombreSocio").innerHTML = socio.nombre;
     $("apellidoSocio").innerHTML = socio.apellido;
     $("direccionSocio").innerHTML = socio.direccion;
@@ -114,6 +116,31 @@ function retornoDelClickConsultarSocio(respuesta){
         
         $("respuesta").innerHTML="Seleccione un socio";
     }
+     
+}
+function clickModificarSocio(){
+
+    //enviarMensajeAlServidor("/Provincias/Backend/?provincia="+ valorProvincia,cargarOpcionesLocalidad);
+    var idSocioMod= document.getElementById("slctEmail").value; 
+    
+    enviarParametrosGET(miBackEnd + 'Socio/'+idSocioMod, retornoDelClickModificarSocio);
+   
+}
+function retornoDelClickModificarSocio(respuesta){
+    oculta_muestra('cartel');
+    oculta_muestra('botonesAdminParaUnSocio');
+    muestra('formularioModificarSocio'); 
+    
+    var socioMod = JSON.parse(respuesta);
+    
+   console.log(socioMod); 
+    
+    /*document.formularioModificarSocio.nombreSocioModificar.value = socioMod.nombre;
+    $("apellidoSocioModificar").innerHTML = socioMod.apellido;
+    $("direccionSocioModificar").innerHTML = socioMod.direccion;
+    $("telefonoSocioModificar").innerHTML = socioMod.telefono;
+    $('correoSocioModificar').innerHTML = socioMod.correo;*/
+
      
 }
 

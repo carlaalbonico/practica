@@ -134,58 +134,63 @@
 
             <div class="col-md-8 order-md-2 mb-4">
                 <h4 class="d-flex justify-content-between align-items-center mb-3">
-                <span class="text-muted">DATOS</span>
+                    <span class="text-muted">DATOS</span>
                 </h4>
                 <ul class="list-group mb-3">
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                    <h6 class="my-0">Nombre:</h6>
-                    </div>
-                    <span class="text-muted" id="nombreSocio"></span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                    <h6 class="my-0">Apellido:</h6>
-                    </div>
-                    <span class="text-muted" id="apellidoSocio"></span>
-                </li>
-            
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                    <h6 class="my-0">Direccion:</h6>
-                    </div>
-                    <span class="text-muted" id="direccionSocio"></span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                    <h6 class="my-0">Telefono:</h6>
-                    </div>
-                    <span class="text-muted" id="telefonoSocio"></span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                    <h6 class="my-0">Correo:</h6>
-                    </div>
-                    <span class="text-muted" id="correoSocio"></span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                    <h6 class="my-0">Estado:</h6>
-                    </div>
-                    <span class="text-muted" id="estadoSocio"></span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                    <h6 class="my-0">Fecha de alta:</h6>
-                    </div>
-                    <span class="text-muted" id="altaSocio"></span>
-                </li>
+                
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                            <h6 class="my-0">Numero de SOCIO:</h6>
+                        </div>
+                            <span class="text-muted" id="nroSocio"></span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                            <h6 class="my-0">Nombre:</h6>
+                        </div>
+                            <span class="text-muted" id="nombreSocio"></span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                            <h6 class="my-0">Apellido:</h6>
+                        </div>
+                            <span class="text-muted" id="apellidoSocio"></span>
+                    </li>
+                
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                            <h6 class="my-0">Direccion:</h6>
+                        </div>
+                            <span class="text-muted" id="direccionSocio"></span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                            <h6 class="my-0">Telefono:</h6>
+                        </div>
+                            <span class="text-muted" id="telefonoSocio"></span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                            <h6 class="my-0">Correo:</h6>
+                        </div>
+                            <span class="text-muted" id="correoSocio"></span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                            <h6 class="my-0">Estado:</h6>
+                        </div>
+                            <span class="text-muted" id="estadoSocio"></span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                            <h6 class="my-0">Fecha de alta:</h6>
+                        </div>
+                            <span class="text-muted" id="altaSocio"></span>
+                    </li>
 
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
                     
-                </li>
-                <button class="btn btn-lg btn-primary" type="button" id="btnModificar" >Modificar socio</button>
-                <button class="btn btn-lg btn-danger" type="button" id="btnBorrar" >Borrar Socio</button>
+                    <button class="btn btn-lg btn-primary" type="button" id="btnModificar" >Modificar socio</button>
+                    <button class="btn btn-lg btn-danger" type="button" id="btnBorrar" >Borrar Socio</button>
                 </ul>
         
                 
@@ -197,59 +202,61 @@
 
 
 
-    <div id="formularioModificarSocio" class="form-menu">
+    <form id="formularioModificarSocio" class="form-menu">
         <div class="row justify-content-center">
             <div class="col-md-8 mb-4 ">
                 <h4 class="d-flex justify-content-between align-items-center mb-3">
-                <span class="text-muted">DATOS</span>
+                    <span class="text-muted">DATOS</span>
                 </h4>
                 <ul class="list-group mb-3">
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                    <h6 class="my-0">Nombre:</h6>
-                    </div>
-                    <input type="text" class="form-control" id="nombreSocioModificar" placeholder="" value="" required="">
                     
-                </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                    <h6 class="my-0">Apellido:</h6>
-                    </div>
-                    <input type="text" class="form-control" id="apellidoSocioModificar" placeholder="" value="" required="">
-                </li>
-                
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                    <h6 class="my-0">Direccion:</h6>
-                    </div>
-                    <input type="text" class="form-control" id="direccionSocioModificar" placeholder="" value="" required="">
-                </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                    <h6 class="my-0">Telefono:</h6>
-                    </div>
-                    <input type="text" class="form-control" id="telefonoSocioModificar" placeholder="" value="" required="">
-                </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                    <h6 class="my-0">Correo:</h6>
-                    </div>
-                    <input type="text" class="form-control" id="correoSocioModificar" placeholder="" value="" required="">
-                </li>
-    
-    
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                        <h6 class="my-0">Nombre:</h6>
+                        </div>
+                        
+                        <input type="text" class="form-control" name="nombreSocioModificar"id="nombreSocioModificar" placeholder="" value="" required="">
+                        
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                        <h6 class="my-0">Apellido:</h6>
+                        </div>
+                        <input type="text" class="form-control" id="apellidoSocioModificar" placeholder="" value="" required="">
+                    </li>
                     
-                </li>
-                <button class="btn btn-lg btn-primary" type="button" id="btnModificarGuardar" >Guardar</button>
-    
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                        <h6 class="my-0">Direccion:</h6>
+                        </div>
+                        <input type="text" class="form-control" id="direccionSocioModificar" placeholder="" value="" required="">
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                        <h6 class="my-0">Telefono:</h6>
+                        </div>
+                        <input type="text" class="form-control" id="telefonoSocioModificar" placeholder="" value="" required="">
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                        <h6 class="my-0">Correo:</h6>
+                        </div>
+                        <input type="text" class="form-control" id="correoSocioModificar" placeholder="" value="" required="">
+                    </li>
+        
+        
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        
+                    </li>
+                    <button class="btn btn-lg btn-primary" type="button" id="btnModificarGuardar" >Guardar</button>
+        
                 </ul>
         
                 
             </div>
         </div>
         
-    </div>
+    </form>
         
     <div id="cartel" class="alert alert-dark alert-dismissible fade show" role="alert">
         <p id="respuesta"></p>
