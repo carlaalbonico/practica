@@ -24,9 +24,6 @@ function load(){
     //para ocultar cartel del mensaje
     oculta_muestra('cartel');
 
-    //validar el campo ingresado
-    // document.getElementById('txtEmail').addEventListener("keyup", validar);
-
     //boton para cerrar sesion 
     document.getElementById("logOut").addEventListener("click",cerrarSesion);
     //boton para perfil usuario logueado
@@ -42,6 +39,7 @@ function load(){
     document.getElementById("btnConsultarSocio").addEventListener("click",clickConsultarSocio);
     //close del mensaje 
     document.getElementById("btnClose").addEventListener("click",oculta);
+    $('btnConsultarSocio').disabled=true;
 }
 
 function cerrarSesion() {
@@ -65,7 +63,7 @@ function muestra(id){
     if (document.getElementById){ //se obtiene el id
     var el = document.getElementById(id); //se define la variable "el" igual a nuestro div
 
-    el.style.display = (el.style.display == 'block') ? 'none' : 'block'; 
+     el.style.display = "block"; 
         
     }
 
@@ -73,45 +71,32 @@ function muestra(id){
 function oculta(){
     if (document.getElementById){ //se obtiene el id
     var el = document.getElementById('cartel'); 
-    el.style.display = (el.style.display == 'none') ? 'block' : 'none'; 
+    el.style.display ='none'; 
     
     }
 
 }
 
-function validar(){
 
-    var nombre = document.getElementById('slctEmail').value;
-
-    var pattEmail = new RegExp(/^([a-zA-Z0-9._%-])*$/);
-
-    var resultadoNombre = pattEmail.test(nombre);
-
-    if( resultadoEmail ){
-        $('btnConsultarSocio').disabled = false;
-    }else{
-        $('btnConsultarSocio').disabled = true;
-    }
-}
 
 
 
 function clickConsultarSocio(){
-    
-    $('btnConsultarSocio').disabled=true;
 
     //enviarMensajeAlServidor("/Provincias/Backend/?provincia="+ valorProvincia,cargarOpcionesLocalidad);
     var idSocio= document.getElementById("slctEmail").value; 
     
     enviarParametrosGET(miBackEnd + 'Socio/'+idSocio, retornoDelClickConsultarSocio);
     muestra('cartel');
+  
     $("respuesta").innerHTML="procesando informacion";
 }
  
 function retornoDelClickConsultarSocio(respuesta){
-    //$("txtEmail").value = "";
+    oculta_muestra('cartel');
+
     muestra('botonesAdminParaUnSocio'); 
-   
+    
 
     var socio = JSON.parse(respuesta);
     alert(socio); 
@@ -140,6 +125,7 @@ function clickConsultar(){//oculta la botonera y visualiza el campo para escribi
     //enviarParametrosGET(miBackEnd + 'Socio',retornoDelClick);
 }
 function clickBuscar(){
+    $('btnConsultarSocio').disabled=false;
     enviarParametrosGET(miBackEnd + 'Socio',cargarOpcionesConsultar); 
 }
 
@@ -153,8 +139,6 @@ function cargarOpcionesConsultar(nroSocio){
     }); 
     
     
-
-
     var opciones = ['<option value=0>Seleccione un socio</option>']
 
     sociosFiltrados.forEach(element => {

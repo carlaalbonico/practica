@@ -91,20 +91,25 @@
         <div class="text-center" id="contenedor">
             <main class="form-abm">
             <form>
-                <!--<img class="mb-4" src="img/logo.png"  alt="" width="200" height="">-->
-                <h1 class="h3 mb-3 fw-normal">Consulte un socio:</h1>
-                <div class="form-abm">
-                    <input type="text" class="form-control " id="txtNombreBuscar" placeholder="Introduzca el nombre que desea buscar">
-                    <button class="w-30 btn  btn-primary" type="button" id="btnBuscar" >Buscar</button>
+                <div class="row">
+                    <h1 class="h3 mb-3 fw-normal">Consulte un socio:</h1>
+                
+                    <div class="col-md-9">
+                        <input type="text" class="form-control " id="txtNombreBuscar" placeholder="Introduzca el nombre que desea buscar">
+                    </div>
+                    
+                    <div class="col -md-3">
+                        <button class="w-100 btn  btn-primary" type="button" id="btnBuscar" >Buscar</button>
+                    </div>
+                    
                 </div>
                 <br>
+                <div class="form-group">
                 <select class="form-control" id="slctEmail"></select>
                 <!--<input type="text" class="form-control" id="txtEmail" autofocus>-->
-                
-                
-                
+        
                 <button class="w-100 btn btn-lg btn-primary" type="button" id="btnConsultarSocio" >Consultar</button>
-                
+                </div>
             </form>
             
             </main>
