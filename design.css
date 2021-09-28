@@ -86,7 +86,13 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
-
+.form-tablas {
+  width: 100%;
+  max-width: 800px;
+  padding: 30px;
+  margin: auto;
+ 
+}
 .form-menu {
   width: 100%;
   max-width: 1140px;
