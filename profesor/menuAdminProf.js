@@ -12,40 +12,23 @@ function $(nombre)
 
 
 function load(){
-
-    //para ocultar los menus
-    muestra('botonesAdmin'); 
-    oculta_muestra('consultarSocio'); 
-    
-    oculta_muestra('botonesAdminParaUnSocio'); 
-    
-    oculta_muestra('formularioModificarSocio'); 
-    oculta_muestra('inscribirSocioClase'); 
-    oculta_muestra('registrarPago'); 
-    oculta_muestra('generarCuota'); 
-    oculta_muestra('estadoDeuda');
-    
-    //para ocultar cartel del mensaje
-    oculta_muestra('cartel');
-
     //boton para cerrar sesion 
     document.getElementById("logOut").addEventListener("click",cerrarSesion);
     //boton para perfil usuario logueado
     document.getElementById("perfil").addEventListener("click",mostrarPerfil);
     
     //cuando elige la opcion de consultar socio en el menu
-    document.getElementById("btnConsultar").addEventListener("click",clickConsultar);
+    document.getElementById("btnConsultarProf").addEventListener("click",clickConsultarProf);
     //cuando elige la opcion de registrar socio en el menu
-    document.getElementById("btnRegistrar").addEventListener("click",clickRegistrar);
+    document.getElementById("btnRegistrarProf").addEventListener("click",clickRegistrarProf);
     //cuando escribe un nombre y hace click en buscar
-    document.getElementById("btnBuscar").addEventListener("click",clickBuscar);
+    document.getElementById("btnBuscarProf").addEventListener("click",clickBuscarProf);
     //cuando elige el socio y hace click en boton consultar socio
-    document.getElementById("btnConsultarSocio").addEventListener("click",clickConsultarSocio);
+    document.getElementById("btnConsultarProf2").addEventListener("click",clickConsultarProf2);
 
-    document.getElementById("btnModificar").addEventListener("click",clickModificarSocio);
+    document.getElementById("btnModificarProf").addEventListener("click",clickModificarProf);
     //close del mensaje 
-    document.getElementById("btnClose").addEventListener("click",oculta);
-    $('btnConsultarSocio').disabled=true;
+
 }
 
 function cerrarSesion() {
@@ -82,89 +65,73 @@ function oculta(){
     }
 
 }
-
-
-
-
-
-function clickConsultarSocio(){
+function clickConsultarProf2(){
 
     //enviarMensajeAlServidor("/Provincias/Backend/?provincia="+ valorProvincia,cargarOpcionesLocalidad);
-    var idSocio= document.getElementById("slctEmail").value; 
+    var idProf= document.getElementById("slctConsultar").value; 
     
-    enviarParametrosGET(miBackEnd + 'Socio/'+idSocio, retornoDelClickConsultarSocio);
+    enviarParametrosGET(miBackEnd + 'Socio/'+idProf, retornoDelClickConsultarProf2);
     muestra('cartel');
   
     $("respuesta").innerHTML="procesando informacion";
 }
  
-function retornoDelClickConsultarSocio(respuesta){
+function retornoDelClickConsultarProf2(respuesta){
     oculta_muestra('cartel');
 
     muestra('botonesAdminParaUnSocio'); 
     oculta('formularioModificarSocio'); 
      
-    var socio = JSON.parse(respuesta);
-    $("nroSocio").innerHTML = socio.nroSocio;
-    $("nombreSocio").innerHTML = socio.nombre;
-    $("apellidoSocio").innerHTML = socio.apellido;
-    $("direccionSocio").innerHTML = socio.direccion;
-    $("telefonoSocio").innerHTML = socio.telefono;
-    $("correoSocio").innerHTML = socio.correo;
-    $("estadoSocio").innerHTML = socio.estado;
-    $("altaSocio").innerHTML = socio.fechaDeAlta;
+    var profe = JSON.parse(respuesta);
+    
         
 
     //$("respuesta").innerHTML=respuesta;
-    if(socio['nroSocio'] == null){
+    if(profe['nroProf'] == null){
         
-        $("respuesta").innerHTML="Seleccione un socio";
+        $("respuesta").innerHTML="Seleccione un profesor";
     }
      
 }
-function clickModificarSocio(){
+function clickModificarProf(){
 
     //enviarMensajeAlServidor("/Provincias/Backend/?provincia="+ valorProvincia,cargarOpcionesLocalidad);
-    var idSocioMod= document.getElementById("slctEmail").value; 
+    var idProfMod= document.getElementById("slctEmail").value; 
     
-    enviarParametrosGET(miBackEnd + 'Socio/'+idSocioMod, retornoDelClickModificarSocio);
+    enviarParametrosGET(miBackEnd + 'Socio/'+idProfMod, retornoDelClickModificarProf);
    
 }
-function retornoDelClickModificarSocio(respuesta){
+function retornoDelClickModificarProf(respuesta){
     oculta_muestra('cartel');
     oculta_muestra('botonesAdminParaUnSocio');
     muestra('formularioModificarSocio'); 
     
-    var socioMod = JSON.parse(respuesta);
+    var profMod = JSON.parse(respuesta);
     
-   console.log(socioMod); 
+   console.log(profMod); 
     
-    /*document.formularioModificarSocio.nombreSocioModificar.value = socioMod.nombre;
-    $("apellidoSocioModificar").innerHTML = socioMod.apellido;
-    $("direccionSocioModificar").innerHTML = socioMod.direccion;
-    $("telefonoSocioModificar").innerHTML = socioMod.telefono;
-    $('correoSocioModificar').innerHTML = socioMod.correo;*/
+
 
      
 }
 
-function clickConsultar(){//oculta la botonera y visualiza el campo para escribir el email 
-    oculta_muestra('botonesAdmin'); 
-    muestra('consultarSocio'); 
+function clickConsultarProf(){//oculta la botonera y visualiza el campo para escribir el email 
+    oculta_muestra('botonesAdminPorf'); 
+    muestra('consultarProf'); 
     //enviarMensajeAlServidor("/Provincias/Backend/", cargarOpcionesProvincia);
    
     //enviarParametrosGET(miBackEnd + 'Socio',retornoDelClick);
 }
-function clickBuscar(){
-    $('btnConsultarSocio').disabled=false;
-    enviarParametrosGET(miBackEnd + 'Socio',cargarOpcionesConsultar); 
+function clickBuscarProf(){
+    $('btnConsultarProf').disabled=false;
+    enviarParametrosGET(miBackEnd + 'Profesor',cargarOpcionesConsultarProf); 
 }
 
-function cargarOpcionesConsultar(nroSocio){
+function cargarOpcionesConsultarProf(nroProf){
     var nombreBuscar = document.getElementById('txtNombreBuscar').value;
-    var socios = JSON.parse(nroSocio);
-    socios.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
-    var sociosFiltrados= socios.filter( item =>{
+    var profes= JSON.parse(nroProf);
+    profes.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
+    var profesFiltrados= profes.filter( item =>{
         var nombreMin= item.nombre.toLowerCase(); 
         return nombreMin.includes(nombreBuscar.toLowerCase())
     }); 
@@ -172,17 +139,17 @@ function cargarOpcionesConsultar(nroSocio){
     
     var opciones = ['<option value=0>Seleccione un socio</option>']
 
-    sociosFiltrados.forEach(element => {
-        opciones.push('<option value="' + element.nroSocio + '">' + element.nombre +' '+ element.apellido + '</option>');
+    profesFiltrados.forEach(element => {
+        opciones.push('<option value="' + element.nroProf + '">' + element.nombre +' '+ element.apellido + '</option>');
     });
     
-    $("slctEmail").innerHTML = opciones;
+    $("slctDatosProf").innerHTML = opciones;
 }
 
 
 
 function clickRegistrar(){
-    window.location.assign("http://localhost/practica/socio/registrarSocio.html");//aca va el enlace de la pagina registrar; 
+    window.location.assign("http://localhost/practica/profesor/registrarProfe.html");//aca va el enlace de la pagina registrar; 
 }
 
 
