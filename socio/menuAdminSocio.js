@@ -15,15 +15,14 @@ function load(){
 
     //para ocultar los menus
     muestra('botonesAdmin'); 
-    oculta_muestra('consultarSocio'); 
-    
-    oculta_muestra('botonesAdminParaUnSocio'); 
-    
-    oculta_muestra('formularioModificarSocio'); 
-    oculta_muestra('inscribirSocioClase'); 
-    oculta_muestra('registrarPago'); 
-    oculta_muestra('generarCuota'); 
-    oculta_muestra('estadoDeuda');
+    oculta('consultarSocio'); 
+    oculta('botonesAdminParaUnSocio'); 
+    oculta('formularioModificarSocio'); 
+    oculta('formularioChico');
+    oculta('inscribirSocioClase'); 
+    oculta('registrarPago'); 
+    oculta('generarCuota'); 
+    oculta('estadoDeuda');
     
     //para ocultar cartel del mensaje
     oculta_muestra('cartel');
@@ -34,19 +33,31 @@ function load(){
     document.getElementById("perfil").addEventListener("click",mostrarPerfil);
     
     //cuando elige la opcion de consultar socio en el menu
-    document.getElementById("btnConsultar").addEventListener("click",clickConsultar);
+    document.getElementById("btnMenuConsultarSocio").addEventListener("click",menuConsultarSocio);
     //cuando elige la opcion de registrar socio en el menu
-    document.getElementById("btnRegistrar").addEventListener("click",clickRegistrar);
+    document.getElementById("btnMenuRegistrarSocio").addEventListener("click",menuRegistrarSocio);
+   
     //cuando escribe un nombre y hace click en buscar
     document.getElementById("btnBuscar").addEventListener("click",clickBuscar);
     //cuando elige el socio y hace click en boton consultar socio
     document.getElementById("btnConsultarSocio").addEventListener("click",clickConsultarSocio);
 
     document.getElementById("btnModificar").addEventListener("click",clickModificarSocio);
+    document.getElementById("btnBorrar").addEventListener("click",clickBorrarSocio);
+
+    document.getElementById("btnRegistrarPago").addEventListener("click",clickRegistrarPago);
+    document.getElementById("btnGenerarCuota").addEventListener("click",clickGenerarCuota);
+    document.getElementById("btnEstadoDeuda").addEventListener("click",clickEstadoDeuda);
+    document.getElementById("btnInscribirSocioClase").addEventListener("click",clickInscribirSocioClase);
+
+
+
     //close del mensaje 
     document.getElementById("btnClose").addEventListener("click",oculta);
     $('btnConsultarSocio').disabled=true;
 }
+
+
 
 function cerrarSesion() {
     sessionStorage.clear();
@@ -74,86 +85,24 @@ function muestra(id){
     }
 
 }
-function oculta(){
+function oculta(id){
     if (document.getElementById){ //se obtiene el id
-    var el = document.getElementById('cartel'); 
+    var el = document.getElementById(id); 
     el.style.display ='none'; 
     
     }
 
 }
 
-
-
-
-
-function clickConsultarSocio(){
-
-    //enviarMensajeAlServidor("/Provincias/Backend/?provincia="+ valorProvincia,cargarOpcionesLocalidad);
-    var idSocio= document.getElementById("slctEmail").value; 
-    
-    enviarParametrosGET(miBackEnd + 'Socio/'+idSocio, retornoDelClickConsultarSocio);
-    muestra('cartel');
-  
-    $("respuesta").innerHTML="procesando informacion";
-}
- 
-function retornoDelClickConsultarSocio(respuesta){
-    oculta_muestra('cartel');
-
-    muestra('botonesAdminParaUnSocio'); 
-    oculta('formularioModificarSocio'); 
-     
-    var socio = JSON.parse(respuesta);
-    $("nroSocio").innerHTML = socio.nroSocio;
-    $("nombreSocio").innerHTML = socio.nombre;
-    $("apellidoSocio").innerHTML = socio.apellido;
-    $("direccionSocio").innerHTML = socio.direccion;
-    $("telefonoSocio").innerHTML = socio.telefono;
-    $("correoSocio").innerHTML = socio.correo;
-    $("estadoSocio").innerHTML = socio.estado;
-    $("altaSocio").innerHTML = socio.fechaDeAlta;
-        
-
-    //$("respuesta").innerHTML=respuesta;
-    if(socio['nroSocio'] == null){
-        
-        $("respuesta").innerHTML="Seleccione un socio";
-    }
-     
-}
-function clickModificarSocio(){
-
-    //enviarMensajeAlServidor("/Provincias/Backend/?provincia="+ valorProvincia,cargarOpcionesLocalidad);
-    var idSocioMod= document.getElementById("slctEmail").value; 
-    
-    enviarParametrosGET(miBackEnd + 'Socio/'+idSocioMod, retornoDelClickModificarSocio);
-   
-}
-function retornoDelClickModificarSocio(respuesta){
-    oculta_muestra('cartel');
-    oculta_muestra('botonesAdminParaUnSocio');
-    muestra('formularioModificarSocio'); 
-    
-    var socioMod = JSON.parse(respuesta);
-    
-   console.log(socioMod); 
-    
-    /*document.formularioModificarSocio.nombreSocioModificar.value = socioMod.nombre;
-    $("apellidoSocioModificar").innerHTML = socioMod.apellido;
-    $("direccionSocioModificar").innerHTML = socioMod.direccion;
-    $("telefonoSocioModificar").innerHTML = socioMod.telefono;
-    $('correoSocioModificar').innerHTML = socioMod.correo;*/
-
-     
+function menuRegistrarSocio(){
+    window.location.assign("http://localhost/practica/socio/registrarSocio.html");//aca va el enlace de la pagina registrar; 
 }
 
-function clickConsultar(){//oculta la botonera y visualiza el campo para escribir el email 
-    oculta_muestra('botonesAdmin'); 
+function menuConsultarSocio(){//oculta la botonera y visualiza el campo para escribir el email 
+    oculta('botonesAdmin'); 
     muestra('consultarSocio'); 
-    //enviarMensajeAlServidor("/Provincias/Backend/", cargarOpcionesProvincia);
-   
-    //enviarParametrosGET(miBackEnd + 'Socio',retornoDelClick);
+    
+  
 }
 function clickBuscar(){
     $('btnConsultarSocio').disabled=false;
@@ -176,13 +125,158 @@ function cargarOpcionesConsultar(nroSocio){
         opciones.push('<option value="' + element.nroSocio + '">' + element.nombre +' '+ element.apellido + '</option>');
     });
     
-    $("slctEmail").innerHTML = opciones;
+    $("slctSocio").innerHTML = opciones;
 }
 
 
 
-function clickRegistrar(){
-    window.location.assign("http://localhost/practica/socio/registrarSocio.html");//aca va el enlace de la pagina registrar; 
+function clickConsultarSocio(){
+
+    //enviarMensajeAlServidor("/Provincias/Backend/?provincia="+ valorProvincia,cargarOpcionesLocalidad);
+    var idSocio= document.getElementById("slctSocio").value; 
+    
+    enviarParametrosGET(miBackEnd + 'Socio/'+idSocio, retornoClickConsultarSocio);
+    muestra('cartel');
+  
+    $("respuesta").innerHTML="procesando informacion";
+}
+ 
+function retornoClickConsultarSocio(respuesta){
+    oculta('cartel');
+    oculta('consultarSocio');
+    muestra('botonesAdminParaUnSocio'); 
+    oculta('formularioModificarSocio'); 
+    oculta('formularioChico');
+    oculta('registrarPago'); 
+    oculta('generarCuota');
+    oculta('estadoDeuda');
+    oculta('inscribirSocioClase');
+     
+    var socio = JSON.parse(respuesta);
+    console.log(socio); 
+    $("nroSocio").innerHTML = socio.nroSocio;
+    $("nombreSocio").innerHTML = socio.nombre;
+    $("apellidoSocio").innerHTML = socio.apellido;
+    $("direccionSocio").innerHTML = socio.direccion;
+    $("telefonoSocio").innerHTML = socio.telefono;
+    $("emailSocio").innerHTML = socio.email;
+    $("estadoSocio").innerHTML = socio.estado;
+    $("altaSocio").innerHTML = socio.fechaDeAlta;
+        
+
+    //$("respuesta").innerHTML=respuesta;
+    if(socio['nroSocio'] == null){
+        
+        $("respuesta").innerHTML="Seleccione un socio";
+    }
+     
+}
+function clickModificarSocio(){
+
+    //enviarMensajeAlServidor("/Provincias/Backend/?provincia="+ valorProvincia,cargarOpcionesLocalidad);
+    var idSocioMod= document.getElementById("slctSocio").value; 
+    
+    enviarParametrosGET(miBackEnd + 'Socio/'+idSocioMod, retornoClickModificarSocio);
+   
+}
+function retornoClickModificarSocio(respuesta){
+    oculta('cartel');
+    oculta('botonesAdminParaUnSocio');
+    oculta('registrarPago'); 
+    oculta('generarCuota');
+    oculta('estadoDeuda');
+    oculta('inscribirSocioClase');
+    muestra('formularioModificarSocio'); 
+    oculta('formularioChico');
+    var socioMod = JSON.parse(respuesta);
+    
+   console.log(socioMod); 
+    
+    /*document.formularioModificarSocio.nombreSocioModificar.value = socioMod.nombre;
+    $("apellidoSocioModificar").innerHTML = socioMod.apellido;
+    $("direccionSocioModificar").innerHTML = socioMod.direccion;
+    $("telefonoSocioModificar").innerHTML = socioMod.telefono;
+    $('correoSocioModificar').innerHTML = socioMod.correo;*/
+
+     
+}
+
+function clickBorrarSocio(){
+
+}
+function clickRegistrarPago(){
+    oculta('cartel');
+    oculta('botonesAdminParaUnSocio');
+    oculta('formularioModificarSocio'); 
+    muestra('formularioChico');
+    muestra('registrarPago'); 
+    oculta('generarCuota');
+    oculta('estadoDeuda');
+    oculta('inscribirSocioClase');
+    
+}
+function clickGenerarCuota(){
+    oculta('cartel');
+    oculta('botonesAdminParaUnSocio');
+    oculta('formularioModificarSocio'); 
+    oculta('registrarPago'); 
+    muestra('formularioChico');
+    muestra('generarCuota');
+    oculta('estadoDeuda');
+    oculta('inscribirSocioClase');
+    
+}
+
+function clickEstadoDeuda(){
+    oculta('cartel');
+    oculta('botonesAdminParaUnSocio');
+    oculta('formularioModificarSocio'); 
+    oculta('registrarPago'); 
+    oculta('generarCuota');
+    muestra('formularioChico');
+    muestra('estadoDeuda');
+    oculta('inscribirSocioClase');
+     
+}
+function clickInscribirSocioClase(){
+    oculta('cartel');
+    oculta('botonesAdminParaUnSocio');
+    oculta('formularioModificarSocio'); 
+    oculta('registrarPago'); 
+    oculta('generarCuota');
+    oculta('estadoDeuda');
+    muestra('formularioChico');
+    muestra('inscribirSocioClase');
+   
+   //manda los datos para cargar el formularioChico
+    var idSocio= document.getElementById("slctSocio").value; 
+    
+    enviarParametrosGET(miBackEnd + 'Socio/'+idSocio,cargarFormularioChico)
+     //manda los datos para cargar el select
+    enviarParametrosGET(miBackEnd + 'TipoClase',cargarOpcionesClase); 
+    
+    oculta('continuarClase'); 
+}
+function cargarFormularioChico(respuesta){
+    var socioFC= JSON.parse(respuesta);
+    $("nroSocioForm").innerHTML = socioFC.nroSocio;
+    $("nombreSocioForm").innerHTML = socioFC.nombre;
+    $("apellidoSocioForm").innerHTML = socioFC.apellido;
+}
+
+function cargarOpcionesClase(valor){
+    
+    
+    var clases= JSON.parse(valor);
+    clases.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
+   
+    var opciones = ['<option value=0>Seleccione una clase</option>']
+
+    clases.forEach(element => {
+        opciones.push('<option value="' + element.idTipoClase + '">' + element.nombre + '</option>');
+    });
+    console.log(clases); 
+    $("slctTipoClase").innerHTML = opciones;
 }
 
 
