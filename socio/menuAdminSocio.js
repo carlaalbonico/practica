@@ -49,8 +49,8 @@ function load(){
     document.getElementById("btnGenerarCuota").addEventListener("click",clickGenerarCuota);
     document.getElementById("btnEstadoDeuda").addEventListener("click",clickEstadoDeuda);
     document.getElementById("btnInscribirSocioClase").addEventListener("click",clickInscribirSocioClase);
-
-
+    document.getElementById("btnContinuarClase").addEventListener("click",clickContinuarTipoClase); 
+    
 
     //close del mensaje 
     document.getElementById("btnClose").addEventListener("click",oculta);
@@ -190,19 +190,26 @@ function retornoClickModificarSocio(respuesta){
     oculta('formularioChico');
     var socioMod = JSON.parse(respuesta);
     
-   console.log(socioMod); 
+   
     
-    /*document.formularioModificarSocio.nombreSocioModificar.value = socioMod.nombre;
-    $("apellidoSocioModificar").innerHTML = socioMod.apellido;
-    $("direccionSocioModificar").innerHTML = socioMod.direccion;
-    $("telefonoSocioModificar").innerHTML = socioMod.telefono;
-    $('correoSocioModificar').innerHTML = socioMod.correo;*/
+    $("nombreSocioModificar").value = socioMod["nombre"];
+    $("apellidoSocioModificar").value = socioMod["apellido"];
+    $("direccionSocioModificar").value = socioMod["direccion"];
+    $("telefonoSocioModificar").value = socioMod["telefono"];
+    $("correoSocioModificar").innerHTML = socioMod["correo"];
 
      
 }
 
 function clickBorrarSocio(){
 
+}
+
+function cargarFormularioChico(respuesta){
+    var socioFC= JSON.parse(respuesta);
+    $("nroSocioForm").innerHTML = socioFC.nroSocio;
+    $("nombreSocioForm").innerHTML = socioFC.nombre;
+    $("apellidoSocioForm").innerHTML = socioFC.apellido;
 }
 function clickRegistrarPago(){
     oculta('cartel');
@@ -251,18 +258,13 @@ function clickInscribirSocioClase(){
    //manda los datos para cargar el formularioChico
     var idSocio= document.getElementById("slctSocio").value; 
     
-    enviarParametrosGET(miBackEnd + 'Socio/'+idSocio,cargarFormularioChico)
+    enviarParametrosGET(miBackEnd + 'Socio/'+idSocio,cargarFormularioChico);
      //manda los datos para cargar el select
     enviarParametrosGET(miBackEnd + 'TipoClase',cargarOpcionesClase); 
     
     oculta('continuarClase'); 
 }
-function cargarFormularioChico(respuesta){
-    var socioFC= JSON.parse(respuesta);
-    $("nroSocioForm").innerHTML = socioFC.nroSocio;
-    $("nombreSocioForm").innerHTML = socioFC.nombre;
-    $("apellidoSocioForm").innerHTML = socioFC.apellido;
-}
+
 
 function cargarOpcionesClase(valor){
     
@@ -277,6 +279,32 @@ function cargarOpcionesClase(valor){
     });
     console.log(clases); 
     $("slctTipoClase").innerHTML = opciones;
+}
+function clickContinuarTipoClase(){
+    
+   //manda los datos para cargar el formularioChico
+    var tipoClase= document.getElementById("slctTipoClase").value; 
+    
+    
+     //manda los datos para cargar el select
+    enviarParametrosGET(miBackEnd + 'Clase/'+tipoClase,cargarOpcionesTipoClases); 
+    
+    muestra('continuarClase'); 
+}
+
+function cargarOpcionesTipoClases(valor){
+    muestra('continuarClase'); 
+    var tipoClases= JSON.parse(valor);
+    tipoClases.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
+   
+    var opciones = ['<option value=0>Seleccione un tipo de clase</option>']
+
+    tipoClases.forEach(element => {
+        opciones.push('<option value="' + element.idTipoClase + '">' + element.nombre + '</option>');
+    });
+    console.log(tipoClases); 
+    $("slctNumClase").innerHTML = opciones;
+    //tengo que agregar mensaje de error
 }
 
 
