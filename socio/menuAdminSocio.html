@@ -71,6 +71,12 @@
             
         </header>
     </nav>
+    <div id="botonAtras" class="text-left">
+        <button class="previous btn btn-secondary" type="button" id="btnAtras">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        
+        </button>
+    </div>
 
     <div id="botonesAdmin">
         <div class="text-center" id="contenedor">
@@ -80,6 +86,7 @@
                 
                     <button class="btn btn-lg btn-primary" type="button" id="btnMenuConsultarSocio" >Consultar socio</button>
                     <button class="btn btn-lg btn-primary" type="button" id="btnMenuRegistrarSocio" >Registrar socio</button>
+                    <button class="btn btn-lg btn-primary" type="button" id="btnGenerarCuota" >Generar Cuota</button>
                 
                 
             </main>
@@ -125,7 +132,7 @@
                 <h1 class="mb-1 text-center">SOCIO</h1>
                 <div class="form-boton text-center">
                     <button class="btn btn-lg btn-primary btn-block" type="button" id="btnRegistrarPago" >Registrar pago</button>
-                    <button class="btn btn-lg btn-primary btn-block" type="button" id="btnGenerarCuota" >Generar Cuota</button>
+                    
                     <button class="btn btn-lg btn-primary btn-block" type="button" id="btnEstadoDeuda" >Ver estado de deuda</button>
                     <button class="btn btn-lg btn-primary btn-block" type="button" id="btnInscribirSocioClase" >Inscribir a clase</button>
                 </div>
@@ -237,12 +244,7 @@
                         </div>
                         <input type="text" class="form-control" id="telefonoSocioModificar" placeholder="" value="" required="">
                     </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                        <h6 class="my-0">Correo:</h6>
-                        </div>
-                        <input type="text" class="form-control" id="emailSocioModificar" placeholder="" value="" required="">
-                    </li>
+                    
         
         
                     <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -257,6 +259,8 @@
         </div>
         
     </form>
+
+
 
     <div id="formularioChico" class="form-tablas">
     <h1 class="mb-1 text-center">SOCIO: </h1>
