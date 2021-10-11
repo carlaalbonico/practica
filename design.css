@@ -27,6 +27,13 @@ body {
   padding-top: 40px;
   
 }
+#botonAtras {
+  width: 100%;
+  max-width: 1100px;
+  padding: 15px;
+  margin: auto;
+ 
+}
 
 .texto{
   align-items: center;
@@ -100,6 +107,7 @@ body {
   margin: auto;
  
 }
+
 .alert-dismissible .close {
   position: absolute;
   top: 0;
