@@ -123,7 +123,7 @@
             
         </div>
     </div>    
-
+    <div id="generarCuota" class="form-menu"></div>
 
     <div id="botonesAdminParaUnSocio" class="form-menu">
         
@@ -292,7 +292,7 @@
         <h1 class="mb-1 text-center">REGISTRAR PAGO:  </h1>
         <h3 class="mb-1 text-center">Seleccionar cuota a pagar:  </h3>
 
-        <table class="table">
+        <table class="table" >
             <thead>
               <tr>
                 <th scope="col">Mes</th>
@@ -301,19 +301,16 @@
                 <th scope="col">Pagar</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <th scope="row"></th>
-                <td></td>
-                <td></td>
-                <td><input type="checkbox" name="" id=""></td>
-              </tr>
-              
+            <tbody id="tableRegistrarPago">
+        
             </tbody>
-          </table>
 
+          </table>
+            <div class="text-right">
+                <button class="btn btn-lg btn-primary" type="button" id="btnRegistrarPagoCuota" > Registrar pago</button>
+            </div>
     </div>
-    <div id="generarCuota" class="form-tablas"></div>
+    
     
     <div id="estadoDeuda" class="form-tablas">
         
@@ -329,18 +326,16 @@
                 <th scope="col">Estado</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <th scope="row"></th>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              
-            </tbody>
-          </table>
-          <button class="btn btn-lg btn-primary" type="button" id="btnIrRegistrarPago" >Ir a registrar pago</button>
+            <tbody id="tableEstadoDeuda">
         
+                
+            </tbody>
+            
+          </table>
+          <div class="text-right">
+            <button class="btn btn-lg btn-primary" type="button" id="btnIrRegistrarPago" >Ir a registrar pago</button>
+          </div>
+          
     </div>
 
     <div id="inscribirSocioClase" class="form-tablas">

@@ -45,7 +45,8 @@ function load(){
 
     document.getElementById("btnModificar").addEventListener("click",clickModificarSocio);
     document.getElementById("btnBorrar").addEventListener("click",clickBorrarSocio);
-
+    
+    document.getElementById("btnIrRegistrarPago").addEventListener("click",clickRegistrarPago);
     document.getElementById("btnRegistrarPago").addEventListener("click",clickRegistrarPago);
     document.getElementById("btnGenerarCuota").addEventListener("click",clickGenerarCuota);
     document.getElementById("btnEstadoDeuda").addEventListener("click",clickEstadoDeuda);
@@ -53,6 +54,8 @@ function load(){
     document.getElementById("btnContinuarClase").addEventListener("click",clickContinuarTipoClase); 
     document.getElementById("botonAtras").addEventListener("click",atras);
     document.getElementById('btnEnviarInscripcion').addEventListener("click",clickEnviarInscripcion); 
+    
+    document.getElementById('btnRegistrarPagoCuota').addEventListener("click",calcularTotalPago); 
     //close del mensaje 
     document.getElementById("btnClose").addEventListener("click",oculta);
     $('btnConsultarSocio').disabled=true;
@@ -273,8 +276,43 @@ function clickRegistrarPago(){
     oculta('estadoDeuda');
     oculta('inscribirSocioClase');
     muestra('botonAtras');
+   //manda los datos para cargar el formularioChico
+   var idSocio= document.getElementById("slctSocio").value; 
+    
+   enviarParametrosGET(miBackEnd + 'Socio/'+idSocio,cargarFormularioChico);
+
+   //manda a llamar a los estados de cuenta del socio
+   enviarParametrosGET(miBackEnd + 'Cuota/'+idSocio,mostrarTablaRegistrarPago);  
+}
+function mostrarTablaRegistrarPago(valor){
+
+   
+    var analiza =JSON.parse(valor); 
+    console.log(analiza); 
+
+    var opciones=[]; 
+
+
+    analiza.forEach(element => {
+        opciones.push('<tr >'+
+            '<th scope="row">'+element.mes+'</th>'+
+            '<td>'+element.importe+'</td>'+
+            '<td>'+element.fechaVencimiento+'</td>'+
+            '<td><input type="checkbox" name="checkBox" id=""></td>'+
+            
+        '</tr>' );
+        
+    });
+
+    $('tableRegistrarPago').innerHTML=opciones;
     
 }
+function calcularTotalPago(){
+    var checkboxes = document.getElementById("tableRegistrarPago").checkbox;
+   
+}
+
+
 function clickGenerarCuota(){
     oculta('cartel');
     oculta('botonesAdminParaUnSocio');
@@ -285,6 +323,7 @@ function clickGenerarCuota(){
     oculta('estadoDeuda');
     oculta('inscribirSocioClase');
     muestra('botonAtras');
+    //hay que arreglarlo
 }
 
 function clickEstadoDeuda(){
@@ -303,12 +342,38 @@ function clickEstadoDeuda(){
     enviarParametrosGET(miBackEnd + 'Socio/'+idSocio,cargarFormularioChico);
 
     //manda a llamar a los estados de cuenta del socio
-    enviarParametrosGET(miBackEnd + 'Cuota/Estado/'+idSocio,cargarEstadoSocio); 
+    enviarParametrosGET(miBackEnd + 'Cuota/Estado/'+idSocio,mostrarTablaEstadoDeuda); 
 }
 
-function cargarEstadoSocio(){
+function mostrarTablaEstadoDeuda(valor){
+
+   
+    var analiza =JSON.parse(valor); 
+    console.log(analiza); 
+
+    var opciones=[]; 
+
+
+    analiza.forEach(element => {
+        opciones.push('<tr >'+
+        '<th scope="row">'+element.mes+'</th>'+
+        '<td>'+element.importe+'</td>'+
+        '<td>'+element.fechaVencimiento+'</td>'+
+        '<td>'+element.estado+'</td>'+
+        '</tr>' );
+        
+    });
+
+  
+
+    $('tableEstadoDeuda').innerHTML=opciones;
+    
+
 
 }
+
+
+
 function clickInscribirSocioClase(){
     oculta('cartel');
     oculta('botonesAdminParaUnSocio');
