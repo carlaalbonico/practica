@@ -123,7 +123,7 @@
             
         </div>
     </div>    
-
+    <div id="generarCuota" class="form-menu"></div>
 
     <div id="botonesAdminParaUnSocio" class="form-menu">
         
@@ -292,7 +292,7 @@
         <h1 class="mb-1 text-center">REGISTRAR PAGO:  </h1>
         <h3 class="mb-1 text-center">Seleccionar cuota a pagar:  </h3>
 
-        <table class="table">
+        <table class="table" >
             <thead>
               <tr>
                 <th scope="col">Mes</th>
@@ -301,19 +301,16 @@
                 <th scope="col">Pagar</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <th scope="row"></th>
-                <td></td>
-                <td></td>
-                <td><input type="checkbox" name="" id=""></td>
-              </tr>
-              
+            <tbody id="tableRegistrarPago">
+        
             </tbody>
-          </table>
 
+          </table>
+            <div class="text-right">
+                <button class="btn btn-lg btn-primary" type="button" id="btnRegistrarPagoCuota" > Registrar pago</button>
+            </div>
     </div>
-    <div id="generarCuota" class="form-tablas"></div>
+    
     
     <div id="estadoDeuda" class="form-tablas">
         
@@ -329,18 +326,16 @@
                 <th scope="col">Estado</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <th scope="row"></th>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              
-            </tbody>
-          </table>
-          <button class="btn btn-lg btn-primary" type="button" id="btnIrRegistrarPago" >Ir a registrar pago</button>
+            <tbody id="tableEstadoDeuda">
         
+                
+            </tbody>
+            
+          </table>
+          <div class="text-right">
+            <button class="btn btn-lg btn-primary" type="button" id="btnIrRegistrarPago" >Ir a registrar pago</button>
+          </div>
+          
     </div>
 
     <div id="inscribirSocioClase" class="form-tablas">
@@ -349,7 +344,7 @@
             <h3 class="mb-1 text-center">Tipo de clase:  </h3>
         
             <div class="col-md-9">
-                <select class="form-control" id="slctTipoClase"></select>
+                <select class="form-control" id="slctTipoClase" placeholder="Seleccione una clase"></select>
             </div>
             
             <div class="col -md-3">
@@ -361,8 +356,8 @@
 
         <div id="continuarClase">
             <h3 class="mb-1 text-center">Clase:  </h3>
-            <select class="form-control" id="slctNumClase"></select>
-            <p id="respuesta"></p>
+            <select class="form-control" id="slctNumClase" placeholder="Días y horarios de la clases disponibles"></select>
+            
             <button class="w-100 btn btn-lg btn-primary" type="button" id="btnEnviarInscripcion" >Inscribir</button>
 
         </div>

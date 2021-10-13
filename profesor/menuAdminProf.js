@@ -12,6 +12,12 @@ function $(nombre)
 
 
 function load(){
+
+    muestra('botonesAdminProf'); 
+    oculta('menuConsultarProf');
+    oculta('botonesAdminParaUnProf'); 
+    oculta('formularioModificarProf'); 
+    oculta('cartel');
     //boton para cerrar sesion 
     document.getElementById("logOut").addEventListener("click",cerrarSesion);
     //boton para perfil usuario logueado
@@ -21,13 +27,16 @@ function load(){
     document.getElementById("btnConsultarProf").addEventListener("click",clickConsultarProf);
     //cuando elige la opcion de registrar socio en el menu
     document.getElementById("btnRegistrarProf").addEventListener("click",clickRegistrarProf);
+   
     //cuando escribe un nombre y hace click en buscar
     document.getElementById("btnBuscarProf").addEventListener("click",clickBuscarProf);
-    //cuando elige el socio y hace click en boton consultar socio
+    
+    //cuando elige el prof y hace click en boton consultar prof
     document.getElementById("btnConsultarProf2").addEventListener("click",clickConsultarProf2);
 
     document.getElementById("btnModificarProf").addEventListener("click",clickModificarProf);
-    //close del mensaje 
+    
+    document.getElementById("btnBorrarProf").addEventListener("click",clickBorrarProf);
 
 }
 
@@ -57,67 +66,22 @@ function muestra(id){
     }
 
 }
-function oculta(){
+function oculta(id){
     if (document.getElementById){ //se obtiene el id
-    var el = document.getElementById('cartel'); 
+    var el = document.getElementById(id); 
     el.style.display ='none'; 
     
     }
 
 }
-function clickConsultarProf2(){
 
-    //enviarMensajeAlServidor("/Provincias/Backend/?provincia="+ valorProvincia,cargarOpcionesLocalidad);
-    var idProf= document.getElementById("slctConsultar").value; 
-    
-    enviarParametrosGET(miBackEnd + 'Socio/'+idProf, retornoDelClickConsultarProf2);
-    muestra('cartel');
-  
-    $("respuesta").innerHTML="procesando informacion";
-}
- 
-function retornoDelClickConsultarProf2(respuesta){
-    oculta_muestra('cartel');
-
-    muestra('botonesAdminParaUnSocio'); 
-    oculta('formularioModificarSocio'); 
-     
-    var profe = JSON.parse(respuesta);
-    
-        
-
-    //$("respuesta").innerHTML=respuesta;
-    if(profe['nroProf'] == null){
-        
-        $("respuesta").innerHTML="Seleccione un profesor";
-    }
-     
-}
-function clickModificarProf(){
-
-    //enviarMensajeAlServidor("/Provincias/Backend/?provincia="+ valorProvincia,cargarOpcionesLocalidad);
-    var idProfMod= document.getElementById("slctEmail").value; 
-    
-    enviarParametrosGET(miBackEnd + 'Socio/'+idProfMod, retornoDelClickModificarProf);
-   
-}
-function retornoDelClickModificarProf(respuesta){
-    oculta_muestra('cartel');
-    oculta_muestra('botonesAdminParaUnSocio');
-    muestra('formularioModificarSocio'); 
-    
-    var profMod = JSON.parse(respuesta);
-    
-   console.log(profMod); 
-    
+function atras(){ }
 
 
-     
-}
 
 function clickConsultarProf(){//oculta la botonera y visualiza el campo para escribir el email 
-    oculta_muestra('botonesAdminPorf'); 
-    muestra('consultarProf'); 
+    oculta('botonesAdminProf'); 
+    muestra('menuConsultarProf'); 
     //enviarMensajeAlServidor("/Provincias/Backend/", cargarOpcionesProvincia);
    
     //enviarParametrosGET(miBackEnd + 'Socio',retornoDelClick);
@@ -130,6 +94,7 @@ function clickBuscarProf(){
 function cargarOpcionesConsultarProf(nroProf){
     var nombreBuscar = document.getElementById('txtNombreBuscar').value;
     var profes= JSON.parse(nroProf);
+    console.log(profes);
     profes.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
     var profesFiltrados= profes.filter( item =>{
         var nombreMin= item.nombre.toLowerCase(); 
@@ -137,18 +102,111 @@ function cargarOpcionesConsultarProf(nroProf){
     }); 
     
     
-    var opciones = ['<option value=0>Seleccione un socio</option>']
+    var opciones = ['<option value=0>Seleccione un profesor</option>']
 
     profesFiltrados.forEach(element => {
-        opciones.push('<option value="' + element.nroProf + '">' + element.nombre +' '+ element.apellido + '</option>');
+        opciones.push('<option value="' + element.legajo + '">' + element.nombre +' '+ element.apellido + '</option>');
     });
     
     $("slctDatosProf").innerHTML = opciones;
 }
 
 
+function clickConsultarProf2(){
+    
+    //enviarMensajeAlServidor("/Provincias/Backend/?provincia="+ valorProvincia,cargarOpcionesLocalidad);
+    var legajo= document.getElementById("slctDatosProf").value; 
+    
+    enviarParametrosGET(miBackEnd + 'Profesor/'+legajo, retornoDelClickConsultarProf2);
+    
+}
+ 
+function retornoDelClickConsultarProf2(respuesta){
+    oculta('cartel');
 
-function clickRegistrar(){
+    muestra('botonesAdminParaUnProf'); 
+    oculta('menuConsultarProf'); 
+    oculta('formularioModificarProf'); 
+    oculta('botonesAdminProf'); 
+
+    var profe = JSON.parse(respuesta);
+    $("legajoProf").innerHTML = profe.legajo;
+    $("nombreProf").innerHTML = profe.nombre;
+    $("apellidoProf").innerHTML = profe.apellido;
+    $("direccionProf").innerHTML = profe.direccion;
+    $("telefonoProf").innerHTML = profe.telefono;
+    $("emailProf").innerHTML = profe.email;
+    $("especialidadProf").innerHTML = profe.especialidad;
+    $("altaProf").innerHTML = profe.fechaDeAlta;
+
+    
+
+    //$("respuesta").innerHTML=respuesta;
+    if(profe['legajo'] == 0){
+        
+        $("respuesta").innerHTML="Seleccione un profesor";
+    }
+     
+}
+function clickModificarProf(){
+
+    //enviarMensajeAlServidor("/Provincias/Backend/?provincia="+ valorProvincia,cargarOpcionesLocalidad);
+    var idProfMod= document.getElementById("slctDatosProf").value; 
+    
+    enviarParametrosGET(miBackEnd + 'Socio/'+idProfMod, retornoDelClickModificarProf);
+   
+}
+function retornoDelClickModificarProf(respuesta){
+    oculta('cartel');
+    oculta('botonesAdminParaUnProf');
+    muestra('formularioModificarProf'); 
+    
+     
+    var profMod = JSON.parse(respuesta);
+    
+    
+   $("nombreProfModificar").value = profMod["nombre"];
+   $("apellidoProfModificar").value = profMod["apellido"];
+   $("direccionProfModificar").value = profMod["direccion"];
+   $("telefonoProfModificar").value = profMod["telefono"];
+   $("especialidadProfModificar").value = profMod["especialidad"];
+
+   $('nombreProfModificar').addEventListener("keyup", validarProfModificar);
+   $('apellidoProfModificar').addEventListener("keyup", validarProfModificar);
+   $('direccionProfModificar').addEventListener("keyup", validarProfModificar);
+   $('telefonoProfModificar').addEventListener("keyup",validarProfModificar);
+   $('especialidadProfModificar').addEventListener("keyup",validarProfModificar);
+   $('btnModificarGuardar').addEventListener("click",clickGuardarModSocio);
+    
+}
+function validarProfModificar(){
+    var ModNombre = $("nombreProfModificar").value.length;
+    var ModApellido = $("apellidoProfModificar").value.length;
+    var ModDireccion = $("direccionProfModificar").value.length;
+    var ModTelefono = $("telefonoProfModificar").value.length;
+    var ModEspec = $("especialidadProfModificar").value.length;
+
+    if( ModNombre >=2 && ModApellido >=2  && ModDireccion >=2 && ModTelefono >=8 && ModEspec>3){
+        $('btnModificarGuardar').disabled = false;
+    }else{
+        $('btnModificarGuardar').disabled = true;
+    }
+
+}
+function clickBorrarProf(legajo){
+    if(confirm('¿Esta seguro que desea borrar a este profesor?')){
+        //pasar los parametros para borrar 
+        //enviarParametrosGET(miBackEnd + 'Profesor/'+idProfMod, retornoDelClickBorrarProf);  
+    }
+}
+function retornoDelClickBorrarProf(){
+    //confirmacion de borrado
+}
+     
+
+
+
+function clickRegistrarProf(){
     window.location.assign("http://localhost/practica/profesor/registrarProfe.html");//aca va el enlace de la pagina registrar; 
 }
 
