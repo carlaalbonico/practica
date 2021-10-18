@@ -1,0 +1,133 @@
+<form name="form">
+    <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+    <td align="center" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+    <td> </td>
+    <td width="780"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+    <td bgcolor="F7F7F0"><table width="780" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+    <td width="56%" align="left" valign="top">
+    <p class="txt">Hágase un presupuesto de lo que quiere consumir. Si lo desea puede imprimirse esta página con el resultado y enseñarla en el restaurante para poder atenderle con mayor rapidez. </p>
+    <form name="form1" method="post" action="">
+    <table width="100%" border="0" cellpadding="0" cellspacing="2" class="txt" id="bravas">
+    <tr>
+    <td width="5%" class="submenu"> </td>
+    <td width="63%" class="submenu">TAPAS</td>
+    <td colspan="2"> </td>
+    </tr>
+    <tr>
+    <td>
+    <input name="opCheck" type="checkbox" id="opCheck" value="2.50">
+    </td>
+    <td>Bravas</td>
+    <td colspan="2">2.50 ? </td>
+    </tr>
+    <tr>
+    <td>
+    <input name="opCheck" type="checkbox" id="opCheck" value="3">
+    </td>
+    <td>Esgarraet</td>
+    <td colspan="2">3.00 ? </td>
+    </tr>
+    <tr>
+    <td>
+    <input name="opCheck" type="checkbox" id="opCheck" value="2.75">
+    </td>
+    <td>Calamares</td>
+    <td colspan="2">2.75 ? </td>
+    </tr>
+    <tr>
+    <td>
+    <input name="opCheck" type="checkbox" id="opCheck" value="4">
+    </td>
+    <td>Surtido de Ibéricos </td>
+    <td colspan="2">4.00 ? </td>
+    </tr>
+    <tr>
+    <td>
+    <input name="opCheck" type="checkbox" id="opCheck" value="4.50">
+    </td>
+    <td>Jamón y queso </td>
+    <td colspan="2">4.50 ? </td>
+    </tr>
+    <tr>
+    <td>
+    <input name="opCheck" type="checkbox" id="opCheck" value="4.50">
+    </td>
+    <td>Sepia a la plancha </td>
+    <td colspan="2">4.50 ? </td>
+    </tr>
+    <tr>
+    <td>
+    <input name="opCheck" type="checkbox" id="opCheck" value="4.25">
+    </td>
+    <td>Sepia con mayonesa (frío) </td>
+    <td colspan="2">4.25 ? </td>
+    </tr>
+    <tr>
+    <td class="submenu"> </td>
+    <td class="submenu">PRIMER PLATO</td>
+    <td align="right"> </td>
+    <td align="left">Nº personas </td>
+    </tr>
+    <tr>
+    <td>
+    <input name="opCheckPlato" type="checkbox" id="opCheckPlato" value="5" onclick="activarCampo(this)">
+    </td>
+    <td>All i Pebre marinero </td>
+    <td width="17%">5.00 ? </td>
+    <td width="15%"><input name="InputPersonas" id="InputPersonas" type="text" size="2" maxlength="3" disabled onBlur="comprobarCampo(this)"></td>
+    </tr>
+    <tr>
+    <td>
+    <input name="opCheckPlato" type="checkbox" id="opCheckPlato" value="5.20" onclick="activarCampo(this)">
+    </td>
+    <td>Paella marisco (precio por persona) </td>
+    <td>5.20 ? </td>
+    <td><input name="InputPersonas" id="InputPersonas" type="text" size="2" maxlength="3" disabled onBlur="comprobarCampo(this)"></td>
+    </tr>
+    <tr>
+    <td>
+    <input name="opCheckPlato" type="checkbox" id="opCheckPlato" value="4.50" onclick="activarCampo(this)">
+    </td>
+    <td>Paella valenciana </td>
+    <td>4.50 ? </td>
+    <td><input name="InputPersonas" id="InputPersonas" type="text" size="2" maxlength="3" disabled onBlur="comprobarCampo(this)"></td>
+    </tr>
+    <tr>
+    <td>
+    <input name="opCheckPlato" type="checkbox" id="opCheckPlato" value="5.75" onclick="activarCampo(this)">
+    </td>
+    <td>Paella Bogavante </td>
+    <td>5.75 ? </td>
+    <td><input name="InputPersonas" id="InputPersonas" type="text" size="2" maxlength="3" disabled onBlur="comprobarCampo(this)"></td>
+    </tr>
+    <tr>
+    <td> </td>
+    <td align="right"><p> </p>
+    <p>
+    <input type="button" value="SUMAR" onClick="SumarTotal()">
+    </p></td>
+    <td colspan="2"> </td>
+    </tr>
+    <tr>
+    <td> </td>
+    <td align="right">TOTAL MENÚ </td>
+    <td colspan="2"><input name="textfield" id="precioTotal" type="text" value="" size="7" readonly>
+    </td>
+    </tr>
+    </table>
+    </form> </td>
+    </tr>
+    </table></td>
+    </tr>
+    </table></td>
+    <td> </td>
+    </tr>
+    </table></td>
+    </tr>
+    </table>
+    </form>
+    </body> 
