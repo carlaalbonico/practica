@@ -291,21 +291,28 @@
         
         <h1 class="mb-1 text-center">REGISTRAR PAGO:  </h1>
         <h3 class="mb-1 text-center">Seleccionar cuota a pagar:  </h3>
+        <form name="tablaRegistrarPago">
+                <table class="table" >
+                    <thead>
+                    <tr>
+                        <th scope="col">Mes</th>
+                        <th scope="col">Valor</th>
+                        <th scope="col">Fecha de Vencimiento</th>
+                        <th scope="col">Pagar</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tableRegistrarPago">
 
-        <table class="table" >
-            <thead>
-              <tr>
-                <th scope="col">Mes</th>
-                <th scope="col">Valor</th>
-                <th scope="col">Fecha de Vencimiento</th>
-                <th scope="col">Pagar</th>
-              </tr>
-            </thead>
-            <tbody id="tableRegistrarPago">
-        
-            </tbody>
+                       
+                        
+                    </tbody>
+                    <div>
+                        <p>TOTAL</p>
+                        <p id="precioTotal"></p>
+                    </div>
 
-          </table>
+                </table>
+        </form> 
             <div class="text-right">
                 <button class="btn btn-lg btn-primary" type="button" id="btnRegistrarPagoCuota" > Registrar pago</button>
             </div>

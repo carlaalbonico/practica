@@ -227,7 +227,7 @@ function retornoClickModificarSocio(respuesta){
     $('direccionSocioModificar').addEventListener("keyup", validarSocioModificar);
     $('telefonoSocioModificar').addEventListener("keyup",validarSocioModificar);
     $('btnModificarGuardar').addEventListener("click",clickGuardarModSocio);
-   
+    
 }
 function validarSocioModificar(){
     var ModNombre = $("nombreSocioModificar").value.length;
@@ -283,6 +283,7 @@ function clickRegistrarPago(){
 
    //manda a llamar a los estados de cuenta del socio
    enviarParametrosGET(miBackEnd + 'Cuota/'+idSocio,mostrarTablaRegistrarPago);  
+   checkbox.addEventListener('change', SumarTotal);
 }
 function mostrarTablaRegistrarPago(valor){
 
@@ -298,7 +299,7 @@ function mostrarTablaRegistrarPago(valor){
             '<th scope="row">'+element.mes+'</th>'+
             '<td>'+element.importe+'</td>'+
             '<td>'+element.fechaVencimiento+'</td>'+
-            '<td><input type="checkbox" name="checkBox" id=""></td>'+
+            '<td><input type="checkbox" name="checkBox" id="" value="'+element.importe+'"></td>'+
             
         '</tr>' );
         
@@ -309,8 +310,18 @@ function mostrarTablaRegistrarPago(valor){
 }
 function calcularTotalPago(){
     var checkboxes = document.getElementById("tableRegistrarPago").checkbox;
-   
 }
+
+    
+function SumarTotal() {
+    var Total = 0;
+    for(i = 0; i < document.form.opCheck.length;i++) {
+    if (document.form.checkBox.checked)
+    Total = parseFloat(Total) + parseFloat(document.form.checkBox.value);
+    }
+    
+    $('precioTotal').innerHTML = Total;
+    } 
 
 
 function clickGenerarCuota(){

@@ -4,6 +4,7 @@ addEventListener("load",load)
 //variable del servidor
 //var miBackEnd = '/practica/serv/';
 var miBackEnd = 'http://localhost:555/';
+// php -S localhost:555 -t app
 
 //DOM
 function $(nombre)
