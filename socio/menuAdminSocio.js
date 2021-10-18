@@ -54,7 +54,7 @@ function load(){
     document.getElementById("btnContinuarClase").addEventListener("click",clickContinuarTipoClase); 
     document.getElementById("botonAtras").addEventListener("click",atras);
     document.getElementById('btnEnviarInscripcion').addEventListener("click",clickEnviarInscripcion); 
-    
+    document.getElementById('checkBox').addEventListener('change', SumarTotal);
     document.getElementById('btnRegistrarPagoCuota').addEventListener("click",calcularTotalPago); 
     //close del mensaje 
     document.getElementById("btnClose").addEventListener("click",oculta);
@@ -283,7 +283,7 @@ function clickRegistrarPago(){
 
    //manda a llamar a los estados de cuenta del socio
    enviarParametrosGET(miBackEnd + 'Cuota/'+idSocio,mostrarTablaRegistrarPago);  
-   checkbox.addEventListener('change', SumarTotal);
+   
 }
 function mostrarTablaRegistrarPago(valor){
 
@@ -299,7 +299,7 @@ function mostrarTablaRegistrarPago(valor){
             '<th scope="row">'+element.mes+'</th>'+
             '<td>'+element.importe+'</td>'+
             '<td>'+element.fechaVencimiento+'</td>'+
-            '<td><input type="checkbox" name="checkBox" id="" value="'+element.importe+'"></td>'+
+            '<td><input type="checkbox" name="checkBox" id="checkBox" value="'+element.importe+'"></td>'+
             
         '</tr>' );
         
