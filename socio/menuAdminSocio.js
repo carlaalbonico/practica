@@ -54,8 +54,9 @@ function load(){
     document.getElementById("btnContinuarClase").addEventListener("click",clickContinuarTipoClase); 
     document.getElementById("botonAtras").addEventListener("click",atras);
     document.getElementById('btnEnviarInscripcion').addEventListener("click",clickEnviarInscripcion); 
-    document.getElementById('checkBox').addEventListener('change', SumarTotal);
+    
     document.getElementById('btnRegistrarPagoCuota').addEventListener("click",calcularTotalPago); 
+    document.getElementById('total').addEventListener('click', SumarTotal);
     //close del mensaje 
     document.getElementById("btnClose").addEventListener("click",oculta);
     $('btnConsultarSocio').disabled=true;
@@ -308,18 +309,26 @@ function mostrarTablaRegistrarPago(valor){
     $('tableRegistrarPago').innerHTML=opciones;
     
 }
+
 function calcularTotalPago(){
     var checkboxes = document.getElementById("tableRegistrarPago").checkbox;
+    var Total = 0;
+    for(i = 0; i < checkboxes.length;i++) {
+    if (checkboxes.checked)
+    Total = parseFloat(Total) + parseFloat(checkboxes.value);
+    }
+    alert(total); 
+    $('precioTotal').innerHTML = Total;
+   
 }
-
     
 function SumarTotal() {
     var Total = 0;
-    for(i = 0; i < document.form.opCheck.length;i++) {
+    for(i = 0; i < document.form.checkBox.length;i++) {
     if (document.form.checkBox.checked)
     Total = parseFloat(Total) + parseFloat(document.form.checkBox.value);
     }
-    
+    alert(total); 
     $('precioTotal').innerHTML = Total;
     } 
 
