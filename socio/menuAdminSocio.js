@@ -214,7 +214,6 @@ function retornoClickModificarSocio(respuesta){
     oculta('cartel');
     oculta('botonesAdminParaUnSocio');
     oculta('registrarPago'); 
-    
     oculta('estadoDeuda');
     oculta('inscribirSocioClase');
     muestra('formularioModificarSocio'); 

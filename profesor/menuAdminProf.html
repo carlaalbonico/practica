@@ -80,6 +80,7 @@
                 
                     <button class="btn btn-lg btn-primary" type="button" id="btnConsultarProf" >Consultar Profesor</button>
                     <button class="btn btn-lg btn-primary" type="button" id="btnRegistrarProf" >Registrar Profesor</button>
+                    <button class="btn btn-lg btn-primary" type="button" id="btnEspecialidad" >Especialidades</button>
                 
                 
             </main>
@@ -116,12 +117,12 @@
     </div>    
 
 
-    <div id="botonesAdminParaUnProf" class="form-menu">
+    <div id="datosParaUnProf" class="form-menu">
         
         <div class="row">
             
 
-            <div class="col-md-8 order-md-2 mb-4">
+            <div class="col-md-8 order-md-1 mb-4">
                 <h4 class="d-flex justify-content-between align-items-center mb-3">
                     <span class="text-muted">DATOS</span>
                 </h4>
@@ -184,12 +185,18 @@
         
                 
             </div>
+            <div class="col-md-4 order-md-2 mb-4" id="clasesACargo">
+                <h1 class="mb-1 text-center">Clases a Cargo: </h1>
+                <div class="form-boton text-center">
+                    <form name="tablaClasesACargo"></form>
+                </div>
+            </div>
         </div>
 
     
     </div>
 
-
+    
 
     <form id="formularioModificarProf" class="form-menu">
         <div class="row justify-content-center">
@@ -246,6 +253,11 @@
         </div>
         
     </form>
+    <div id="ordenadoPorEspecialidad" class="form-menu">
+        
+        
+    </div>
+    
 
 
     <div id="cartel" class="alert alert-dark alert-dismissible fade show" role="alert">

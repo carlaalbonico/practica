@@ -15,9 +15,12 @@ function load(){
 
     muestra('botonesAdminProf'); 
     oculta('menuConsultarProf');
-    oculta('botonesAdminParaUnProf'); 
+    oculta('datosParaUnProf'); 
     oculta('formularioModificarProf'); 
+    oculta('ordenadoPorEspecialidad'); 
     oculta('cartel');
+    
+
     //boton para cerrar sesion 
     document.getElementById("logOut").addEventListener("click",cerrarSesion);
     //boton para perfil usuario logueado
@@ -74,7 +77,6 @@ function oculta(id){
     }
 
 }
-
 function atras(){ }
 
 
@@ -82,16 +84,19 @@ function atras(){ }
 function clickConsultarProf(){//oculta la botonera y visualiza el campo para escribir el email 
     oculta('botonesAdminProf'); 
     muestra('menuConsultarProf'); 
-    //enviarMensajeAlServidor("/Provincias/Backend/", cargarOpcionesProvincia);
-   
-    //enviarParametrosGET(miBackEnd + 'Socio',retornoDelClick);
+    oculta('datosParaUnProf'); 
+    oculta('formularioModificarProf'); 
+    oculta('ordenadoPorEspecialidad'); 
+    oculta('cartel');
+    
 }
 function clickBuscarProf(){
-    $('btnConsultarProf').disabled=false;
+    //$('btnConsultarProf').disabled=false;
     enviarParametrosGET(miBackEnd + 'Profesor',cargarOpcionesConsultarProf); 
 }
 
 function cargarOpcionesConsultarProf(nroProf){
+    $('btnConsultarProf').disabled = true;
     var nombreBuscar = document.getElementById('txtNombreBuscar').value;
     var profes= JSON.parse(nroProf);
     console.log(profes);
@@ -102,32 +107,38 @@ function cargarOpcionesConsultarProf(nroProf){
     }); 
     
     
-    var opciones = ['<option value=0>Seleccione un profesor</option>']
+    var opciones = []
 
     profesFiltrados.forEach(element => {
         opciones.push('<option value="' + element.legajo + '">' + element.nombre +' '+ element.apellido + '</option>');
     });
     
     $("slctDatosProf").innerHTML = opciones;
+
+    var validarSlctSocio = document.getElementById("slctDatosProf").value;
+    if( validarSlctSocio != '' ){
+        $('btnConsultarProf').disabled = false;
+    }
 }
 
 
 function clickConsultarProf2(){
-    
-    //enviarMensajeAlServidor("/Provincias/Backend/?provincia="+ valorProvincia,cargarOpcionesLocalidad);
     var legajo= document.getElementById("slctDatosProf").value; 
     
-    enviarParametrosGET(miBackEnd + 'Profesor/'+legajo, retornoDelClickConsultarProf2);
     
+    //pide datos para completar datos del profesor
+    enviarParametrosGET(miBackEnd + 'Profesor/'+legajo, retornoDelClickConsultarProf2);
+    //pide datos para completar el cuadro del costado de los datos del profesor FALTA
+    enviarParametrosGET(miBackEnd + 'Profesor/Clase/'+legajo, retornoDelClickConsultarClasesXProf);
 }
  
 function retornoDelClickConsultarProf2(respuesta){
-    oculta('cartel');
-
-    muestra('botonesAdminParaUnProf'); 
-    oculta('menuConsultarProf'); 
-    oculta('formularioModificarProf'); 
     oculta('botonesAdminProf'); 
+    oculta('menuConsultarProf'); 
+    muestra('datosParaUnProf'); 
+    oculta('formularioModificarProf'); 
+    oculta('ordenadoPorEspecialidad'); 
+    oculta('cartel');
 
     var profe = JSON.parse(respuesta);
     $("legajoProf").innerHTML = profe.legajo;
@@ -148,22 +159,27 @@ function retornoDelClickConsultarProf2(respuesta){
     }
      
 }
+function retornoDelClickConsultarClasesXProf(){
+
+}
 function clickModificarProf(){
 
     //enviarMensajeAlServidor("/Provincias/Backend/?provincia="+ valorProvincia,cargarOpcionesLocalidad);
-    var idProfMod= document.getElementById("slctDatosProf").value; 
+    var legajo= document.getElementById("slctDatosProf").value; 
     
-    enviarParametrosGET(miBackEnd + 'Socio/'+idProfMod, retornoDelClickModificarProf);
+    enviarParametrosGET(miBackEnd + 'Profesor/'+legajo, retornoDelClickModificarProf);
    
 }
 function retornoDelClickModificarProf(respuesta){
-    oculta('cartel');
-    oculta('botonesAdminParaUnProf');
+    oculta('botonesAdminProf'); 
+    oculta('menuConsultarProf'); 
+    oculta('datosParaUnProf'); 
     muestra('formularioModificarProf'); 
+    oculta('ordenadoPorEspecialidad'); 
+    oculta('cartel');
     
      
     var profMod = JSON.parse(respuesta);
-    
     
    $("nombreProfModificar").value = profMod["nombre"];
    $("apellidoProfModificar").value = profMod["apellido"];
@@ -193,7 +209,20 @@ function validarProfModificar(){
     }
 
 }
+
+function clickGuardarModSocio(){
+    var legajo= document.getElementById("slctDatosProf").value; 
+    
+    enviarParametrosPOSTActualizar(miBackEnd + 'Profesor/'+legajo, retornoDelServMod);
+
+}
+
+function retornoDelServMod(respuesta){
+    $("respuesta").innerHTML=respuesta;
+}
+
 function clickBorrarProf(legajo){
+
     if(confirm('¿Esta seguro que desea borrar a este profesor?')){
         //pasar los parametros para borrar 
         //enviarParametrosGET(miBackEnd + 'Profesor/'+idProfMod, retornoDelClickBorrarProf);  
@@ -210,6 +239,17 @@ function clickRegistrarProf(){
     window.location.assign("http://localhost/practica/profesor/registrarProfe.html");//aca va el enlace de la pagina registrar; 
 }
 
+
+function clickOrdenadoPorEsp(){
+    oculta('botonesAdminProf'); 
+    oculta('menuConsultarProf'); 
+    oculta('datosParaUnProf'); 
+    oculta('formularioModificarProf'); 
+    muestra('ordenadoPorEspecialidad'); 
+    oculta('cartel');
+    //para el boton del principio 
+    //Profesor/Esp por post
+}
 
 function enviarParametrosGET(servidor,funcionARealizar){
 
@@ -236,14 +276,54 @@ function enviarParametrosGET(servidor,funcionARealizar){
     xmlhttp.send();
 }
 
-function enviarParametrosPOST(servidor, funcionARealizar){
+function enviarParametrosPOSTEsp(servidor, funcionARealizar){
 
     //declaro el objeto
     var xmlhttp = new XMLHttpRequest(); 
 
     //agrega datos para pasar por POST
     var datos = new FormData();
-    datos.append("email",$("txtEmail").value);
+    datos.append('especialidad',$("txtEmail").value);
+   
+
+    //indico hacia donde va el mensaje
+    xmlhttp.open ("POST", servidor, true); 
+
+    //seteo el evento
+    xmlhttp.onreadystatechange = function(){
+        //veo si llego la respuesta del servidor
+        if(xmlhttp.readyState==XMLHttpRequest.DONE){
+            //reviso si la respuesta del servidor es la correcta
+            if(xmlhttp.status==200){
+                funcionARealizar(xmlhttp.response);
+            }else{
+                alert("ocurrio un error");
+            };
+        }
+    }
+    //esto va siempre cuando se hace un formulario
+    xmlhttp.setRequestHeader("enctype","multipart/form-data");
+
+    //envio el mensaje 
+    xmlhttp.send(datos);
+
+
+}
+
+function enviarParametrosPOSTActualizar(servidor, funcionARealizar){
+
+    //declaro el objeto
+    var xmlhttp = new XMLHttpRequest(); 
+   
+
+    //agrega datos para pasar por POST
+    var datos = new FormData();
+    datos.append('nombre',$('nombreProfModificar').value);
+    datos.append('apellido',$('apellidoProfModificar').value);
+    datos.append('direccion',$('direccionProfModificar').value);
+    datos.append('telefono',$('telefonoProfModificar').value);
+    datos.append('especialidad',$('especialidadProfModificar').value);
+
    
 
     //indico hacia donde va el mensaje
