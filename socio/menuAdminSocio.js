@@ -21,7 +21,6 @@ function load(){
     oculta('formularioChico');
     oculta('inscribirSocioClase'); 
     oculta('registrarPago'); 
-    oculta('generarCuota'); 
     oculta('estadoDeuda');
     oculta('botonAtras');
     
@@ -106,7 +105,7 @@ function atras(){
     oculta('formularioModificarSocio'); 
     oculta('formularioChico');
     oculta('registrarPago'); 
-    oculta('generarCuota');
+    
     oculta('estadoDeuda');
     oculta('inscribirSocioClase');
     oculta('botonAtras');
@@ -124,11 +123,12 @@ function menuConsultarSocio(){//oculta la botonera y visualiza el campo para esc
   
 }
 function clickBuscar(){
-    $('btnConsultarSocio').disabled=false;
+   // $('btnConsultarSocio').disabled=false;
     enviarParametrosGET(miBackEnd + 'Socio',cargarOpcionesConsultar); 
 }
 
 function cargarOpcionesConsultar(nroSocio){
+    $('btnConsultarSocio').disabled=true;
     var nombreBuscar = document.getElementById('txtNombreBuscar').value;
     var socios = JSON.parse(nroSocio);
     console.log(socios);
@@ -139,13 +139,18 @@ function cargarOpcionesConsultar(nroSocio){
     }); 
     
     
-    var opciones = ['<option value=0>Seleccione un socio</option>']
+    var opciones = []
 
     sociosFiltrados.forEach(element => {
         opciones.push('<option value="' + element.nroSocio + '">' + element.nombre +' '+ element.apellido + '</option>');
     });
     
     $("slctSocio").innerHTML = opciones;
+
+    var validarSlctSocio = document.getElementById("slctSocio").value;
+    if( validarSlctSocio != '' ){
+        $('btnConsultarSocio').disabled = false;
+    }
 }
 
 
@@ -173,7 +178,7 @@ function retornoClickConsultarSocio(respuesta){
     oculta('formularioModificarSocio'); 
     oculta('formularioChico');
     oculta('registrarPago'); 
-    oculta('generarCuota');
+    
     oculta('estadoDeuda');
     oculta('inscribirSocioClase');
     oculta('botonAtras');
@@ -209,7 +214,7 @@ function retornoClickModificarSocio(respuesta){
     oculta('cartel');
     oculta('botonesAdminParaUnSocio');
     oculta('registrarPago'); 
-    oculta('generarCuota');
+    
     oculta('estadoDeuda');
     oculta('inscribirSocioClase');
     muestra('formularioModificarSocio'); 
@@ -238,7 +243,7 @@ function validarSocioModificar(){
     var ModTelefono = $("telefonoSocioModificar").value.length;
 
     if( ModNombre >=2 && ModApellido >=2  && ModDireccion >=2 && ModTelefono >=8){
-        $('btnModificarGuardar').disabled = false;
+        $('btnModificarGuardar').disabled = false;//habilitar
     }else{
         $('btnModificarGuardar').disabled = true;
     }
@@ -256,10 +261,27 @@ function respuestaDeServidorMod(respuesta){
 }
 
 function clickBorrarSocio(){
+    var nroSocio= document.getElementById("slctSocio").value;
+    
     if(confirm('¿Esta seguro que desea borrar a este socio?')){
         //pasar los parametros para borrar 
-        //enviarParametrosGET(miBackEnd + 'Socio/'+idProfMod, retornoDelClickBorrarProf);  
+
+        enviarParametrosPOSTBorrar(miBackEnd + 'Socio/Borrar/'+nroSocio,respuestaDeServidorBorrar)
     }
+}
+function respuestaDeServidorBorrar(respuesta){
+    muestra('cartel');
+    $("respuesta").innerHTML=respuesta;
+
+    muestra('botonesAdmin'); 
+    oculta('consultarSocio'); 
+    oculta('botonesAdminParaUnSocio'); 
+    oculta('formularioModificarSocio'); 
+    oculta('formularioChico');
+    oculta('inscribirSocioClase'); 
+    oculta('registrarPago'); 
+    oculta('estadoDeuda');
+    oculta('botonAtras');
 }
 
 function cargarFormularioChico(respuesta){
@@ -274,7 +296,7 @@ function clickRegistrarPago(){
     oculta('formularioModificarSocio'); 
     muestra('formularioChico');
     muestra('registrarPago'); 
-    oculta('generarCuota');
+    
     oculta('estadoDeuda');
     oculta('inscribirSocioClase');
     muestra('botonAtras');
@@ -289,7 +311,7 @@ function clickRegistrarPago(){
 }
 function mostrarTablaRegistrarPago(valor){
 
-   
+    $('btnRegistrarPagoCuota').disabled = true;
     var analiza =JSON.parse(valor); 
     console.log(analiza); 
 
@@ -322,15 +344,20 @@ function calcularTotalPago(){
        }
     });
 
-   
     $('precioTotal').innerHTML = Total;
-   
+    var validarTotal = document.getElementById('precioTotal').value;
+    if( validarTotal != 0 ){
+        $('btnRegistrarPagoCuota').disabled = false;
+    }
 }
 function clickRegistrarPagoCuota(){
+
     enviarParametrosPOSTPago(miBackEnd + 'Pago', respuestaDeServidorPago);
+    alert('se mando'); 
+
 }
 function respuestaDeServidorPago(respuesta){
-    
+    alert('llego'); 
     $("respuestaPago").innerHTML=respuesta;
 } 
 
@@ -340,12 +367,17 @@ function clickGenerarCuota(){
     oculta('botonesAdminParaUnSocio');
     oculta('formularioModificarSocio'); 
     oculta('registrarPago'); 
-    muestra('formularioChico');
-    muestra('generarCuota');
+    oculta('formularioChico');
+    
     oculta('estadoDeuda');
     oculta('inscribirSocioClase');
-    muestra('botonAtras');
+    oculta('botonAtras');
     //hay que arreglarlo
+
+    enviarParametrosGET(miBackEnd + 'Cuota',function(){
+        muestra('cartel')
+        $("respuesta").innerHTML='Se generaron las cuotas para los clientes'; 
+    });
 }
 
 function clickEstadoDeuda(){
@@ -353,7 +385,7 @@ function clickEstadoDeuda(){
     oculta('botonesAdminParaUnSocio');
     oculta('formularioModificarSocio'); 
     oculta('registrarPago'); 
-    oculta('generarCuota');
+    
     muestra('formularioChico');
     muestra('estadoDeuda');
     oculta('inscribirSocioClase');
@@ -401,7 +433,7 @@ function clickInscribirSocioClase(){
     oculta('botonesAdminParaUnSocio');
     oculta('formularioModificarSocio'); 
     oculta('registrarPago'); 
-    oculta('generarCuota');
+    
     oculta('estadoDeuda');
     muestra('formularioChico');
     muestra('inscribirSocioClase');
@@ -570,6 +602,39 @@ function enviarParametrosPOSTInscribir(servidor, funcionARealizar){
     var datos = new FormData();
     datos.append("nroSocio",$("slctSocio").value);
     datos.append("idClase",$("slctNumClase").value);
+   
+
+    //indico hacia donde va el mensaje
+    xmlhttp.open ("POST", servidor, true); 
+
+    //seteo el evento
+    xmlhttp.onreadystatechange = function(){
+        //veo si llego la respuesta del servidor
+        if(xmlhttp.readyState==XMLHttpRequest.DONE){
+            //reviso si la respuesta del servidor es la correcta
+            if(xmlhttp.status==200){
+                funcionARealizar(xmlhttp.response);
+            }else{
+                alert("ocurrio un error");
+            };
+        }
+    }
+    //esto va siempre cuando se hace un formulario
+    xmlhttp.setRequestHeader("enctype","multipart/form-data");
+
+    //envio el mensaje 
+    xmlhttp.send(datos);
+
+}
+function enviarParametrosPOSTBorrar(servidor, funcionARealizar){
+
+    //declaro el objeto
+    var xmlhttp = new XMLHttpRequest(); 
+
+    //agrega datos para pasar por POST
+    var datos = new FormData();
+    datos.append("nroSocio",$("slctSocio").value);
+    
    
 
     //indico hacia donde va el mensaje
