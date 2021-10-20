@@ -159,8 +159,29 @@ function retornoDelClickConsultarProf2(respuesta){
     }
      
 }
-function retornoDelClickConsultarClasesXProf(){
+function retornoDelClickConsultarClasesXProf(valor){
+    var analiza =JSON.parse(valor); 
+    console.log(analiza); 
 
+    var opciones=[]; 
+
+
+    analiza.forEach(element => {
+        opciones.push('<tr >'+
+        '<th scope="row">'+element.idClase+'</th>'+
+        '<td>'+element.nombre+'</td>'+
+        '<td>'+element.dias+'</td>'+
+        '<td>'+element.horaDeInicio+'</td>'+
+        '<td>'+element.horaDeFin+'</td>'+
+        '<td>'+element.salon+'</td>'+
+        '<td>'+element.cupos+'</td>'+
+        '</tr>' );
+        
+    });
+
+  
+
+    $('tableClasesACargo').innerHTML=opciones;
 }
 function clickModificarProf(){
 
