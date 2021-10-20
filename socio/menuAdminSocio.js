@@ -55,8 +55,9 @@ function load(){
     document.getElementById("botonAtras").addEventListener("click",atras);
     document.getElementById('btnEnviarInscripcion').addEventListener("click",clickEnviarInscripcion); 
     
-    document.getElementById('btnRegistrarPagoCuota').addEventListener("click",calcularTotalPago); 
-    document.getElementById('total').addEventListener('click', SumarTotal);
+    document.getElementById('btnRegistrarPagoCuota').addEventListener("click",clickRegistrarPagoCuota); 
+    document.getElementById ('tableRegistrarPago').addEventListener('change',calcularTotalPago); 
+    
     //close del mensaje 
     document.getElementById("btnClose").addEventListener("click",oculta);
     $('btnConsultarSocio').disabled=true;
@@ -300,7 +301,7 @@ function mostrarTablaRegistrarPago(valor){
             '<th scope="row">'+element.mes+'</th>'+
             '<td>'+element.importe+'</td>'+
             '<td>'+element.fechaVencimiento+'</td>'+
-            '<td><input type="checkbox" name="checkBox" id="checkBox" value="'+element.importe+'"></td>'+
+            '<td><input type="checkbox" name="checkBox" class="importes" id="checkBox" value="'+element.importe+'"></td>'+
             
         '</tr>' );
         
@@ -311,26 +312,27 @@ function mostrarTablaRegistrarPago(valor){
 }
 
 function calcularTotalPago(){
-    var checkboxes = document.getElementById("tableRegistrarPago").checkbox;
+    var checkboxes = document.querySelectorAll(".importes");
     var Total = 0;
-    for(i = 0; i < checkboxes.length;i++) {
-    if (checkboxes.checked)
-    Total = parseFloat(Total) + parseFloat(checkboxes.value);
-    }
-    alert(total); 
+     
+    checkboxes.forEach((element)=>{
+       if(element.checked==true){
+        
+        Total = parseFloat(Total) + parseFloat(element.value);
+       }
+    });
+
+   
     $('precioTotal').innerHTML = Total;
    
 }
+function clickRegistrarPagoCuota(){
+    enviarParametrosPOSTPago(miBackEnd + 'Pago', respuestaDeServidorPago);
+}
+function respuestaDeServidorPago(respuesta){
     
-function SumarTotal() {
-    var Total = 0;
-    for(i = 0; i < document.form.checkBox.length;i++) {
-    if (document.form.checkBox.checked)
-    Total = parseFloat(Total) + parseFloat(document.form.checkBox.value);
-    }
-    alert(total); 
-    $('precioTotal').innerHTML = Total;
-    } 
+    $("respuestaPago").innerHTML=respuesta;
+} 
 
 
 function clickGenerarCuota(){
@@ -568,6 +570,39 @@ function enviarParametrosPOSTInscribir(servidor, funcionARealizar){
     var datos = new FormData();
     datos.append("nroSocio",$("slctSocio").value);
     datos.append("idClase",$("slctNumClase").value);
+   
+
+    //indico hacia donde va el mensaje
+    xmlhttp.open ("POST", servidor, true); 
+
+    //seteo el evento
+    xmlhttp.onreadystatechange = function(){
+        //veo si llego la respuesta del servidor
+        if(xmlhttp.readyState==XMLHttpRequest.DONE){
+            //reviso si la respuesta del servidor es la correcta
+            if(xmlhttp.status==200){
+                funcionARealizar(xmlhttp.response);
+            }else{
+                alert("ocurrio un error");
+            };
+        }
+    }
+    //esto va siempre cuando se hace un formulario
+    xmlhttp.setRequestHeader("enctype","multipart/form-data");
+
+    //envio el mensaje 
+    xmlhttp.send(datos);
+
+}
+function enviarParametrosPOSTPago(servidor, funcionARealizar){
+
+    //declaro el objeto
+    var xmlhttp = new XMLHttpRequest(); 
+
+    //agrega datos para pasar por POST
+    var datos = new FormData();
+    datos.append("importe",$("precioTotal").value);
+    
    
 
     //indico hacia donde va el mensaje
