@@ -23,6 +23,17 @@ function oculta(){
     }
 
 }
+function muestra(id){
+    if (document.getElementById){ //se obtiene el id
+    var el = document.getElementById(id); //se define la variable "el" igual a nuestro div
+
+    el.style.display = (el.style.display == 'block') ? 'none' : 'block'; 
+        //if (el.style.display === 'none') {
+        //el.style.display = 'block';
+        //} //damos un atributo display:none que oculta el div
+    }
+
+}
 
 function comprobarCorreo(){
     var Email = $('txtEmail').value;
