@@ -322,7 +322,7 @@ function mostrarTablaRegistrarPago(valor){
             '<th scope="row">'+element.mes+'</th>'+
             '<td>'+element.importe+'</td>'+
             '<td>'+element.fechaVencimiento+'</td>'+
-            '<td><input type="checkbox" name="checkBox" class="importes" id="checkBox" value="'+element.importe+'"></td>'+
+            '<td><input type="checkbox" name="checkBox" class="importes" id="" value="'+element.importe+'"></td>'+
             
         '</tr>' );
         
