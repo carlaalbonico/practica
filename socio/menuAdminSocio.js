@@ -12,7 +12,7 @@ function $(nombre)
 
 
 function load(){
-
+    $('btnGenerarCuota').disabled = true;
     //para ocultar los menus
     muestra('botonesAdmin'); 
     oculta('consultarSocio'); 
@@ -221,8 +221,6 @@ function retornoClickModificarSocio(respuesta){
     muestra('botonAtras');
     var socioMod = JSON.parse(respuesta);
     
-   
-    
     $("nombreSocioModificar").value = socioMod["nombre"];
     $("apellidoSocioModificar").value = socioMod["apellido"];
     $("direccionSocioModificar").value = socioMod["direccion"];
@@ -322,7 +320,7 @@ function mostrarTablaRegistrarPago(valor){
             '<th scope="row">'+element.mes+'</th>'+
             '<td>'+element.importe+'</td>'+
             '<td>'+element.fechaVencimiento+'</td>'+
-            '<td><input type="checkbox" name="checkBox" class="importes" id="checkBox" value="'+element.importe+'"></td>'+
+            '<td><input type="checkbox" name="checkBox" class="importes" id="'+element.idCuota+'" value="'+element.importe+'"></td>'+
             
         '</tr>' );
         
@@ -335,15 +333,17 @@ function mostrarTablaRegistrarPago(valor){
 function calcularTotalPago(){
     var checkboxes = document.querySelectorAll(".importes");
     var Total = 0;
-     
+    let checked = [];
     checkboxes.forEach((element)=>{
        if(element.checked==true){
-        
+        checked.push(element.id);
         Total = parseFloat(Total) + parseFloat(element.value);
        }
     });
-
+    
+    
     $('precioTotal').innerHTML = Total;
+
     var validarTotal = document.getElementById('precioTotal').value;
     if( validarTotal != 0 ){
         $('btnRegistrarPagoCuota').disabled = false;
@@ -352,11 +352,12 @@ function calcularTotalPago(){
 function clickRegistrarPagoCuota(){
 
     enviarParametrosPOSTPago(miBackEnd + 'Pago', respuestaDeServidorPago);
-    alert('se mando'); 
-
+    
+  
+   
 }
 function respuestaDeServidorPago(respuesta){
-    alert('llego'); 
+    
     $("respuestaPago").innerHTML=respuesta;
 } 
 
@@ -659,14 +660,34 @@ function enviarParametrosPOSTBorrar(servidor, funcionARealizar){
 
 }
 function enviarParametrosPOSTPago(servidor, funcionARealizar){
+    var checkboxes = document.querySelectorAll(".importes");
+    var Total = 0;
+    let checked = [];
+    checkboxes.forEach((element)=>{
+       if(element.checked==true){
+        checked.push(element.id);
+        Total = parseFloat(Total) + parseFloat(element.value);
+       }
+    });
+    console.log(checked);
+    var myJSON = JSON.stringify(checked);
+    
+    console.log(myJSON); 
+   
+    $('precioTotal').value = Total;
 
+    console.log($("precioTotal").value); 
+    
+    
     //declaro el objeto
     var xmlhttp = new XMLHttpRequest(); 
 
     //agrega datos para pasar por POST
     var datos = new FormData();
-    datos.append("importe",$("precioTotal").value);
-    
+    console.log(Total); 
+    datos.append("importe",Total);
+    console.log(myJSON); 
+    datos.append("cuotas",myJSON);
    
 
     //indico hacia donde va el mensaje
