@@ -19,7 +19,7 @@ function load(){
 
     document.getElementById("btnClose").addEventListener("click",oculta);
     // preguntar por el email! 
-    
+    $('txtNewEmailProf').addEventListener("change", comprobarCorreo);
     $('txtNewNombreProf').addEventListener("keyup", validarCampos);
     $('txtNewApellidoProf').addEventListener("keyup", validarCampos);
     $('txtNewDireccionProf').addEventListener("keyup", validarCampos);
@@ -54,8 +54,63 @@ function cerrarSesion() {
 function mostrarPerfil(){
     window.location.assign("http://localhost/practica/perfilUsuario.html");
 }
+function comprobarCorreo(){
+    var NewEmail = $('txtNewEmailProf').value;
+    var pattEmail = new RegExp(/^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/);
+    var testEmail = pattEmail.test(NewEmail);
 
+    if( testEmail ){
+        $('btnGuardarProf').disabled = false;
+        comprobarCorreoEnServidor(miBackEnd + "Usuario/Correo", respuestaDeComprobacion);
+    }else{
+        $('btnGuardarProf').disabled = true;
+        $("respuesta").style.color = 'red';
+        $('respuesta').innerHTML = "Correo electrónico incompleto";
+    }
+}
+function respuestaDeComprobacion(respuesta){
+    if(respuesta == "Correo duplicado"){
+        $("respuesta").style.color = 'red';
+        $("respuesta").innerHTML = respuesta;
+        $("txtNewNombreProf").disabled = true;
+        $("txtNewApellidoProf").disabled = true;
+        $("txtNewDireccionProf").disabled = true;
+        $("txtNewTelefonoProf").disabled = true;
+        $("txtNewEspProf").disabled = true;
+        $('btnGuardarProf').disabled = true;
+    }
+    else{
+        $("txtNewNombreProf").disabled = false;
+        $("txtNewApellidoProf").disabled = false;
+        $("txtNewDireccionProf").disabled = false;
+        $("txtNewTelefonoProf").disabled = false;
+        $("txtNewEspProf").disabled = false;
+        $("respuesta").style.color = 'green';
+        $("respuesta").innerHTML = respuesta;
+    }
+}
 
+function comprobarCorreoEnServidor(servidor, funcionARealizar){
+    var xmlhttp = new XMLHttpRequest(); 
+
+    var datos = new FormData();
+    datos.append("email",$("txtNewEmailProf").value);
+
+    xmlhttp.open ("POST", servidor, true); 
+
+    xmlhttp.onreadystatechange = function(){
+        
+        if(xmlhttp.readyState==XMLHttpRequest.DONE){
+            if(xmlhttp.status==200){
+                funcionARealizar(xmlhttp.response);
+            }else{
+                alert("Ocurrió un error");
+            };
+        }
+    }
+    xmlhttp.setRequestHeader("enctype","multipart/form-data");
+    xmlhttp.send(datos);
+}
 
 function validarCampos(){
     var NewNombre = $("txtNewNombreProf").value.length;
@@ -64,7 +119,7 @@ function validarCampos(){
     var NewTelefono = $("txtNewTelefonoProf").value.length;
     var NewEspecialidad = $("txtNewEspProf").value.length;
     
-    if( NewNombre >=2 && NewApellido >=2  && NewDireccion >=2 && NewTelefono >=8 && NewEspecialidad>=8  ){
+    if( NewNombre >=2 && NewApellido >=2  && NewDireccion >=2 && NewTelefono >=8 && NewEspecialidad>=3 ){
         $('btnGuardarProf').disabled = false;
     }else{
         $('btnGuardarProf').disabled = true;
@@ -73,12 +128,19 @@ function validarCampos(){
 
 function click(){
     $("btnGuardarProf").disabled=true;
-    enviarInfoDeSocio(miBackEnd + 'Profesor/Registro', respuestaDeServidor);
+    enviarInfoDeProf(miBackEnd + 'Profesor/Registro', respuestaDeServidor);
 }
 
 function respuestaDeServidor(respuesta){
-    var objetoProf = JSON.parse(respuesta);
+   
     $("respuesta").innerHTML=respuesta;
+        $("txtNewEmailProf").value='';
+        $("txtNewNombreProf").value='';
+        $("txtNewApellidoProf").value='';
+        $("txtNewDireccionProf").value='';
+        $("txtNewTelefonoProf").value='';
+        $("txtNewEspProf").value='';
+        $('btnGuardarProf').disabled = false;
 }
 
 function enviarInfoDeProf(servidor, funcionARealizar){
@@ -88,7 +150,7 @@ function enviarInfoDeProf(servidor, funcionARealizar){
 
     //agrega datos para pasar por POST
     var datos = new FormData();
-   
+    datos.append("email",$("txtNewEmailProf").value);
     datos.append("nombre",$("txtNewNombreProf").value);
     datos.append("apellido",$("txtNewApellidoProf").value);
     datos.append("direccion",$("txtNewDireccionProf").value);

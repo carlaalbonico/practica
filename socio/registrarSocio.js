@@ -67,6 +67,7 @@ function respuestaDeComprobacion(respuesta){
         $("txtNewApellido").disabled = true;
         $("txtNewDireccion").disabled = true;
         $("numNewTelefono").disabled = true;
+        $('btnGuardar').disabled = true;
     }
     else{
         $("txtNewNombre").disabled = false;
@@ -127,8 +128,14 @@ function click(){
 }
 
 function respuestaDeServidor(respuesta){
-    var objetoUsuario = JSON.parse(respuesta);
+    
     $("respuesta").innerHTML=respuesta;
+    $("txtNewEmail").value='';
+    $("txtNewNombre").value='';
+    $("txtNewApellido").value='';
+    $("txtNewDireccion").value='';
+    $("numNewTelefono").value='';
+    $('btnGuardar').disabled = false;
 }
 
 function enviarInfoDeSocio(servidor, funcionARealizar){
