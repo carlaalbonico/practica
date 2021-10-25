@@ -15,6 +15,7 @@ function load(){
     //boton para perfil usuario logueado
     document.getElementById("perfil").addEventListener("click",mostrarPerfil);
     
+    document.getElementById("botonAtras").addEventListener("click",atras);
 
     document.getElementById("btnClose").addEventListener("click",oculta);
     
@@ -43,6 +44,9 @@ function cerrarSesion() {
 function mostrarPerfil(){
     window.location.assign("http://localhost/practica/perfilUsuario.html");
 }
+function atras(){
+    window.location.assign("http://localhost/practica/socio/menuAdminSocio.html");//aca va el enlace de la pagina registrar; 
+}
 
 function comprobarCorreo(){
     var NewEmail = $('txtNewEmail').value;
@@ -67,6 +71,7 @@ function respuestaDeComprobacion(respuesta){
         $("txtNewApellido").disabled = true;
         $("txtNewDireccion").disabled = true;
         $("numNewTelefono").disabled = true;
+        $('btnGuardar').disabled = true;
     }
     else{
         $("txtNewNombre").disabled = false;
@@ -127,8 +132,14 @@ function click(){
 }
 
 function respuestaDeServidor(respuesta){
-    var objetoUsuario = JSON.parse(respuesta);
+    
     $("respuesta").innerHTML=respuesta;
+    $("txtNewEmail").value='';
+    $("txtNewNombre").value='';
+    $("txtNewApellido").value='';
+    $("txtNewDireccion").value='';
+    $("numNewTelefono").value='';
+    $('btnGuardar').disabled = false;
 }
 
 function enviarInfoDeSocio(servidor, funcionARealizar){

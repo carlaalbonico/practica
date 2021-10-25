@@ -19,6 +19,7 @@ function load(){
     oculta('formularioModificarProf'); 
     oculta('ordenadoPorEspecialidad'); 
     oculta('cartel');
+    oculta('botonAtras');
     
 
     //boton para cerrar sesion 
@@ -40,7 +41,8 @@ function load(){
     document.getElementById("btnModificarProf").addEventListener("click",clickModificarProf);
     
     document.getElementById("btnBorrarProf").addEventListener("click",clickBorrarProf);
-
+   
+    document.getElementById("botonAtras").addEventListener("click",atras);
 }
 
 function cerrarSesion() {
@@ -77,9 +79,19 @@ function oculta(id){
     }
 
 }
-function atras(){ }
+function atras(){ 
+    oculta('botonesAdminProf'); 
+    oculta('menuConsultarProf'); 
+    muestra('datosParaUnProf'); 
+    oculta('formularioModificarProf'); 
+    oculta('ordenadoPorEspecialidad'); 
+    oculta('cartel');
+    oculta('botonAtras');
+}
 
-
+function clickRegistrarProf(){
+    window.location.assign("http://localhost/practica/profesor/registrarProfe.html");//aca va el enlace de la pagina registrar; 
+}
 
 function clickConsultarProf(){//oculta la botonera y visualiza el campo para escribir el email 
     oculta('botonesAdminProf'); 
@@ -88,6 +100,7 @@ function clickConsultarProf(){//oculta la botonera y visualiza el campo para esc
     oculta('formularioModificarProf'); 
     oculta('ordenadoPorEspecialidad'); 
     oculta('cartel');
+    oculta('botonAtras');
     
 }
 function clickBuscarProf(){
@@ -139,8 +152,10 @@ function retornoDelClickConsultarProf2(respuesta){
     oculta('formularioModificarProf'); 
     oculta('ordenadoPorEspecialidad'); 
     oculta('cartel');
+    oculta('botonAtras');
 
     var profe = JSON.parse(respuesta);
+    console.log(profe);
     $("legajoProf").innerHTML = profe.legajo;
     $("nombreProf").innerHTML = profe.nombre;
     $("apellidoProf").innerHTML = profe.apellido;
@@ -148,6 +163,7 @@ function retornoDelClickConsultarProf2(respuesta){
     $("telefonoProf").innerHTML = profe.telefono;
     $("emailProf").innerHTML = profe.email;
     $("especialidadProf").innerHTML = profe.especialidad;
+    $("estadoProf").innerHTML = profe.estado;
     $("altaProf").innerHTML = profe.fechaDeAlta;
 
     
@@ -198,6 +214,7 @@ function retornoDelClickModificarProf(respuesta){
     muestra('formularioModificarProf'); 
     oculta('ordenadoPorEspecialidad'); 
     oculta('cartel');
+    muestra('botonAtras');
     
      
     var profMod = JSON.parse(respuesta);
@@ -234,11 +251,12 @@ function validarProfModificar(){
 function clickGuardarModSocio(){
     var legajo= document.getElementById("slctDatosProf").value; 
     
-    enviarParametrosPOSTActualizar(miBackEnd + 'Profesor/'+legajo, retornoDelServMod);
+    enviarParametrosPOSTActualizar(miBackEnd + 'Profesor/Actualizacion/'+legajo, retornoDelServMod);
 
 }
 
 function retornoDelServMod(respuesta){
+    muestra('cartel');
     $("respuesta").innerHTML=respuesta;
 }
 
@@ -253,14 +271,6 @@ function retornoDelClickBorrarProf(){
     //confirmacion de borrado
 }
      
-
-
-
-function clickRegistrarProf(){
-    window.location.assign("http://localhost/practica/profesor/registrarProfe.html");//aca va el enlace de la pagina registrar; 
-}
-
-
 function clickOrdenadoPorEsp(){
     oculta('botonesAdminProf'); 
     oculta('menuConsultarProf'); 
@@ -268,6 +278,7 @@ function clickOrdenadoPorEsp(){
     oculta('formularioModificarProf'); 
     muestra('ordenadoPorEspecialidad'); 
     oculta('cartel');
+    oculta('botonAtras');
     //para el boton del principio 
     //Profesor/Esp por post
 }
