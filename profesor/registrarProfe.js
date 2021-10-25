@@ -10,15 +10,17 @@ function $(nombre)
 
 function load(){
     oculta_muestra('cartel');
-    oculta(); 
+  
     //boton para cerrar sesion 
     document.getElementById("logOut").addEventListener("click",cerrarSesion);
     //boton para perfil usuario logueado
     document.getElementById("perfil").addEventListener("click",mostrarPerfil);
-    
+    //boton para ir atras
+    document.getElementById("botonAtras").addEventListener("click",atras);
 
     document.getElementById("btnClose").addEventListener("click",oculta);
-    // preguntar por el email! 
+    
+   
     $('txtNewEmailProf').addEventListener("change", comprobarCorreo);
     $('txtNewNombreProf').addEventListener("keyup", validarCampos);
     $('txtNewApellidoProf').addEventListener("keyup", validarCampos);
@@ -45,6 +47,9 @@ function oculta_muestra(id){
 
     }
 
+}
+function atras(){
+    window.location.assign("http://localhost/practica/profesor/menuAdminProf.html");//aca va el enlace de la pagina registrar; 
 }
 
 function cerrarSesion() {

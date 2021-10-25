@@ -16,7 +16,7 @@ function load(){
     document.getElementById("logOut").addEventListener("click",cerrarSesion);
     //boton para perfil usuario logueado
     document.getElementById("perfil").addEventListener("click",mostrarPerfil);
-
+    document.getElementById("btnRegistrarClase").addEventListener("click",clickRegistrarClase);
 }
 
 function cerrarSesion() {
@@ -45,12 +45,15 @@ function muestra(id){
     }
 
 }
-function oculta(){
+function oculta(id){
     if (document.getElementById){ //se obtiene el id
     var el = document.getElementById('cartel'); 
     el.style.display ='none'; 
     
     }
 
+}
+function clickRegistrarClase(){
+    window.location.assign("http://localhost/practica/clase/registrarClase.html");//aca va el enlace de la pagina registrar; 
 }
 

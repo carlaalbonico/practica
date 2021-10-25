@@ -15,6 +15,7 @@ function load(){
     //boton para perfil usuario logueado
     document.getElementById("perfil").addEventListener("click",mostrarPerfil);
     
+    document.getElementById("botonAtras").addEventListener("click",atras);
 
     document.getElementById("btnClose").addEventListener("click",oculta);
     
@@ -42,6 +43,9 @@ function cerrarSesion() {
 }
 function mostrarPerfil(){
     window.location.assign("http://localhost/practica/perfilUsuario.html");
+}
+function atras(){
+    window.location.assign("http://localhost/practica/socio/menuAdminSocio.html");//aca va el enlace de la pagina registrar; 
 }
 
 function comprobarCorreo(){
