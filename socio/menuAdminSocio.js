@@ -331,6 +331,8 @@ function mostrarTablaRegistrarPago(valor){
 }
 
 function calcularTotalPago(){
+
+    //solo se usa para calcular el total y mostrarlo en pantalla; 
     var checkboxes = document.querySelectorAll(".importes");
     var Total = 0;
     let checked = [];
@@ -660,6 +662,9 @@ function enviarParametrosPOSTBorrar(servidor, funcionARealizar){
 
 }
 function enviarParametrosPOSTPago(servidor, funcionARealizar){
+
+    //calcula el total de los checks y lo envia 
+    //arma el array para las cuotas
     var checkboxes = document.querySelectorAll(".importes");
     var Total = 0;
     let checked = [];
@@ -669,24 +674,19 @@ function enviarParametrosPOSTPago(servidor, funcionARealizar){
         Total = parseFloat(Total) + parseFloat(element.value);
        }
     });
-    console.log(checked);
+    
     var myJSON = JSON.stringify(checked);
     
-    console.log(myJSON); 
    
-    $('precioTotal').value = Total;
 
-    console.log($("precioTotal").value); 
-    
-    
     //declaro el objeto
     var xmlhttp = new XMLHttpRequest(); 
 
     //agrega datos para pasar por POST
     var datos = new FormData();
-    console.log(Total); 
+    
     datos.append("importe",Total);
-    console.log(myJSON); 
+    
     datos.append("cuotas",myJSON);
    
 

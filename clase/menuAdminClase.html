@@ -21,7 +21,8 @@
    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  
+   <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+   
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     
     <!-- agrego javascript-->
@@ -75,151 +76,227 @@
             
         </header>
     </nav>
+    <div id="botonAtras" class="text-left">
+        <button class="previous btn btn-secondary" type="button" id="btnAtras">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        
+        </button>
+    </div>
 
     <div id="botonesAdmin">
         <div class="text-center" id="contenedor">
             <main class="form-menu">
-                <h1 class="h3 mb-3 fw-normal">Atencion al Socio</h1>
+                <h1 class="h3 mb-3 fw-normal"></h1>
                 <br>
                 
-                    <button class="btn btn-lg btn-primary" type="button" id="btnConsultarClase" >Consultar clase</button>
+                    <button class="btn btn-lg btn-primary" type="button" id="btnConsultarClase" >Consultar clases</button>
+                    <button class="btn btn-lg btn-primary" type="button" id="btnRegistrarClasePorProfesor" >Consultar clases por profesor</button>
                     <button class="btn btn-lg btn-primary" type="button" id="btnRegistrarClase" >Registrar clase</button>
-                
                 
             </main>
         </div>
     </div>
-    <div id="datosClase" class="form-menu">
-    
-            <div class="form-tablas">
-                <h4 class="d-flex justify-content-between align-items-center mb-3">
-                    <span class="text-muted">DATOS</span>
-                </h4>
-                <ul class="list-group mb-3">
-                
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">Legajo:</h6>
-                        </div>
-                            <span class="text-muted" id="legajoProf"></span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">Nombre:</h6>
-                        </div>
-                            <span class="text-muted" id="nombreProf"></span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">Apellido:</h6>
-                        </div>
-                            <span class="text-muted" id="apellidoProf"></span>
-                    </li>
-                
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">Direccion:</h6>
-                        </div>
-                            <span class="text-muted" id="direccionProf"></span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">Telefono:</h6>
-                        </div>
-                            <span class="text-muted" id="telefonoProf"></span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">Correo:</h6>
-                        </div>
-                            <span class="text-muted" id="emailProf"></span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">Especialidad:</h6>
-                        </div>
-                            <span class="text-muted" id="especialidadProf"></span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">Estado:</h6>
-                        </div>
-                            <span class="text-muted" id="estadoProf"></span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">Fecha de alta:</h6>
-                        </div>
-                            <span class="text-muted" id="altaProf"></span>
-                    </li>
 
-                    
-                    <button class="btn btn-lg btn-primary" type="button" id="btnModificarProf" >Modificar Profesor</button>
-                    <button class="btn btn-lg btn-danger" type="button" id="btnBorrarProf" >Borrar Profesor</button>
-                </ul>
+    <div class="form-tablas" id= "clases">
+        <h1 class="mb-1 text-center">Clases:  </h1>
         
-                
+        
+        <div class="row align-items-center p-1 ">
+            <div class="control-label col-sm-2  d-flex justify-content-end">
+                <label>Filtro:</label>
             </div>
-            
-    </div>
+        <div class="col-sm-5">
+            <select class="form-select"  id="slctTipoClase"></select>
+        </div>
 
+        <table class="table" id="tabla-clases" >
+            <thead>
+            <tr>
+                <th scope="col">Clase:</th>
+                <th scope="col">Nombre:</th>
+                <th scope="col">Dias:</th>
+                <th scope="col">Horario Inicio: </th>
+                <th scope="col">Horario Fin: </th>
+                <th scope="col">Salon:</th>
+                <th scope="col">Profesor:</th>
+                <th scope="col">Cupos:</th>
+                <th scope="col"></th>
+                
+            </tr>
+            </thead>
+            <tbody id="tableClases">
+
+            
+                
+            </tbody>
+        
+
+        </table>
     
+
+
+    </div> 
 
     <form id="formularioModificarClase" class="form-menu">
-        <div class="row justify-content-center">
-            <div class="col-md-8 mb-4 ">
-                <h4 class="d-flex justify-content-between align-items-center mb-3">
-                    <span class="text-muted">DATOS</span>
-                </h4>
-                <ul class="list-group mb-3">
-                    
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                        <h6 class="my-0">Nombre:</h6>
-                        </div>
-                        
-                        <input type="text" class="form-control" id="nombreProfModificar" placeholder="" value="" required="">
-                        
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                        <h6 class="my-0">Apellido:</h6>
-                        </div>
-                        <input type="text" class="form-control" id="apellidoProfModificar" placeholder="" value="" required="">
-                    </li>
-                    
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                        <h6 class="my-0">Direccion:</h6>
-                        </div>
-                        <input type="text" class="form-control" id="direccionProfModificar" placeholder="" value="" required="">
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                        <h6 class="my-0">Telefono:</h6>
-                        </div>
-                        <input type="text" class="form-control" id="telefonoProfModificar" placeholder="" value="" required="">
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                        <h6 class="my-0">Especialidad:</h6>
-                        </div>
-                        <input type="text" class="form-control" id="especialidadProfModificar" placeholder="" value="" required="">
-                    </li>
-        
-        
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        
-                    </li>
-                    <button class="btn btn-lg btn-primary" type="button" id="btnModificarGuardar" >Guardar</button>
-        
-                </ul>
-        
+        <h1 class=" p-3">Modificar Clase</h1>
                 
-            </div>
-        </div>
-        
+                    <div class="row align-items-center p-1 ">
+                        <div class="control-label col-sm-2  d-flex justify-content-end">
+                            <label>Clase:</label>
+                        </div>
+                        <div class="col-sm-10">
+                            <select class="form-select" aria-label="Default select example" id="slctClase"></select>
+                           <!-- <input type="text" class="form-control" id="txtNewClase" autofocus>-->
+                        </div>
+                        
+                        
+                    </div>
+                    <div class="row align-items-center p-1 ">
+                        <div class="control-label col-sm-2 d-flex justify-content-end">
+                            <label>Modalidad: </label>
+                        </div>
+                        <div class="col-sm-10">
+                            <select class="form-select" aria-label="Default select example" id="slctMod">
+                            
+                                <option value="1">Presencial</option>
+                                <option value="2">Virtual</option>
+                                
+                              </select>
+                            <!--<input type="text" class="form-control" id="txtNewMod" -->
+                        </div>
+                        
+                        
+                    </div>
+                    <div class="row align-items-center p-1 justify-content-between">
+                        <div class="control-label col-sm-2 d-flex justify-content-end">
+                            <label>Días: </label>
+                        </div>
+                       <div class="col-sm-10">
+                        <select class="form-select" aria-label="Default select example" id="slctDias">
+                            
+                            <option value="1">Lunes</option>
+                            <option value="2">Martes</option>
+                            <option value="3">Miercoles</option>
+                            <option value="4">Jueves</option>
+                            <option value="5">Viernes</option>
+                            <option value="6">Sabado</option>
+                            
+                          </select>
+                        <!--<input type="text" class="form-control" id="txtNewDias" >-->
+                       </div>
+                       
+                       
+                    </div>
+                    <div class="row align-items-center p-1 justify-content-between">
+                        <div class="control-label col-sm-2 d-flex justify-content-end">
+                            <label>Hora de Inicio: </label>
+                        </div>
+                        <div class="col-sm-10">
+                            <input type="time" class="form-control" id="txtHoraInicio" >
+                        </div>
+                        
+                        
+                    </div>
+                    
+                    <div class="row align-items-center p-1 justify-content-between">
+                        <div class="control-label col-sm-2 d-flex justify-content-end">
+                            <label>Hora de Fin: </label>
+                        </div>
+                        <div class="col-sm-10">
+                            <input type="time" class="form-control" id="txtHoraFin" >
+                        </div>
+                        
+                        
+                    </div>
+
+                    <div class="row align-items-center p-1 justify-content-between">
+                        <div class="control-label col-sm-2 d-flex justify-content-end">
+                            <label>Fecha de Inicio:</label>
+                        </div>
+                        
+                        <div class="col-sm-10">
+                            <input type="date" class="form-control" id="txtFechaInicio" autofocus>
+                        </div>
+                        
+                    </div>
+
+                    <div class="row align-items-center p-1 justify-content-between">
+                        <div class="control-label col-sm-2 d-flex justify-content-end ">
+                            <label>Fecha de Fin:</label>
+                        </div>
+                        
+                        <div class="col-sm-10">
+                            <input type="date" class="form-control" id="txtFechaFin" autofocus>
+                        </div>
+                    </div>
+                    
+                    <div class="row align-items-center p-1 justify-content-between">
+                        <div class="control-label col-sm-2 d-flex justify-content-end">
+                            <label>Profesor:</label>
+                        </div>
+                        
+                        <div class="col-sm-10">
+                            <select class="form-control" id="slctDatosProf" placeholder="Profesor: "> </select>    
+                    
+                        </div>
+                    </div>    
+                    <div class="row align-items-center p-1 justify-content-between">
+                        <div class="control-label col-sm-2 d-flex justify-content-end">
+                            <label>Salon:</label>
+                        </div>
+                        
+                        <div class="col-sm-10">
+                            
+                            <select class="form-control" id="slctDatosSalon" placeholder="Salon: "></select>
+                        </div>
+                        
+                    </div>
+
+                    <div class="row align-items-center p-1">
+                        <div class="control-label col-sm-2 d-flex justify-content-end">
+                            <label>Cupos:</label>
+                        </div>
+                        
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="txtNewCupos" autofocus>
+                        </div>
+                        
+                        
+                    </div>
+                    <button class="w-100 btn btn-lg btn-primary" type="button" id="btnGuardarClase" >Guardar</button>
+                    
+                
     </form>
+     
+    <div class="form-tablas" id= "clasesPorProf">
+        <h1 class="mb-1 text-center">Clases:  </h1>
+        <div class="col-sm-10">
+            <select class="form-select" aria-label="Default select example" id="slctNewClase"></select>
+           
+        </div>
+        <table class="table" >
+            <thead>
+            <tr>
+                <th scope="col">Clase:</th>
+                <th scope="col">Nombre:</th>
+                <th scope="col">Dias:</th>
+                <th scope="col">Horario Inicio: </th>
+                <th scope="col">Horario Fin: </th>
+                <th scope="col">Salon:</th>
+                
+                <th scope="col"></th>
+                
+            </tr>
+            </thead>
+            <tbody id="tableClasesPorProf">
+
+            
+                
+            </tbody>
+    
+        </table>
+    
+    </div> 
    
     
 

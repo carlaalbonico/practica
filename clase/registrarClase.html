@@ -91,7 +91,8 @@
                             <label>Clase:</label>
                         </div>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="txtNewClase" autofocus>
+                            <select class="form-select" aria-label="Default select example" id="slctNewClase"></select>
+                           <!-- <input type="text" class="form-control" id="txtNewClase" autofocus>-->
                         </div>
                         
                         
@@ -101,7 +102,13 @@
                             <label>Modalidad: </label>
                         </div>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="txtNewMod" >
+                            <select class="form-select" aria-label="Default select example" id="slctNewMod">
+                            
+                                <option value="1">Presencial</option>
+                                <option value="2">Virtual</option>
+                                
+                              </select>
+                            <!--<input type="text" class="form-control" id="txtNewMod" -->
                         </div>
                         
                         
@@ -111,7 +118,17 @@
                             <label>Días: </label>
                         </div>
                        <div class="col-sm-10">
-                        <input type="text" class="form-control" id="txtNewDias" >
+                        <select class="form-select" aria-label="Default select example" id="slctNewDias">
+                            
+                            <option value="1">Lunes</option>
+                            <option value="2">Martes</option>
+                            <option value="3">Miercoles</option>
+                            <option value="4">Jueves</option>
+                            <option value="5">Viernes</option>
+                            <option value="6">Sabado</option>
+                            
+                          </select>
+                        <!--<input type="text" class="form-control" id="txtNewDias" >-->
                        </div>
                        
                        
@@ -175,6 +192,7 @@
                         </div>
                         
                         <div class="col-sm-10">
+                            
                             <select class="form-control" id="slctDatosSalon" placeholder="Salon: "></select>
                         </div>
                         
@@ -191,7 +209,7 @@
                         
                         
                     </div>
-                    <button class="w-100 btn btn-lg btn-primary" type="button" id="btnGuardarClase" disabled>Guardar</button>
+                    <button class="w-100 btn btn-lg btn-primary" type="button" id="btnGuardarClase" >Guardar</button>
                     
                 </form>
                 <div id="cartel" class="alert alert-dark alert-dismissible fade show" role="alert">
