@@ -34,7 +34,7 @@ function load(){
     document.getElementById("btnRegistrarClasePorProfesor").addEventListener("click",clickConsultarClasePorProf);
     document.getElementById ('slctTipoClase').addEventListener('change',validacionClase); 
     
-    
+    document.getElementById ('tableClases').addEventListener('click',clickModifClase); 
    
     
 }
@@ -183,7 +183,8 @@ function retornoDelClickConsultarClase(valor){
         '</tr>' );
         
     });
-    $('tableClases').innerHTML=opciones; }
+    $('tableClases').innerHTML=opciones; 
+    console.log(opciones);}
 
     document.getElementById ('tableClases').addEventListener('change',clickModifClase); 
      
