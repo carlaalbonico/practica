@@ -63,3 +63,6 @@ function oculta(){
     }
 
 }
+function cargarPerfil(){
+    
+}

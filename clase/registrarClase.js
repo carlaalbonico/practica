@@ -17,29 +17,31 @@ function load(){
     document.getElementById("perfil").addEventListener("click",mostrarPerfil);
     document.getElementById("botonAtras").addEventListener("click",atras);
 
+    enviarParametrosGET(miBackEnd + 'TipoClase',cargarOpcionesClase);
     enviarParametrosGET(miBackEnd + 'Profesor',cargarOpcionesProf);
     enviarParametrosGET(miBackEnd + 'Salon',cargarOpcionesSalon);
     // preguntar por el email! 
    
-    $('txtNewClase').addEventListener("keyup", validarCampos);
-    $('txtNewMod').addEventListener("keyup", validarCampos);
-    $('txtNewDias').addEventListener("keyup", validarCampos);
-    $('txtNewHoraInicio').addEventListener("keyup", validarCampos);
-    $('txtNewHoraFin').addEventListener("keyup", validarCampos);
-    $('txtNewCupos').addEventListener("keyup", validarCampos);
     
     $('btnGuardarClase').addEventListener("click",click);
     
 }
 
+function muestra(id){
+    if (document.getElementById){ //se obtiene el id
+    var el = document.getElementById(id); //se define la variable "el" igual a nuestro div
+
+     el.style.display = "block"; 
+        
+    }
+
+}
 
 function oculta(id){
     if (document.getElementById){ //se obtiene el id
-    var el = document.getElementById('cartel'); 
-    el.style.display = (el.style.display == 'none') ? 'block' : 'none'; 
-    
+    var el = document.getElementById(id); 
+    el.style.display ='none'; 
     }
-
 }
 function oculta_muestra(id){
     if (document.getElementById){ //se obtiene el id
@@ -50,7 +52,7 @@ function oculta_muestra(id){
 
 }
 function atras(){
-    window.location.assign("http://localhost/practica/profesor/menuAdminProf.html");//aca va el enlace de la pagina registrar; 
+    window.location.assign("http://localhost/practica/clase/menuAdminClase.html");//aca va el enlace de la pagina registrar; 
 }
 function cerrarSesion() {
     sessionStorage.clear();
@@ -59,6 +61,20 @@ function cerrarSesion() {
 function mostrarPerfil(){
     window.location.assign("http://localhost/practica/perfilUsuario.html");
 }
+function cargarOpcionesClase(nro){
+    var clase= JSON.parse(nro);
+    console.log(clase);
+    clase.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
+
+    var opciones = []
+
+   clase.forEach(element => {
+        opciones.push('<option value="' + element.idTipoClase + '">' + element.nombre + '</option>');
+    });
+    
+    $("slctNewClase").innerHTML = opciones; 
+}
+
 function cargarOpcionesProf(nroProf){
     
     var profes= JSON.parse(nroProf);
@@ -101,7 +117,7 @@ function validarCampos(){
     var validarSlctProf = document.getElementById("slctDatosProf").value;
     var validarSlctSalon= document.getElementById("slctDatosSalon").value;
     
-    if( NewClase >=2 && NewMod >=2  && NewHoraInicio >=2 && NewHoraFin>=8 && NewCupos>=1 && validarSlctProf != '' && validarSlctProf != '' ){
+    if( NewClase >=2 && NewMod >=2   && NewCupos>=1 && validarSlctProf != '' && validarSlctProf != '' ){
         $('btnGuardarClase').disabled = false;
     }else{
         $('btnGuardarClase').disabled = true;
@@ -110,16 +126,17 @@ function validarCampos(){
 }
 
 function click(){
-    $("btnGuardarClase").disabled=true;
+   // $("btnGuardarClase").disabled=true;
     enviarInfoDeClase(miBackEnd + 'Clase/Registro', respuestaDeServidor);
 }
 
 function respuestaDeServidor(respuesta){
-   
+    muestra('cartel');
+    $("respuesta").innerHTML=respuesta;
     
-    $("txtNewClase").value='';
-    $("txtNewMod").value='';
-    $("txtNewDias").value='';
+    $("slctNewClase").value='';
+    $("slctNewMod").value='';
+    $("slctNewDias").value='';
     $("txtNewHoraInicio").value='';
     $("txtNewHoraFin").value='';
     $("txtNewCupos").value='';
@@ -159,9 +176,9 @@ function enviarInfoDeClase(servidor, funcionARealizar){
 
     //agrega datos para pasar por POST
     var datos = new FormData();
-    datos.append("tipoClase",$("txtNewClase").value);
-    datos.append("modalidad",$("txtNewMod").value);
-    datos.append("dias",$("txtNewDias").value);
+    datos.append("tipoClase",$("slctNewClase").value);
+    datos.append("modalidad",$("slctNewMod").value);
+    datos.append("dias",$("slctNewDias").value);
     datos.append("horaDeInicio",$("txtNewHoraInicio").value);
     datos.append("horaDeFin",$("txtNewHoraFin").value);
     datos.append("fechaDeInicio",$("txtNewFechaInicio").value);
