@@ -11,6 +11,10 @@ function $(nombre)
 }
 
 
+
+
+
+
 function load(){
     oculta('botonAtras');
     muestra('botonesAdmin'); 
@@ -29,6 +33,9 @@ function load(){
     document.getElementById("btnConsultarClase").addEventListener("click",clickConsultarClase);
     document.getElementById("btnRegistrarClasePorProfesor").addEventListener("click",clickConsultarClasePorProf);
     document.getElementById ('slctTipoClase').addEventListener('change',validacionClase); 
+    
+    
+   
     
 }
 
@@ -90,6 +97,8 @@ function clickConsultarClase(){
     enviarParametrosGET(miBackEnd + 'TipoClase',cargarOpcionesClase); 
     enviarParametrosGET(miBackEnd + 'Clase', retornoDelClickConsultarClase);
     
+
+    
 }
 
 function validacionClase(){
@@ -106,10 +115,7 @@ function cargarOpcionesClase(nro){
         opciones.push('<option value="' + element.nombre + '">' + element.nombre + '</option>');
     });
     console.log(opciones); 
-    $("slctTipoClase").innerHTML = opciones; 
-
-    
-        
+    $("slctTipoClase").innerHTML = opciones;    
     
 }
 
@@ -117,8 +123,11 @@ function retornoDelClickConsultarClase(valor){
     var tipoClase= document.getElementById("slctTipoClase").value; 
     var clases =JSON.parse(valor);
     console.log(clases); 
+
    
     console.log(tipoClase); 
+
+
         if (tipoClase!=0){
             console.log('diferente');
 
@@ -142,11 +151,14 @@ function retornoDelClickConsultarClase(valor){
                 '<td>'+element.salon+'</td>'+
                 '<td>'+element.profesor+'</td>'+
                 '<td>'+element.cupos+'</td>'+
-                '<td><button class="btn btn-outline-danger my-2 my-sm-0" type="button" id="btnModificar">Modificar</button></td>'+
+                '<td><button class="modificacion" type="button" id="'+element.idClase+'">Modificar</button></td>'+
 
                 '</tr>' );
                 
             });
+
+
+            console.log(opciones);
         $('tableClases').innerHTML=opciones; 
                     
 
@@ -166,15 +178,31 @@ function retornoDelClickConsultarClase(valor){
         '<td>'+element.salon+'</td>'+
         '<td>'+element.profesor+'</td>'+
         '<td>'+element.cupos+'</td>'+
-        '<td><button class="btn btn-outline-danger my-2 my-sm-0" type="button" id="btnModificar">Modificar</button></td>'+
+        '<td><button class="modificacion"  id="'+element.idClase+'">Modificar</button></td>'+
 
         '</tr>' );
         
     });
     $('tableClases').innerHTML=opciones; }
+
+    document.getElementById ('tableClases').addEventListener('change',clickModifClase); 
+     
     
 }
 
+
+
+
+function clickModifClase(){
+    let modificacion = document.querySelectorAll(".modificacion")
+        
+    modificacion.forEach((boton) => {
+      boton.addEventListener("click", function(e){
+        e.preventDefault();
+        console.log(boton.id); 
+      })
+    })
+}
 
 function clickConsultarClasePorProf(){
     muestra('botonAtras');
