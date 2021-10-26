@@ -151,7 +151,7 @@ function retornoDelClickConsultarClase(valor){
                 '<td>'+element.salon+'</td>'+
                 '<td>'+element.profesor+'</td>'+
                 '<td>'+element.cupos+'</td>'+
-                '<td><button class="modificacion" type="button" id="'+element.idClase+'">Modificar</button></td>'+
+                '<td><button class="btn  btn-danger modificacion" type="button" id="'+element.idClase+'">Modificar</button></td>'+
 
                 '</tr>' );
                 
@@ -178,7 +178,7 @@ function retornoDelClickConsultarClase(valor){
         '<td>'+element.salon+'</td>'+
         '<td>'+element.profesor+'</td>'+
         '<td>'+element.cupos+'</td>'+
-        '<td><button class="modificacion"  id="'+element.idClase+'">Modificar</button></td>'+
+        '<td><button class="btn btn-primary modificacion"  id="'+element.idClase+'">Modificar</button></td>'+
 
         '</tr>' );
         
@@ -186,15 +186,15 @@ function retornoDelClickConsultarClase(valor){
     $('tableClases').innerHTML=opciones; 
     console.log(opciones);}
 
-    document.getElementById ('tableClases').addEventListener('change',clickModifClase); 
-     
-    
 }
 
-
-
-
 function clickModifClase(){
+    muestra('botonAtras');
+    oculta('botonesAdmin');
+    muestra('clases'); 
+    oculta('clasesPorProf'); 
+    muestra('formularioModificarClase'); 
+    oculta('cartel'); 
     let modificacion = document.querySelectorAll(".modificacion")
         
     modificacion.forEach((boton) => {
@@ -203,6 +203,8 @@ function clickModifClase(){
         console.log(boton.id); 
       })
     })
+
+    var clases =JSON.parse(valor);
 }
 
 function clickConsultarClasePorProf(){
