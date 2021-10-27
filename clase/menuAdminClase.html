@@ -105,50 +105,115 @@
             <div class="control-label col-sm-2  d-flex justify-content-end">
                 <label>Filtro:</label>
             </div>
-        <div class="col-sm-5">
-            <select class="form-select"  id="slctTipoClase"></select>
-        </div>
+            <div class="col-sm-5">
+                <select class="form-select"  id="slctTipoClase"></select>
+            </div>
 
-        <table class="table" id="tabla-clases" >
-            <thead>
-            <tr>
-                <th scope="col">Clase:</th>
-                <th scope="col">Nombre:</th>
-                <th scope="col">Dias:</th>
-                <th scope="col">Horario Inicio: </th>
-                <th scope="col">Horario Fin: </th>
-                <th scope="col">Salon:</th>
-                <th scope="col">Profesor:</th>
-                <th scope="col">Cupos:</th>
-                <th scope="col"></th>
+            <table class="table" id="tabla-clases" >
+                <thead>
+                <tr>
+                    <th scope="col">Clase:</th>
+                    <th scope="col">Nombre:</th>
+                    <th scope="col">Dias:</th>
+                    <th scope="col">Horario Inicio: </th>
+                    <th scope="col">Horario Fin: </th>
+                    <th scope="col">Salon:</th>
+                    <th scope="col">Profesor:</th>
+                    <th scope="col">Cupos:</th>
+                    
+                    <th scope="col"></th>
+                    
+                </tr>
+                </thead>
+                <tbody id="tableClases">
+
                 
-            </tr>
-            </thead>
-            <tbody id="tableClases">
-
+                    
+                </tbody>
             
-                
-            </tbody>
-        
 
-        </table>
-    
+            </table>
+        </div>
 
 
     </div> 
 
     <form id="formularioModificarClase" class="form-menu">
         <h1 class=" p-3">Modificar Clase</h1>
-                
-                    <div class="row align-items-center p-1 ">
-                        <div class="control-label col-sm-2  d-flex justify-content-end">
-                            <label>Clase:</label>
+                <div class="row align-items-center p-1 ">
+                    <div class="control-label col-sm-2  d-flex justify-content-end">
+                        <label>Clase:</label>
+                    </div>
+                    <div class="col-sm-10">
+                        <select class="form-select" aria-label="Default select example" id="slctNewClase"></select>
+                    <!-- <input type="text" class="form-control" id="txtNewClase" autofocus>-->
+                    </div>
+                    
+                    
+                </div>
+                    
+                    
+                    <div class="row align-items-center p-1 justify-content-between">
+                        <div class="control-label col-sm-2 d-flex justify-content-end">
+                            <label>Días: </label>
+                        </div>
+                       <div class="col-sm-10">
+                        <select class="form-select" s id="slctDias">
+                            
+                            <option value="0">Lunes</option>
+                            <option value="1">Martes</option>
+                            <option value="2">Miercoles</option>
+                            <option value="3">Jueves</option>
+                            <option value="4">Viernes</option>
+                            <option value="5">Sabado</option>
+                            
+                          </select>
+                        <!--<input type="text" class="form-control" id="txtNewDias" >-->
+                       </div>
+                       
+                       
+                    </div>
+                    <div class="row align-items-center p-1 justify-content-between">
+                        <div class="control-label col-sm-2 d-flex justify-content-end">
+                            <label>Hora de Inicio: </label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-select" aria-label="Default select example" id="slctClase"></select>
-                           <!-- <input type="text" class="form-control" id="txtNewClase" autofocus>-->
+                            <input type="text" class="form-control" id="txtHoraInicio" >
                         </div>
                         
+                        
+                    </div>
+                    
+                    <div class="row align-items-center p-1 justify-content-between">
+                        <div class="control-label col-sm-2 d-flex justify-content-end">
+                            <label>Hora de Fin: </label>
+                        </div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="txtHoraFin" >
+                        </div>
+                        
+                        
+                    </div>
+
+                    <div class="row align-items-center p-1 justify-content-between">
+                        <div class="control-label col-sm-2 d-flex justify-content-end">
+                            <label>Profesor:</label>
+                        </div>
+                        
+                        <div class="col-sm-10">
+                            <select class="form-control" id="slctDatosProf" > </select>    
+                    
+                        </div>
+                    </div>    
+                    <div class="row align-items-center p-1 justify-content-between">
+                        <div class="control-label col-sm-2 d-flex justify-content-end">
+                            <label>Salon:</label>
+                        </div>
+                        
+                        <div class="col-sm-10">
+                            
+                            <select class="form-control" id="slctDatosSalon" placeholder="Salon: "></select>
+                        </div>
                         
                     </div>
                     <div class="row align-items-center p-1 ">
@@ -163,47 +228,6 @@
                                 
                               </select>
                             <!--<input type="text" class="form-control" id="txtNewMod" -->
-                        </div>
-                        
-                        
-                    </div>
-                    <div class="row align-items-center p-1 justify-content-between">
-                        <div class="control-label col-sm-2 d-flex justify-content-end">
-                            <label>Días: </label>
-                        </div>
-                       <div class="col-sm-10">
-                        <select class="form-select" aria-label="Default select example" id="slctDias">
-                            
-                            <option value="1">Lunes</option>
-                            <option value="2">Martes</option>
-                            <option value="3">Miercoles</option>
-                            <option value="4">Jueves</option>
-                            <option value="5">Viernes</option>
-                            <option value="6">Sabado</option>
-                            
-                          </select>
-                        <!--<input type="text" class="form-control" id="txtNewDias" >-->
-                       </div>
-                       
-                       
-                    </div>
-                    <div class="row align-items-center p-1 justify-content-between">
-                        <div class="control-label col-sm-2 d-flex justify-content-end">
-                            <label>Hora de Inicio: </label>
-                        </div>
-                        <div class="col-sm-10">
-                            <input type="time" class="form-control" id="txtHoraInicio" >
-                        </div>
-                        
-                        
-                    </div>
-                    
-                    <div class="row align-items-center p-1 justify-content-between">
-                        <div class="control-label col-sm-2 d-flex justify-content-end">
-                            <label>Hora de Fin: </label>
-                        </div>
-                        <div class="col-sm-10">
-                            <input type="time" class="form-control" id="txtHoraFin" >
                         </div>
                         
                         
@@ -229,56 +253,22 @@
                             <input type="date" class="form-control" id="txtFechaFin" autofocus>
                         </div>
                     </div>
-                    
-                    <div class="row align-items-center p-1 justify-content-between">
-                        <div class="control-label col-sm-2 d-flex justify-content-end">
-                            <label>Profesor:</label>
-                        </div>
-                        
-                        <div class="col-sm-10">
-                            <select class="form-control" id="slctDatosProf" placeholder="Profesor: "> </select>    
-                    
-                        </div>
-                    </div>    
-                    <div class="row align-items-center p-1 justify-content-between">
-                        <div class="control-label col-sm-2 d-flex justify-content-end">
-                            <label>Salon:</label>
-                        </div>
-                        
-                        <div class="col-sm-10">
-                            
-                            <select class="form-control" id="slctDatosSalon" placeholder="Salon: "></select>
-                        </div>
-                        
-                    </div>
 
-                    <div class="row align-items-center p-1">
-                        <div class="control-label col-sm-2 d-flex justify-content-end">
-                            <label>Cupos:</label>
-                        </div>
-                        
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="txtNewCupos" autofocus>
-                        </div>
-                        
-                        
-                    </div>
+                  
                     <button class="w-100 btn btn-lg btn-primary" type="button" id="btnGuardarClase" >Guardar</button>
                     
                 
     </form>
      
-    <div class="form-tablas" id= "clasesPorProf">
-        <h1 class="mb-1 text-center">Clases:  </h1>
+    <div id="clasesPorProf" ><h1 class="mb-1 text-center">Clases:  </h1>
         <div class="col-sm-10">
-            <select class="form-select" aria-label="Default select example" id="slctNewClase"></select>
+            <select class="form-select" aria-label="Default select example" id="slctDatosClasesxProf"></select>
            
         </div>
-        <table class="table" >
+        <table class="table" class="form-tablas">
             <thead>
             <tr>
                 <th scope="col">Clase:</th>
-                <th scope="col">Nombre:</th>
                 <th scope="col">Dias:</th>
                 <th scope="col">Horario Inicio: </th>
                 <th scope="col">Horario Fin: </th>
@@ -295,8 +285,10 @@
             </tbody>
     
         </table>
+    </div>
+        
     
-    </div> 
+ 
    
     
 
