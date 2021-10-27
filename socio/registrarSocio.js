@@ -29,9 +29,9 @@ function load(){
 }
 
 
-function oculta(){
+function oculta(id){
     if (document.getElementById){ //se obtiene el id
-    var el = document.getElementById('cartel'); 
+    var el = document.getElementById(id); 
     el.style.display = (el.style.display == 'none') ? 'block' : 'none'; 
     
     }
