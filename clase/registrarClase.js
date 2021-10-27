@@ -23,7 +23,7 @@ function load(){
     // preguntar por el email! 
    
     
-    $('btnGuardarClase').addEventListener("click",click);
+    $document.getElementById('btnGuardarClase').addEventListener("click",click);
     
 }
 
