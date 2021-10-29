@@ -9,21 +9,16 @@ function $(nombre)
 }
 
 function load(){
-    oculta_muestra('cartel');
+    oculta('cartel'); 
     
+    enviarParametrosGET(miBackEnd + 'Salon',cargarOpcionesSalon);
     //boton para cerrar sesion 
     document.getElementById("logOut").addEventListener("click",cerrarSesion);
     //boton para perfil usuario logueado
     document.getElementById("perfil").addEventListener("click",mostrarPerfil);
     document.getElementById("botonAtras").addEventListener("click",atras);
 
-    enviarParametrosGET(miBackEnd + 'TipoClase',cargarOpcionesClase);
-    enviarParametrosGET(miBackEnd + 'Profesor',cargarOpcionesProf);
-    enviarParametrosGET(miBackEnd + 'Salon',cargarOpcionesSalon);
-    // preguntar por el email! 
-   
-    
-    $document.getElementById('btnGuardarClase').addEventListener("click",click);
+    document.getElementById('btnGuardarRutina').addEventListener("click",click);
     
 }
 
@@ -52,7 +47,7 @@ function oculta_muestra(id){
 
 }
 function atras(){
-    window.location.assign("http://localhost/practica/clase/menuAdminClase.html");//aca va el enlace de la pagina registrar; 
+    window.location.assign("http://localhost/practica/rutina/menuAdminRutina.html");//aca va el enlace de la pagina registrar; 
 }
 function cerrarSesion() {
     sessionStorage.clear();
@@ -61,36 +56,7 @@ function cerrarSesion() {
 function mostrarPerfil(){
     window.location.assign("http://localhost/practica/perfilUsuario.html");
 }
-function cargarOpcionesClase(nro){
-    var clase= JSON.parse(nro);
-    console.log(clase);
-    clase.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
 
-    var opciones = []
-
-   clase.forEach(element => {
-        opciones.push('<option value="' + element.idTipoClase + '">' + element.nombre + '</option>');
-    });
-    
-    $("slctNewClase").innerHTML = opciones; 
-}
-
-function cargarOpcionesProf(nroProf){
-    
-    var profes= JSON.parse(nroProf);
-    console.log(profes);
-    profes.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
-
-    var opciones = []
-
-    profes.forEach(element => {
-        opciones.push('<option value="' + element.legajo + '">' + element.nombre +' '+ element.apellido + '</option>');
-    });
-    
-    $("slctDatosProf").innerHTML = opciones;
-
-   
-}
 function cargarOpcionesSalon(nro){
     
     var salon= JSON.parse(nro);
@@ -107,41 +73,22 @@ function cargarOpcionesSalon(nro){
 
    
 }
-function validarCampos(){
-    var NewClase = $("txtNewClase").value.length;
-    var NewMod = $("txtNewMod").value.length;
-    var NewDias = $("txtNewDias").value.length;
-    var NewHoraInicio = $("txtNewHoraInicio").value.length;
-    var NewHoraFin = $("txtNewHoraFin").value.length;
-    
-    var validarSlctProf = document.getElementById("slctDatosProf").value;
-    var validarSlctSalon= document.getElementById("slctDatosSalon").value;
-    
-    if( NewClase >=2 && NewMod >=2   && NewCupos>=1 && validarSlctProf != '' && validarSlctProf != '' ){
-        $('btnGuardarClase').disabled = false;
-    }else{
-        $('btnGuardarClase').disabled = true;
-    }
-    
-}
+
 
 function click(){
    // $("btnGuardarClase").disabled=true;
-    enviarInfoDeClase(miBackEnd + 'Clase/Registro', respuestaDeServidor);
+    enviarInfo(miBackEnd + 'Rutina/Registro', respuestaDeServidor);
 }
 
 function respuestaDeServidor(respuesta){
     muestra('cartel');
     $("respuesta").innerHTML=respuesta;
     
-    $("slctNewClase").value='';
-    $("slctNewMod").value='';
-    $("slctNewDias").value='';
-    $("txtNewHoraInicio").value='';
-    $("txtNewHoraFin").value='';
-    $("txtNewCupos").value='';
+    $("txtNewRutina").value='';
+    $("txtNewDescrip").value='';
     
-    $('btnGuardarClase').disabled = false;
+    
+    
 }
 
 function enviarParametrosGET(servidor,funcionARealizar){
@@ -169,22 +116,15 @@ function enviarParametrosGET(servidor,funcionARealizar){
     xmlhttp.send();
 }
 
-function enviarInfoDeClase(servidor, funcionARealizar){
+function enviarInfo(servidor, funcionARealizar){
 
     //declaro el objeto
     var xmlhttp = new XMLHttpRequest(); 
 
     //agrega datos para pasar por POST
     var datos = new FormData();
-    datos.append("tipoClase",$("slctNewClase").value);
-    datos.append("modalidad",$("slctNewMod").value);
-    datos.append("dias",$("slctNewDias").value);
-    datos.append("horaDeInicio",$("txtNewHoraInicio").value);
-    datos.append("horaDeFin",$("txtNewHoraFin").value);
-    datos.append("fechaDeInicio",$("txtNewFechaInicio").value);
-    datos.append("fechaDeFin",$("txtNewFechaFin").value);
-    datos.append("cupos",$("txtNewCupos").value);
-    datos.append("profesor",$("slctDatosProf").value);
+    datos.append("nombre",$("txtNewRutina").value);
+    datos.append("descripcion",$("txtNewDescrip").value);
     datos.append("salon",$("slctDatosSalon").value);
         //indico hacia donde va el mensaje
     xmlhttp.open ("POST", servidor, true); 

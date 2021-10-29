@@ -86,24 +86,90 @@
     <div id="botonesAdmin">
         <div class="text-center" id="contenedor">
             <main class="form-menu">
-                <h1 class="h3 mb-3 fw-normal">Atencion para clases</h1>
+                <h1 class="h3 mb-3 fw-normal">Gestión de Rutinas</h1>
                 <br>
                 
-                    <button class="btn btn-lg btn-primary" type="button" id="btnConsultarClase" >Consultar clases</button>
-                    <button class="btn btn-lg btn-primary" type="button" id="btnRegistrarClasePorProfesor" >Consultar clases por profesor</button>
-                    <button class="btn btn-lg btn-primary" type="button" id="btnRegistrarClase" >Registrar clase</button>
+                    <button class="btn btn-lg btn-primary" type="button" id="btnConsultarRutina" >Consultar Rutina</button>
+                    <button class="btn btn-lg btn-primary" type="button" id="btnRegistrarRutina" >Registrar Rutina</button>
                 
             </main>
         </div>
     </div>
 
+    <div class="form-tablas" id= "rutinas">
+        <h1 class="mb-1 text-center">Rutinas:  </h1>
+        <br>
         
-    
+        
+        <div class="row align-items-center p-1 ">
+            
+
+            <table class="table" id="tabla-clases" >
+                <thead>
+                <tr>
+                    
+                    <th scope="col">Nombre:</th>
+                    <th scope="col">Descripcion:</th>
+                    <th scope="col">Salon:</th>
+                    <th scope="col"></th>
+                    
+                </tr>
+                </thead>
+                <tbody id="tableRutina">
+
+                
+                    
+                </tbody>
+            
+
+            </table>
+        </div>
+
+
+    </div> 
+
+    <form id="formularioModificarRutina" class="form-menu">
+        <h1 class="p-3">Modificar Rutina</h1>
+                <div class="row align-items-center p-1 ">
+                    <div class="control-label col-sm-2  d-flex justify-content-end">
+                        <label>Nombre: </label>
+                    </div>
+                    <div class="col-sm-10">
  
-   
+                    <input type="text" class="form-control" id="txtNombre" autoocus>
+                    </div>
+                    
+                    
+                </div>
+                <div class="row align-items-center p-1 ">
+                    <div class="control-label col-sm-2  d-flex justify-content-end">
+                        <label>Descripcion:</label>
+                    </div>
+                    <div class="col-sm-10">
+ 
+                    <input type="text" class="form-control" id="txtDescripcion" autoocus>
+                    </div>
+                    
+                    
+                </div>
+                        
+                    <div class="row align-items-center p-1 justify-content-between">
+                        <div class="control-label col-sm-2 d-flex justify-content-end">
+                            <label>Salon:</label>
+                        </div>
+                        
+                        <div class="col-sm-10">
+                            
+                            <select class="form-control" id="slctDatosSalon" placeholder="Salon: "></select>
+                        </div>
+                        
+                    </div>
+                
+                    <button class="w-100 btn btn-lg btn-primary" type="button" id="btnGuardarRutina" >Guardar</button>
+                    
+                
+    </form>
     
-
-
     <div id="cartel" class="alert alert-dark alert-dismissible fade show" role="alert">
         <p id="respuesta"></p>
         <button type="button" class="close" id="btnClose" > <!--hay que arreglarlo porqe lo elimina-->
