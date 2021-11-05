@@ -41,6 +41,8 @@ function load(){
     document.getElementById("btnModificarProf").addEventListener("click",clickModificarProf);
     
     document.getElementById("btnBorrarProf").addEventListener("click",clickBorrarProf);
+    
+    document.getElementById("btnHabilitarProf").addEventListener("click",clickHabilitarProf);
    
     document.getElementById("botonAtras").addEventListener("click",atras);
 }
@@ -152,7 +154,7 @@ function retornoDelClickConsultarProf2(respuesta){
     oculta('formularioModificarProf'); 
     oculta('ordenadoPorEspecialidad'); 
     oculta('cartel');
-    oculta('botonAtras');
+    muestra('botonAtras');
 
     var profe = JSON.parse(respuesta);
     console.log(profe);
@@ -164,6 +166,19 @@ function retornoDelClickConsultarProf2(respuesta){
     $("emailProf").innerHTML = profe.email;
     $("especialidadProf").innerHTML = profe.especialidad;
     $("estadoProf").innerHTML = profe.estado;
+
+
+    if(profe.estado=='HAB'){$(
+        "estadoProf").innerHTML = 'Habilitado';
+    oculta('btnHabilitarProf');
+    muestra('btnBorrarProf');
+    console.log('profe Habilitado');  }
+    if(profe.estado=="DESHAB"){$(
+        "estadoProf").innerHTML = 'Deshabilitado';
+    oculta('btnBorrarProf');
+    muestra('btnHabilitarProf');
+    console.log('profe deshabilitado');  }
+
     $("altaProf").innerHTML = profe.fechaDeAlta;
 
     
@@ -260,15 +275,37 @@ function retornoDelServMod(respuesta){
     $("respuesta").innerHTML=respuesta;
 }
 
+function clickHabilitarProf(legajo){
+    var legajo= document.getElementById("slctDatosProf").value;
+
+    if(confirm('¿Esta seguro que desea habilitar a este profesor?')){
+        //pasar los parametros para borrar 
+        enviarParametrosPOSTBorrar(miBackEnd + 'Profesor/Habilitacion/'+legajo, retornoDelServHabBorrar);  
+    }
+}
+
+
 function clickBorrarProf(legajo){
+    var legajo= document.getElementById("slctDatosProf").value;
 
     if(confirm('¿Esta seguro que desea borrar a este profesor?')){
         //pasar los parametros para borrar 
-        //enviarParametrosGET(miBackEnd + 'Profesor/'+idProfMod, retornoDelClickBorrarProf);  
+        enviarParametrosPOSTBorrar(miBackEnd + 'Profesor/Borrar/'+legajo,retornoDelServHabBorrar)
     }
 }
-function retornoDelClickBorrarProf(){
+function retornoDelServHabBorrar(respuesta){
+   
+
+    muestra('cartel');
+    $("respuesta").innerHTML=respuesta;
     //confirmacion de borrado
+    muestra('botonesAdminProf'); 
+    oculta('menuConsultarProf'); 
+    oculta('datosParaUnProf'); 
+    oculta('formularioModificarProf'); 
+    oculta('ordenadoPorEspecialidad'); 
+  
+    oculta('botonAtras');
 }
      
 function clickOrdenadoPorEsp(){
@@ -306,6 +343,40 @@ function enviarParametrosGET(servidor,funcionARealizar){
     }
     //Envio el mensaje
     xmlhttp.send();
+}
+
+function enviarParametrosPOSTBorrar(servidor, funcionARealizar){
+
+    //declaro el objeto
+    var xmlhttp = new XMLHttpRequest(); 
+
+    //agrega datos para pasar por POST
+    var datos = new FormData();
+    datos.append("legajo",$("slctDatosProf").value);
+    
+   
+
+    //indico hacia donde va el mensaje
+    xmlhttp.open ("POST", servidor, true); 
+
+    //seteo el evento
+    xmlhttp.onreadystatechange = function(){
+        //veo si llego la respuesta del servidor
+        if(xmlhttp.readyState==XMLHttpRequest.DONE){
+            //reviso si la respuesta del servidor es la correcta
+            if(xmlhttp.status==200){
+                funcionARealizar(xmlhttp.response);
+            }else{
+                alert("ocurrio un error");
+            };
+        }
+    }
+    //esto va siempre cuando se hace un formulario
+    xmlhttp.setRequestHeader("enctype","multipart/form-data");
+
+    //envio el mensaje 
+    xmlhttp.send(datos);
+
 }
 
 function enviarParametrosPOSTEsp(servidor, funcionARealizar){
