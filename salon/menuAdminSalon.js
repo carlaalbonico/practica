@@ -12,9 +12,9 @@ function $(nombre)
 
 
 function load(){
-     
+    muestra('Salon'); 
     oculta('botonAtras');
-    
+    oculta('formularioModificarSalon');
     oculta('cartel'); 
     //boton para cerrar sesion 
     document.getElementById("logOut").addEventListener("click",cerrarSesion);
@@ -25,7 +25,7 @@ function load(){
     enviarParametrosGET(miBackEnd + 'Salon',cargarSalon); 
     
     document.getElementById ('tableSalon').addEventListener('click',clickModifSalon); 
-    
+    document.getElementById('btnGuardarSalon').addEventListener("click",click);
 }
 
 function cerrarSesion() {
@@ -89,6 +89,79 @@ var opciones=[];
 $('tableSalon').innerHTML=opciones; 
 }
 
+
+
+
+function clickModifSalon(){
+    
+    let modificacion = document.querySelectorAll(".modificacion"); 
+    var idDeBoton=0; 
+    modificacion.forEach((boton) => {
+      boton.addEventListener("click", function(e){
+        e.preventDefault();
+        
+        console.log(boton.id); 
+        idDeBoton= boton.id; 
+        extra=  idDeBoton;
+       
+        if (idDeBoton!=0){
+            if(confirm('¿Esta seguro que desea modificar este salon?')){
+            validar(); 
+            }}      
+       return  idDeBoton; 
+      })
+    });
+    
+    
+
+}
+
+function validar(){
+    muestra('botonAtras');
+    muestra('formularioModificarSalon');
+    oculta('Salon');
+    oculta('cartel'); 
+    enviarParametrosGET(miBackEnd + 'Salon',retornoDelClickModificarSalon);
+}
+
+
+    function retornoDelClickModificarSalon(valor){
+
+        var salon =JSON.parse(valor);
+          var nombre; 
+          var capacidad; 
+          var estado;  
+    
+        console.log(salon); 
+         
+            salon.forEach(element => {
+            if(element.idSalon==extra){
+            
+            nombre = element.nombreSalon;
+            capacidad = element.capacidad;
+            estado = element.estado;
+            }
+            
+        });
+        
+            $("txtNombre").value = nombre;
+            $("txtCapacidad").value = capacidad;
+            
+            
+    }
+    
+    function click(){
+  
+         enviarInfo(miBackEnd + 'Salon/Actualizacion/'+extra, respuestaDeServidor);
+     }
+     
+     function respuestaDeServidor(respuesta){
+         muestra('cartel');
+         $("respuesta").innerHTML=respuesta;
+        
+     }
+
+
 function enviarParametrosGET(servidor,funcionARealizar){
 
     //Declaro el objeto
@@ -112,4 +185,34 @@ function enviarParametrosGET(servidor,funcionARealizar){
     }
     //Envio el mensaje
     xmlhttp.send();
+}
+function enviarInfo(servidor, funcionARealizar){
+
+    //declaro el objeto
+    var xmlhttp = new XMLHttpRequest(); 
+
+    //agrega datos para pasar por POST
+    var datos = new FormData();
+    datos.append("nombreSalon",$("txtNombre").value);
+    datos.append("capacidad",$("txtCapacidad").value);
+    datos.append("estado",$("slctEstado").value);
+        //indico hacia donde va el mensaje
+    xmlhttp.open ("POST", servidor, true); 
+
+    //seteo el evento
+    xmlhttp.onreadystatechange = function(){
+        //veo si llego la respuesta del servidor
+        if(xmlhttp.readyState==XMLHttpRequest.DONE){
+            //reviso si la respuesta del servidor es la correcta
+            if(xmlhttp.status==200){
+                funcionARealizar(xmlhttp.response);
+            }else{
+                alert("Ocurrió un error");
+            };
+        }
+    }
+    //esto va siempre cuando se hace un formulario
+    xmlhttp.setRequestHeader("enctype","multipart/form-data");
+    //envio el mensaje 
+    xmlhttp.send(datos);
 }
