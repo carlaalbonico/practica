@@ -1,0 +1,40 @@
+.menu{
+    background-color: #282a35;
+}
+
+.nav-link{
+    color: #ffffff;
+}
+
+.nav a{
+    padding: 1.5%;
+}
+
+.col-{
+    text-decoration: none;
+    padding: 10px;
+}
+
+.nav-link:hover{
+    background-color: #000000;
+    color: #ffffff;
+}
+
+@media only screen and (max-width: 600px){
+    .col- {width: 100%;}
+}
+
+main .contenido iframe{
+    width: 100%;
+}
+
+footer{
+    background-color:rgb(43, 38, 38);
+}
+
+footer p{
+    text-align: center;
+    color: rgb(255, 255, 255);
+    margin: 0%;
+    padding: 2%;
+}
