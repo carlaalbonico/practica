@@ -17,7 +17,8 @@ function load(){
     oculta('clases'); 
     oculta('clasesPorProf');
     oculta('formularioModificarClase'); 
-    oculta('cartel'); 
+    oculta('cartel');
+    oculta('btnRegistrarClasePorProfesor');
     //boton para cerrar sesion 
     document.getElementById("logOut").addEventListener("click",cerrarSesion);
     //boton para perfil usuario logueado
