@@ -28,7 +28,8 @@ function load(){
     document.getElementById("btnConsultarRutina").addEventListener("click",clickConsultarRutina);
     document.getElementById("btnRegistrarRutina").addEventListener("click",clickRegistrarRutina);
     document.getElementById ('tableRutina').addEventListener('click',clickModifRutina); 
-
+    document.getElementById('btnGuardarRutina').addEventListener("click",click);
+   
 }
 
 function cerrarSesion() {
@@ -103,9 +104,11 @@ function cargarOpcionesSalon(nro){
    
 }
 
+
 function retornoDelClickConsultarRutina(valor){
     
     var rutinas =JSON.parse(valor);
+    console.log(rutinas)
             var opciones=[]; 
             rutinas.forEach(element => {
                 opciones.push('<tr >'+
@@ -113,7 +116,7 @@ function retornoDelClickConsultarRutina(valor){
                 '<td>'+element.descripcion+'</td>'+
                 '<td>'+element.salon+'</td>'+
              
-                '<td><button class="btn  btn-danger modificacion" type="button" id="'+element.idClase+'">Modificar</button></td>'+
+                '<td><button class="btn  btn-danger modificacion" type="button" id="'+element.idRutina+'">Modificar</button></td>'+
 
                 '</tr>' );
                 
@@ -123,7 +126,7 @@ function retornoDelClickConsultarRutina(valor){
  
 }
 
-function clickModifClase(){
+function clickModifRutina(){
     
     let modificacion = document.querySelectorAll(".modificacion"); 
     var idDeBoton=0; 
@@ -150,9 +153,47 @@ function clickModifClase(){
 function validar(){
     muestra('botonAtras');
     oculta('botonesAdmin');
+    oculta('rutinas'); 
+    muestra('formularioModificarRutina'); 
+    oculta('cartel');
+    enviarParametrosGET(miBackEnd + 'Rutina', retornoDelClickModificarRutina);
+}
+
+
+    function retornoDelClickModificarRutina(valor){
+
+        var rutinas =JSON.parse(valor);
+            var nombre;
+            var descripcion;
+    
+        console.log(rutinas); 
+         
+            rutinas.forEach(element => {
+            if(element.idRutina==extra){
+            
+            nombre = element.nombre;
+            descripcion = element.descripcion;
+
+            }
+            
+        });
+       
+            $("txtNombre").value = nombre;
+            $("txtDescripcion").value = descripcion;
+            
+            
+    }
+    
+    function click(){
   
-   
-    oculta('cartel'); }
+         enviarInfo(miBackEnd + 'Rutina/Actualizacion/'+extra, respuestaDeServidor);
+     }
+     
+     function respuestaDeServidor(respuesta){
+         muestra('cartel');
+         $("respuesta").innerHTML=respuesta;
+        
+     }
 
 
 function enviarParametrosGET(servidor,funcionARealizar){
@@ -187,8 +228,8 @@ function enviarInfo(servidor, funcionARealizar){
 
     //agrega datos para pasar por POST
     var datos = new FormData();
-    datos.append("nombre",$("txtNewRutina").value);
-    datos.append("descripcion",$("txtNewDescrip").value);
+    datos.append("nombre",$("txtNombre").value);
+    datos.append("descripcion",$("txtDescripcion").value);
     datos.append("salon",$("slctDatosSalon").value);
         //indico hacia donde va el mensaje
     xmlhttp.open ("POST", servidor, true); 

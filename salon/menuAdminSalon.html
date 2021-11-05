@@ -118,7 +118,51 @@
     </div> 
 
         
-    
+    <form id="formularioModificarSalon" class="form-menu">
+        <h1 class="p-3">Modificar Salon</h1>
+                <div class="row align-items-center p-1 ">
+                    <div class="control-label col-sm-2  d-flex justify-content-end">
+                        <label>Nombre: </label>
+                    </div>
+                    <div class="col-sm-10">
+ 
+                    <input type="text" class="form-control" id="txtNombre" autoocus>
+                    </div>
+                    
+                    
+                </div>
+                <div class="row align-items-center p-1 ">
+                    <div class="control-label col-sm-2  d-flex justify-content-end">
+                        <label>Capacidad:</label>
+                    </div>
+                    <div class="col-sm-10">
+ 
+                    <input type="text" class="form-control" id="txtCapacidad" autoocus>
+                    </div>
+                    
+                    
+                </div>
+                        
+                    <div class="row align-items-center p-1 justify-content-between">
+                        <div class="control-label col-sm-2 d-flex justify-content-end">
+                            <label>Estado:</label>
+                        </div>
+                        
+                        <div class="col-sm-10">
+                            
+                            <select class="form-control" id="slctEstado" placeholder="">
+                                <option value="disponible">Disponible</option>
+                                <option value="ocupado">Ocupado</option>
+                            </select>
+                            
+                        </div>
+                        
+                    </div>
+                
+                    <button class="w-100 btn btn-lg btn-primary" type="button" id="btnGuardarSalon" >Guardar</button>
+                    
+                
+    </form>
  
    
     

@@ -267,9 +267,7 @@ function retornoDelClickModificarClase(valor){
         var horaFin;
       
     console.log(clases); 
-     
 
-        alert(extra);
      clases.forEach(element => {
         if(element.idClase==extra){
            console.log(element.dias); 
