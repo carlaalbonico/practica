@@ -190,7 +190,7 @@ function clickModifClase(){
         extra=  idDeBoton;
        
         if (idDeBoton!=0){
-            if(confirm('¿Esta seguro que desea borrar a este socio?')){
+            if(confirm('¿Esta seguro que desea modificar esta clase?')){
             validar(); 
             }}      
        return  idDeBoton; 

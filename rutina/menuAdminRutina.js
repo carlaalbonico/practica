@@ -27,6 +27,8 @@ function load(){
 
     document.getElementById("btnConsultarRutina").addEventListener("click",clickConsultarRutina);
     document.getElementById("btnRegistrarRutina").addEventListener("click",clickRegistrarRutina);
+    document.getElementById ('tableRutina').addEventListener('click',clickModifRutina); 
+
 }
 
 function cerrarSesion() {
@@ -120,6 +122,37 @@ function retornoDelClickConsultarRutina(valor){
         $('tableRutina').innerHTML=opciones; 
  
 }
+
+function clickModifClase(){
+    
+    let modificacion = document.querySelectorAll(".modificacion"); 
+    var idDeBoton=0; 
+    modificacion.forEach((boton) => {
+      boton.addEventListener("click", function(e){
+        e.preventDefault();
+        
+        console.log(boton.id); 
+        idDeBoton= boton.id; 
+        extra=  idDeBoton;
+       
+        if (idDeBoton!=0){
+            if(confirm('¿Esta seguro que desea modificar esta rutina?')){
+            validar(); 
+            }}      
+       return  idDeBoton; 
+      })
+    });
+    
+    
+
+}
+
+function validar(){
+    muestra('botonAtras');
+    oculta('botonesAdmin');
+  
+   
+    oculta('cartel'); }
 
 
 function enviarParametrosGET(servidor,funcionARealizar){

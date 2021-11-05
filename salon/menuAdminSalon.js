@@ -13,14 +13,18 @@ function $(nombre)
 
 function load(){
      
+    oculta('botonAtras');
+    
+    oculta('cartel'); 
     //boton para cerrar sesion 
     document.getElementById("logOut").addEventListener("click",cerrarSesion);
     //boton para perfil usuario logueado
     document.getElementById("perfil").addEventListener("click",mostrarPerfil);
 
     document.getElementById("botonAtras").addEventListener("click",atras);
-
+    enviarParametrosGET(miBackEnd + 'Salon',cargarSalon); 
     
+    document.getElementById ('tableSalon').addEventListener('click',clickModifSalon); 
     
 }
 
@@ -61,4 +65,51 @@ function oculta(id){
 function atras(){ 
     
 
+}
+
+
+function cargarSalon(valor){
+    var salon =JSON.parse(valor);
+
+console.log(salon);
+var opciones=[]; 
+    salon.forEach(element => {
+        opciones.push('<tr >'+
+        '<th scope="row">'+element.idSalon+'</th>'+
+        '<td>'+element.nombreSalon+'</td>'+
+        '<td>'+element.capacidad+'</td>'+
+        '<td>'+element.estado+'</td>'+
+        
+    
+        '<td><button class="btn btn-danger modificacion"  id="'+element.idSalon+'">Modificar</button></td>'+
+
+        '</tr>' );
+        
+    });
+$('tableSalon').innerHTML=opciones; 
+}
+
+function enviarParametrosGET(servidor,funcionARealizar){
+
+    //Declaro el objeto
+    var xmlhttp = new XMLHttpRequest();
+
+    //Indico hacia donde va el mensaje
+    xmlhttp.open("GET", servidor, true);
+
+    xmlhttp.onreadystatechange = function(){
+
+        if(xmlhttp.readyState == XMLHttpRequest.DONE){
+
+            if(xmlhttp.status == 200){
+                //console.log(xmlhttp.responseText);
+                funcionARealizar(xmlhttp.responseText);
+            }
+            else{
+                alert("Ocurrio un error");
+            }
+        }
+    }
+    //Envio el mensaje
+    xmlhttp.send();
 }
