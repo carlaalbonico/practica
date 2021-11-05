@@ -37,6 +37,8 @@ function load(){
     //cuando elige la opcion de registrar socio en el menu
     document.getElementById("btnMenuRegistrarSocio").addEventListener("click",menuRegistrarSocio);
    
+
+    
     //cuando escribe un nombre y hace click en buscar
     document.getElementById("btnBuscar").addEventListener("click",clickBuscar);
     //cuando elige el socio y hace click en boton consultar socio
@@ -44,7 +46,8 @@ function load(){
 
     document.getElementById("btnModificar").addEventListener("click",clickModificarSocio);
     document.getElementById("btnBorrar").addEventListener("click",clickBorrarSocio);
-    
+    document.getElementById("btnHabilitar").addEventListener("click",clickHabilitarSocio);
+
     document.getElementById("btnIrRegistrarPago").addEventListener("click",clickRegistrarPago);
     document.getElementById("btnRegistrarPago").addEventListener("click",clickRegistrarPago);
     document.getElementById("btnGenerarCuota").addEventListener("click",clickGenerarCuota);
@@ -191,9 +194,21 @@ function retornoClickConsultarSocio(respuesta){
     $("direccionSocio").innerHTML = socio.direccion;
     $("telefonoSocio").innerHTML = socio.telefono;
     $("emailSocio").innerHTML = socio.email;
-    $("estadoSocio").innerHTML = socio.estado;
+    console.log(socio);
+    if(socio.estado=='HAB'){$(
+        "estadoSocio").innerHTML = 'Habilitado';
+    oculta('btnHabilitar');
+    muestra('btnBorrar');
+    console.log('socio Habilitado');  }
+    if(socio.estado=="DESHAB"){$(
+        "estadoSocio").innerHTML = 'Deshabilitado';
+    oculta('btnBorrar');
+    muestra('btnHabilitar');
+    console.log('socio deshabilitado');  }
+    
     $("altaSocio").innerHTML = socio.fechaDeAlta;
-        
+      
+    
 
     //$("respuesta").innerHTML=respuesta;
     if(socio['nroSocio'] == null){
@@ -266,19 +281,31 @@ function clickBorrarSocio(){
         enviarParametrosPOSTBorrar(miBackEnd + 'Socio/Borrar/'+nroSocio,respuestaDeServidorBorrar)
     }
 }
-function respuestaDeServidorBorrar(respuesta){
-    muestra('cartel');
-    $("respuesta").innerHTML=respuesta;
 
-    muestra('botonesAdmin'); 
-    oculta('consultarSocio'); 
-    oculta('botonesAdminParaUnSocio'); 
+function clickHabilitarSocio(){
+    var nroSocio= document.getElementById("slctSocio").value;
+    
+    if(confirm('¿Esta seguro que desea habilitar a este socio?')){
+        //pasar los parametros para borrar 
+
+        enviarParametrosPOSTBorrar(miBackEnd + 'Socio/Habilitacion/'+nroSocio,respuestaDeServidorBorrar)
+    }
+}
+function respuestaDeServidorBorrar(respuesta){
+    //muestra('cartel');
+   // $("respuesta").innerHTML=respuesta;
+    alert(respuesta);
+    oculta('cartel');
+    oculta('consultarSocio');
+    muestra('botonesAdminParaUnSocio'); 
     oculta('formularioModificarSocio'); 
     oculta('formularioChico');
-    oculta('inscribirSocioClase'); 
     oculta('registrarPago'); 
+    
     oculta('estadoDeuda');
+    oculta('inscribirSocioClase');
     oculta('botonAtras');
+    
 }
 
 function cargarFormularioChico(respuesta){
