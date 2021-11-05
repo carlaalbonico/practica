@@ -11,9 +11,8 @@ function $(nombre)
 function load(){
     oculta('cartel'); 
     $('txtEmail').addEventListener("change", comprobarCorreo);
-   
     $('btnEnviar').addEventListener("click",click);
-    
+    document.getElementById("botonAtras").addEventListener("click",atras);
 }
 
 function oculta(id){
@@ -23,6 +22,10 @@ function oculta(id){
     
     }
 
+}
+
+function atras(){
+    window.location.assign("http://localhost/practica/login.html");
 }
 function muestra(id){
     if (document.getElementById){ //se obtiene el id
@@ -60,7 +63,7 @@ function click(){
 }
 
 function respuestaDeServidor(respuesta){
-    //var objetoUsuario = JSON.parse(respuesta);
+    
     $("respuesta").innerHTML=respuesta;
 }
 
