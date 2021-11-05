@@ -24,7 +24,7 @@ function load(){
     document.getElementById("txtContrasena").addEventListener("keyup", validarContrasenia);
     document.getElementById("txtRepetidaContrasena").addEventListener("keyup", validarContrasenia);
     document.getElementById("btnGuardar").addEventListener("click",clickGuardar);
-    document.getElementById("btnClose").addEventListener("click",oculta);
+    
 
 } 
 function oculta_muestra(id){

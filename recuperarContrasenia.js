@@ -9,10 +9,11 @@ function $(nombre)
 }
 
 function load(){
+    oculta('cartel'); 
     $('txtEmail').addEventListener("change", comprobarCorreo);
    
     $('btnEnviar').addEventListener("click",click);
-    document.getElementById("btnClose").addEventListener("click",oculta);
+    
 }
 
 function oculta(id){
