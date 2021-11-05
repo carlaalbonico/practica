@@ -18,7 +18,7 @@ function load(){
     document.getElementById("botonAtras").addEventListener("click",atras);
 
     enviarParametrosGET(miBackEnd + 'TipoClase',cargarOpcionesClase);
-    enviarParametrosGET(miBackEnd + 'Profesor',cargarOpcionesProf);
+    document.getElementById ('slctNewClase').addEventListener('change',traerProfesoresPorEspecialidad);
     enviarParametrosGET(miBackEnd + 'Salon',cargarOpcionesSalon);
     // preguntar por el email! 
    
@@ -66,14 +66,29 @@ function cargarOpcionesClase(nro){
     console.log(clase);
     clase.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
 
-    var opciones = []
+    var opciones = ['<option value="0">Seleccione una clase</option>']
 
    clase.forEach(element => {
-        opciones.push('<option value="' + element.idTipoClase + '">' + element.nombre + '</option>');
+        opciones.push('<option value="' + element.idTipoClase +'">' + element.nombre + '</option>');
     });
     
     $("slctNewClase").innerHTML = opciones; 
 }
+
+
+function devuelveTextoDelSelect(campo){
+    var el= document.getElementById(campo);
+
+   //para obtener el valor del select
+   var seleccionada = el.options[el.selectedIndex].textContent;
+   
+   console.log(seleccionada); 
+
+   return seleccionada; 
+   
+}
+function traerProfesoresPorEspecialidad(){
+    enviarParametrosPOSTEsp(miBackEnd + 'Profesor/Especialidad',cargarOpcionesProf);}
 
 function cargarOpcionesProf(nroProf){
     
@@ -205,4 +220,40 @@ function enviarInfoDeClase(servidor, funcionARealizar){
     xmlhttp.setRequestHeader("enctype","multipart/form-data");
     //envio el mensaje 
     xmlhttp.send(datos);
+}
+
+function enviarParametrosPOSTEsp(servidor, funcionARealizar){
+
+
+    var especialidad=devuelveTextoDelSelect("slctNewClase"); 
+    //declaro el objeto
+    var xmlhttp = new XMLHttpRequest(); 
+
+    //agrega datos para pasar por POST
+    var datos = new FormData();
+    datos.append('especialidad',especialidad);
+   
+
+    //indico hacia donde va el mensaje
+    xmlhttp.open ("POST", servidor, true); 
+
+    //seteo el evento
+    xmlhttp.onreadystatechange = function(){
+        //veo si llego la respuesta del servidor
+        if(xmlhttp.readyState==XMLHttpRequest.DONE){
+            //reviso si la respuesta del servidor es la correcta
+            if(xmlhttp.status==200){
+                funcionARealizar(xmlhttp.response);
+            }else{
+                alert("ocurrio un error");
+            };
+        }
+    }
+    //esto va siempre cuando se hace un formulario
+    xmlhttp.setRequestHeader("enctype","multipart/form-data");
+
+    //envio el mensaje 
+    xmlhttp.send(datos);
+
+
 }
