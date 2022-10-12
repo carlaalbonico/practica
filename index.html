@@ -13,8 +13,8 @@
    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-  
+   <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
    
     <script src="index.js"></script>
   
@@ -26,192 +26,219 @@
 </head>
 
 <body>
-    <div class="row menu" id="miMenu">
-        
-        <nav class="navbar navbar-dark bg-dark ">
-            <header class="container d-flex justify-content-between">
-                <a class="navbar-brand" href="#">PUSH UP</a>
-           
+        <header class="p-3 bg-dark ">
+            <div class="container">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 ">
+                    <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-decoration-none text-white">PUSH UP</a>
+                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+                    </a>
+                    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                        <li><a href="#" class="nav-link px-2 link-secondary">Inicio</a></li>
+                        <li><a href="#" class="nav-link px-2 link-white">Actividades</a></li>
+                        <li><a href="#" class="nav-link px-2 link-primary">Nosotros</a></li>
+                        <li><a href="#" class="nav-link px-2 link-primary">Contacto</a></li>
+                    </ul>
+
+                    <div class="col-md-3 text-end">
+                        <button type="button" class="btn btn-outline-success me-2" id="logIn">Ingresar</button>
+                        <button type="button" class="btn btn-primary">Registrarse</button>
+                    </div>
+                </div>
+            </div>
+        </header>
     
-                <ul class="nav nav-pills">
-    
-                    <li class="nav-item ">
-                        <a class="nav-link " aria-current="page" href="index.html">Menú</a>
-                    </li>
-    
-                    <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="">Clases</a>
-                    </li>
-    
-                    <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="">Actividades</a>
-                    </li>
-    
-                    <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="">Nosotros</a>
-                    </li>
-    
-                    <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="">Contacto</a>
-                    </li>
-    
+       
+        <main>
+            <section class="py-5 text-left container ">
+                
+                    <div class="row py-lg-5 border border-3 rounded-3">
+
+                        <div class="container d-flex">
+                            <div class="col mx-auto">
+                                <h1 class="fw-semibold">Somos PUSH UP</h1>
+                                    <p> 
+                                        Como <span class="fw-bold"> centro fitness </span>buscamos contribuir para una mejora constante de la salud de las personas, por medio de dos grandes pilares, el ejercicio y la naturaleza.
+                                        Enseñar y concientizar sobre una forma diferente de hacer ejercicio.
+                                    </p>
+                                    <p>
+                                        El <span class="fw-bold"> seguimiento total </span> que se le hace a cada miembro de PUSH UP, la calidad de nuestro staff, la detallada atención que brindamos, la permanente conexión que se genera entre la persona que se presenta para realizar ejercicio y la naturaleza y, por último, la conciencia que buscamos generar sobre la existencia de la naturaleza y como ella nos afecta día a día.
+                                    
+                                    </p>
+                
+                                    <p>
+                                        Nos destacamos por la calidad de personal, la atención, el apoyo brindado y la conexión permanentemente con la naturaleza y la conciencia que buscamos generar sobre su existencia en nuestras vidas.
+                                    </p>
+                                
+                                </div>
+                            <div class="container" id="carrusel">
+                                <div class="row" id="carrusel">
+                                    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                                        <div class="carousel-indicators">
+                                            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
+                                                aria-current="true" aria-label="Slide 1"></button>
+                                            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
+                                                aria-label="Slide 2"></button>
+                                            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2"
+                                                aria-label="Slide 3"></button>
+                                        </div>
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item active" data-bs-interval="10000">
+                                                <img src="imagenes/spinning.jpg" class="d-block w-100" alt="..."  height="300">
+                                                <div class="carousel-caption d-none d-md-block">
+                                                    <h5></h5>
+                                                    <p></p>
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item" data-bs-interval="2000">
+                                                <img src="imagenes/musculacion.jpg" class="d-block w-100" alt="..."  height="300">
+                                                <div class="carousel-caption d-none d-md-block">
+                                                    <h5></h5>
+                                                    <p></p>
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <img src="imagenes/rutinas.jpg" class="d-block w-100" alt="..." height="300">
+                                                <div class="carousel-caption d-none d-md-block">
+                                                    <h5></h5>
+                                                    <p></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
+                                            data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark"
+                                            data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
+                                    </div>
+                                </div>
+                        
+                                <div class="row">
+                                    <h2 class="mt-4 text-center"></h2>
+                                    <p></p>
+                                    
+                                </div>
                     
-                </ul>
-                <ul>
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="logIn">Iniciar Sesión</button>
-                </ul>
+                            </div>
+                        </div>
+                        
+                    </div>
                 
-                
-            </header>
-        </nav>
 
+            </section>
+            <div class="container">
+                    <div class="h1 ps-4">Actividades</div>
+
+                 <div class="row justify-content-center">
+                    <div class="col-lg-4">
+                        <div class="d-flex">
+                            <img class="bd-placeholder-img rounded-circle" width="140" height="140" src="https://www.bienalsur.com.ar/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBkZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--87ed62bc6f692ed1c63603063312d2ee3a61840a/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCam9MY21WemFYcGxTU0lPTVRBd01IZ3hNREF3QmpvR1JWUT0iLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--397de7ca994cd0423404c2d6abe9dd21d526dc1c/IMG_2768%20(1).JPG" alt="...">
+                            <div class="ps-3"> <h2>NATURAL CROSS</h2>
+                                <p>Resistencia, fuerza física, flexibilidad, potencia, equilibrio… ¿Todo en uno?</p>
+                                <p><a class="btn btn-secondary" href="#">Ver detalles »</a></p>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="d-flex">
+                            <img class="bd-placeholder-img rounded-circle" width="140" height="140" src="https://www.bienalsur.com.ar/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBkZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--87ed62bc6f692ed1c63603063312d2ee3a61840a/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCam9MY21WemFYcGxTU0lPTVRBd01IZ3hNREF3QmpvR1JWUT0iLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--397de7ca994cd0423404c2d6abe9dd21d526dc1c/IMG_2768%20(1).JPG" alt="...">
+                            <div class="ps-3">
+                                <h2>FUNCIONAL</h2>
+                                <p>El entrenamiento que se basa en movimientos y no en músculos.</p>
+                                <p><a class="btn btn-secondary" href="#">Ver detalles »</a></p>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="d-flex"> 
+                            <img class="bd-placeholder-img rounded-circle" width="140" height="140" src="https://www.bienalsur.com.ar/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBkZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--87ed62bc6f692ed1c63603063312d2ee3a61840a/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCam9MY21WemFYcGxTU0lPTVRBd01IZ3hNREF3QmpvR1JWUT0iLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--397de7ca994cd0423404c2d6abe9dd21d526dc1c/IMG_2768%20(1).JPG" alt="...">
+                            <div class="ps-3">
+                                <h2>STRECHING</h2>
+                                <p>El entrenamiento que se basa en estiramientos.</p>
+                                <p><a class="btn btn-secondary" href="#">Ver detalles »</a></p>
+                            </div></div>
+                       
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-4">
+                        <div class="d-flex ">
+                            <img class="bd-placeholder-img rounded-circle" width="140" height="140" src="https://www.bienalsur.com.ar/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBkZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--87ed62bc6f692ed1c63603063312d2ee3a61840a/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCam9MY21WemFYcGxTU0lPTVRBd01IZ3hNREF3QmpvR1JWUT0iLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--397de7ca994cd0423404c2d6abe9dd21d526dc1c/IMG_2768%20(1).JPG" alt="...">
+                            <div class="ps-3"> 
+                                <h2>NATURAL CROSS</h2>
+                                <p>Resistencia, fuerza física, flexibilidad, potencia, equilibrio… ¿Todo en uno?</p>
+                                <p><a class="btn btn-secondary" href="#">Ver detalles »</a></p>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                    <div class="col-lg-4 ">
+                        <div class="d-flex">
+                            <img class="bd-placeholder-img rounded-circle" width="140" height="140" src="https://www.bienalsur.com.ar/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBkZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--87ed62bc6f692ed1c63603063312d2ee3a61840a/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCam9MY21WemFYcGxTU0lPTVRBd01IZ3hNREF3QmpvR1JWUT0iLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--397de7ca994cd0423404c2d6abe9dd21d526dc1c/IMG_2768%20(1).JPG" alt="...">
+                            <div class="ps-3">
+                                <h2>FUNCIONAL</h2>
+                                <p>El entrenamiento que se basa en movimientos y no en músculos.</p>
+                                <p><a class="btn btn-secondary" href="#">Ver detalles »</a></p>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="d-flex "> 
+                            <div class="">
+                                <img class="bd-placeholder-img rounded-circle" width="140" height="140" src="https://www.bienalsur.com.ar/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBkZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--87ed62bc6f692ed1c63603063312d2ee3a61840a/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCam9MY21WemFYcGxTU0lPTVRBd01IZ3hNREF3QmpvR1JWUT0iLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--397de7ca994cd0423404c2d6abe9dd21d526dc1c/IMG_2768%20(1).JPG" alt="...">
+                            </div>
+                            
+                            <div class="ps-3">
+                                <h2>STRECHING</h2>
+                                <p>El entrenamiento que se basa en estiramientos.</p>
+                                <p ><a class="btn btn-secondary" href="#">Ver detalles »</a></p>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+                        
+                    
+                            
+                        
+            </div>
+        
     
-    </div>
-
-    <section id="welcome">
-        <div class="container">
-            Como centro fitness buscamos contribuir para una mejora constante de la salud de las personas, por medio de dos grandes pilares, el ejercicio y la naturaleza. Enseñar y concientizar sobre una forma diferente de hacer ejercicio.
-
-El seguimiento total que se le hace a cada miembro de BAS, la calidad de nuestro staff, la detallada atención que brindamos, la permanente conexión que se genera entre la persona que se presenta para realizar ejercicio y la naturaleza y, por último, la conciencia que buscamos generar sobre la existencia de la naturaleza y como ella nos afecta día a día.
-
-Nos destacamos por la calidad de personal, la atención, el apoyo brindado y la conexión permanentemente con la naturaleza y la conciencia que buscamos generar sobre su existencia en nuestras vidas.
-        </div>
-
-    </section>
-    <div class="subtle-title">Actividades</div>
-
-    <div id="activities">
         
 
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            <div class="col">
-                <div class="card shadow-sm">
-                  <!--<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="" role="img" aria-label="" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></svg>-->
-                  <img src="https://www.bienalsur.com.ar/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBTdz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--1d548142bd4a4b5c02472aa2842556a927e5662b/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCam9MY21WemFYcGxTU0lPTVRBd01IZ3hNREF3QmpvR1JWUT0iLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--397de7ca994cd0423404c2d6abe9dd21d526dc1c/crossfit.jpg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <div class="name">NATURAL CROSS</div>
-                    <p class="card-text">Resistencia, fuerza física, flexibilidad, potencia, equilibrio… ¿Todo en uno?</p>
-                  </div>
+        <hr class="featurette-divider">
+        <div class="container">
+            <div class="row featurette">
+                <div class="col-md-7">
+                    <h2 class="featurette-heading">Historia del mes <br><span class="text-muted">Te dejará boquiabierto.</span></h2>
+                    <p class="lead">Compartimos un video de Paula Pareto, judoca y médica argentina</p>
+                </div>
+                <div class="col-md-5">
+                    <iframe width="427" height="240" src="https://www.youtube.com/embed/iCd-y-0b4-c"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
                 </div>
             </div>
-
-              <div class="col">
-                <div class="card shadow-sm">
-                  <!--<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="" role="img" aria-label="" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></svg>-->
-                  <img src="https://www.bienalsur.com.ar/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBkZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--87ed62bc6f692ed1c63603063312d2ee3a61840a/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCam9MY21WemFYcGxTU0lPTVRBd01IZ3hNREF3QmpvR1JWUT0iLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--397de7ca994cd0423404c2d6abe9dd21d526dc1c/IMG_2768%20(1).JPG" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <div class="name">FUNCIONAL</div>
-                        <p class="card-text">El entrenamiento que se basa en movimientos y no en músculos.</p>
-                    </div>
-                </div>
-              </div>
-          
-
-           
-            <div class="col">
-                <div class="card shadow-sm">
-                  <!--<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="" role="img" aria-label="" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></svg>-->
-                  <img src="https://www.bienalsur.com.ar/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBkZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--87ed62bc6f692ed1c63603063312d2ee3a61840a/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCam9MY21WemFYcGxTU0lPTVRBd01IZ3hNREF3QmpvR1JWUT0iLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--397de7ca994cd0423404c2d6abe9dd21d526dc1c/IMG_2768%20(1).JPG" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <div class="name">STRECHING</div>
-                        <p class="card-text">El entrenamiento que se basa en estiramientos.</p>
-                    </div>
-                </div>
-            </div>
-
+        </div>
             
-            <div class="col">
-                <div class="card shadow-sm">
-                  <!--<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="" role="img" aria-label="" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></svg>-->
-                  <img src="https://www.bienalsur.com.ar/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBkZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--87ed62bc6f692ed1c63603063312d2ee3a61840a/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCam9MY21WemFYcGxTU0lPTVRBd01IZ3hNREF3QmpvR1JWUT0iLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--397de7ca994cd0423404c2d6abe9dd21d526dc1c/IMG_2768%20(1).JPG" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <div class="name">OPEN BOX</div>
-                    <p class="card-text">Tenes un espacio para poder entenar solo. Vos decidis cómo, nosotros te damos toda la infraestructura que necesitas. Acercate y consulta</p>
-                    </div>
-                </div>
-            </div>
+    </main>
+    
 
-           
-            <div class="col">
-                <div class="card shadow-sm">
-                  <!--<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="" role="img" aria-label="" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></svg>-->
-                  <img src="https://www.bienalsur.com.ar/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBTdz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--1d548142bd4a4b5c02472aa2842556a927e5662b/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCam9MY21WemFYcGxTU0lPTVRBd01IZ3hNREF3QmpvR1JWUT0iLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--397de7ca994cd0423404c2d6abe9dd21d526dc1c/crossfit.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <div class="name">SPINNING</div>
-                            <p class="card-text">Resistencia, fuerza física, , potencia + BICI </p>
-                        </div>
-                </div>
-            </div>
+        
 
-            
-            
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="row mt-2">
-            <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
-                        aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
-                        aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2"
-                        aria-label="Slide 3"></button>
-                </div>
-                <div class="carousel-inner">
-                    <div class="carousel-item active" data-bs-interval="10000">
-                        <img src="imagenes/spinning.jpg" class="d-block w-100" alt="..." height="800">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5></h5>
-                            <p></p>
-                        </div>
-                    </div>
-                    <div class="carousel-item" data-bs-interval="2000">
-                        <img src="imagenes/musculacion.jpg" class="d-block w-100" alt="..." height="800">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5></h5>
-                            <p></p>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="imagenes/rutinas.jpg" class="d-block w-100" alt="..." height="800">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5></h5>
-                            <p></p>
-                        </div>
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-        </div>
-
-        <div class="row">
-            <h2 class="mt-4 text-center">Historia del mes</h2>
-            <p>Compartimos un video de Paula Pareto, judoca y médica argentina</p>
-            <iframe width="853" height="480" src="https://www.youtube.com/embed/iCd-y-0b4-c"
-                title="YouTube video player" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-        </div>
-
-        <div class="row">
-           
-        </div>
-    </div>
-
-    <aside>
-
-    </aside>
+   
 
     <footer class="mt-4">
         seguinos en: 

@@ -1,6 +1,3 @@
-.menu{
-    background-color: #282a35;
-}
 
 html,
 body {
@@ -11,13 +8,6 @@ body {
 }
 
 
-.nav-link{
-    color: #ffffff;
-}
-
-.nav a{
-    padding: 1.5%;
-}
 
 .col-{
     text-decoration: none;
@@ -68,4 +58,16 @@ footer p{
     padding: 30px;
     margin: auto;
    
+  }
+
+  #activities .activity-list {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      grid-gap: 2rem;
+      margin-top: 2rem;
+  }
+ 
+ #carrusel{
+    max-width:400px; 
+    max-height:300px;
+
   }
