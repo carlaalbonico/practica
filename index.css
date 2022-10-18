@@ -1,7 +1,7 @@
 
 html,
 body {
-  height: 100%;
+  height: 200 px;
 }
 #fondo{ 
   background-color: rgb(245, 245, 245);
@@ -14,10 +14,7 @@ body {
     padding: 10px;
 }
 
-.nav-link:hover{
-    background-color: #000000;
-    color: #ffffff;
-}
+
 
 @media only screen and (max-width: 600px){
     .col- {width: 100%;}
@@ -70,4 +67,10 @@ footer p{
     max-width:400px; 
     max-height:300px;
 
+  }
+
+  .actividad {
+   
+  
+    max-height:150px;
   }

@@ -136,3 +136,14 @@ body {
   text-shadow: 0 1px 0 #fff;
   opacity: .5;
 }
+.clase {
+  max-height: 200 px;
+  height: 100%;
+}
+
+
+
+.nav-link:hover{
+  background-color: rgb(228, 211, 211);
+  color: #ffffff;
+}
