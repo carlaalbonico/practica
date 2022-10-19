@@ -13,6 +13,11 @@ function load(){
     oculta_muestra('cartel');
     muestra('cuadroLogin');
     oculta_muestra('cuadroContrasenaNueva');
+    document.getElementById("logIn").addEventListener("click",ingresar);
+    document.getElementById("home").addEventListener("click",home);
+    document.getElementById("activities").addEventListener("click",activities);
+    document.getElementById("schedule").addEventListener("click",schedule);
+    document.getElementById("contact").addEventListener("click",contact);
     document.getElementById('txtEmail').addEventListener("keyup", validarLogin);
     document.getElementById('txtPass').addEventListener("keyup", validarLogin);
     document.getElementById("btnEnviar").addEventListener("click",click);
@@ -23,6 +28,23 @@ function load(){
     
 
 } 
+function ingresar(){
+    window.location.assign("http://localhost/practica/login.html");
+    
+}
+function home(){
+    window.location.assign("http://localhost/practica/index.html");
+}
+function activities(){
+    window.location.assign("http://localhost/practica/actividades.html");
+}
+function schedule(){
+    window.location.assign("http://localhost/practica/horarios.html");
+}
+function contact(){
+    window.location.assign("http://localhost/practica/contacto.html");
+}
+
 function oculta_muestra(id){
     if (document.getElementById){ //se obtiene el id
     var el = document.getElementById(id); 
