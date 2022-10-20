@@ -7,7 +7,19 @@ function $(nombre)
 
 
 function load(){
-   
+     
+     oculta('descFuncional'); 
+     oculta('descStreching'); 
+     oculta('descSpinning'); 
+     oculta('descFreeBox'); 
+     oculta('descRutinas'); 
+
+     document.getElementById("btnnatural").addEventListener("click",muestraNatural);
+     document.getElementById("btnfuncional").addEventListener("click",muestraFuncional);
+     document.getElementById("btnfreebox").addEventListener("click",muestraFreeBox);
+     document.getElementById("btnstreching").addEventListener("click",muestraStreching);
+     document.getElementById("btnspinning").addEventListener("click",muestraSpinning);
+     document.getElementById("btnrutinas").addEventListener("click",muestraRutinas);
 
     document.getElementById("logIn").addEventListener("click",registrar);
     document.getElementById("home").addEventListener("click",home);
@@ -38,3 +50,86 @@ function TraerFecha(){
     let anio = fecha.getFullYear();
     $("txtFecha").innerHTML = anio;
 }
+
+function oculta_muestra(id){
+    if (document.getElementById){ //se obtiene el id
+    var el = document.getElementById(id); 
+    el.style.display = (el.style.display == 'none') ? 'block' : 'none'; 
+    
+    }
+
+}
+
+function muestra(id){
+    if (document.getElementById){ //se obtiene el id
+    var el = document.getElementById(id); //se define la variable "el" igual a nuestro div
+
+     el.style.display = "block"; 
+        
+    }
+
+}
+function oculta(id){
+    if (document.getElementById){ //se obtiene el id
+    var el = document.getElementById(id); 
+    el.style.display ='none'; 
+    
+    }
+
+}
+
+function muestraNatural(){
+    
+    oculta('descFuncional'); 
+    oculta('descStreching'); 
+    oculta('descSpinning'); 
+    oculta('descFreeBox'); 
+    oculta('descRutinas'); 
+   oculta_muestra('descNatural');
+}
+function muestraFuncional(){
+    oculta('descNatural'); 
+  
+    oculta('descStreching'); 
+    oculta('descSpinning'); 
+    oculta('descFreeBox'); 
+    oculta('descRutinas'); 
+    oculta_muestra('descFuncional');
+ }
+ function muestraStreching(){
+    oculta('descNatural'); 
+    oculta('descFuncional'); 
+    
+    oculta('descSpinning'); 
+    oculta('descFreeBox'); 
+    oculta('descRutinas'); 
+    oculta_muestra('descStreching');
+ }
+ function muestraFreeBox(){
+    oculta('descNatural'); 
+    oculta('descFuncional'); 
+    oculta('descStreching'); 
+    oculta('descSpinning'); 
+    
+    oculta('descRutinas'); 
+    oculta_muestra('descFreeBox');
+ }
+ function muestraRutinas(){
+    oculta('descNatural'); 
+    oculta('descFuncional'); 
+    oculta('descStreching'); 
+    oculta('descSpinning'); 
+    oculta('descFreeBox'); 
+    
+    oculta_muestra('descRutinas');
+ }
+ function muestraSpinning(){
+    oculta('descNatural'); 
+    oculta('descFuncional'); 
+    oculta('descStreching'); 
+     
+    oculta('descFreeBox'); 
+    oculta('descRutinas'); 
+    oculta_muestra('descSpinning');
+ }
+ 

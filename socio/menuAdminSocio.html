@@ -1,4 +1,4 @@
-<!--<script>
+<script>
 
     var sesion = sessionStorage.getItem("usuario");
     
@@ -6,7 +6,7 @@
         window.location.assign("http://localhost/practica/login.html");
     }
 
-</script>-->
+</script>
 
 <!DOCTYPE html>
 
@@ -39,8 +39,12 @@
 
     <nav class="navbar navbar-dark bg-dark ">
         <header class="container d-flex justify-content-between">
-            <a class="navbar-brand" href="#">PUSH UP</a>
-       
+            <div>
+                <img src="../imagenes/pushup1.png" class="" alt="..."  width="100" height="92">
+                <!--<a class="navbar-brand" href="#">PUSH UP</a>-->
+            </div>
+           
+            
 
             <ul class="nav nav-pills">
 
@@ -75,314 +79,318 @@
             
         </header>
     </nav>
-    <div id="botonAtras" class="text-left">
-        <button class="previous btn btn-secondary" type="button" id="btnAtras">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        
-        </button>
-    </div>
+    <main>
 
-    <div id="botonesAdmin">
-        <div class="text-center" id="contenedor">
-            <main class="form-menu">
-                <h1 class="h3 mb-3 fw-normal">Gestión de Socios</h1>
-                <br>
-                
-                    <button class="btn btn-lg btn-primary" type="button" id="btnMenuConsultarSocio" >Consultar socio</button>
-                    <button class="btn btn-lg btn-primary" type="button" id="btnMenuRegistrarSocio" >Registrar socio</button>
-                    <button class="btn btn-lg btn-primary" type="button" id="btnGenerarCuota" >Generar Cuota</button>
-                
-                
-            </main>
-        </div>
-    </div>
-    
-
-    <div id="consultarSocio">
-        <div class="text-center" id="contenedor">
-            <main class="form-abm">
-            <form>
-                <div class="row">
-                    <h1 class="h3 mb-3 fw-normal">Consulte un socio:</h1>
-                
-                    <div class="col-md-9">
-                        <input type="text" class="form-control " id="txtNombreBuscar" placeholder="Introduzca el nombre que desea buscar">
-                    </div>
-                    
-                    <div class="col -md-3">
-                        <button class="w-100 btn  btn-primary" type="button" id="btnBuscar" >Buscar</button>
-                    </div>
-                    
-                </div>
-                <br>
-                <div class="form-group">
-                <select class="form-control" id="slctSocio"></select>
-                <!--<input type="text" class="form-control" id="txtEmail" autofocus>-->
-        
-                <button class="w-100 btn btn-lg btn-primary" type="button" id="btnConsultarSocio" >Consultar</button>
-                </div>
-            </form>
+        <div id="botonAtras" class="text-left">
+            <button class="previous btn btn-secondary" type="button" id="btnAtras">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             
-            </main>
-            
+            </button>
         </div>
-    </div>    
     
-    <div id="botonesAdminParaUnSocio" class="form-menu">
-        
-        <div class="row">
-            <div class="col-md-4 order-md-1 mb-4">
-                <h1 class="mb-1 text-center">SOCIO</h1>
-                <div class="form-boton text-center">
-                    <button class="btn btn-lg btn-primary btn-block" type="button" id="btnRegistrarPago" >Registrar pago</button>
+        <div id="botonesAdmin">
+            <div class="text-center" id="contenedor">
+                <main class="form-menu">
+                    <h1 class="h3 mb-3 fw-normal">Gestión de Socios</h1>
+                    <br>
                     
-                    <button class="btn btn-lg btn-primary btn-block" type="button" id="btnEstadoDeuda" >Ver estado de deuda</button>
-                    <button class="btn btn-lg btn-primary btn-block" type="button" id="btnInscribirSocioClase" >Inscribir a clase</button>
+                        <button class="btn btn-lg btn-primary" type="button" id="btnMenuConsultarSocio" >Consultar socio</button>
+                        <button class="btn btn-lg btn-primary" type="button" id="btnMenuRegistrarSocio" >Registrar socio</button>
+                        <button class="btn btn-lg btn-primary" type="button" id="btnGenerarCuota" >Generar Cuota</button>
+                    
+                    
+                </main>
+            </div>
+        </div>
+        
+    
+        <div id="consultarSocio">
+            <div class="text-center" id="contenedor">
+                <main class="form-abm">
+                <form>
+                    <div class="row">
+                        <h1 class="h3 mb-3 fw-normal">Consulte un socio:</h1>
+                    
+                        <div class="col-md-9">
+                            <input type="text" class="form-control " id="txtNombreBuscar" placeholder="Introduzca el nombre que desea buscar">
+                        </div>
+                        
+                        <div class="col -md-3">
+                            <button class="w-100 btn  btn-primary" type="button" id="btnBuscar" >Buscar</button>
+                        </div>
+                        
+                    </div>
+                    <br>
+                    <div class="form-group">
+                    <select class="form-control" id="slctSocio"></select>
+                    <!--<input type="text" class="form-control" id="txtEmail" autofocus>-->
+            
+                    <button class="w-100 btn btn-lg btn-primary" type="button" id="btnConsultarSocio" >Consultar</button>
+                    </div>
+                </form>
+                
+                </main>
+                
+            </div>
+        </div>    
+        
+        <div id="botonesAdminParaUnSocio" class="form-menu">
+            
+            <div class="row">
+                <div class="col-md-4 order-md-1 mb-4">
+                    <h1 class="mb-1 text-center">SOCIO</h1>
+                    <div class="form-boton text-center">
+                        <button class="btn btn-lg btn-primary btn-block" type="button" id="btnRegistrarPago" >Registrar pago</button>
+                        
+                        <button class="btn btn-lg btn-primary btn-block" type="button" id="btnEstadoDeuda" >Ver estado de deuda</button>
+                        <button class="btn btn-lg btn-primary btn-block" type="button" id="btnInscribirSocioClase" >Inscribir a clase</button>
+                    </div>
+                </div>
+    
+    
+                <div class="col-md-8 order-md-2 mb-4">
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-muted">DATOS</span>
+                    </h4>
+                    <ul class="list-group mb-3">
+                    
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                                <h6 class="my-0">Numero de SOCIO:</h6>
+                            </div>
+                                <span class="text-muted" id="nroSocio"></span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                                <h6 class="my-0">Nombre:</h6>
+                            </div>
+                                <span class="text-muted" id="nombreSocio"></span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                                <h6 class="my-0">Apellido:</h6>
+                            </div>
+                                <span class="text-muted" id="apellidoSocio"></span>
+                        </li>
+                    
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                                <h6 class="my-0">Direccion:</h6>
+                            </div>
+                                <span class="text-muted" id="direccionSocio"></span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                                <h6 class="my-0">Telefono:</h6>
+                            </div>
+                                <span class="text-muted" id="telefonoSocio"></span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                                <h6 class="my-0">Email:</h6>
+                            </div>
+                                <span class="text-muted" id="emailSocio"></span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                                <h6 class="my-0">Estado:</h6>
+                            </div>
+                                <span class="text-muted" id="estadoSocio"></span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                                <h6 class="my-0">Fecha de alta:</h6>
+                            </div>
+                                <span class="text-muted" id="altaSocio"></span>
+                        </li>
+    
+                        
+                        <button class="btn btn-lg btn-primary" type="button" id="btnModificar" >Modificar socio</button>
+                        <button class="btn btn-lg btn-danger" type="button" id="btnBorrar" >Borrar Socio</button>
+                        <button class="btn btn-lg btn-danger" type="button" id="btnHabilitar" >Habilitar Socio</button>
+                    </ul>
+            
+                    
                 </div>
             </div>
-
-
-            <div class="col-md-8 order-md-2 mb-4">
-                <h4 class="d-flex justify-content-between align-items-center mb-3">
-                    <span class="text-muted">DATOS</span>
-                </h4>
-                <ul class="list-group mb-3">
-                
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">Numero de SOCIO:</h6>
-                        </div>
-                            <span class="text-muted" id="nroSocio"></span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
+    
+        
+        </div>
+    
+    
+    
+        <form id="formularioModificarSocio" class="form-menu">
+            <div class="row justify-content-center">
+                <div class="col-md-8 mb-4 ">
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-muted">DATOS</span>
+                    </h4>
+                    <ul class="list-group mb-3">
+                        
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
                             <h6 class="my-0">Nombre:</h6>
-                        </div>
-                            <span class="text-muted" id="nombreSocio"></span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
+                            </div>
+                            
+                            <input type="text" class="form-control" name="nombreSocioModificar"id="nombreSocioModificar" placeholder="" value="" required="">
+                            
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
                             <h6 class="my-0">Apellido:</h6>
-                        </div>
-                            <span class="text-muted" id="apellidoSocio"></span>
-                    </li>
-                
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
+                            </div>
+                            <input type="text" class="form-control" id="apellidoSocioModificar" placeholder="" value="" required="">
+                        </li>
+                        
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
                             <h6 class="my-0">Direccion:</h6>
-                        </div>
-                            <span class="text-muted" id="direccionSocio"></span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
+                            </div>
+                            <input type="text" class="form-control" id="direccionSocioModificar" placeholder="" value="" required="">
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
                             <h6 class="my-0">Telefono:</h6>
-                        </div>
-                            <span class="text-muted" id="telefonoSocio"></span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">Email:</h6>
-                        </div>
-                            <span class="text-muted" id="emailSocio"></span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">Estado:</h6>
-                        </div>
-                            <span class="text-muted" id="estadoSocio"></span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">Fecha de alta:</h6>
-                        </div>
-                            <span class="text-muted" id="altaSocio"></span>
-                    </li>
-
+                            </div>
+                            <input type="text" class="form-control" id="telefonoSocioModificar" placeholder="" value="" required="">
+                        </li>
+                        
+            
+            
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            
+                        </li>
+                        <button class="btn btn-lg btn-primary" type="button" id="btnModificarGuardar" >Guardar</button>
+            
+                    </ul>
+            
                     
-                    <button class="btn btn-lg btn-primary" type="button" id="btnModificar" >Modificar socio</button>
-                    <button class="btn btn-lg btn-danger" type="button" id="btnBorrar" >Borrar Socio</button>
-                    <button class="btn btn-lg btn-danger" type="button" id="btnHabilitar" >Habilitar Socio</button>
-                </ul>
-        
-                
+                </div>
             </div>
-        </div>
-
+            
+        </form>
     
-    </div>
-
-
-
-    <form id="formularioModificarSocio" class="form-menu">
-        <div class="row justify-content-center">
-            <div class="col-md-8 mb-4 ">
-                <h4 class="d-flex justify-content-between align-items-center mb-3">
-                    <span class="text-muted">DATOS</span>
-                </h4>
-                <ul class="list-group mb-3">
+    
+    
+        <div id="formularioChico" class="form-tablas">
+        <h1 class="mb-1 text-center">SOCIO: </h1>
+            <ul class="list-group mb-3">
                     
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <h6 class="my-0">Numero de SOCIO:</h6>
+                    </div>
+                        <span class="text-muted" id="nroSocioForm"></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
                         <h6 class="my-0">Nombre:</h6>
-                        </div>
-                        
-                        <input type="text" class="form-control" name="nombreSocioModificar"id="nombreSocioModificar" placeholder="" value="" required="">
-                        
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
+                    </div>
+                        <span class="text-muted" id="nombreSocioForm"></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
                         <h6 class="my-0">Apellido:</h6>
-                        </div>
-                        <input type="text" class="form-control" id="apellidoSocioModificar" placeholder="" value="" required="">
-                    </li>
-                    
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                        <h6 class="my-0">Direccion:</h6>
-                        </div>
-                        <input type="text" class="form-control" id="direccionSocioModificar" placeholder="" value="" required="">
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                        <h6 class="my-0">Telefono:</h6>
-                        </div>
-                        <input type="text" class="form-control" id="telefonoSocioModificar" placeholder="" value="" required="">
-                    </li>
-                    
-        
-        
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        
-                    </li>
-                    <button class="btn btn-lg btn-primary" type="button" id="btnModificarGuardar" >Guardar</button>
-        
-                </ul>
-        
-                
-            </div>
+                    </div>
+                        <span class="text-muted" id="apellidoSocioForm"></span>
+                </li>
+            </ul>
         </div>
-        
-    </form>
-
-
-
-    <div id="formularioChico" class="form-tablas">
-    <h1 class="mb-1 text-center">SOCIO: </h1>
-        <ul class="list-group mb-3">
-                
-            <li class="list-group-item d-flex justify-content-between lh-condensed">
-                <div>
-                    <h6 class="my-0">Numero de SOCIO:</h6>
-                </div>
-                    <span class="text-muted" id="nroSocioForm"></span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between lh-condensed">
-                <div>
-                    <h6 class="my-0">Nombre:</h6>
-                </div>
-                    <span class="text-muted" id="nombreSocioForm"></span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between lh-condensed">
-                <div>
-                    <h6 class="my-0">Apellido:</h6>
-                </div>
-                    <span class="text-muted" id="apellidoSocioForm"></span>
-            </li>
-        </ul>
-    </div>
-
-    <div id="registrarPago" class="form-tablas">
-        
-        <h1 class="mb-1 text-center">REGISTRAR PAGO:  </h1>
-        <h3 class="mb-1 text-center">Seleccionar cuota a pagar:  </h3>
-        <form name="tablaRegistrarPago">
-                <table class="table" >
-                    <thead>
-                    <tr>
-                        <th scope="col">Mes</th>
-                        <th scope="col">Valor</th>
-                        <th scope="col">Fecha de Vencimiento</th>
-                        <th scope="col">Pagar</th>
-                    </tr>
-                    </thead>
-                    <tbody id="tableRegistrarPago">
-
+    
+        <div id="registrarPago" class="form-tablas">
+            
+            <h1 class="mb-1 text-center">REGISTRAR PAGO:  </h1>
+            <h3 class="mb-1 text-center">Seleccionar cuota a pagar:  </h3>
+            <form name="tablaRegistrarPago">
+                    <table class="table" >
+                        <thead>
+                        <tr>
+                            <th scope="col">Mes</th>
+                            <th scope="col">Valor</th>
+                            <th scope="col">Fecha de Vencimiento</th>
+                            <th scope="col">Pagar</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tableRegistrarPago">
+    
+                           
+                            
+                        </tbody>
                        
-                        
-                    </tbody>
-                   
-
-                </table>
-        </form> 
-            <div >
-            <h5 class="d-inline-block"> TOTAL:</h5> <p class="d-inline-block" id="precioTotal">
-            </div>
-            <div class="text-right">
-                <button class="btn btn-lg btn-primary" type="button" id="btnRegistrarPagoCuota" > Registrar pago</button>
-            </div>
-            <div >
-                <h5 id="respuestaPago"></h5>
-            </div>
-
-    </div>
     
+                    </table>
+            </form> 
+                <div >
+                <h5 class="d-inline-block"> TOTAL:</h5> <p class="d-inline-block" id="precioTotal">
+                </div>
+                <div class="text-right">
+                    <button class="btn btn-lg btn-primary" type="button" id="btnRegistrarPagoCuota" > Registrar pago</button>
+                </div>
+                <div >
+                    <h5 id="respuestaPago"></h5>
+                </div>
     
-    <div id="estadoDeuda" class="form-tablas">
+        </div>
         
-        <h1 class="mb-1 text-center">ESTADO DE DEUDA: </h1>
         
-
-        <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Mes</th>
-                <th scope="col">Valor</th>
-                <th scope="col">Fecha de Vencimiento</th>
-                <th scope="col">Estado</th>
-              </tr>
-            </thead>
-            <tbody id="tableEstadoDeuda">
-        
+        <div id="estadoDeuda" class="form-tablas">
+            
+            <h1 class="mb-1 text-center">ESTADO DE DEUDA: </h1>
+            
+    
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Mes</th>
+                    <th scope="col">Valor</th>
+                    <th scope="col">Fecha de Vencimiento</th>
+                    <th scope="col">Estado</th>
+                  </tr>
+                </thead>
+                <tbody id="tableEstadoDeuda">
+            
+                    
+                </tbody>
                 
-            </tbody>
-            
-          </table>
-          <div class="text-right">
-            <button class="btn btn-lg btn-primary" type="button" id="btnIrRegistrarPago" >Ir a registrar pago</button>
-          </div>
-          
-    </div>
-
-    <div id="inscribirSocioClase" class="form-tablas">
-        <h1 class="mb-1 text-center">INSCRIBIR SOCIO A CLASE: </h1>
-        <div class="row">
-            <h3 class="mb-1 text-center">Tipo de clase:  </h3>
-        
-            <div class="col-md-9">
-                <select class="form-control" id="slctTipoClase" placeholder="Seleccione una clase"></select>
-            </div>
-            
-            <div class="col -md-3">
-                <button class="w-100 btn btn-lg btn-primary" type="button" id="btnContinuarClase" >Continuar</button>
-            </div>
-            
+              </table>
+              <div class="text-right">
+                <button class="btn btn-lg btn-primary" type="button" id="btnIrRegistrarPago" >Ir a registrar pago</button>
+              </div>
+              
         </div>
-        
-
-        <div id="continuarClase">
-            <h3 class="mb-1 text-center">Clase:  </h3>
-            <select class="form-control" id="slctNumClase" placeholder="Días y horarios de la clases disponibles"></select>
-            
-            <button class="w-100 btn btn-lg btn-primary" type="button" id="btnEnviarInscripcion" >Inscribir</button>
-
-        </div>
-
-    </div>
-
     
-    <div  id="cartel" class="alert alert-danger">
-        <p id="respuesta"></p>
-    </div>
+        <div id="inscribirSocioClase" class="form-tablas">
+            <h1 class="mb-1 text-center">INSCRIBIR SOCIO A CLASE: </h1>
+            <div class="row">
+                <h3 class="mb-1 text-center">Tipo de clase:  </h3>
+            
+                <div class="col-md-9">
+                    <select class="form-control" id="slctTipoClase" placeholder="Seleccione una clase"></select>
+                </div>
+                
+                <div class="col -md-3">
+                    <button class="w-100 btn btn-lg btn-primary" type="button" id="btnContinuarClase" >Continuar</button>
+                </div>
+                
+            </div>
+            
+    
+            <div id="continuarClase">
+                <h3 class="mb-1 text-center">Clase:  </h3>
+                <select class="form-control" id="slctNumClase" placeholder="Días y horarios de la clases disponibles"></select>
+                
+                <button class="w-100 btn btn-lg btn-primary" type="button" id="btnEnviarInscripcion" >Inscribir</button>
+    
+            </div>
+    
+        </div>
+    
+        
+        <div  id="cartel" class="alert alert-danger">
+            <p id="respuesta"></p>
+        </div>
+    </main>
+    
 
     
         
