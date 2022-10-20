@@ -6,8 +6,12 @@ addEventListener("load",load)
 var miBackEnd = 'http://localhost:555/';
 // php -S localhost:555 -t app
 
-//DOM
 
+//DOM
+function $(nombre)
+{
+    return document.getElementById(nombre);
+}
 
 function load(){
     oculta_muestra('cartel');
