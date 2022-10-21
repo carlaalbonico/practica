@@ -16,7 +16,7 @@
    <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
    
-    <script src="actividades.js"></script>
+    <script type="application/javascript" src="horarios.js"></script>
   
    
                                                                                                                                                                                                  
@@ -67,12 +67,12 @@
                     <div class="row justify-content-center"> 
 
                         <div class="btn-group" role="group" aria-label="Basic outlined example">
-                            <button type="button" class="btn btn-outline-primary" id="btnlunes">LUNES</button>
-                            <button type="button" class="btn btn-outline-primary" id="btnmartes">MARTES</button>
-                            <button type="button" class="btn btn-outline-primary" id="btnmiercoles">MIÉRCOLES</button>
-                            <button type="button" class="btn btn-outline-primary" id="btnjueves">JUEVES</button>
-                            <button type="button" class="btn btn-outline-primary" id="btnviernes">VIERNES</button>
-                            <button type="button" class="btn btn-outline-primary" id="btnsabado">SÁBADO</button>
+                            <button type="button" class="btn btn-outline-primary" onclick="mostrarHorario('Lunes')" id="btnlunes">LUNES</button>
+                            <button type="button" class="btn btn-outline-primary" onclick="mostrarHorario('Martes')" id="btnmartes">MARTES</button>
+                            <button type="button" class="btn btn-outline-primary" onclick="mostrarHorario('Miercoles')" id="btnmiercoles">MIÉRCOLES</button>
+                            <button type="button" class="btn btn-outline-primary" onclick="mostrarHorario('Jueves')" id="btnjueves">JUEVES</button>
+                            <button type="button" class="btn btn-outline-primary" onclick="mostrarHorario('Viernes')" id="btnviernes">VIERNES</button>
+                            <button type="button" class="btn btn-outline-primary" onclick="mostrarHorario('Sabado')" id="btnsabado">SÁBADO</button>
                         </div>
     
                     </div>  
@@ -81,81 +81,12 @@
             </div>
 
             <div class="container">
-                <div class="row"> 
-                    <div class="col-sm-6">
-                        <div class="card">
-                            <div class="row">
-                              <div class="col-4">
-                                <h5 class="card-title">8:OOHS</h5>
-                              </div>  
-                              <div class="col-8">
-                                <h5 class="card-title">Natural Cross</h5>
-                                <p class="card-text">Prof: Gabriel</p>
-                              </div>
-                            </div>
+                <div class="row" id="grillaHoraria">
+                    <div class="d-flex justify-content-center mt-2">
+                        <div class="spinner-grow" role="status">
+                            <span class="visually-hidden">Loading...</span>
                         </div>
                     </div>
-                      
-                    
-                    <div class="col-sm-6">
-                        <div class="card">
-                            <div class="row">
-                                <div class="col-4">
-                                  <h5 class="card-title">8:OOHS</h5>
-                                </div>  
-                                <div class="col-8">
-                                  <h5 class="card-title">Natural Cross</h5>
-                                  <p class="card-text">Prof: Gabriel</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="card">
-                            <div class="row">
-                              <div class="col-4">
-                                <h5 class="card-title">9:OOHS</h5>
-                              </div>  
-                              <div class="col-8">
-                                <h5 class="card-title">Natural Cross</h5>
-                                <p class="card-text">Prof: Gabriel</p>
-                              </div>
-                            </div>
-                        </div>
-                    </div>
-                      
-                    
-                    <div class="col-sm-6">
-                        <div class="card">
-                            <div class="row">
-                                <div class="col-4">
-                                  <h5 class="card-title">9:OOHS</h5>
-                                </div>  
-                                <div class="col-8">
-                                  <h5 class="card-title">Natural Cross</h5>
-                                  <p class="card-text">Prof: Gabriel</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="card">
-                            <div class="row">
-                                <div class="col-4">
-                                  <h5 class="card-title">9:OOHS</h5>
-                                </div>  
-                                <div class="col-8">
-                                  <h5 class="card-title">Natural Cross</h5>
-                                  <p class="card-text">Prof: Gabriel</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-
                 </div>
             </div>
         
