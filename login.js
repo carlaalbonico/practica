@@ -40,7 +40,7 @@ function home(){
     window.location.assign("http://localhost/practica/index.html");
 }
 function activities(){
-    window.location.assign("http://localhost/practica/actividades.html");
+    window.location.assign("http://localhost/practica/index.html#actividadesPpal");
 }
 function schedule(){
     window.location.assign("http://localhost/practica/horarios.html");

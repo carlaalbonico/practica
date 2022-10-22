@@ -7,6 +7,14 @@ function $(nombre)
 
 
 function load(){
+    oculta('descNatural'); 
+    oculta('descFuncional'); 
+    oculta('descStreching'); 
+    oculta('descSpinning'); 
+    oculta('descFreeBox'); 
+    oculta('descRutinas'); 
+    oculta('btnvolver');
+
     document.getElementById("natural").addEventListener("click",muestraNatural);
     document.getElementById("funcional").addEventListener("click",muestraFuncional);
     document.getElementById("freebox").addEventListener("click",muestraFreeBox);
@@ -30,7 +38,10 @@ function home(){
     window.location.assign("http://localhost/practica/index.html");
 }
 function activities(){
-    window.location.assign("http://localhost/practica/actividades.html");
+    muestra('btnvolver');
+    oculta('cartelPpal');
+    oculta('videoPpal');
+
 }
 function schedule(){
     window.location.assign("http://localhost/practica/horarios.html");
@@ -44,17 +55,46 @@ function TraerFecha(){
     let anio = fecha.getFullYear();
     $("txtFecha").innerHTML = anio;
 }
+
+function oculta_muestra(id){
+    if (document.getElementById){ //se obtiene el id
+    var el = document.getElementById(id); 
+    el.style.display = (el.style.display == 'none') ? 'block' : 'none'; 
+    
+    }
+
+}
+
+function muestra(id){
+    if (document.getElementById){ //se obtiene el id
+    var el = document.getElementById(id); //se define la variable "el" igual a nuestro div
+
+     el.style.display = "block"; 
+        
+    }
+
+}
+function oculta(id){
+    if (document.getElementById){ //se obtiene el id
+    var el = document.getElementById(id); 
+    el.style.display ='none'; 
+    
+    }
+
+}
 function muestraNatural(){
-    window.location.assign("http://localhost/practica/actividades.html");
+   oculta('cartelPpal');
     oculta('descFuncional'); 
     oculta('descStreching'); 
     oculta('descSpinning'); 
     oculta('descFreeBox'); 
     oculta('descRutinas'); 
    oculta_muestra('descNatural');
+   oculta('videoPpal');
+   muestra('btnvolver');
 }
 function muestraFuncional(){
-    window.location.assign("http://localhost/practica/actividades.html");
+    oculta('cartelPpal');
     oculta('descNatural'); 
   
     oculta('descStreching'); 
@@ -62,10 +102,12 @@ function muestraFuncional(){
     oculta('descFreeBox'); 
     oculta('descRutinas'); 
     oculta_muestra('descFuncional');
+    oculta('videoPpal');
+    muestra('btnvolver');
  }
  
  function muestraStreching(){
-    
+    oculta('cartelPpal');
     oculta('descNatural'); 
     oculta('descFuncional'); 
     
@@ -73,10 +115,12 @@ function muestraFuncional(){
     oculta('descFreeBox'); 
     oculta('descRutinas'); 
     oculta_muestra('descStreching');
-    window.location.assign("http://localhost/practica/actividades.html");
+    oculta('videoPpal');
+    muestra('btnvolver');
+    
  }
  function muestraFreeBox(){
-    window.location.assign("http://localhost/practica/actividades.html");
+    oculta('cartelPpal');
     oculta('descNatural'); 
     oculta('descFuncional'); 
     oculta('descStreching'); 
@@ -84,9 +128,11 @@ function muestraFuncional(){
     
     oculta('descRutinas'); 
     oculta_muestra('descFreeBox');
+    oculta('videoPpal');
+    muestra('btnvolver');
  }
  function muestraRutinas(){
-    window.location.assign("http://localhost/practica/actividades.html");
+    oculta('cartelPpal');
     oculta('descNatural'); 
     oculta('descFuncional'); 
     oculta('descStreching'); 
@@ -94,9 +140,11 @@ function muestraFuncional(){
     oculta('descFreeBox'); 
     
     oculta_muestra('descRutinas');
+    oculta('videoPpal');
+    muestra('btnvolver');
  }
  function muestraSpinning(){
-    window.location.assign("http://localhost/practica/actividades.html");
+    oculta('cartelPpal');
     oculta('descNatural'); 
     oculta('descFuncional'); 
     oculta('descStreching'); 
@@ -104,5 +152,7 @@ function muestraFuncional(){
     oculta('descFreeBox'); 
     oculta('descRutinas'); 
     oculta_muestra('descSpinning');
+    oculta('videoPpal');
+    muestra('btnvolver');
  }
  

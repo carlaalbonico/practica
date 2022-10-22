@@ -66,13 +66,19 @@
                 <div class="container">
                     <div class="row justify-content-center"> 
 
-                        <div class="btn-group" role="group" aria-label="Basic outlined example">
-                            <button type="button" class="btn btn-outline-primary" onclick="mostrarHorario('Lunes')" id="btnlunes">LUNES</button>
-                            <button type="button" class="btn btn-outline-primary" onclick="mostrarHorario('Martes')" id="btnmartes">MARTES</button>
-                            <button type="button" class="btn btn-outline-primary" onclick="mostrarHorario('Miercoles')" id="btnmiercoles">MIÉRCOLES</button>
-                            <button type="button" class="btn btn-outline-primary" onclick="mostrarHorario('Jueves')" id="btnjueves">JUEVES</button>
-                            <button type="button" class="btn btn-outline-primary" onclick="mostrarHorario('Viernes')" id="btnviernes">VIERNES</button>
-                            <button type="button" class="btn btn-outline-primary" onclick="mostrarHorario('Sabado')" id="btnsabado">SÁBADO</button>
+                        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                            <input type="radio" class="btn-check"  name="btnradio" id="btnlunes" autocomplete="off" checked>
+                            <label  class="btn btn-outline-primary" onclick="mostrarHorario('Lunes')" for="btnlunes">LUNES</label>
+                            <input type="radio" class="btn-check" name="btnradio" id="btnmartes" autocomplete="off">
+                            <label  class="btn btn-outline-primary" onclick="mostrarHorario('Martes')" for="btnmartes">MARTES</label>
+                            <input type="radio" class="btn-check" name="btnradio" id="btnmiercoles" autocomplete="off">
+                            <label  class="btn btn-outline-primary" onclick="mostrarHorario('Miercoles')" for="btnmiercoles">MIÉRCOLES</label>
+                            <input type="radio" class="btn-check" name="btnradio" id="btnjueves" autocomplete="off">
+                            <label  class="btn btn-outline-primary" onclick="mostrarHorario('Jueves')" for="btnjueves">JUEVES</label>
+                            <input type="radio" class="btn-check" name="btnradio" id="btnviernes" autocomplete="off">
+                            <label  class="btn btn-outline-primary" onclick="mostrarHorario('Viernes')" for="btnviernes">VIERNES</label>
+                            <input type="radio" class="btn-check"  name="btnradio" id="btnsabado" autocomplete="off">
+                            <label  class="btn btn-outline-primary" onclick="mostrarHorario('Sabado')" for="btnsabado">SÁBADO</label>
                         </div>
     
                     </div>  
