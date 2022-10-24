@@ -6,14 +6,14 @@ function $(nombre)
 }
 
 
-function load(){
+function load(){ oculta('btnvolveract');
     oculta('descNatural'); 
     oculta('descFuncional'); 
     oculta('descStreching'); 
     oculta('descSpinning'); 
     oculta('descFreeBox'); 
     oculta('descRutinas'); 
-    oculta('btnvolver');
+    
 
     document.getElementById("natural").addEventListener("click",muestraNatural);
     document.getElementById("funcional").addEventListener("click",muestraFuncional);
@@ -38,7 +38,7 @@ function home(){
     window.location.assign("http://localhost/practica/index.html");
 }
 function activities(){
-    muestra('btnvolver');
+    muestra('btnvolveract');
     oculta('cartelPpal');
     oculta('videoPpal');
 
@@ -91,7 +91,7 @@ function muestraNatural(){
     oculta('descRutinas'); 
    oculta_muestra('descNatural');
    oculta('videoPpal');
-   muestra('btnvolver');
+   muestra('btnvolveract');
 }
 function muestraFuncional(){
     oculta('cartelPpal');
@@ -103,7 +103,7 @@ function muestraFuncional(){
     oculta('descRutinas'); 
     oculta_muestra('descFuncional');
     oculta('videoPpal');
-    muestra('btnvolver');
+    muestra('btnvolveract');
  }
  
  function muestraStreching(){
@@ -116,7 +116,7 @@ function muestraFuncional(){
     oculta('descRutinas'); 
     oculta_muestra('descStreching');
     oculta('videoPpal');
-    muestra('btnvolver');
+    muestra('btnvolveract');
     
  }
  function muestraFreeBox(){
@@ -129,7 +129,7 @@ function muestraFuncional(){
     oculta('descRutinas'); 
     oculta_muestra('descFreeBox');
     oculta('videoPpal');
-    muestra('btnvolver');
+    muestra('btnvolveract');
  }
  function muestraRutinas(){
     oculta('cartelPpal');
@@ -141,7 +141,7 @@ function muestraFuncional(){
     
     oculta_muestra('descRutinas');
     oculta('videoPpal');
-    muestra('btnvolver');
+    muestra('btnvolveract');
  }
  function muestraSpinning(){
     oculta('cartelPpal');
@@ -153,6 +153,6 @@ function muestraFuncional(){
     oculta('descRutinas'); 
     oculta_muestra('descSpinning');
     oculta('videoPpal');
-    muestra('btnvolver');
+    muestra('btnvolveract');
  }
  
