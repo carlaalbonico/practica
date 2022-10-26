@@ -1,68 +1,62 @@
 //agrega funcion load a HTML; 
-addEventListener("load",load)
- 
+addEventListener("load", load)
+
 //variable del servidor
 var miBackEnd = 'http://localhost:555/';
 
 //DOM
-function $(nombre)
-{
+function $(nombre) {
     return document.getElementById(nombre);
 }
 
 
-function load(){
+function load() {
     $('btnGenerarCuota').disabled = true;
     //para ocultar los menus
-    muestra('botonesAdmin'); 
-    oculta('consultarSocio'); 
-    oculta('botonesAdminParaUnSocio'); 
-    oculta('formularioModificarSocio'); 
+    muestra('botonesAdmin');
+    oculta('consultarSocio');
+    oculta('botonesAdminParaUnSocio');
+    oculta('formularioModificarSocio');
     oculta('formularioChico');
-    oculta('inscribirSocioClase'); 
-    oculta('registrarPago'); 
+    oculta('inscribirSocioClase');
+    oculta('registrarPago');
     oculta('estadoDeuda');
     oculta('botonAtras');
-    
+    oculta('busquedaSocios');
+
     //para ocultar cartel del mensaje
     oculta_muestra('cartel');
 
     //boton para cerrar sesion 
-    document.getElementById("logOut").addEventListener("click",cerrarSesion);
+    document.getElementById("logOut").addEventListener("click", cerrarSesion);
     //boton para perfil usuario logueado
-    document.getElementById("perfil").addEventListener("click",mostrarPerfil);
-    
+    document.getElementById("perfil").addEventListener("click", mostrarPerfil);
+
     //cuando elige la opcion de consultar socio en el menu
-    document.getElementById("btnMenuConsultarSocio").addEventListener("click",menuConsultarSocio);
+    document.getElementById("btnMenuConsultarSocio").addEventListener("click", menuConsultarSocio);
     //cuando elige la opcion de registrar socio en el menu
-    document.getElementById("btnMenuRegistrarSocio").addEventListener("click",menuRegistrarSocio);
-   
+    document.getElementById("btnMenuRegistrarSocio").addEventListener("click", menuRegistrarSocio);
 
-    
-    //cuando escribe un nombre y hace click en buscar
-    document.getElementById("btnBuscar").addEventListener("click",clickBuscar);
     //cuando elige el socio y hace click en boton consultar socio
-    document.getElementById("btnConsultarSocio").addEventListener("click",clickConsultarSocio);
+    document.getElementById("btnConsultarSocio").addEventListener("click", clickConsultarSocio);
 
-    document.getElementById("btnModificar").addEventListener("click",clickModificarSocio);
-    document.getElementById("btnBorrar").addEventListener("click",clickBorrarSocio);
-    document.getElementById("btnHabilitar").addEventListener("click",clickHabilitarSocio);
+    document.getElementById("btnModificar").addEventListener("click", clickModificarSocio);
+    document.getElementById("btnBorrar").addEventListener("click", clickBorrarSocio);
+    document.getElementById("btnHabilitar").addEventListener("click", clickHabilitarSocio);
 
-    document.getElementById("btnIrRegistrarPago").addEventListener("click",clickRegistrarPago);
-    document.getElementById("btnRegistrarPago").addEventListener("click",clickRegistrarPago);
-    document.getElementById("btnGenerarCuota").addEventListener("click",clickGenerarCuota);
-    document.getElementById("btnEstadoDeuda").addEventListener("click",clickEstadoDeuda);
-    document.getElementById("btnInscribirSocioClase").addEventListener("click",clickInscribirSocioClase);
-    document.getElementById("btnContinuarClase").addEventListener("click",clickContinuarTipoClase); 
-    document.getElementById("botonAtras").addEventListener("click",atras);
-    document.getElementById('btnEnviarInscripcion').addEventListener("click",clickEnviarInscripcion); 
-    
-    document.getElementById('btnRegistrarPagoCuota').addEventListener("click",clickRegistrarPagoCuota); 
-    document.getElementById ('tableRegistrarPago').addEventListener('change',calcularTotalPago); 
-    
-    //close del mensaje 
-    document.getElementById("btnClose").addEventListener("click",oculta);
-    $('btnConsultarSocio').disabled=true;
+    document.getElementById("btnIrRegistrarPago").addEventListener("click", clickRegistrarPago);
+    document.getElementById("btnRegistrarPago").addEventListener("click", clickRegistrarPago);
+    document.getElementById("btnGenerarCuota").addEventListener("click", clickGenerarCuota);
+    document.getElementById("btnEstadoDeuda").addEventListener("click", clickEstadoDeuda);
+    document.getElementById("btnInscribirSocioClase").addEventListener("click", clickInscribirSocioClase);
+    document.getElementById("btnContinuarClase").addEventListener("click", clickContinuarTipoClase);
+    document.getElementById("botonAtras").addEventListener("click", atras);
+    document.getElementById('btnEnviarInscripcion').addEventListener("click", clickEnviarInscripcion);
+
+    document.getElementById('btnRegistrarPagoCuota').addEventListener("click", clickRegistrarPagoCuota);
+    document.getElementById('tableRegistrarPago').addEventListener('change', calcularTotalPago);
+
+    $('btnConsultarSocio').disabled = true;
 }
 
 
@@ -71,123 +65,171 @@ function cerrarSesion() {
     sessionStorage.clear();
     window.location.assign("http://localhost/practica/login.html");
 }
-function mostrarPerfil(){
+function mostrarPerfil() {
     window.location.assign("http://localhost/practica/perfilUsuario.html");
 }
 
-function oculta_muestra(id){
-    if (document.getElementById){ //se obtiene el id
-    var el = document.getElementById(id); 
-    el.style.display = (el.style.display == 'none') ? 'block' : 'none'; 
-    
+function oculta_muestra(id) {
+    if (document.getElementById) { //se obtiene el id
+        var el = document.getElementById(id);
+        el.style.display = (el.style.display == 'none') ? 'block' : 'none';
+
     }
 
 }
 
-function muestra(id){
-    if (document.getElementById){ //se obtiene el id
-    var el = document.getElementById(id); //se define la variable "el" igual a nuestro div
+function muestra(id) {
+    if (document.getElementById) { //se obtiene el id
+        var el = document.getElementById(id); //se define la variable "el" igual a nuestro div
 
-     el.style.display = "block"; 
-        
+        el.style.display = "block";
+
     }
 
 }
-function oculta(id){
-    if (document.getElementById){ //se obtiene el id
-    var el = document.getElementById(id); 
-    el.style.display ='none'; 
-    
+function oculta(id) {
+    if (document.getElementById) { //se obtiene el id
+        var el = document.getElementById(id);
+        el.style.display = 'none';
+
     }
 
 }
-function atras(){ 
+function atras() {
     oculta('cartel');
     oculta('consultarSocio');
-    muestra('botonesAdminParaUnSocio'); 
-    oculta('formularioModificarSocio'); 
+    muestra('botonesAdminParaUnSocio');
+    oculta('formularioModificarSocio');
     oculta('formularioChico');
-    oculta('registrarPago'); 
-    
+    oculta('registrarPago');
+
     oculta('estadoDeuda');
     oculta('inscribirSocioClase');
     oculta('botonAtras');
-    
+
 }
 
-function menuRegistrarSocio(){
+function menuRegistrarSocio() {
     window.location.assign("http://localhost/practica/socio/registrarSocio.html");//aca va el enlace de la pagina registrar; 
 }
 
-function menuConsultarSocio(){//oculta la botonera y visualiza el campo para escribir el email 
-    oculta('botonesAdmin'); 
-    muestra('consultarSocio'); 
-    
-  
-}
-function clickBuscar(){
-   // $('btnConsultarSocio').disabled=false;
-    enviarParametrosGET(miBackEnd + 'Socio',cargarOpcionesConsultar); 
+function menuConsultarSocio() {//oculta la botonera y visualiza el campo para escribir el email 
+    oculta('botonesAdmin');    
+    muestra('busquedaSocios');
+    clickBuscar();
+    cargarSkeletonTablaSocios();
 }
 
-function cargarOpcionesConsultar(nroSocio){
-    $('btnConsultarSocio').disabled=true;
+function cargarSkeletonTablaSocios(){
+    var opciones = [];
+
+    for($x=0; $x < 5; $x++){
+        opciones.push(
+            '<tr>' +
+                '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
+                
+                '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
+            '</tr>'
+        );
+    }
+
+    $('infoSocios').innerHTML = opciones.join('');
+}
+
+function clickBuscar() {
+    // $('btnConsultarSocio').disabled=false;
+    enviarParametrosGET(miBackEnd + 'Socio', cargarOpcionesConsultar);
+}
+
+function cargarOpcionesConsultar(respuesta) {
+    $('btnConsultarSocio').disabled = true;
     var nombreBuscar = document.getElementById('txtNombreBuscar').value;
-    var socios = JSON.parse(nroSocio);
+    var socios = JSON.parse(respuesta);
     console.log(socios);
-    socios.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
-    var sociosFiltrados= socios.filter( item =>{
-        var nombreMin= item.nombre.toLowerCase(); 
+    // socios.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
+    var sociosFiltrados = socios.filter(item => {
+        var nombreMin = item.nombre.toLowerCase();
         return nombreMin.includes(nombreBuscar.toLowerCase())
-    }); 
-    
-    
+    });
+
+
     var opciones = []
 
     sociosFiltrados.forEach(element => {
-        opciones.push('<option value="' + element.nroSocio + '">' + element.nombre +' '+ element.apellido + '</option>');
+        opciones.push('<option value="' + element.nroSocio + '">' + element.nombre + ' ' + element.apellido + '</option>');
     });
-    
+
     $("slctSocio").innerHTML = opciones;
 
     var validarSlctSocio = document.getElementById("slctSocio").value;
-    if( validarSlctSocio != '' ){
+    if (validarSlctSocio != '') {
         $('btnConsultarSocio').disabled = false;
     }
+
+    var opciones = [];
+
+    socios.forEach(socio => {
+        opciones.push(
+            '<tr >' +
+            '<th scope="row">' + socio.nroSocio + '</th>' +
+            '<td>' + socio.nombre + ' ' + socio.apellido + '</td>' +
+            '<td>' + socio.email + '</td>' +
+
+            '<td><button class="btn btn-success modificacion"  onclick="clickConsultarSocio(' + socio.nroSocio + ')">Ver más</button></td>' +
+
+            '</tr>'
+        );
+    });
+
+    $('infoSocios').innerHTML = opciones.join('');
 }
 
+function buscarPorNombre() {
+    // Declare variables
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("tablaSocios");
+    tr = table.getElementsByTagName("tr");
 
-
-function clickConsultarSocio(){
-
-    //enviarMensajeAlServidor("/Provincias/Backend/?provincia="+ valorProvincia,cargarOpcionesLocalidad);
-    var idSocio= document.getElementById("slctSocio").value; 
-    
-    enviarParametrosGET(miBackEnd + 'Socio/'+idSocio, retornoClickConsultarSocio);
-
-    if(idSocio == null){
-        muestra('cartel');
-        $("respuesta").innerHTML="Seleccione un socio";
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
     }
-    muestra('cartel');
-  
-    $("respuesta").innerHTML="procesando informacion";
 }
- 
-function retornoClickConsultarSocio(respuesta){
+
+function clickConsultarSocio(nroSocio) {
+
+    enviarParametrosGET(miBackEnd + 'Socio/' + nroSocio, retornoClickConsultarSocio);
+    oculta('busquedaSocios');
+    muestra('cartel');
+    $("respuesta").innerHTML = "procesando informacion";
+}
+
+function retornoClickConsultarSocio(respuesta) {
     oculta('cartel');
     oculta('consultarSocio');
-    muestra('botonesAdminParaUnSocio'); 
-    oculta('formularioModificarSocio'); 
+    muestra('botonesAdminParaUnSocio');
+    oculta('formularioModificarSocio');
     oculta('formularioChico');
-    oculta('registrarPago'); 
-    
+    oculta('registrarPago');
+
     oculta('estadoDeuda');
     oculta('inscribirSocioClase');
     oculta('botonAtras');
-     
+
     var socio = JSON.parse(respuesta);
-    
+
     $("nroSocio").innerHTML = socio.nroSocio;
     $("nombreSocio").innerHTML = socio.nombre;
     $("apellidoSocio").innerHTML = socio.apellido;
@@ -195,339 +237,343 @@ function retornoClickConsultarSocio(respuesta){
     $("telefonoSocio").innerHTML = socio.telefono;
     $("emailSocio").innerHTML = socio.email;
     console.log(socio);
-    if(socio.estado=='HAB'){$(
-        "estadoSocio").innerHTML = 'Habilitado';
-    oculta('btnHabilitar');
-    muestra('btnBorrar');
-    console.log('socio Habilitado');  }
-    if(socio.estado=="DESHAB"){$(
-        "estadoSocio").innerHTML = 'Deshabilitado';
-    oculta('btnBorrar');
-    muestra('btnHabilitar');
-    console.log('socio deshabilitado');  }
-    
+    if (socio.estado == 'HAB') {
+        $(
+            "estadoSocio").innerHTML = 'Habilitado';
+        oculta('btnHabilitar');
+        muestra('btnBorrar');
+        console.log('socio Habilitado');
+    }
+    if (socio.estado == "DESHAB") {
+        $(
+            "estadoSocio").innerHTML = 'Deshabilitado';
+        oculta('btnBorrar');
+        muestra('btnHabilitar');
+        console.log('socio deshabilitado');
+    }
+
     $("altaSocio").innerHTML = socio.fechaDeAlta;
-      
-    
+
+
 
     //$("respuesta").innerHTML=respuesta;
-    if(socio['nroSocio'] == null){
-        
-        $("respuesta").innerHTML="Seleccione un socio";
+    if (socio['nroSocio'] == null) {
+
+        $("respuesta").innerHTML = "Seleccione un socio";
     }
-     
+
 }
-function clickModificarSocio(){
+function clickModificarSocio() {
 
     //enviarMensajeAlServidor("/Provincias/Backend/?provincia="+ valorProvincia,cargarOpcionesLocalidad);
-    var idSocioMod= document.getElementById("slctSocio").value; 
-    
-    enviarParametrosGET(miBackEnd + 'Socio/'+idSocioMod, retornoClickModificarSocio);
-   
+    var idSocioMod = document.getElementById("slctSocio").value;
+
+    enviarParametrosGET(miBackEnd + 'Socio/' + idSocioMod, retornoClickModificarSocio);
+
 }
-function retornoClickModificarSocio(respuesta){
+function retornoClickModificarSocio(respuesta) {
     oculta('cartel');
     oculta('botonesAdminParaUnSocio');
-    oculta('registrarPago'); 
+    oculta('registrarPago');
     oculta('estadoDeuda');
     oculta('inscribirSocioClase');
-    muestra('formularioModificarSocio'); 
+    muestra('formularioModificarSocio');
     oculta('formularioChico');
     muestra('botonAtras');
     var socioMod = JSON.parse(respuesta);
-    
+
     $("nombreSocioModificar").value = socioMod["nombre"];
     $("apellidoSocioModificar").value = socioMod["apellido"];
     $("direccionSocioModificar").value = socioMod["direccion"];
     $("telefonoSocioModificar").value = socioMod["telefono"];
-    
+
     $('nombreSocioModificar').addEventListener("keyup", validarSocioModificar);
     $('apellidoSocioModificar').addEventListener("keyup", validarSocioModificar);
     $('direccionSocioModificar').addEventListener("keyup", validarSocioModificar);
-    $('telefonoSocioModificar').addEventListener("keyup",validarSocioModificar);
-    $('btnModificarGuardar').addEventListener("click",clickGuardarModSocio);
-    
+    $('telefonoSocioModificar').addEventListener("keyup", validarSocioModificar);
+    $('btnModificarGuardar').addEventListener("click", clickGuardarModSocio);
+
 }
-function validarSocioModificar(){
+function validarSocioModificar() {
     var ModNombre = $("nombreSocioModificar").value.length;
     var ModApellido = $("apellidoSocioModificar").value.length;
     var ModDireccion = $("direccionSocioModificar").value.length;
     var ModTelefono = $("telefonoSocioModificar").value.length;
 
-    if( ModNombre >=2 && ModApellido >=2  && ModDireccion >=2 && ModTelefono >=8){
+    if (ModNombre >= 2 && ModApellido >= 2 && ModDireccion >= 2 && ModTelefono >= 8) {
         $('btnModificarGuardar').disabled = false;//habilitar
-    }else{
+    } else {
         $('btnModificarGuardar').disabled = true;
     }
 
 }
-function clickGuardarModSocio(){
-    var nroSocio= document.getElementById("slctSocio").value;
-    $("btnModificarGuardar").disabled=true;
+function clickGuardarModSocio() {
+    var nroSocio = document.getElementById("slctSocio").value;
+    $("btnModificarGuardar").disabled = true;
 
-    enviarParametrosPOSTModificar(miBackEnd + 'Socio/Actualizacion/'+nroSocio, respuestaDeServidorMod);
+    enviarParametrosPOSTModificar(miBackEnd + 'Socio/Actualizacion/' + nroSocio, respuestaDeServidorMod);
 }
-function respuestaDeServidorMod(respuesta){
-    
-    $("respuesta").innerHTML=respuesta;
+function respuestaDeServidorMod(respuesta) {
+
+    $("respuesta").innerHTML = respuesta;
 }
 
-function clickBorrarSocio(){
-    var nroSocio= document.getElementById("slctSocio").value;
-    
-    if(confirm('¿Esta seguro que desea borrar a este socio?')){
+function clickBorrarSocio() {
+    var nroSocio = document.getElementById("slctSocio").value;
+
+    if (confirm('¿Esta seguro que desea borrar a este socio?')) {
         //pasar los parametros para borrar 
 
-        enviarParametrosPOSTBorrar(miBackEnd + 'Socio/Borrar/'+nroSocio,respuestaDeServidorBorrar)
+        enviarParametrosPOSTBorrar(miBackEnd + 'Socio/Borrar/' + nroSocio, respuestaDeServidorBorrar)
     }
 }
 
-function clickHabilitarSocio(){
-    var nroSocio= document.getElementById("slctSocio").value;
-    
-    if(confirm('¿Esta seguro que desea habilitar a este socio?')){
+function clickHabilitarSocio() {
+    var nroSocio = document.getElementById("slctSocio").value;
+
+    if (confirm('¿Esta seguro que desea habilitar a este socio?')) {
         //pasar los parametros para borrar 
 
-        enviarParametrosPOSTBorrar(miBackEnd + 'Socio/Habilitacion/'+nroSocio,respuestaDeServidorBorrar)
+        enviarParametrosPOSTBorrar(miBackEnd + 'Socio/Habilitacion/' + nroSocio, respuestaDeServidorBorrar)
     }
 }
-function respuestaDeServidorBorrar(respuesta){
+function respuestaDeServidorBorrar(respuesta) {
     //muestra('cartel');
-   // $("respuesta").innerHTML=respuesta;
+    // $("respuesta").innerHTML=respuesta;
     alert(respuesta);
     oculta('cartel');
     oculta('consultarSocio');
-    muestra('botonesAdminParaUnSocio'); 
-    oculta('formularioModificarSocio'); 
+    muestra('botonesAdminParaUnSocio');
+    oculta('formularioModificarSocio');
     oculta('formularioChico');
-    oculta('registrarPago'); 
-    
+    oculta('registrarPago');
+
     oculta('estadoDeuda');
     oculta('inscribirSocioClase');
     oculta('botonAtras');
-    
+
 }
 
-function cargarFormularioChico(respuesta){
-    var socioFC= JSON.parse(respuesta);
+function cargarFormularioChico(respuesta) {
+    var socioFC = JSON.parse(respuesta);
     $("nroSocioForm").innerHTML = socioFC.nroSocio;
     $("nombreSocioForm").innerHTML = socioFC.nombre;
     $("apellidoSocioForm").innerHTML = socioFC.apellido;
 }
-function clickRegistrarPago(){
+function clickRegistrarPago() {
     oculta('cartel');
     oculta('botonesAdminParaUnSocio');
-    oculta('formularioModificarSocio'); 
+    oculta('formularioModificarSocio');
     muestra('formularioChico');
-    muestra('registrarPago'); 
-    
+    muestra('registrarPago');
+
     oculta('estadoDeuda');
     oculta('inscribirSocioClase');
     muestra('botonAtras');
-   //manda los datos para cargar el formularioChico
-   var idSocio= document.getElementById("slctSocio").value; 
-    
-   enviarParametrosGET(miBackEnd + 'Socio/'+idSocio,cargarFormularioChico);
+    //manda los datos para cargar el formularioChico
+    var idSocio = document.getElementById("slctSocio").value;
 
-   //manda a llamar a los estados de cuenta del socio
-   enviarParametrosGET(miBackEnd + 'Cuota/'+idSocio,mostrarTablaRegistrarPago);  
-   
+    enviarParametrosGET(miBackEnd + 'Socio/' + idSocio, cargarFormularioChico);
+
+    //manda a llamar a los estados de cuenta del socio
+    enviarParametrosGET(miBackEnd + 'Cuota/' + idSocio, mostrarTablaRegistrarPago);
+
 }
-function mostrarTablaRegistrarPago(valor){
+function mostrarTablaRegistrarPago(valor) {
 
     $('btnRegistrarPagoCuota').disabled = true;
-    var analiza =JSON.parse(valor); 
-    console.log(analiza); 
+    var analiza = JSON.parse(valor);
+    console.log(analiza);
 
-    var opciones=[]; 
+    var opciones = [];
 
 
     analiza.forEach(element => {
-        opciones.push('<tr >'+
-            '<th scope="row">'+element.mes+'</th>'+
-            '<td>'+element.importe+'</td>'+
-            '<td>'+element.fechaVencimiento+'</td>'+
-            '<td><input type="checkbox" name="checkBox" class="importes" id="'+element.idCuota+'" value="'+element.importe+'"></td>'+
-            
-        '</tr>' );
-        
+        opciones.push('<tr >' +
+            '<th scope="row">' + element.mes + '</th>' +
+            '<td>' + element.importe + '</td>' +
+            '<td>' + element.fechaVencimiento + '</td>' +
+            '<td><input type="checkbox" name="checkBox" class="importes" id="' + element.idCuota + '" value="' + element.importe + '"></td>' +
+
+            '</tr>');
+
     });
 
-    $('tableRegistrarPago').innerHTML=opciones;
-    
+    $('tableRegistrarPago').innerHTML = opciones;
+
 }
 
-function calcularTotalPago(){
+function calcularTotalPago() {
 
     //solo se usa para calcular el total y mostrarlo en pantalla; 
     var checkboxes = document.querySelectorAll(".importes");
     var Total = 0;
     let checked = [];
-    checkboxes.forEach((element)=>{
-       if(element.checked==true){
-        checked.push(element.id);
-        Total = parseFloat(Total) + parseFloat(element.value);
-       }
+    checkboxes.forEach((element) => {
+        if (element.checked == true) {
+            checked.push(element.id);
+            Total = parseFloat(Total) + parseFloat(element.value);
+        }
     });
-    
-    
+
+
     $('precioTotal').innerHTML = Total;
 
     var validarTotal = document.getElementById('precioTotal').value;
-    if( validarTotal != 0 ){
+    if (validarTotal != 0) {
         $('btnRegistrarPagoCuota').disabled = false;
     }
 }
-function clickRegistrarPagoCuota(){
+function clickRegistrarPagoCuota() {
 
     enviarParametrosPOSTPago(miBackEnd + 'Pago', respuestaDeServidorPago);
-    
-  
-   
+
+
+
 }
-function respuestaDeServidorPago(respuesta){
-    
-    $("respuestaPago").innerHTML=respuesta;
-} 
+function respuestaDeServidorPago(respuesta) {
+
+    $("respuestaPago").innerHTML = respuesta;
+}
 
 
-function clickGenerarCuota(){
+function clickGenerarCuota() {
     oculta('cartel');
     oculta('botonesAdminParaUnSocio');
-    oculta('formularioModificarSocio'); 
-    oculta('registrarPago'); 
+    oculta('formularioModificarSocio');
+    oculta('registrarPago');
     oculta('formularioChico');
-    
+
     oculta('estadoDeuda');
     oculta('inscribirSocioClase');
     oculta('botonAtras');
     //hay que arreglarlo
 
-    enviarParametrosGET(miBackEnd + 'Cuota',function(){
+    enviarParametrosGET(miBackEnd + 'Cuota', function () {
         muestra('cartel')
-        $("respuesta").innerHTML='Se generaron las cuotas para los clientes'; 
+        $("respuesta").innerHTML = 'Se generaron las cuotas para los clientes';
     });
 }
 
-function clickEstadoDeuda(){
+function clickEstadoDeuda() {
     oculta('cartel');
     oculta('botonesAdminParaUnSocio');
-    oculta('formularioModificarSocio'); 
-    oculta('registrarPago'); 
-    
+    oculta('formularioModificarSocio');
+    oculta('registrarPago');
+
     muestra('formularioChico');
     muestra('estadoDeuda');
     oculta('inscribirSocioClase');
     muestra('botonAtras');
     //manda los datos para cargar el formularioChico
-    var idSocio= document.getElementById("slctSocio").value; 
-    
-    enviarParametrosGET(miBackEnd + 'Socio/'+idSocio,cargarFormularioChico);
+    var idSocio = document.getElementById("slctSocio").value;
+
+    enviarParametrosGET(miBackEnd + 'Socio/' + idSocio, cargarFormularioChico);
 
     //manda a llamar a los estados de cuenta del socio
-    enviarParametrosGET(miBackEnd + 'Cuota/Estado/'+idSocio,mostrarTablaEstadoDeuda); 
+    enviarParametrosGET(miBackEnd + 'Cuota/Estado/' + idSocio, mostrarTablaEstadoDeuda);
 }
 
-function mostrarTablaEstadoDeuda(valor){
+function mostrarTablaEstadoDeuda(valor) {
 
-   
-    var analiza =JSON.parse(valor); 
-    console.log(analiza); 
 
-    var opciones=[]; 
+    var analiza = JSON.parse(valor);
+    console.log(analiza);
+
+    var opciones = [];
 
 
     analiza.forEach(element => {
-        opciones.push('<tr >'+
-        '<th scope="row">'+element.mes+'</th>'+
-        '<td>'+element.importe+'</td>'+
-        '<td>'+element.fechaVencimiento+'</td>'+
-        '<td>'+element.estado+'</td>'+
-        '</tr>' );
-        
+        opciones.push('<tr >' +
+            '<th scope="row">' + element.mes + '</th>' +
+            '<td>' + element.importe + '</td>' +
+            '<td>' + element.fechaVencimiento + '</td>' +
+            '<td>' + element.estado + '</td>' +
+            '</tr>');
+
     });
 
-  
 
-    $('tableEstadoDeuda').innerHTML=opciones;
-    
+
+    $('tableEstadoDeuda').innerHTML = opciones;
+
 
 
 }
 
 
 
-function clickInscribirSocioClase(){
+function clickInscribirSocioClase() {
     oculta('cartel');
     oculta('botonesAdminParaUnSocio');
-    oculta('formularioModificarSocio'); 
-    oculta('registrarPago'); 
-    
+    oculta('formularioModificarSocio');
+    oculta('registrarPago');
+
     oculta('estadoDeuda');
     muestra('formularioChico');
     muestra('inscribirSocioClase');
     muestra('botonAtras');
-   //manda los datos para cargar el formularioChico
-    var idSocio= document.getElementById("slctSocio").value; 
-    
-    enviarParametrosGET(miBackEnd + 'Socio/'+idSocio,cargarFormularioChico);
-     //manda los datos para cargar el select
-    enviarParametrosGET(miBackEnd + 'TipoClase',cargarOpcionesClase); 
-    
-    oculta('continuarClase'); 
+    //manda los datos para cargar el formularioChico
+    var idSocio = document.getElementById("slctSocio").value;
+
+    enviarParametrosGET(miBackEnd + 'Socio/' + idSocio, cargarFormularioChico);
+    //manda los datos para cargar el select
+    enviarParametrosGET(miBackEnd + 'TipoClase', cargarOpcionesClase);
+
+    oculta('continuarClase');
 }
 
 
-function cargarOpcionesClase(valor){
-    
-    
-    var clases= JSON.parse(valor);
+function cargarOpcionesClase(valor) {
+
+
+    var clases = JSON.parse(valor);
     clases.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
-   
+
     var opciones = ['<option value=0>Seleccione una clase</option>']
 
     clases.forEach(element => {
         opciones.push('<option value="' + element.idTipoClase + '">' + element.nombre + '</option>');
     });
-    
+
     $("slctTipoClase").innerHTML = opciones;
 }
-function clickContinuarTipoClase(){
-    
-   //manda los datos para cargar el formularioChico
-    var tipoClase= document.getElementById("slctTipoClase").value; 
-    
-    
-     //manda los datos para cargar el select
-    enviarParametrosGET(miBackEnd + 'Clase/'+tipoClase,cargarOpcionesTipoClases); 
-    
-   
+function clickContinuarTipoClase() {
+
+    //manda los datos para cargar el formularioChico
+    var tipoClase = document.getElementById("slctTipoClase").value;
+
+
+    //manda los datos para cargar el select
+    enviarParametrosGET(miBackEnd + 'Clase/' + tipoClase, cargarOpcionesTipoClases);
+
+
 }
 
-function cargarOpcionesTipoClases(valores){
-    muestra('continuarClase'); 
-    var tipoClases= JSON.parse(valores);
-    console.log(tipoClases); 
+function cargarOpcionesTipoClases(valores) {
+    muestra('continuarClase');
+    var tipoClases = JSON.parse(valores);
+    console.log(tipoClases);
     tipoClases.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
-   
+
     var opciones = ['<option value=0>Seleccione un tipo de clase</option>']
 
     tipoClases.forEach(element => {
-        opciones.push('<option value="' + element.idClase + '">' + element.dias + ' '+element.horaDeInicio+'-'+ element.horaDeFin + '</option>');
+        opciones.push('<option value="' + element.idClase + '">' + element.dias + ' ' + element.horaDeInicio + '-' + element.horaDeFin + '</option>');
     });
-   
+
     $("slctNumClase").innerHTML = opciones;
     //tengo que agregar mensaje de error
 }
 
-function clickEnviarInscripcion(){
+function clickEnviarInscripcion() {
     enviarParametrosPOSTInscribir(miBackEnd + 'Socio/Inscripcion', respuestaDeServidorInscripcion);
 }
-function respuestaDeServidorInscripcion(respuesta){
-    muestra('cartel'); 
-    $("respuesta").innerHTML=respuesta;
+function respuestaDeServidorInscripcion(respuesta) {
+    muestra('cartel');
+    $("respuesta").innerHTML = respuesta;
 }
-function enviarParametrosGET(servidor,funcionARealizar){
+function enviarParametrosGET(servidor, funcionARealizar) {
 
     //Declaro el objeto
     var xmlhttp = new XMLHttpRequest();
@@ -535,15 +581,15 @@ function enviarParametrosGET(servidor,funcionARealizar){
     //Indico hacia donde va el mensaje
     xmlhttp.open("GET", servidor, true);
 
-    xmlhttp.onreadystatechange = function(){
+    xmlhttp.onreadystatechange = function () {
 
-        if(xmlhttp.readyState == XMLHttpRequest.DONE){
+        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
 
-            if(xmlhttp.status == 200){
+            if (xmlhttp.status == 200) {
                 //console.log(xmlhttp.responseText);
                 funcionARealizar(xmlhttp.responseText);
             }
-            else{
+            else {
                 alert("Ocurrio un error");
             }
         }
@@ -552,33 +598,33 @@ function enviarParametrosGET(servidor,funcionARealizar){
     xmlhttp.send();
 }
 
-function enviarParametrosPOST(servidor, funcionARealizar){
+function enviarParametrosPOST(servidor, funcionARealizar) {
 
     //declaro el objeto
-    var xmlhttp = new XMLHttpRequest(); 
+    var xmlhttp = new XMLHttpRequest();
 
     //agrega datos para pasar por POST
     var datos = new FormData();
-    datos.append("email",$("txtEmail").value);
-   
+    datos.append("email", $("txtEmail").value);
+
 
     //indico hacia donde va el mensaje
-    xmlhttp.open ("POST", servidor, true); 
+    xmlhttp.open("POST", servidor, true);
 
     //seteo el evento
-    xmlhttp.onreadystatechange = function(){
+    xmlhttp.onreadystatechange = function () {
         //veo si llego la respuesta del servidor
-        if(xmlhttp.readyState==XMLHttpRequest.DONE){
+        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
             //reviso si la respuesta del servidor es la correcta
-            if(xmlhttp.status==200){
+            if (xmlhttp.status == 200) {
                 funcionARealizar(xmlhttp.response);
-            }else{
+            } else {
                 alert("ocurrio un error");
             };
         }
     }
     //esto va siempre cuando se hace un formulario
-    xmlhttp.setRequestHeader("enctype","multipart/form-data");
+    xmlhttp.setRequestHeader("enctype", "multipart/form-data");
 
     //envio el mensaje 
     xmlhttp.send(datos);
@@ -586,154 +632,154 @@ function enviarParametrosPOST(servidor, funcionARealizar){
 
 }
 
-function enviarParametrosPOSTModificar(servidor, funcionARealizar){
+function enviarParametrosPOSTModificar(servidor, funcionARealizar) {
 
     //declaro el objeto
-    var xmlhttp = new XMLHttpRequest(); 
+    var xmlhttp = new XMLHttpRequest();
 
     //agrega datos para pasar por POST
     var datos = new FormData();
-    datos.append("nombre",$("nombreSocioModificar").value);
-    datos.append("apellido",$("apellidoSocioModificar").value);
-    datos.append("direccion",$("direccionSocioModificar").value);
-    datos.append("telefono",$("telefonoSocioModificar").value);
-   
+    datos.append("nombre", $("nombreSocioModificar").value);
+    datos.append("apellido", $("apellidoSocioModificar").value);
+    datos.append("direccion", $("direccionSocioModificar").value);
+    datos.append("telefono", $("telefonoSocioModificar").value);
+
 
     //indico hacia donde va el mensaje
-    xmlhttp.open ("POST", servidor, true); 
+    xmlhttp.open("POST", servidor, true);
 
     //seteo el evento
-    xmlhttp.onreadystatechange = function(){
+    xmlhttp.onreadystatechange = function () {
         //veo si llego la respuesta del servidor
-        if(xmlhttp.readyState==XMLHttpRequest.DONE){
+        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
             //reviso si la respuesta del servidor es la correcta
-            if(xmlhttp.status==200){
+            if (xmlhttp.status == 200) {
                 funcionARealizar(xmlhttp.response);
-            }else{
+            } else {
                 alert("ocurrio un error");
             };
         }
     }
     //esto va siempre cuando se hace un formulario
-    xmlhttp.setRequestHeader("enctype","multipart/form-data");
+    xmlhttp.setRequestHeader("enctype", "multipart/form-data");
 
     //envio el mensaje 
     xmlhttp.send(datos);
 
 
 }
-function enviarParametrosPOSTInscribir(servidor, funcionARealizar){
+function enviarParametrosPOSTInscribir(servidor, funcionARealizar) {
 
     //declaro el objeto
-    var xmlhttp = new XMLHttpRequest(); 
+    var xmlhttp = new XMLHttpRequest();
 
     //agrega datos para pasar por POST
     var datos = new FormData();
-    datos.append("nroSocio",$("slctSocio").value);
-    datos.append("idClase",$("slctNumClase").value);
-   
+    datos.append("nroSocio", $("slctSocio").value);
+    datos.append("idClase", $("slctNumClase").value);
+
 
     //indico hacia donde va el mensaje
-    xmlhttp.open ("POST", servidor, true); 
+    xmlhttp.open("POST", servidor, true);
 
     //seteo el evento
-    xmlhttp.onreadystatechange = function(){
+    xmlhttp.onreadystatechange = function () {
         //veo si llego la respuesta del servidor
-        if(xmlhttp.readyState==XMLHttpRequest.DONE){
+        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
             //reviso si la respuesta del servidor es la correcta
-            if(xmlhttp.status==200){
+            if (xmlhttp.status == 200) {
                 funcionARealizar(xmlhttp.response);
-            }else{
+            } else {
                 alert("ocurrio un error");
             };
         }
     }
     //esto va siempre cuando se hace un formulario
-    xmlhttp.setRequestHeader("enctype","multipart/form-data");
+    xmlhttp.setRequestHeader("enctype", "multipart/form-data");
 
     //envio el mensaje 
     xmlhttp.send(datos);
 
 }
-function enviarParametrosPOSTBorrar(servidor, funcionARealizar){
+function enviarParametrosPOSTBorrar(servidor, funcionARealizar) {
 
     //declaro el objeto
-    var xmlhttp = new XMLHttpRequest(); 
+    var xmlhttp = new XMLHttpRequest();
 
     //agrega datos para pasar por POST
     var datos = new FormData();
-    datos.append("nroSocio",$("slctSocio").value);
-    
-   
+    datos.append("nroSocio", $("slctSocio").value);
+
+
 
     //indico hacia donde va el mensaje
-    xmlhttp.open ("POST", servidor, true); 
+    xmlhttp.open("POST", servidor, true);
 
     //seteo el evento
-    xmlhttp.onreadystatechange = function(){
+    xmlhttp.onreadystatechange = function () {
         //veo si llego la respuesta del servidor
-        if(xmlhttp.readyState==XMLHttpRequest.DONE){
+        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
             //reviso si la respuesta del servidor es la correcta
-            if(xmlhttp.status==200){
+            if (xmlhttp.status == 200) {
                 funcionARealizar(xmlhttp.response);
-            }else{
+            } else {
                 alert("ocurrio un error");
             };
         }
     }
     //esto va siempre cuando se hace un formulario
-    xmlhttp.setRequestHeader("enctype","multipart/form-data");
+    xmlhttp.setRequestHeader("enctype", "multipart/form-data");
 
     //envio el mensaje 
     xmlhttp.send(datos);
 
 }
-function enviarParametrosPOSTPago(servidor, funcionARealizar){
+function enviarParametrosPOSTPago(servidor, funcionARealizar) {
 
     //calcula el total de los checks y lo envia 
     //arma el array para las cuotas
     var checkboxes = document.querySelectorAll(".importes");
     var Total = 0;
     let checked = [];
-    checkboxes.forEach((element)=>{
-       if(element.checked==true){
-        checked.push(element.id);
-        Total = parseFloat(Total) + parseFloat(element.value);
-       }
+    checkboxes.forEach((element) => {
+        if (element.checked == true) {
+            checked.push(element.id);
+            Total = parseFloat(Total) + parseFloat(element.value);
+        }
     });
-    
+
     var myJSON = JSON.stringify(checked);
-    
-   
+
+
 
     //declaro el objeto
-    var xmlhttp = new XMLHttpRequest(); 
+    var xmlhttp = new XMLHttpRequest();
 
     //agrega datos para pasar por POST
     var datos = new FormData();
-    
-    datos.append("importe",Total);
-    
-    datos.append("cuotas",myJSON);
-   
+
+    datos.append("importe", Total);
+
+    datos.append("cuotas", myJSON);
+
 
     //indico hacia donde va el mensaje
-    xmlhttp.open ("POST", servidor, true); 
+    xmlhttp.open("POST", servidor, true);
 
     //seteo el evento
-    xmlhttp.onreadystatechange = function(){
+    xmlhttp.onreadystatechange = function () {
         //veo si llego la respuesta del servidor
-        if(xmlhttp.readyState==XMLHttpRequest.DONE){
+        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
             //reviso si la respuesta del servidor es la correcta
-            if(xmlhttp.status==200){
+            if (xmlhttp.status == 200) {
                 funcionARealizar(xmlhttp.response);
-            }else{
+            } else {
                 alert("ocurrio un error");
             };
         }
     }
     //esto va siempre cuando se hace un formulario
-    xmlhttp.setRequestHeader("enctype","multipart/form-data");
+    xmlhttp.setRequestHeader("enctype", "multipart/form-data");
 
     //envio el mensaje 
     xmlhttp.send(datos);
