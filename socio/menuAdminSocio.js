@@ -3,6 +3,11 @@ addEventListener("load", load)
 
 //variable del servidor
 var miBackEnd = 'http://localhost:555/';
+var sociosDB;
+var tablaSocios = [];
+var paginas;
+var pagina = [];
+var paginaActual = 1;
 
 //DOM
 function $(nombre) {
@@ -13,8 +18,7 @@ function $(nombre) {
 function load() {
     $('btnGenerarCuota').disabled = true;
     //para ocultar los menus
-    muestra('botonesAdmin');
-    oculta('consultarSocio');
+    muestra('botonesAdmin');    
     oculta('botonesAdminParaUnSocio');
     oculta('formularioModificarSocio');
     oculta('formularioChico');
@@ -37,9 +41,6 @@ function load() {
     //cuando elige la opcion de registrar socio en el menu
     document.getElementById("btnMenuRegistrarSocio").addEventListener("click", menuRegistrarSocio);
 
-    //cuando elige el socio y hace click en boton consultar socio
-    document.getElementById("btnConsultarSocio").addEventListener("click", clickConsultarSocio);
-
     document.getElementById("btnModificar").addEventListener("click", clickModificarSocio);
     document.getElementById("btnBorrar").addEventListener("click", clickBorrarSocio);
     document.getElementById("btnHabilitar").addEventListener("click", clickHabilitarSocio);
@@ -55,8 +56,6 @@ function load() {
 
     document.getElementById('btnRegistrarPagoCuota').addEventListener("click", clickRegistrarPagoCuota);
     document.getElementById('tableRegistrarPago').addEventListener('change', calcularTotalPago);
-
-    $('btnConsultarSocio').disabled = true;
 }
 
 
@@ -96,8 +95,7 @@ function oculta(id) {
 
 }
 function atras() {
-    oculta('cartel');
-    oculta('consultarSocio');
+    oculta('cartel');    
     muestra('botonesAdminParaUnSocio');
     oculta('formularioModificarSocio');
     oculta('formularioChico');
@@ -123,7 +121,7 @@ function menuConsultarSocio() {//oculta la botonera y visualiza el campo para es
 function cargarSkeletonTablaSocios(){
     var opciones = [];
 
-    for($x=0; $x < 5; $x++){
+    for(let i=0; i < 5; i++){
         opciones.push(
             '<tr>' +
                 '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
@@ -138,40 +136,24 @@ function cargarSkeletonTablaSocios(){
     $('infoSocios').innerHTML = opciones.join('');
 }
 
-function clickBuscar() {
-    // $('btnConsultarSocio').disabled=false;
-    enviarParametrosGET(miBackEnd + 'Socio', cargarOpcionesConsultar);
+function clickBuscar() {    
+    enviarParametrosGET(miBackEnd + 'Socio', cargarSocios);
 }
 
-function cargarOpcionesConsultar(respuesta) {
-    $('btnConsultarSocio').disabled = true;
-    var nombreBuscar = document.getElementById('txtNombreBuscar').value;
-    var socios = JSON.parse(respuesta);
-    console.log(socios);
-    // socios.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
-    var sociosFiltrados = socios.filter(item => {
-        var nombreMin = item.nombre.toLowerCase();
-        return nombreMin.includes(nombreBuscar.toLowerCase())
-    });
+function cargarSocios(respuesta) {
 
+    sociosDB = JSON.parse(respuesta);
 
-    var opciones = []
+    cargarTablaSocios(sociosDB);
+}
 
-    sociosFiltrados.forEach(element => {
-        opciones.push('<option value="' + element.nroSocio + '">' + element.nombre + ' ' + element.apellido + '</option>');
-    });
+function cargarTablaSocios(socios){
 
-    $("slctSocio").innerHTML = opciones;
-
-    var validarSlctSocio = document.getElementById("slctSocio").value;
-    if (validarSlctSocio != '') {
-        $('btnConsultarSocio').disabled = false;
-    }
-
-    var opciones = [];
+    tablaSocios = [];
+    pagina = [];
 
     socios.forEach(socio => {
-        opciones.push(
+        tablaSocios.push(
             '<tr >' +
             '<th scope="row">' + socio.nroSocio + '</th>' +
             '<td>' + socio.nombre + ' ' + socio.apellido + '</td>' +
@@ -183,29 +165,90 @@ function cargarOpcionesConsultar(respuesta) {
         );
     });
 
-    $('infoSocios').innerHTML = opciones.join('');
+    for(let i=0; i < 5; i++){
+        
+        pagina.push(tablaSocios[i]);
+    }    
+
+    $('infoSocios').innerHTML = pagina.join('');
+
+    paginas = Math.ceil(tablaSocios.length / 5);
+
+    var listaPaginas = [];
+
+    listaPaginas.push(
+        '<li class="page-item">' +
+            '<button class="page-link" aria-label="Previous" onclick="restarPagina()">' +
+                '<span aria-hidden="true">&laquo;</span>' +
+            '</button>' +
+        '</li>'
+    )
+    
+    for(let i=1; i <= paginas; i++){
+        listaPaginas.push(
+            '<li class="page-item"><button class="page-link" onclick="cambiarPagina('+ i +')">' + i +'</button></li>'
+        );
+    }
+
+    listaPaginas.push(
+        '<li class="page-item">' +
+            '<button class="page-link" aria-label="Next" onclick="sumarPagina()">' +
+                '<span aria-hidden="true">&raquo;</span>' +
+            '</button>' +
+        '</li>'
+    )
+
+    $('pages').innerHTML = listaPaginas.join('');
 }
 
-function buscarPorNombre() {
-    // Declare variables
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("myInput");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("tablaSocios");
-    tr = table.getElementsByTagName("tr");
+function restarPagina(){
+    
+    if( paginaActual - 1 > 0 ){
 
-    // Loop through all table rows, and hide those who don't match the search query
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[0];
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
-            }
-        }
+        cambiarPagina(paginaActual - 1);
     }
+}
+
+function sumarPagina(){
+    
+    if( paginaActual + 1 <= paginas ){
+
+        cambiarPagina(paginaActual + 1);
+    }
+}
+
+function cambiarPagina(pag){
+
+    var inicio = (5*pag) - 5;
+    var fin = (5*pag);
+
+    pagina = [];
+
+    for(inicio; inicio < fin; inicio++){
+        
+        pagina.push(tablaSocios[inicio]);
+    }
+
+    paginaActual = pag;
+
+    $('infoSocios').innerHTML = pagina.join('');
+}
+
+function buscarPorNombre(){
+
+    var nombreBuscar = $("nombreBuscado").value;
+
+    var sociosFiltrados = [];
+
+    sociosFiltrados = sociosDB.filter(socio => {
+        var nombreMin = socio.nombre.toLowerCase();
+        var apellidoMin = socio.apellido.toLowerCase();
+        nombreMin = nombreMin.concat(" ");
+        nombreApellido = nombreMin.concat(apellidoMin);
+        return nombreApellido.includes(nombreBuscar.toLowerCase())
+    });    
+
+    cargarTablaSocios(sociosFiltrados);
 }
 
 function clickConsultarSocio(nroSocio) {
@@ -217,8 +260,7 @@ function clickConsultarSocio(nroSocio) {
 }
 
 function retornoClickConsultarSocio(respuesta) {
-    oculta('cartel');
-    oculta('consultarSocio');
+    oculta('cartel');    
     muestra('botonesAdminParaUnSocio');
     oculta('formularioModificarSocio');
     oculta('formularioChico');
@@ -265,12 +307,11 @@ function retornoClickConsultarSocio(respuesta) {
 }
 function clickModificarSocio() {
 
-    //enviarMensajeAlServidor("/Provincias/Backend/?provincia="+ valorProvincia,cargarOpcionesLocalidad);
-    var idSocioMod = document.getElementById("slctSocio").value;
+    var idSocioMod = document.getElementById("nroSocio").innerText;
 
     enviarParametrosGET(miBackEnd + 'Socio/' + idSocioMod, retornoClickModificarSocio);
-
 }
+
 function retornoClickModificarSocio(respuesta) {
     oculta('cartel');
     oculta('botonesAdminParaUnSocio');
@@ -308,7 +349,7 @@ function validarSocioModificar() {
 
 }
 function clickGuardarModSocio() {
-    var nroSocio = document.getElementById("slctSocio").value;
+    var nroSocio = document.getElementById("nroSocio").innerText;
     $("btnModificarGuardar").disabled = true;
 
     enviarParametrosPOSTModificar(miBackEnd + 'Socio/Actualizacion/' + nroSocio, respuestaDeServidorMod);
@@ -319,7 +360,7 @@ function respuestaDeServidorMod(respuesta) {
 }
 
 function clickBorrarSocio() {
-    var nroSocio = document.getElementById("slctSocio").value;
+    var nroSocio = document.getElementById("nroSocio").innerText;
 
     if (confirm('¿Esta seguro que desea borrar a este socio?')) {
         //pasar los parametros para borrar 
@@ -329,7 +370,7 @@ function clickBorrarSocio() {
 }
 
 function clickHabilitarSocio() {
-    var nroSocio = document.getElementById("slctSocio").value;
+    var nroSocio = document.getElementById("nroSocio").innerText;
 
     if (confirm('¿Esta seguro que desea habilitar a este socio?')) {
         //pasar los parametros para borrar 
@@ -371,7 +412,7 @@ function clickRegistrarPago() {
     oculta('inscribirSocioClase');
     muestra('botonAtras');
     //manda los datos para cargar el formularioChico
-    var idSocio = document.getElementById("slctSocio").value;
+    var idSocio = document.getElementById("nroSocio").innerText;
 
     enviarParametrosGET(miBackEnd + 'Socio/' + idSocio, cargarFormularioChico);
 
@@ -466,7 +507,7 @@ function clickEstadoDeuda() {
     oculta('inscribirSocioClase');
     muestra('botonAtras');
     //manda los datos para cargar el formularioChico
-    var idSocio = document.getElementById("slctSocio").value;
+    var idSocio = document.getElementById("nroSocio").innerText;
 
     enviarParametrosGET(miBackEnd + 'Socio/' + idSocio, cargarFormularioChico);
 
@@ -514,7 +555,7 @@ function clickInscribirSocioClase() {
     muestra('inscribirSocioClase');
     muestra('botonAtras');
     //manda los datos para cargar el formularioChico
-    var idSocio = document.getElementById("slctSocio").value;
+    var idSocio = document.getElementById("nroSocio").innerText;
 
     enviarParametrosGET(miBackEnd + 'Socio/' + idSocio, cargarFormularioChico);
     //manda los datos para cargar el select
@@ -675,7 +716,7 @@ function enviarParametrosPOSTInscribir(servidor, funcionARealizar) {
 
     //agrega datos para pasar por POST
     var datos = new FormData();
-    datos.append("nroSocio", $("slctSocio").value);
+    datos.append("nroSocio", $("nroSocio").innerText);
     datos.append("idClase", $("slctNumClase").value);
 
 
@@ -708,7 +749,7 @@ function enviarParametrosPOSTBorrar(servidor, funcionARealizar) {
 
     //agrega datos para pasar por POST
     var datos = new FormData();
-    datos.append("nroSocio", $("slctSocio").value);
+    datos.append("nroSocio", $("nroSocio").innerText);
 
 
 

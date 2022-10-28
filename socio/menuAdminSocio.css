@@ -1,4 +1,4 @@
-#myInput {
+#nombreBuscado {
     background-image: url('../imagenes/search.svg'); /* Add a search icon to input */
     background-position: 12px 20px; /* Position the search icon */
     background-repeat: no-repeat; /* Do not repeat the icon image */
