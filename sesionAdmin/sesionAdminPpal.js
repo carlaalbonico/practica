@@ -13,14 +13,26 @@ function $(nombre)
 
 
 function load(){
+    
+    oculta('clases');
+    oculta('formularioModificarClase'); 
+    oculta('extra');
+    
     //boton para cerrar sesion 
     document.getElementById("logOut").addEventListener("click",cerrarSesion);
     //boton para perfil usuario logueado
     document.getElementById("perfil").addEventListener("click",mostrarPerfil);
 
-    oculta('clases');
-    oculta('formularioModificarClase'); 
-
+    //barra nav 
+     document.getElementById("navBtnInicio").addEventListener("click",navInicio);
+     document.getElementById("navBtnHorarios").addEventListener("click",navHorarios);
+     document.getElementById("navBtnSocios").addEventListener("click",navSocios);
+     document.getElementById("navBtnProfesores").addEventListener("click",navProfesores);
+     document.getElementById("navBtnClases").addEventListener("click",navClases);
+     document.getElementById("navBtnRutinas").addEventListener("click",navRutinas);
+     document.getElementById("navBtnSuscripcion").addEventListener("click",navSuscripcion);
+     document.getElementById("navBtnActividades").addEventListener("click",navActividades);
+     document.getElementById("navBtnInformes").addEventListener("click",navInformes);
 
 }
 
@@ -60,3 +72,35 @@ function oculta(id){
     }
 
 }
+
+function navInicio(){
+
+}
+function navHorarios(){
+
+}
+function navSocios(){
+
+}
+function navProfesores(){
+
+}
+function navClases(){
+    muestra('clases');
+    clickConsultarClase;
+}
+function navRutinas(){
+
+}
+function navSuscripcion(){
+
+}
+function navActividades(){
+
+}
+
+function navInformes(){
+
+}
+
+
