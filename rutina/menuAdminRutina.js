@@ -12,10 +12,10 @@ function $(nombre)
 
 
 function load(){
-     
+    clickConsultarRutina();
     oculta('botonAtras');
-    muestra('botonesAdmin'); 
-    oculta('rutinas');
+    
+    //oculta('rutinas');
     oculta('formularioModificarRutina'); 
     oculta('cartel'); 
     //boton para cerrar sesion 
@@ -25,8 +25,7 @@ function load(){
 
     document.getElementById("botonAtras").addEventListener("click",atras);
 
-    document.getElementById("btnConsultarRutina").addEventListener("click",clickConsultarRutina);
-    document.getElementById("btnRegistrarRutina").addEventListener("click",clickRegistrarRutina);
+   
     document.getElementById ('tableRutina').addEventListener('click',clickModifRutina); 
     document.getElementById('btnGuardarRutina').addEventListener("click",click);
    
@@ -68,8 +67,8 @@ function oculta(id){
 }
 function atras(){ 
     oculta('botonAtras');
-    muestra('botonesAdmin'); 
-    oculta('rutinas');
+   
+    muestra('rutinas');
     oculta('formularioModificarRutina'); 
     oculta('cartel'); 
 
@@ -80,7 +79,7 @@ function clickRegistrarRutina(){
 
 function clickConsultarRutina(){
     muestra('botonAtras');
-    oculta('botonesAdmin'); 
+   
     muestra('rutinas');
     oculta('formularioModificarRutina'); 
     oculta('cartel'); 
@@ -152,7 +151,7 @@ function clickModifRutina(){
 
 function validar(){
     muestra('botonAtras');
-    oculta('botonesAdmin');
+   
     oculta('rutinas'); 
     muestra('formularioModificarRutina'); 
     oculta('cartel');

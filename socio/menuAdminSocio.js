@@ -18,7 +18,7 @@ function $(nombre) {
 function load() {
     
     //para ocultar los menus
-    
+    menuConsultarSocio();
     oculta('botonesAdminParaUnSocio');
     oculta('formularioModificarSocio');
     oculta('formularioChico');

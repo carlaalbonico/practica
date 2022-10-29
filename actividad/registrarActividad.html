@@ -1,3 +1,13 @@
+<script>
+
+    var sesion = sessionStorage.getItem("usuario");
+    
+    if(sesion==null){
+        window.location.assign("http://localhost/practica/login.html");
+    }
+
+</script>
+
 <!DOCTYPE html>
 
 <head>
@@ -13,19 +23,20 @@
    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+   
     <!-- agrego javascript-->
-   <script src="registrarSocio.js"></script>
+   <script src="registrarActividad.js"></script>
   
    
 
     <!-- PARA DISPOSITIVOS CHICOS -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    
     <title>Push UP</title>
     
 </head>
-<body id="fondo" >
+<body id="fondo">
+
      <!--barra horizontal-->
    <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
     <img src="../imagenes/pushup1.png" class="" alt="..."  width="100" height="92">
@@ -91,7 +102,7 @@
                   </a>
               </li>
               <li>
-                  <a href="http://localhost/practica/actividad/menuAdminActividad.html"class="nav-link text-dark" id="navBtnActividades">
+                  <a href="http://localhost/practica/actividad/menuAdminActividad.html" class="nav-link text-dark" id="navBtnActividades">
                       <img src="../imagenes/actividades.png" alt="" width="32" height="32" class=" me-2">
                   Actividades
                   </a>
@@ -111,61 +122,108 @@
       </nav>
   
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-
-
-            <div id="botonAtras" class="text-left">
-                <button class="previous btn btn-secondary" type="button" id="btnAtras">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                
-                </button>
-            </div>
-<div class="form-tablas">
-    <div class=" d-flex  justify-content-between  align-items-center">
-        <h2 class="mb-1 text-center"> Registrar socio</h2>
+    <div id="botonAtras" class="text-left">
+        <button class="previous btn btn-secondary" type="button" id="btnAtras">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         
-    </div><hr>
-          <br> 
-    
-    <div class="row align-items-center p-1 ">
+        </button>
+    </div>
 
-        <form>
+    <div class="form-tablas">
+        <div class=" d-flex  justify-content-between  align-items-center">
+            <h2 class="mb-1 text-center"> Registrar  actividad</h2>
             
-        
-        
-            <div class="form-floating">
-                <input type="text" class="form-control" id="txtNewEmail" autofocus>
-                <label>Correo Electronico:</label>
-            </div>
-            <div class="form-floating">
-            <input type="text" class="form-control" id="txtNewNombre" >
-            <label>Nombre: </label>
-            </div>
-            <div class="form-floating">
-                <input type="text" class="form-control" id="txtNewApellido" >
-                <label>Apellido: </label>
-            </div>
-            <div class="form-floating">
-                <input type="text" class="form-control" id="txtNewDireccion" >
-                <label>Direccion: </label>
-            </div>
-            
-            <div class="form-floating">
-                <input type="text" class="form-control" id="numNewTelefono" >
-                <label>Telefono: </label>
-            </div>
-            <button class="w-100 btn btn-lg btn-primary" type="button" id="btnGuardar" disabled>Guardar</button>
-            
-        </form>
-       
-        <div  id="cartel" class="alert alert-danger">
-            <p id="respuesta"></p>
         </div>
+        <hr>
+              <br> 
+        
+        <div class="row align-items-center p-1 ">
+    
+                <form>
+
+                    <div class="form-group">
+                        <label>Clase:</label>
+                        <select class="form-select" aria-label="Default select example" id="slctNewClase" autofocus></select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Modalidad: </label>
+                        
+                        <select class="form-select" aria-label="Default select example" id="slctNewMod">
+                            <option value="1">Presencial</option>
+                            <option value="2">Virtual</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Días: </label>
+                      
+                        <select class="form-select" aria-label="Default select example" id="slctNewDias">
+                            
+                            <option value="1">Lunes</option>
+                            <option value="2">Martes</option>
+                            <option value="3">Miercoles</option>
+                            <option value="4">Jueves</option>
+                            <option value="5">Viernes</option>
+                            <option value="6">Sabado</option>
+                            
+                          </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Hora de Inicio: </label>
+                        
+                        <input type="time" class="form-control" id="txtNewHoraInicio" >
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Hora de Fin: </label>
+                     
+                        <input type="time" class="form-control" id="txtNewHoraFin" >
+                    </div>
+                   
+                    <div class="form-group">
+                        <label>Fecha de Inicio:</label>
+                        
+                        <input type="date" class="form-control" id="txtNewFechaInicio" autofocus>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fecha de Fin:</label>
+                       
+                        <input type="date" class="form-control" id="txtNewFechaFin" autofocus>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Profesor:</label>
+                        
+                        <select  id="slctDatosProf" class="form-select" aria-label="Default select example"> </select> 
+                    </div>
+                    <div class="form-group">
+                        <label>Salon:</label>
+                
+                            <select id="slctDatosSalon"class="form-select" aria-label="Default select example" ></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Cupos:</label>
+                        
+                        <input type="text" class="form-control" id="txtNewCupos" autofocus>
+                    </div>
+                
+                    <button class="w-100 btn btn-lg btn-primary" type="button" id="btnGuardarClase" >Guardar</button>
+                    
+                </form>
+                
+        
 
     </div>
-</div>
-           
     
         
+    <div  id="cartel" class="alert alert-danger">
+        <p id="respuesta"></p>
+    </div>
+    </div>
+</div>
+
 </main>
 </div>
 </div>
@@ -175,6 +233,4 @@
 </body>
 
 
-
 </html>
- 

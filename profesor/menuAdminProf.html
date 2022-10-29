@@ -37,272 +37,309 @@
 </head>
 <body id="fondo">
 
-    <nav class="navbar navbar-dark bg-dark ">
-        <header class="container d-flex justify-content-between">
-            <div>
-                <img src="../imagenes/pushup1.png" class="" alt="..."  width="100" height="92">
-                <!--<a class="navbar-brand" href="#">PUSH UP</a>-->
-            </div>
-       
-
-            <ul class="nav nav-pills">
-
-                <li class="nav-item ">
-                    <a class="nav-link" href="http://localhost/practica/socio/menuAdminSocio.html">Socio</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link active" href="http://localhost/practica/profesor/menuAdminProf.html">Profesor</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/practica/clase/menuAdminClase.html">Clase</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/practica/salon/menuAdminSalon.html">Salon</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/practica/rutina/menuAdminRutina.html">Rutina</a>
-                </li>
-
-                
-            </ul>
-            <ul>
-                <button class="btn btn-outline-light my-2 my-sm-0" type="button" id="perfil">Perfil</button>
-                <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="logOut">Cerrar Sesión</button>
-            
-            </ul>
-            
-            
-        </header>
-    </nav>
-    <div id="botonAtras" class="text-left">
-        <button class="previous btn btn-secondary" type="button" id="btnAtras">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        
-        </button>
-    </div>
+    <!--barra horizontal-->
+   <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <img src="../imagenes/pushup1.png" class="" alt="..."  width="100" height="92">
+  <button class="navbar-toggler position-absolute d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="true" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
   
+  <div class="navbar-nav">
+    <ul>
+        <button class="btn btn-outline-light my-2 my-sm-0" type="button" id="perfil">Perfil</button>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="logOut">Cerrar Sesión</button>
+    
+    </ul>
+  </div>
+</header>
 
-    <div id="botonesAdminProf">
-        <div class="text-center" id="contenedor">
-            <main class="form-menu">
-                <h1 class="h3 mb-3 fw-normal">Gestión de Profesores</h1>
-                <br>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-secondary sidebar collapse show" >
+            <div class="position-sticky pt-3 sidebar-sticky">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-dark" aria-current="page" id="navBtnInicio">
+                        <img src="../imagenes/home.png" alt="" width="32" height="32" class="  me-2">
+                    Inicio
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-dark" id="navBtnHorarios">
+                        <img src="../imagenes/horario.png" alt="" width="32" height="32" class=" me-2">
+                    Grilla Horaria
+                    </a>
+                </li>
+                <li>
+                    <a href="http://localhost/practica/socio/menuAdminSocio.html" class="nav-link text-dark" id="navBtnSocios" onclick="menuConsultarSocio()">
+                        <img src="../imagenes/socio.png" alt="" width="32" height="32" class=" me-2">
+                    Socios
+                    </a>
+                </li>
+                <li>
+                    <a href="http://localhost/practica/profesor/menuAdminProf.html" class="nav-link text-dark" id="navBtnProfesores" onclick="clickConsultarProf()">
+                        <img src="../imagenes/profesor.png" alt="" width="32" height="32" class=" me-2">
+                    Profesores
+                    </a>
+                </li>
+                <li>
+                    <a href="http://localhost/practica/clase/menuAdminClase.html" class="nav-link text-dark" id="navBtnClases"  onclick="clickConsultarClase();">
+                        <img src="../imagenes/freeboxx.png" alt="" width="32" height="32" class=" me-2">
+                    Clases
+                    </a>
+                </li>
+                <li>
+                    <a href="http://localhost/practica/rutina/menuAdminRutina.html" class="nav-link text-dark" id="navBtnRutinas" onclick="clickConsultarRutina()">
+                        <img src="../imagenes/rutinas.png" alt="" width="32" height="32" class=" me-2">
+                    Rutinas
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-dark" id="navBtnSuscripcion">
+                        <img src="../imagenes/suscripcion.png" alt="" width="32" height="32" class=" me-2">
+                    Suscripcion
+                    </a>
+                </li>
+                <li>
+                    <a href="http://localhost/practica/actividad/menuAdminActividad.html"class="nav-link text-dark" id="navBtnActividades">
+                        <img src="../imagenes/actividades.png" alt="" width="32" height="32" class=" me-2">
+                    Actividades
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-dark" id="navBtnInformes">
+                        <img src="../imagenes/informes.png" alt="" width="32" height="32" class=" me-2">
+                    Informes
+                    </a>
+                </li>
+
                 
-                    <button class="btn btn-lg btn-primary" type="button" id="btnConsultarProf" >Consultar Profesor</button>
-                    <button class="btn btn-lg btn-primary" type="button" id="btnRegistrarProf" >Registrar Profesor</button>
-                    <!--<button class="btn btn-lg btn-primary" type="button" id="btnEspecialidad" >Especialidades</button>-->
-                
-                
-            </main>
-        </div>
-    </div>
-    <div id="menuConsultarProf">
-        <div class="text-center" id="contenedor">
-            <main class="form-abm">
-            <form>
-                <div class="row">
-                    <h1 class="h3 mb-3 fw-normal">Consulte un Profesor:</h1>
-                
-                    <div class="col-md-9">
-                        <input type="text" class="form-control " id="txtNombreBuscar" placeholder="Introduzca el nombre que desea buscar">
-                    </div>
-                    
-                    <div class="col -md-3">
-                        <button class="w-100 btn  btn-primary" type="button" id="btnBuscarProf" >Buscar</button>
-                    </div>
-                    
-                </div>
-                <br>
-                <div class="form-group">
-                <select class="form-control" id="slctDatosProf"></select>
-                <!--<input type="text" class="form-control" id="txtEmail" autofocus>-->
+            </ul>
+            <hr>
         
-                <button class="w-100 btn btn-lg btn-primary" type="button" id="btnConsultarProf2" >Consultar</button>
+
+        </nav>
+    
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+
+            <div id="botonAtras" class="text-left">
+                <button class="previous btn btn-secondary" type="button" id="btnAtras">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                
+                </button>
+            </div>
+        
+
+           
+            <div id="menuConsultarProf">
+                <div class="text-center" id="contenedor">
+                    <main class="form-abm">
+                    <form>
+                        <div class="row">
+                            <h1 class="h3 mb-3 fw-normal">Consulte un Profesor:</h1>
+                        
+                            <div class="col-md-9">
+                                <input type="text" class="form-control " id="txtNombreBuscar" placeholder="Introduzca el nombre que desea buscar">
+                            </div>
+                            
+                            <div class="col -md-3">
+                                <button class="w-100 btn  btn-primary" type="button" id="btnBuscarProf" >Buscar</button>
+                            </div>
+                            
+                        </div>
+                        <br>
+                        <div class="form-group">
+                        <select class="form-control" id="slctDatosProf"></select>
+                        <!--<input type="text" class="form-control" id="txtEmail" autofocus>-->
+                
+                        <button class="w-100 btn btn-lg btn-primary" type="button" id="btnConsultarProf2" >Consultar</button>
+                        </div>
+                    </form>
+                    
+                    </main>
+                    
                 </div>
+            </div>    
+
+
+            <div id="datosParaUnProf" class="form-menu">
+            
+                    <div class="form-tablas">
+                        <h4 class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="text-muted">DATOS</span>
+                        </h4>
+                        <ul class="list-group mb-3">
+                        
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div>
+                                    <h6 class="my-0">Legajo:</h6>
+                                </div>
+                                    <span class="text-muted" id="legajoProf"></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div>
+                                    <h6 class="my-0">Nombre:</h6>
+                                </div>
+                                    <span class="text-muted" id="nombreProf"></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div>
+                                    <h6 class="my-0">Apellido:</h6>
+                                </div>
+                                    <span class="text-muted" id="apellidoProf"></span>
+                            </li>
+                        
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div>
+                                    <h6 class="my-0">Direccion:</h6>
+                                </div>
+                                    <span class="text-muted" id="direccionProf"></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div>
+                                    <h6 class="my-0">Telefono:</h6>
+                                </div>
+                                    <span class="text-muted" id="telefonoProf"></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div>
+                                    <h6 class="my-0">Correo:</h6>
+                                </div>
+                                    <span class="text-muted" id="emailProf"></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div>
+                                    <h6 class="my-0">Especialidad:</h6>
+                                </div>
+                                    <span class="text-muted" id="especialidadProf"></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div>
+                                    <h6 class="my-0">Estado:</h6>
+                                </div>
+                                    <span class="text-muted" id="estadoProf"></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div>
+                                    <h6 class="my-0">Fecha de alta:</h6>
+                                </div>
+                                    <span class="text-muted" id="altaProf"></span>
+                            </li>
+
+                            
+                            <button class="btn btn-lg btn-primary" type="button" id="btnModificarProf" >Modificar Profesor</button>
+                            <button class="btn btn-lg btn-danger" type="button" id="btnBorrarProf" >Borrar Profesor</button>
+                            <button class="btn btn-lg btn-danger" type="button" id="btnHabilitarProf" >Habilitar Profesor</button>
+                            
+                        </ul>
+                
+                        
+                    </div>
+                    <div class="form-tablas" id= "ClasesACargo">
+                        <h1 class="mb-1 text-center">Clases a Cargo: </h1>
+                    
+                        <table class="table" >
+                            <thead>
+                            <tr>
+                                <th scope="col">Clase:</th>
+                                <th scope="col">Nombre:</th>
+                                <th scope="col">Dias:</th>
+                                <th scope="col">Horario Inicio: </th>
+                                <th scope="col">Horario Fin: </th>
+                                <th scope="col">Salon:</th>
+                                <th scope="col">Cupos:</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tableClasesACargo">
+
+                            
+                                
+                            </tbody>
+                        
+
+                        </table>
+                    
+
+                
+                    </div> 
+            
+            </div>
+
+            
+
+            <form id="formularioModificarProf" class="form-menu">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 mb-4 ">
+                        <h4 class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="text-muted">DATOS</span>
+                        </h4>
+                        <ul class="list-group mb-3">
+                            
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div>
+                                <h6 class="my-0">Nombre:</h6>
+                                </div>
+                                
+                                <input type="text" class="form-control" id="nombreProfModificar" placeholder="" value="" required="">
+                                
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div>
+                                <h6 class="my-0">Apellido:</h6>
+                                </div>
+                                <input type="text" class="form-control" id="apellidoProfModificar" placeholder="" value="" required="">
+                            </li>
+                            
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div>
+                                <h6 class="my-0">Direccion:</h6>
+                                </div>
+                                <input type="text" class="form-control" id="direccionProfModificar" placeholder="" value="" required="">
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div>
+                                <h6 class="my-0">Telefono:</h6>
+                                </div>
+                                <input type="text" class="form-control" id="telefonoProfModificar" placeholder="" value="" required="">
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div>
+                                <h6 class="my-0">Especialidad:</h6>
+                                </div>
+                                <input type="text" class="form-control" id="especialidadProfModificar" placeholder="" value="" required="">
+                            </li>
+                
+                
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                
+                            </li>
+                            <button class="btn btn-lg btn-primary" type="button" id="btnModificarGuardar" >Guardar</button>
+                
+                        </ul>
+                
+                        
+                    </div>
+                </div>
+                
             </form>
-            
-            </main>
-            
-        </div>
-    </div>    
-
-
-    <div id="datosParaUnProf" class="form-menu">
-    
-            <div class="form-tablas">
-                <h4 class="d-flex justify-content-between align-items-center mb-3">
-                    <span class="text-muted">DATOS</span>
-                </h4>
-                <ul class="list-group mb-3">
+            <div id="ordenadoPorEspecialidad" class="form-menu">
                 
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">Legajo:</h6>
-                        </div>
-                            <span class="text-muted" id="legajoProf"></span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">Nombre:</h6>
-                        </div>
-                            <span class="text-muted" id="nombreProf"></span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">Apellido:</h6>
-                        </div>
-                            <span class="text-muted" id="apellidoProf"></span>
-                    </li>
-                
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">Direccion:</h6>
-                        </div>
-                            <span class="text-muted" id="direccionProf"></span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">Telefono:</h6>
-                        </div>
-                            <span class="text-muted" id="telefonoProf"></span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">Correo:</h6>
-                        </div>
-                            <span class="text-muted" id="emailProf"></span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">Especialidad:</h6>
-                        </div>
-                            <span class="text-muted" id="especialidadProf"></span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">Estado:</h6>
-                        </div>
-                            <span class="text-muted" id="estadoProf"></span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">Fecha de alta:</h6>
-                        </div>
-                            <span class="text-muted" id="altaProf"></span>
-                    </li>
-
-                    
-                    <button class="btn btn-lg btn-primary" type="button" id="btnModificarProf" >Modificar Profesor</button>
-                    <button class="btn btn-lg btn-danger" type="button" id="btnBorrarProf" >Borrar Profesor</button>
-                    <button class="btn btn-lg btn-danger" type="button" id="btnHabilitarProf" >Habilitar Profesor</button>
-                    
-                </ul>
-        
                 
             </div>
-            <div class="form-tablas" id= "ClasesACargo">
-                <h1 class="mb-1 text-center">Clases a Cargo: </h1>
-            
-                <table class="table" >
-                    <thead>
-                    <tr>
-                        <th scope="col">Clase:</th>
-                        <th scope="col">Nombre:</th>
-                        <th scope="col">Dias:</th>
-                        <th scope="col">Horario Inicio: </th>
-                        <th scope="col">Horario Fin: </th>
-                        <th scope="col">Salon:</th>
-                        <th scope="col">Cupos:</th>
-                    </tr>
-                    </thead>
-                    <tbody id="tableClasesACargo">
-
-                    
-                        
-                    </tbody>
-                
-
-                </table>
             
 
-        
-            </div> 
-    
-    </div>
 
-    
-
-    <form id="formularioModificarProf" class="form-menu">
-        <div class="row justify-content-center">
-            <div class="col-md-8 mb-4 ">
-                <h4 class="d-flex justify-content-between align-items-center mb-3">
-                    <span class="text-muted">DATOS</span>
-                </h4>
-                <ul class="list-group mb-3">
-                    
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                        <h6 class="my-0">Nombre:</h6>
-                        </div>
-                        
-                        <input type="text" class="form-control" id="nombreProfModificar" placeholder="" value="" required="">
-                        
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                        <h6 class="my-0">Apellido:</h6>
-                        </div>
-                        <input type="text" class="form-control" id="apellidoProfModificar" placeholder="" value="" required="">
-                    </li>
-                    
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                        <h6 class="my-0">Direccion:</h6>
-                        </div>
-                        <input type="text" class="form-control" id="direccionProfModificar" placeholder="" value="" required="">
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                        <h6 class="my-0">Telefono:</h6>
-                        </div>
-                        <input type="text" class="form-control" id="telefonoProfModificar" placeholder="" value="" required="">
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                        <h6 class="my-0">Especialidad:</h6>
-                        </div>
-                        <input type="text" class="form-control" id="especialidadProfModificar" placeholder="" value="" required="">
-                    </li>
         
-        
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        
-                    </li>
-                    <button class="btn btn-lg btn-primary" type="button" id="btnModificarGuardar" >Guardar</button>
-        
-                </ul>
-        
-                
+            <div  id="cartel" class="alert alert-danger">
+                <p id="respuesta"></p>
             </div>
-        </div>
-        
-    </form>
-    <div id="ordenadoPorEspecialidad" class="form-menu">
-        
-        
+        </main>
     </div>
-    
+</div>
 
-
-   
-    <div  id="cartel" class="alert alert-danger">
-        <p id="respuesta"></p>
-    </div>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+        
     
         
 </body>

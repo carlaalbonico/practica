@@ -12,7 +12,6 @@ function $(nombre)
 
 
 function load(){
-    clickConsultarClase();
     oculta('botonAtras');
     oculta('clasesPorProf');
     oculta('formularioModificarClase'); 
@@ -25,7 +24,7 @@ function load(){
 
     document.getElementById("botonAtras").addEventListener("click",atras);
 
-    //document.getElementById("btnRegistrarClasePorProfesor").addEventListener("click",clickConsultarClasePorProf);
+    document.getElementById("btnRegistrarClasePorProfesor").addEventListener("click",clickConsultarClasePorProf);
     document.getElementById ('slctDatosClasesxProf').addEventListener('change',validacionClaseClasesxProf);
     document.getElementById ('slctTipoClase').addEventListener('change',validacionClase); 
     
@@ -78,14 +77,12 @@ function atras(){
 
 }
 function clickRegistrarClase(){
-    window.location.assign("http://localhost/practica/clase/registrarClase.html");//aca va el enlace de la pagina registrar; 
+    window.location.assign("http://localhost/practica/clase/registrarActividad.html");//aca va el enlace de la pagina registrar; 
 }
 
 function clickConsultarClase(){
     muestra('botonAtras');
-    muestra('clases'); 
-    oculta('clasesPorProf'); 
-    oculta('formularioModificarClase'); 
+    
     oculta('cartel'); 
 
     enviarParametrosGET(miBackEnd + 'TipoClase',cargarOpcionesClase); 

@@ -13,8 +13,8 @@ function $(nombre)
 
 function load(){
 
-    muestra('botonesAdminProf'); 
-    oculta('menuConsultarProf');
+    clickConsultarProf();
+    //oculta('menuConsultarProf');
     oculta('datosParaUnProf'); 
     oculta('formularioModificarProf'); 
     oculta('ordenadoPorEspecialidad'); 
@@ -28,9 +28,9 @@ function load(){
     document.getElementById("perfil").addEventListener("click",mostrarPerfil);
     
     //cuando elige la opcion de consultar socio en el menu
-    document.getElementById("btnConsultarProf").addEventListener("click",clickConsultarProf);
+    //document.getElementById("btnConsultarProf").addEventListener("click",clickConsultarProf);
     //cuando elige la opcion de registrar socio en el menu
-    document.getElementById("btnRegistrarProf").addEventListener("click",clickRegistrarProf);
+    //document.getElementById("btnRegistrarProf").addEventListener("click",clickRegistrarProf);
    
     //cuando escribe un nombre y hace click en buscar
     document.getElementById("btnBuscarProf").addEventListener("click",clickBuscarProf);
@@ -82,7 +82,7 @@ function oculta(id){
 
 }
 function atras(){ 
-    oculta('botonesAdminProf'); 
+   
     oculta('menuConsultarProf'); 
     muestra('datosParaUnProf'); 
     oculta('formularioModificarProf'); 
@@ -96,7 +96,7 @@ function clickRegistrarProf(){
 }
 
 function clickConsultarProf(){//oculta la botonera y visualiza el campo para escribir el email 
-    oculta('botonesAdminProf'); 
+    
     muestra('menuConsultarProf'); 
     oculta('datosParaUnProf'); 
     oculta('formularioModificarProf'); 
@@ -148,7 +148,7 @@ function clickConsultarProf2(){
 }
  
 function retornoDelClickConsultarProf2(respuesta){
-    oculta('botonesAdminProf'); 
+   
     oculta('menuConsultarProf'); 
     muestra('datosParaUnProf'); 
     oculta('formularioModificarProf'); 
@@ -223,7 +223,7 @@ function clickModificarProf(){
    
 }
 function retornoDelClickModificarProf(respuesta){
-    oculta('botonesAdminProf'); 
+   
     oculta('menuConsultarProf'); 
     oculta('datosParaUnProf'); 
     muestra('formularioModificarProf'); 
@@ -299,7 +299,7 @@ function retornoDelServHabBorrar(respuesta){
     muestra('cartel');
     $("respuesta").innerHTML=respuesta;
     //confirmacion de borrado
-    muestra('botonesAdminProf'); 
+   
     oculta('menuConsultarProf'); 
     oculta('datosParaUnProf'); 
     oculta('formularioModificarProf'); 
@@ -309,7 +309,7 @@ function retornoDelServHabBorrar(respuesta){
 }
      
 function clickOrdenadoPorEsp(){
-    oculta('botonesAdminProf'); 
+    
     oculta('menuConsultarProf'); 
     oculta('datosParaUnProf'); 
     oculta('formularioModificarProf'); 
