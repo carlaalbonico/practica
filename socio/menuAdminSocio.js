@@ -16,9 +16,9 @@ function $(nombre) {
 
 
 function load() {
-    $('btnGenerarCuota').disabled = true;
+    
     //para ocultar los menus
-    muestra('botonesAdmin');    
+    
     oculta('botonesAdminParaUnSocio');
     oculta('formularioModificarSocio');
     oculta('formularioChico');
@@ -26,7 +26,7 @@ function load() {
     oculta('registrarPago');
     oculta('estadoDeuda');
     oculta('botonAtras');
-    oculta('busquedaSocios');
+   
 
     //para ocultar cartel del mensaje
     oculta_muestra('cartel');
@@ -37,9 +37,9 @@ function load() {
     document.getElementById("perfil").addEventListener("click", mostrarPerfil);
 
     //cuando elige la opcion de consultar socio en el menu
-    document.getElementById("btnMenuConsultarSocio").addEventListener("click", menuConsultarSocio);
+    //document.getElementById("btnMenuConsultarSocio").addEventListener("click", menuConsultarSocio);
     //cuando elige la opcion de registrar socio en el menu
-    document.getElementById("btnMenuRegistrarSocio").addEventListener("click", menuRegistrarSocio);
+    //document.getElementById("btnMenuRegistrarSocio").addEventListener("click", menuRegistrarSocio);
 
     document.getElementById("btnModificar").addEventListener("click", clickModificarSocio);
     document.getElementById("btnBorrar").addEventListener("click", clickBorrarSocio);
@@ -47,7 +47,7 @@ function load() {
 
     document.getElementById("btnIrRegistrarPago").addEventListener("click", clickRegistrarPago);
     document.getElementById("btnRegistrarPago").addEventListener("click", clickRegistrarPago);
-    document.getElementById("btnGenerarCuota").addEventListener("click", clickGenerarCuota);
+    //document.getElementById("btnGenerarCuota").addEventListener("click", clickGenerarCuota);
     document.getElementById("btnEstadoDeuda").addEventListener("click", clickEstadoDeuda);
     document.getElementById("btnInscribirSocioClase").addEventListener("click", clickInscribirSocioClase);
     document.getElementById("btnContinuarClase").addEventListener("click", clickContinuarTipoClase);
@@ -112,10 +112,11 @@ function menuRegistrarSocio() {
 }
 
 function menuConsultarSocio() {//oculta la botonera y visualiza el campo para escribir el email 
-    oculta('botonesAdmin');    
+     
     muestra('busquedaSocios');
     clickBuscar();
     cargarSkeletonTablaSocios();
+    
 }
 
 function cargarSkeletonTablaSocios(){
@@ -134,10 +135,13 @@ function cargarSkeletonTablaSocios(){
     }
 
     $('infoSocios').innerHTML = opciones.join('');
+    
 }
 
 function clickBuscar() {    
     enviarParametrosGET(miBackEnd + 'Socio', cargarSocios);
+    
+    
 }
 
 function cargarSocios(respuesta) {
@@ -145,10 +149,12 @@ function cargarSocios(respuesta) {
     sociosDB = JSON.parse(respuesta);
 
     cargarTablaSocios(sociosDB);
+    
+    
 }
 
 function cargarTablaSocios(socios){
-
+    
     tablaSocios = [];
     pagina = [];
 
@@ -171,7 +177,7 @@ function cargarTablaSocios(socios){
     }    
 
     $('infoSocios').innerHTML = pagina.join('');
-
+    
     paginas = Math.ceil(tablaSocios.length / 5);
 
     var listaPaginas = [];

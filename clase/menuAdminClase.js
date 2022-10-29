@@ -13,12 +13,10 @@ function $(nombre)
 
 function load(){
     oculta('botonAtras');
-    muestra('botonesAdmin'); 
-    oculta('clases'); 
     oculta('clasesPorProf');
     oculta('formularioModificarClase'); 
     oculta('cartel');
-    oculta('btnRegistrarClasePorProfesor');
+    
     //boton para cerrar sesion 
     document.getElementById("logOut").addEventListener("click",cerrarSesion);
     //boton para perfil usuario logueado
@@ -26,8 +24,6 @@ function load(){
 
     document.getElementById("botonAtras").addEventListener("click",atras);
 
-    document.getElementById("btnRegistrarClase").addEventListener("click",clickRegistrarClase);
-    document.getElementById("btnConsultarClase").addEventListener("click",clickConsultarClase);
     document.getElementById("btnRegistrarClasePorProfesor").addEventListener("click",clickConsultarClasePorProf);
     document.getElementById ('slctDatosClasesxProf').addEventListener('change',validacionClaseClasesxProf);
     document.getElementById ('slctTipoClase').addEventListener('change',validacionClase); 
@@ -73,8 +69,8 @@ function oculta(id){
 }
 function atras(){ 
     oculta('botonAtras');
-    muestra('botonesAdmin'); 
-    oculta('clases'); 
+    
+    muestra('clases'); 
     oculta('clasesPorProf'); 
     oculta('formularioModificarClase'); 
     oculta('cartel'); 
@@ -86,7 +82,6 @@ function clickRegistrarClase(){
 
 function clickConsultarClase(){
     muestra('botonAtras');
-    oculta('botonesAdmin');
     muestra('clases'); 
     oculta('clasesPorProf'); 
     oculta('formularioModificarClase'); 
@@ -204,7 +199,7 @@ function clickModifClase(){
 
 function validar(){
     muestra('botonAtras');
-    oculta('botonesAdmin');
+    
     muestra('clases'); 
     oculta('clasesPorProf'); 
     muestra('formularioModificarClase'); 
@@ -306,7 +301,7 @@ function click(){
 
 function clickConsultarClasePorProf(){
     muestra('botonAtras');
-    oculta('botonesAdmin');
+    
     oculta('clases'); 
     muestra('clasesPorProf'); 
     oculta('formularioModificarClase'); 
