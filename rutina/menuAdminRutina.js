@@ -138,9 +138,28 @@ function clickModifRutina(){
         extra=  idDeBoton;
        
         if (idDeBoton!=0){
-            if(confirm('¿Esta seguro que desea modificar esta rutina?')){
-            validar(); 
-            }}      
+            
+            swal({
+                title: "Modificar",
+                text: "¿Esta seguro que desea modificar esta rutina?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+              })
+              .then((willDelete) => {
+                if (willDelete) {
+                    validar(); 
+                } 
+              });
+
+
+
+
+
+           // if(confirm('¿Esta seguro que desea modificar esta rutina?')){
+           // validar(); 
+           // }
+        }      
        return  idDeBoton; 
       })
     });
