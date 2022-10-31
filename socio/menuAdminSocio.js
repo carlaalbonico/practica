@@ -300,7 +300,12 @@ function retornoClickConsultarSocio(respuesta) {
         console.log('socio deshabilitado');
     }
 
-    $("altaSocio").innerHTML = socio.fechaDeAlta;
+    var texto = socio.fechaDeAlta;
+    var salida = formato(texto);
+    console.log(salida);
+
+
+    $("altaSocio").innerHTML = salida;
 
 
 
@@ -311,6 +316,10 @@ function retornoClickConsultarSocio(respuesta) {
     }
 
 }
+
+function formato(texto){
+    return texto.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3/$2/$1');
+  }
 function clickModificarSocio() {
 
     var idSocioMod = document.getElementById("nroSocio").innerText;
@@ -368,21 +377,48 @@ function respuestaDeServidorMod(respuesta) {
 function clickBorrarSocio() {
     var nroSocio = document.getElementById("nroSocio").innerText;
 
-    if (confirm('¿Esta seguro que desea borrar a este socio?')) {
+
+    swal({
+        title: "Modificar",
+        text: "¿Esta seguro que desea borrar a este socio?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+            enviarParametrosPOSTBorrar(miBackEnd + 'Socio/Borrar/' + nroSocio, respuestaDeServidorBorrar)
+        } 
+      });
+
+    //if (confirm('¿Esta seguro que desea borrar a este socio?')) {
         //pasar los parametros para borrar 
 
-        enviarParametrosPOSTBorrar(miBackEnd + 'Socio/Borrar/' + nroSocio, respuestaDeServidorBorrar)
-    }
+    //    enviarParametrosPOSTBorrar(miBackEnd + 'Socio/Borrar/' + nroSocio, respuestaDeServidorBorrar)
+    //}
 }
 
 function clickHabilitarSocio() {
     var nroSocio = document.getElementById("nroSocio").innerText;
 
-    if (confirm('¿Esta seguro que desea habilitar a este socio?')) {
+    swal({
+        title: "Modificar",
+        text: "¿Esta seguro que desea habilitar a este socio?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+            enviarParametrosPOSTBorrar(miBackEnd + 'Socio/Habilitacion/' + nroSocio, respuestaDeServidorBorrar)
+        } 
+      });
+
+    //if (confirm('¿Esta seguro que desea habilitar a este socio?')) {
         //pasar los parametros para borrar 
 
-        enviarParametrosPOSTBorrar(miBackEnd + 'Socio/Habilitacion/' + nroSocio, respuestaDeServidorBorrar)
-    }
+       // enviarParametrosPOSTBorrar(miBackEnd + 'Socio/Habilitacion/' + nroSocio, respuestaDeServidorBorrar)
+    //}
 }
 function respuestaDeServidorBorrar(respuesta) {
     //muestra('cartel');
@@ -432,14 +468,20 @@ function mostrarTablaRegistrarPago(valor) {
     var analiza = JSON.parse(valor);
     console.log(analiza);
 
+
+   
+    console.log(salida);
+
+
     var opciones = [];
 
 
     analiza.forEach(element => {
+
         opciones.push('<tr >' +
             '<th scope="row">' + element.mes + '</th>' +
             '<td>' + element.importe + '</td>' +
-            '<td>' + element.fechaVencimiento + '</td>' +
+            '<td>' + formato(element.fechaVencimiento) + '</td>' +
             '<td><input type="checkbox" name="checkBox" class="importes" id="' + element.idCuota + '" value="' + element.importe + '"></td>' +
 
             '</tr>');
@@ -534,7 +576,7 @@ function mostrarTablaEstadoDeuda(valor) {
         opciones.push('<tr >' +
             '<th scope="row">' + element.mes + '</th>' +
             '<td>' + element.importe + '</td>' +
-            '<td>' + element.fechaVencimiento + '</td>' +
+            '<td>' + formato(element.fechaVencimiento) + '</td>' +
             '<td>' + element.estado + '</td>' +
             '</tr>');
 
