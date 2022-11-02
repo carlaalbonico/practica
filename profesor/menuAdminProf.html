@@ -21,7 +21,7 @@
    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  
+   <link href="menuAdminProfe.css"  rel="stylesheet">
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
    
     <!-- agrego javascript-->
@@ -66,7 +66,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="http://localhost/practica/grillaHoraria/menuAdminGrilla.html" class="nav-link text-dark" id="navBtnHorarios">
+                    <a href="http://localhost/practica/grillaHoraria/menuAdminGrilla.html" class="nav-link text-dark" id="navBtnHorarios" >
                         <img src="../imagenes/horario.png" alt="" width="32" height="32" class=" me-2">
                     Grilla Horaria
                     </a>
@@ -78,7 +78,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="http://localhost/practica/profesor/menuAdminProf.html" class="nav-link text-dark" id="navBtnProfesores" onclick="clickConsultarProf()">
+                    <a href="http://localhost/practica/profesor/menuAdminProf.html" class="nav-link text-dark" id="navBtnProfesores" onclick="menuConsultarProf()">
                         <img src="../imagenes/profesor.png" alt="" width="32" height="32" class=" me-2">
                     Profesores
                     </a>
@@ -131,36 +131,48 @@
             </div>
         
 
-           
-            <div id="menuConsultarProf">
-                <div class="text-center" id="contenedor">
-                    <main class="form-abm">
-                    <form>
-                        <div class="row">
-                            <h1 class="h3 mb-3 fw-normal">Consulte un Profesor:</h1>
-                        
-                            <div class="col-md-9">
-                                <input type="text" class="form-control " id="txtNombreBuscar" placeholder="Introduzca el nombre que desea buscar">
-                            </div>
-                            
-                            <div class="col -md-3">
-                                <button class="w-100 btn  btn-primary" type="button" id="btnBuscarProf" >Buscar</button>
-                            </div>
-                            
-                        </div>
-                        <br>
-                        <div class="form-group">
-                        <select class="form-control" id="slctDatosProf"></select>
-                        <!--<input type="text" class="form-control" id="txtEmail" autofocus>-->
+
+
+
+
+            <div class="form-tablas" id="busquedaProfes">
+
+                <div class=" d-flex  justify-content-between  align-items-center">
+                    <h2 class="mb-1 text-center">Profesores</h2>
                 
-                        <button class="w-100 btn btn-lg btn-primary" type="button" id="btnConsultarProf2" >Consultar</button>
-                        </div>
-                    </form>
-                    
-                    </main>
-                    
+                  
+                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="clickRegistrarProf()">Nuevo profesor</button>
                 </div>
-            </div>    
+                            
+                <div class="row align-items-center p-1 ">
+    
+                    <input type="text" id="nombreBuscado" onkeyup="buscarPorNombre()" placeholder="Buscar por nombre..." autofocus>
+        
+                    <table class="table" id="tablaProfes">
+    
+                        <thead>
+                        <tr>
+                            <th scope="col">Legajo</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col"></th>         
+                        </tr>
+                        </thead>
+    
+                        <tbody id="infoProfes">
+                            
+                        </tbody>
+    
+                    </table>
+    
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center" id="pages">
+    
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+           
+             
 
 
             <div id="datosParaUnProf" class="form-menu">

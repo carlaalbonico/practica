@@ -28,8 +28,7 @@ function load(){
     //boton para perfil usuario logueado
     document.getElementById("perfil").addEventListener("click",mostrarPerfil);
     
-    //close del mensaje 
-    document.getElementById("btnClose").addEventListener("click",oculta);
+    
 }
 
 function cerrarSesion() {

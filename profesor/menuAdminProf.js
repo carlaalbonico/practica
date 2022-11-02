@@ -13,7 +13,7 @@ function $(nombre)
 
 function load(){
 
-    clickConsultarProf();
+    menuConsultarProf();
     //oculta('menuConsultarProf');
     oculta('datosParaUnProf'); 
     oculta('formularioModificarProf'); 
@@ -33,10 +33,10 @@ function load(){
     //document.getElementById("btnRegistrarProf").addEventListener("click",clickRegistrarProf);
    
     //cuando escribe un nombre y hace click en buscar
-    document.getElementById("btnBuscarProf").addEventListener("click",clickBuscarProf);
+   // document.getElementById("btnBuscarProf").addEventListener("click",clickBuscarProf);
     
     //cuando elige el prof y hace click en boton consultar prof
-    document.getElementById("btnConsultarProf2").addEventListener("click",clickConsultarProf2);
+   // document.getElementById("btnConsultarProf2").addEventListener("click",clickConsultarProf2);
 
     document.getElementById("btnModificarProf").addEventListener("click",clickModificarProf);
     
@@ -83,7 +83,7 @@ function oculta(id){
 }
 function atras(){ 
    
-    oculta('menuConsultarProf'); 
+
     muestra('datosParaUnProf'); 
     oculta('formularioModificarProf'); 
     oculta('ordenadoPorEspecialidad'); 
@@ -95,61 +95,166 @@ function clickRegistrarProf(){
     window.location.assign("http://localhost/practica/profesor/registrarProfe.html");//aca va el enlace de la pagina registrar; 
 }
 
-function clickConsultarProf(){//oculta la botonera y visualiza el campo para escribir el email 
-    
-    muestra('menuConsultarProf'); 
-    oculta('datosParaUnProf'); 
-    oculta('formularioModificarProf'); 
-    oculta('ordenadoPorEspecialidad'); 
-    oculta('cartel');
-    oculta('botonAtras');
+function menuConsultarProf(){//oculta la botonera y visualiza el campo para escribir el email 
+    muestra('busquedaProfes');
+    clickBuscarProf();
+   
+    cargarSkeletonTablaProfes();
+   
+  
     
 }
+
+function cargarSkeletonTablaProfes(){
+    var opciones = [];
+
+    for(let i=0; i < 5; i++){
+        opciones.push(
+            '<tr>' +
+                '<td><p id="skeletonTablaProfes">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaProfes">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaProfes">' + "-" + '</p></td>' +
+                
+                '<td><p id="skeletonTablaProfes">' + "-" + '</p></td>' +
+            '</tr>'
+        );
+    }
+
+    $('infoProfes').innerHTML = opciones.join('');
+    
+}
+
 function clickBuscarProf(){
-    //$('btnConsultarProf').disabled=false;
-    enviarParametrosGET(miBackEnd + 'Profesor',cargarOpcionesConsultarProf); 
+   
+    enviarParametrosGET(miBackEnd + 'Profesor',cargarProfes); 
 }
 
-function cargarOpcionesConsultarProf(nroProf){
-    $('btnConsultarProf').disabled = true;
-    var nombreBuscar = document.getElementById('txtNombreBuscar').value;
-    var profes= JSON.parse(nroProf);
-    console.log(profes);
-    profes.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
-    var profesFiltrados= profes.filter( item =>{
-        var nombreMin= item.nombre.toLowerCase(); 
-        return nombreMin.includes(nombreBuscar.toLowerCase())
-    }); 
-    
-    
-    var opciones = []
+function cargarProfes(respuesta){
+   
+    profeDB = JSON.parse(respuesta);
 
-    profesFiltrados.forEach(element => {
-        opciones.push('<option value="' + element.legajo + '">' + element.nombre +' '+ element.apellido + '</option>');
+    cargarTablaProfes(profeDB);
+
+   
+    
+}
+function cargarTablaProfes(profes){
+    
+    tablaProfes = [];
+    pagina = [];
+
+    profes.forEach(profe => {
+        tablaProfes.push(
+            '<tr >' +
+            '<th scope="row">' + profe.legajo+ '</th>' +
+            '<td>' + profe.nombre + ' ' + profe.apellido + '</td>' +
+            '<td><button class="btn btn-success modificacion"  onclick="clickConsultarProf(' + profe.legajo + ')">Ver más</button></td>' +
+
+            '</tr>'
+        );
     });
-    
-    $("slctDatosProf").innerHTML = opciones;
 
-    var validarSlctSocio = document.getElementById("slctDatosProf").value;
-    if( validarSlctSocio != '' ){
-        $('btnConsultarProf').disabled = false;
+    for(let i=0; i < 5; i++){
+        
+        pagina.push(tablaProfes[i]);
+    }    
+
+    $('infoProfes').innerHTML = pagina.join('');
+    
+    paginas = Math.ceil(tablaProfes.length / 5);
+
+    var listaPaginas = [];
+
+    listaPaginas.push(
+        '<li class="page-item">' +
+            '<button class="page-link" aria-label="Previous" onclick="restarPagina()">' +
+                '<span aria-hidden="true">&laquo;</span>' +
+            '</button>' +
+        '</li>'
+    )
+    
+    for(let i=1; i <= paginas; i++){
+        listaPaginas.push(
+            '<li class="page-item"><button class="page-link" onclick="cambiarPagina('+ i +')">' + i +'</button></li>'
+        );
+    }
+
+    listaPaginas.push(
+        '<li class="page-item">' +
+            '<button class="page-link" aria-label="Next" onclick="sumarPagina()">' +
+                '<span aria-hidden="true">&raquo;</span>' +
+            '</button>' +
+        '</li>'
+    )
+
+    $('pages').innerHTML = listaPaginas.join('');
+}
+
+function restarPagina(){
+    
+    if( paginaActual - 1 > 0 ){
+
+        cambiarPagina(paginaActual - 1);
     }
 }
 
+function sumarPagina(){
+    
+    if( paginaActual + 1 <= paginas ){
 
-function clickConsultarProf2(){
-    var legajo= document.getElementById("slctDatosProf").value; 
-    
-    
+        cambiarPagina(paginaActual + 1);
+    }
+}
+
+function cambiarPagina(pag){
+
+    var inicio = (5*pag) - 5;
+    var fin = (5*pag);
+
+    pagina = [];
+
+    for(inicio; inicio < fin; inicio++){
+        
+        pagina.push(tablaProfes[inicio]);
+    }
+
+    paginaActual = pag;
+
+    $('infoProfes').innerHTML = pagina.join('');
+}
+
+function buscarPorNombre(){
+
+    var nombreBuscar = $("nombreBuscado").value;
+
+    var profesFiltrados = [];
+
+    profesFiltrados = profeDB.filter(profe => {
+        var nombreMin = profe.nombre.toLowerCase();
+        var apellidoMin = profe.apellido.toLowerCase();
+        nombreMin = nombreMin.concat(" ");
+        nombreApellido = nombreMin.concat(apellidoMin);
+        return nombreApellido.includes(nombreBuscar.toLowerCase())
+    });    
+
+    cargarTablaProfes(profesFiltrados);
+}
+
+
+function clickConsultarProf(legajo){
+
+    oculta('busquedaProfes');
+    muestra('cartel');
+    $("respuesta").innerHTML = "procesando informacion";
     //pide datos para completar datos del profesor
-    enviarParametrosGET(miBackEnd + 'Profesor/'+legajo, retornoDelClickConsultarProf2);
+    enviarParametrosGET(miBackEnd + 'Profesor/'+legajo, retornoDelClickConsultarProf);
     //pide datos para completar el cuadro del costado de los datos del profesor FALTA
     enviarParametrosGET(miBackEnd + 'Profesor/Clase/'+legajo, retornoDelClickConsultarClasesXProf);
 }
  
-function retornoDelClickConsultarProf2(respuesta){
+function retornoDelClickConsultarProf(respuesta){
    
-    oculta('menuConsultarProf'); 
+    
     muestra('datosParaUnProf'); 
     oculta('formularioModificarProf'); 
     oculta('ordenadoPorEspecialidad'); 
