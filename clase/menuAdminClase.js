@@ -88,7 +88,7 @@ function clickConsultarClase(){
     oculta('formularioModificarClase'); 
     oculta('cartel'); 
 
-    enviarParametrosGET(miBackEnd + 'TipoClase',cargarOpcionesClase); 
+    enviarParametrosGET(miBackEnd + 'Actividad',cargarOpcionesClase); 
     enviarParametrosGET(miBackEnd + 'Clase', retornoDelClickConsultarClase);
     
 }
@@ -206,7 +206,7 @@ function validar(){
     muestra('formularioModificarClase'); 
     oculta('cartel'); 
     enviarParametrosGET(miBackEnd + 'Clase', retornoDelClickModificarClase);
-    enviarParametrosGET(miBackEnd + 'TipoClase',cargarOpcionesClaseMod);
+    enviarParametrosGET(miBackEnd + 'Actividad',cargarOpcionesClaseMod);
     enviarParametrosGET(miBackEnd + 'Profesor',cargarOpcionesProf);
     enviarParametrosGET(miBackEnd + 'Salon',cargarOpcionesSalon);
 }
@@ -218,7 +218,7 @@ function cargarOpcionesClaseMod(nro){
     var opciones = []
 
    clase.forEach(element => {
-        opciones.push('<option value="' + element.idTipoClase + '">' + element.nombre + '</option>');
+        opciones.push('<option value="' + element.idActividad + '">' + element.nombre + '</option>');
     });
     
     $("slctClase").innerHTML = opciones; 
@@ -300,7 +300,7 @@ function click(){
     
  }
 
-function clickConsultarClasePorProf(){
+/*function clickConsultarClasePorProf(){
     muestra('botonAtras');
     
     oculta('clases'); 
@@ -354,7 +354,7 @@ function cargarOpcionesClasesPorProf(valor){
     });
     $('tableClasesPorProf').innerHTML=opciones; 
 
-}
+}*/
 function enviarParametrosGET(servidor,funcionARealizar){
 
     //Declaro el objeto
