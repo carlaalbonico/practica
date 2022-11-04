@@ -24,12 +24,8 @@ function load(){
 
     document.getElementById("botonAtras").addEventListener("click",atras);
 
-    //document.getElementById("btnRegistrarClasePorProfesor").addEventListener("click",clickConsultarClasePorProf);
-    
-    document.getElementById ('slctTipoClase').addEventListener('change',validacionClase); 
-    
-    //document.getElementById ('tableClases').addEventListener('click',clickModifClase); 
-    //document.getElementById('btnGuardarClase').addEventListener("click",click);
+ 
+    document.getElementById('btnGuardarSusc').addEventListener("click",clickGuardarModSusc);
     
 }
 
@@ -88,13 +84,14 @@ function clickConsultarSusc(){
     oculta('cartel'); 
 
     enviarParametrosGET(miBackEnd + 'Actividad',cargarOpcionesClase); 
-    enviarParametrosGET(miBackEnd + 'Suscripcion', retornoDelClickConsultarClase);
+    enviarParametrosGET(miBackEnd + 'Suscripcion', retornoDelClickConsultarSusc);
+   
     
 }
 
-function validacionClase(){
-    enviarParametrosGET(miBackEnd + 'Clase', retornoDelClickConsultarClase);
-}
+//function validacionClase(){
+ //   enviarParametrosGET(miBackEnd + 'Clase', retornoDelClickConsultarSusc);
+//}
 function cargarOpcionesClase(nro){
     var clase= JSON.parse(nro);
     console.log(clase);
@@ -110,17 +107,19 @@ function cargarOpcionesClase(nro){
     
 }
 
-function retornoDelClickConsultarClase(valor){
+function retornoDelClickConsultarSusc(valor){
+ var tipoClase= document.getElementById("slctTipoClase").value; 
+
+ console.log(valor);
+    var suscrip =JSON.parse(valor);
+console.log(suscrip);
 
     
-    var tipoClase= document.getElementById("slctTipoClase").value; 
-    var suscripcion =JSON.parse(valor);
-    console.log(suscripcion); 
         if (tipoClase!=0){
             
 
-            suscripcion.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
-            var suscripcionFiltradas= clases.filter( item =>{
+            suscrip.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
+            var suscripcionFiltradas= suscrip.filter( item =>{
                 var nombreMin= item.nombre.toLowerCase();
                 return nombreMin.includes(tipoClase.toLowerCase()); 
                 
@@ -130,18 +129,11 @@ function retornoDelClickConsultarClase(valor){
 
 
             suscripcionFiltradas.forEach(element => {
-                opciones.push('<tr >'+
-                
-                '<td>'+element.nombre+'</td>'+
+                opciones.push('<tr ><td>'+element.nombre+'</td>'+
                 '<td>'+element.cantClases+'</td>'+
                 '<td>'+element.descSuscripcion+'</td>'+
                 '<td>'+element.actividad+'</td>'+
-                '<td>'+element.precio+'</td>'+
-               
-                
-                '<td><button class="btn btn-success modificacion"  onclick="clickModifSuscripcion(' + element.idSuscripcion + ')">Ver más</button></td>' +
-
-                '</tr>' );
+                '<td>$'+element.precio+'</td><td><button class="btn btn-danger modificacion"  onclick="clickModifSuscripcion(' + element.idSuscripcion + ')">Modificar</button></td></tr>' );
                 
             });
 
@@ -154,47 +146,63 @@ function retornoDelClickConsultarClase(valor){
         
         var opciones=[]; 
 
-        suscripcion.forEach(element => {
-            opciones.push('<tr >'+
-                '<td>'+element.nombre+'</td>'+
+        suscrip.forEach(element => {
+            opciones.push('<tr><td>'+element.nombre+'</td>'+
                 '<td>'+element.cantClases+'</td>'+
                 '<td>'+element.descSuscripcion+'</td>'+
                 '<td>'+element.actividad+'</td>'+
-                '<td>'+element.precio+'</td>'+
-               
-                
-                '<td><button class="btn btn-success modificacion"  onclick="clickModifSuscripcion(' + element.idSuscripcion + ')">Ver más</button></td>' +
-
-                '</tr>' );
+                '<td>$'+element.precio+'</td><td><button class="btn btn-danger modificacion"  onclick="clickModifSuscripcion(' + element.idSuscripcion + ')">Modificar</button></td></tr>' );
             
         });
+
         $('tableSuscripciones').innerHTML=opciones; 
     }
 }
 
-function clickModifSuscripcion(){
+function clickModifSuscripcion(idSuscripcion){
     
-    let modificacion = document.querySelectorAll(".modificacion"); 
-    var idDeBoton=0; 
-    modificacion.forEach((boton) => {
-      boton.addEventListener("click", function(e){
-        e.preventDefault();
-        
-        console.log(boton.id); 
-        idDeBoton= boton.id; 
-        extra=  idDeBoton;
-       
-        if (idDeBoton!=0){
-            if(confirm('¿Esta seguro que desea modificar esta clase?')){
-            validar(); 
-            }}      
-       return  idDeBoton; 
+    //cartel de validar
+
+    swal({
+        title: "Modificar",
+        text: "¿Esta seguro que desea modificar a esta suscripcion?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
       })
-    });
-    
-    
+      .then((willDelete) => {
+        if (willDelete) {
+            
+            extra=idSuscripcion;
+            enviarParametrosGET(miBackEnd + 'Suscripcion/' + idSuscripcion, retornoDelClickModificarSusc);
+            oculta('suscripcion');
+            muestra('cartel');
+            $("respuesta").innerHTML = "procesando informacion";
+            enviarParametrosGET(miBackEnd + 'Actividad',cargarOpcionesClaseMod);
+        } 
+      });
+
+
+
 
 }
+
+
+
+function cargarOpcionesClaseMod(nro){
+    var clase= JSON.parse(nro);
+    console.log(clase);
+    clase.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
+
+    var opciones = []
+
+   clase.forEach(element => {
+        opciones.push('<option value="' + element.idActividad + '">' + element.nombre + '</option>');
+    });
+    
+    $("slctAct").innerHTML = opciones; 
+}
+
 
 
  
@@ -203,6 +211,57 @@ function clickModifSuscripcion(){
      $("respuesta").innerHTML=respuesta;
     
  }
+
+ function retornoDelClickModificarSusc(valor){
+
+    oculta('cartel');
+    oculta('suscripcion');
+    
+    muestra('formularioModSusc');
+    
+    muestra('botonAtras');
+    var suscrip= JSON.parse(valor);
+
+    $("txtModNombre").value = suscrip["nombre"];
+    $("txtModCant").value = suscrip["cantClases"];
+    $("txtModDesc").value = suscrip["descSuscripcion"];
+    $("slctAct").value = suscrip["actividad"];
+    $("txtModPrecio").value = suscrip["precio"];
+
+   // $('txtModNombre').addEventListener("keyup", validarModificar);
+   // $('txModCant').addEventListener("keyup", validarModificar);
+    //$('txtModDesc').addEventListener("keyup", validarModificar);
+   // $('txtModPrecio').addEventListener("keyup", validarModificar);
+   
+      
+        
+}
+function validarModificar() {
+    var ModNombre = $("txtModNombre").value.length;
+    var Modcant = $("txtModCant").value.length;
+    var ModDesc = $("txtModDesc").value.length;
+    var ModPrecio = $("txtModPrecio").value.length;
+
+    if (ModNombre <= 20 && Modcant >= 2 && ModDesc < 200 && ModPrecio <= 8) {
+       $('btnGuardarSusc').disabled = false;//habilitar
+    } else {
+        $('btnGuardarSusc').disabled = true;
+    }
+
+}
+
+function clickGuardarModSusc() {
+    
+    $("btnGuardarSusc").disabled = true;
+    alert(extra);
+    enviarInfoDeSusc(miBackEnd + 'Suscripcion/Actualizacion/'+extra, respuestaDeServidor);
+}
+function respuestaDeServidorMod(respuesta) {
+
+    $("respuesta").innerHTML = respuesta;
+}
+
+
 
 
 function enviarParametrosGET(servidor,funcionARealizar){
@@ -218,7 +277,7 @@ function enviarParametrosGET(servidor,funcionARealizar){
         if(xmlhttp.readyState == XMLHttpRequest.DONE){
 
             if(xmlhttp.status == 200){
-                console.log(xmlhttp.responseText);
+                //console.log(xmlhttp.responseText);
                 funcionARealizar(xmlhttp.responseText);
             }
             else{
@@ -231,23 +290,21 @@ function enviarParametrosGET(servidor,funcionARealizar){
 }
 
 
-function enviarInfoDeClase(servidor, funcionARealizar){
+function enviarInfoDeSusc(servidor, funcionARealizar){
 
     //declaro el objeto
     var xmlhttp = new XMLHttpRequest(); 
 
     //agrega datos para pasar por POST
     var datos = new FormData();
-    datos.append("idclase",extra);
-    datos.append("dias",$("slctDias").value);
-    datos.append("horaDeInicio",$("txtHoraInicio").value);
-    datos.append("horaDeFin",$("txtHoraFin").value);
-    datos.append("fechaDeInicio",$("txtFechaInicio").value);
-    datos.append("fechaDeFin",$("txtFechaFin").value);
-    datos.append("cupos",$("txtCupos").value);
-    datos.append("profesor",$("slctDatosProf").value);
-    datos.append("salon",$("slctDatosSalon").value);
-    datos.append("modalidad",$("slctMod").value);
+   
+    datos.append("nombre",$("txtModNombre").value);
+    datos.append("cantClases",$("txtModCant").value);
+    datos.append("descSuscripcion",$("txtModDesc").value);
+    datos.append("actividad",$("slctAct").value);
+    datos.append("precio",$("txtModPrecio").value);
+    datos.append("idSuscripcion",extra);
+
         //indico hacia donde va el mensaje
         
     xmlhttp.open ("POST", servidor, true); 

@@ -323,8 +323,24 @@ function formato(texto){
 function clickModificarSocio() {
 
     var idSocioMod = document.getElementById("nroSocio").innerText;
+    swal({
+        title: "Modificar",
+        text: "¿Esta seguro que desea modificar a este socio?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+            
 
-    enviarParametrosGET(miBackEnd + 'Socio/' + idSocioMod, retornoClickModificarSocio);
+            enviarParametrosGET(miBackEnd + 'Socio/' + idSocioMod, retornoClickModificarSocio);
+        } 
+      });
+
+
+
+   
 }
 
 function retornoClickModificarSocio(respuesta) {
@@ -379,7 +395,7 @@ function clickBorrarSocio() {
 
 
     swal({
-        title: "Modificar",
+        title: "Borrar",
         text: "¿Esta seguro que desea borrar a este socio?",
         icon: "warning",
         buttons: true,

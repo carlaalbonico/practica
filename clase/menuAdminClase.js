@@ -26,7 +26,7 @@ function load(){
     document.getElementById("botonAtras").addEventListener("click",atras);
 
     //document.getElementById("btnRegistrarClasePorProfesor").addEventListener("click",clickConsultarClasePorProf);
-    document.getElementById ('slctDatosClasesxProf').addEventListener('change',validacionClaseClasesxProf);
+    //document.getElementById ('slctDatosClasesxProf').addEventListener('change',validacionClaseClasesxProf);
     document.getElementById ('slctTipoClase').addEventListener('change',validacionClase); 
     
     document.getElementById ('tableClases').addEventListener('click',clickModifClase); 
