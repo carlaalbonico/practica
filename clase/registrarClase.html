@@ -27,6 +27,8 @@
     <!-- agrego javascript-->
    <script src="registrarClase.js"></script>
   
+   <!-- ¿script para alert-->
+   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
    
 
     <!-- PARA DISPOSITIVOS CHICOS -->
@@ -130,16 +132,15 @@
     </div>
 
     <div class="form-tablas">
-        <div class=" d-flex  justify-content-between  align-items-center">
-            <h2 class="mb-1 text-center"> Registrar  clase</h2>
-            
+        <div class="d-flex  align-items-center ">
+            <img src="../imagenes/anadir.png" alt="" width="100" height="100" class=" rounded-4 border border-info bg-info bg-opacity-10">
+            <h2 class="mb-1 text-center p-2  border-bottom border-info"> Registrar clase</h2>  
         </div>
-        <hr>
-              <br> 
+        <br>
         
         <div class="row align-items-center p-1 ">
     
-                <form>
+                <form class="row py-lg-2 border border-3 rounded-3 bg-light">
 
                     <div class="form-group">
                         <label>Clase:</label>
@@ -150,8 +151,8 @@
                         <label>Modalidad: </label>
                         
                         <select class="form-select" aria-label="Default select example" id="slctNewMod">
-                            <option value="1">Presencial</option>
-                            <option value="2">Virtual</option>
+                            <option value="Presencial">Presencial</option>
+                            <option value="Virtual">Virtual</option>
                         </select>
                     </div>
 
@@ -160,12 +161,12 @@
                       
                         <select class="form-select" aria-label="Default select example" id="slctNewDias">
                             
-                            <option value="1">Lunes</option>
-                            <option value="2">Martes</option>
-                            <option value="3">Miercoles</option>
-                            <option value="4">Jueves</option>
-                            <option value="5">Viernes</option>
-                            <option value="6">Sabado</option>
+                            <option value="Lunes">Lunes</option>
+                            <option value="Martes">Martes</option>
+                            <option value="Miercoles">Miercoles</option>
+                            <option value="Jueves">Jueves</option>
+                            <option value="Viernes">Viernes</option>
+                            <option value="Sabado">Sabado</option>
                             
                           </select>
                     </div>

@@ -188,124 +188,80 @@
                         <h2 class="mb-1 text-center p-2  border-bottom border-info"> Modificar clase</h2>  
                     </div>
                    <br>
-                        <div class="py-lg-1 border border-1 rounded-3 bg-light">
-                            <div class="row align-items-center p-1 ">
-                                <div class="control-label col-sm-2  d-flex justify-content-end">
+                        <div class="row py-lg-2 border border-3 rounded-3 bg-light">
+                            
+                                <div class="form-group">
                                     <label>Clase:</label>
-                                </div>
-                                <div class="col-sm-10">
+                              
                                     <select class="form-select" aria-label="Default select example" id="slctClase"></select>
                                 <!-- <input type="text" class="form-control" id="txtNewClase" autofocus>-->
                                 </div>
+                              
                                 
-                                
-                            </div>
-                                
-                                
-                                <div class="row align-items-center p-1 justify-content-between">
-                                    <div class="control-label col-sm-2 d-flex justify-content-end">
+                            <div class="form-group">
+                                    
                                         <label>Días: </label>
-                                    </div>
-                                   <div class="col-sm-10">
+                                    
                                     <select class="form-select" s id="slctDias">
                                         
-                                        <option value="0">Lunes</option>
-                                        <option value="1">Martes</option>
-                                        <option value="2">Miercoles</option>
-                                        <option value="3">Jueves</option>
-                                        <option value="4">Viernes</option>
-                                        <option value="5">Sabado</option>
+                                        <option value="Lunes">Lunes</option>
+                                        <option value="Martes">Martes</option>
+                                        <option value="Miercoles">Miercoles</option>
+                                        <option value="Jueves">Jueves</option>
+                                        <option value="Viernes">Viernes</option>
+                                        <option value="Sabado">Sabado</option>
+                            
                                         
                                       </select>
-                                    <!--<input type="text" class="form-control" id="txtNewDias" >-->
-                                   </div>
-                                   
                                    
                                 </div>
-                                <div class="row align-items-center p-1 justify-content-between">
-                                    <div class="control-label col-sm-2 d-flex justify-content-end">
+                                <div class="form-group">
+                                    
                                         <label>Hora de Inicio: </label>
-                                    </div>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="txtHoraInicio" >
-                                    </div>
-                                    
-                                    
+
+                                        <input type="time" class="form-control" id="txtHoraInicio" >
+
                                 </div>
                                 
-                                <div class="row align-items-center p-1 justify-content-between">
-                                    <div class="control-label col-sm-2 d-flex justify-content-end">
+                                <div class="form-group">
+                                    
                                         <label>Hora de Fin: </label>
-                                    </div>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="txtHoraFin" >
-                                    </div>
-                                    
+                                        <input type="time" class="form-control" id="txtHoraFin" >
                                     
                                 </div>
-                                <div class="row align-items-center p-1 justify-content-between">
-                                    <div class="control-label col-sm-2 d-flex justify-content-end">
-                                        <label>Cupos: </label>
-                                    </div>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="txtCupos" >
-                                    </div>
-                                    
-                                    
-                                </div>
-            
-                                <div class="row align-items-center p-1 justify-content-between">
-                                    <div class="control-label col-sm-2 d-flex justify-content-end">
-                                        <label>Profesor:</label>
-                                    </div>
-                                    
-                                    <div class="col-sm-10">
-                                        <select class="form-control" id="slctDatosProf" > </select>    
                                 
-                                    </div>
+            
+                                <div class="form-group">
+                                        <label>Profesor:</label>
+                                        <select class="form-control" id="slctDatosProf" > </select>
                                 </div>    
-                                <div class="row align-items-center p-1 justify-content-between">
-                                    <div class="control-label col-sm-2 d-flex justify-content-end">
-                                        <label>Salon:</label>
-                                    </div>
-                                    
-                                    <div class="col-sm-10">
+                                <div class="form-group">
+                                     <label>Salon:</label> 
+                                    <select class="form-control" id="slctDatosSalon" placeholder="Salon: "></select>
+                                   
+                                </div>
+                                <div class="form-group">
+                                    <label>Modalidad: </label>
+                                    <select class="form-select" aria-label="Default select example" id="slctMod">
                                         
-                                        <select class="form-control" id="slctDatosSalon" placeholder="Salon: "></select>
-                                    </div>
-                                    
-                                </div>
-                                <div class="row align-items-center p-1 ">
-                                    <div class="control-label col-sm-2 d-flex justify-content-end">
-                                        <label>Modalidad: </label>
-                                    </div>
-                                    <div class="col-sm-10">
-                                        <select class="form-select" aria-label="Default select example" id="slctMod">
+                                        <option value="Presencial">Presencial</option>
+                                        <option value="Virtual">Virtual</option>
                                         
-                                            <option value="1">Presencial</option>
-                                            <option value="2">Virtual</option>
-                                            
-                                          </select>
-                                        <!--<input type="text" class="form-control" id="txtNewMod" -->
-                                    </div>
-                                    
-                                    
+                                      </select>
                                 </div>
-            
-                                <div class="row align-items-center p-1 justify-content-between">
-                                    <div class="control-label col-sm-2 d-flex justify-content-end">
-                                        <label>Fecha de Inicio:</label>
-                                    </div>
                                     
-                                    <div class="col-sm-10">
-                                        <input type="date" class="form-control" id="txtFechaInicio" autofocus>
-                                    </div>
+                                <div class="form-group">
                                     
-                                </div>
-            
+                                    <label>Cupos: </label>
+                                    <input type="text" class="form-control" id="txtCupos" >
                                
-            
-                              
+                                </div>
+                                    
+                                <div class="form-group"> 
+                                    <label>Fecha de Inicio:</label>
+                                    <input type="date" class="form-control" id="txtFechaInicio" autofocus>
+                                </div>
+                
                                 <button class="w-100 btn btn-lg btn-primary" type="button" id="btnGuardarClase" >Guardar</button>
                                 
                         </div>

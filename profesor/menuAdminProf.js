@@ -392,11 +392,7 @@ function clickGuardarModSocio(){
 
 function retornoDelServMod(respuesta){
     swal("Genial!", '"'+respuesta+'"', "success");
-    muestra('datosParaUnProf'); 
-    oculta('formularioModificarProf'); 
-    oculta('ordenadoPorEspecialidad'); 
-    oculta('cartel');
-    muestra('botonAtras');
+    menuConsultarProf();
 }
 
 function clickHabilitarProf(legajo){

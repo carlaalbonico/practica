@@ -211,8 +211,8 @@ function validar(){
      }
      
      function respuestaDeServidor(respuesta){
-         muestra('cartel');
-         $("respuesta").innerHTML=respuesta;
+        swal("Genial!", '"'+respuesta+'"', "success");
+        clickConsultarRutina();
         
      }
 
@@ -234,7 +234,7 @@ function enviarParametrosGET(servidor,funcionARealizar){
                 funcionARealizar(xmlhttp.responseText);
             }
             else{
-                alert("Ocurrio un error");
+                swal("Error", "revise los datos cargados", "error");
             }
         }
     }
@@ -263,7 +263,7 @@ function enviarInfo(servidor, funcionARealizar){
             if(xmlhttp.status==200){
                 funcionARealizar(xmlhttp.response);
             }else{
-                alert("Ocurrió un error");
+                swal("Error", "revise los datos cargados", "error");
             };
         }
     }

@@ -17,7 +17,7 @@ function load(){
     document.getElementById("perfil").addEventListener("click",mostrarPerfil);
     document.getElementById("botonAtras").addEventListener("click",atras);
 
-    enviarParametrosGET(miBackEnd + 'TipoClase',cargarOpcionesClase);
+    enviarParametrosGET(miBackEnd + 'Actividad',cargarOpcionesClase);
     document.getElementById ('slctNewClase').addEventListener('change',traerProfesoresPorEspecialidad);
     enviarParametrosGET(miBackEnd + 'Salon',cargarOpcionesSalon);
     // preguntar por el email! 
@@ -69,7 +69,7 @@ function cargarOpcionesClase(nro){
     var opciones = ['<option value="0">Seleccione una clase</option>']
 
    clase.forEach(element => {
-        opciones.push('<option value="' + element.idTipoClase +'">' + element.nombre + '</option>');
+        opciones.push('<option value="' + element.idActividad +'">' + element.nombre + '</option>');
     });
     
     $("slctNewClase").innerHTML = opciones; 
@@ -146,8 +146,7 @@ function click(){
 }
 
 function respuestaDeServidor(respuesta){
-    muestra('cartel');
-    $("respuesta").innerHTML=respuesta;
+    swal("Guardado!", '"'+respuesta+'"', "success");
     
     $("slctNewClase").value='';
     $("slctNewMod").value='';
@@ -176,7 +175,7 @@ function enviarParametrosGET(servidor,funcionARealizar){
                 funcionARealizar(xmlhttp.responseText);
             }
             else{
-                alert("Ocurrio un error");
+                swal("Error al guardar", "revise los datos cargados", "error");
             }
         }
     }
@@ -186,18 +185,22 @@ function enviarParametrosGET(servidor,funcionARealizar){
 
 function enviarInfoDeClase(servidor, funcionARealizar){
 
+    var id= $("slctNewClase").value; 
+    dias = $("slctNewDias").textContent; 
+ console.log(id); 
+ console.log($("slctNewMod").value);
+ console.log(dias); 
     //declaro el objeto
     var xmlhttp = new XMLHttpRequest(); 
 
     //agrega datos para pasar por POST
     var datos = new FormData();
-    datos.append("tipoClase",$("slctNewClase").value);
+    datos.append("tipoActividad",$("slctNewClase").value);
     datos.append("modalidad",$("slctNewMod").value);
     datos.append("dias",$("slctNewDias").value);
     datos.append("horaDeInicio",$("txtNewHoraInicio").value);
     datos.append("horaDeFin",$("txtNewHoraFin").value);
     datos.append("fechaDeInicio",$("txtNewFechaInicio").value);
-    datos.append("fechaDeFin",$("txtNewFechaFin").value);
     datos.append("cupos",$("txtNewCupos").value);
     datos.append("profesor",$("slctDatosProf").value);
     datos.append("salon",$("slctDatosSalon").value);
@@ -212,7 +215,7 @@ function enviarInfoDeClase(servidor, funcionARealizar){
             if(xmlhttp.status==200){
                 funcionARealizar(xmlhttp.response);
             }else{
-                alert("Ocurrió un error");
+                swal("Error", "revise los datos cargados", "error");
             };
         }
     }
@@ -245,7 +248,7 @@ function enviarParametrosPOSTEsp(servidor, funcionARealizar){
             if(xmlhttp.status==200){
                 funcionARealizar(xmlhttp.response);
             }else{
-                alert("ocurrio un error");
+                swal("Error", "revise los datos cargados", "error");
             };
         }
     }

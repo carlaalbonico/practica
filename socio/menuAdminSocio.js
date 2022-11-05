@@ -387,17 +387,7 @@ function clickGuardarModSocio() {
 }
 function respuestaDeServidorMod(respuesta) {
     swal("Genial!", '"'+respuesta+'"', "success");
-   // $("respuesta").innerHTML = respuesta;
-   oculta('cartel');    
-   muestra('botonesAdminParaUnSocio');
-   oculta('formularioModificarSocio');
-   oculta('formularioChico');
-   oculta('registrarPago');
-
-   oculta('estadoDeuda');
-   oculta('inscribirSocioClase');
-   oculta('botonAtras');
-
+    menuConsultarSocio();
 }
 
 function clickBorrarSocio() {
@@ -450,16 +440,7 @@ function respuestaDeServidorBorrar(respuesta) {
     //muestra('cartel');
     // $("respuesta").innerHTML=respuesta;
     swal("Genial!", '"'+respuesta+'"', "success");
-    oculta('cartel');
-    
-    muestra('botonesAdminParaUnSocio');
-    oculta('formularioModificarSocio');
-    oculta('formularioChico');
-    oculta('registrarPago');
-
-    oculta('estadoDeuda');
-    oculta('inscribirSocioClase');
-    oculta('botonAtras');
+    menuConsultarSocio();
 
 }
 
@@ -670,6 +651,7 @@ function clickEnviarInscripcion() {
 }
 function respuestaDeServidorInscripcion(respuesta) {
     swal("Guardado!", '"'+respuesta+'"', "success");
+    
     //$("respuesta").innerHTML = respuesta;
 }
 function enviarParametrosGET(servidor, funcionARealizar) {

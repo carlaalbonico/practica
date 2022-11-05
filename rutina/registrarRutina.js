@@ -76,8 +76,7 @@ function cargarOpcionesSalon(nro){
 
 
 function click(){
-   // $("btnGuardarClase").disabled=true;
-    enviarInfo(miBackEnd + 'Rutina/Registro', respuestaDeServidor);
+    swal("Genial!", '"'+respuesta+'"', "success");
 }
 
 function respuestaDeServidor(respuesta){
@@ -108,7 +107,7 @@ function enviarParametrosGET(servidor,funcionARealizar){
                 funcionARealizar(xmlhttp.responseText);
             }
             else{
-                alert("Ocurrio un error");
+                swal("Error", "revise los datos cargados", "error");
             }
         }
     }
@@ -137,7 +136,7 @@ function enviarInfo(servidor, funcionARealizar){
             if(xmlhttp.status==200){
                 funcionARealizar(xmlhttp.response);
             }else{
-                alert("Ocurrió un error");
+                swal("Error", "revise los datos cargados", "error");
             };
         }
     }

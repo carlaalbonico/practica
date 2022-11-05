@@ -146,9 +146,7 @@ function click(){
 }
 
 function respuestaDeServidor(respuesta){
-    muestra('cartel');
-    $("respuesta").innerHTML=respuesta;
-    
+    swal("Genial!", '"'+respuesta+'"', "success");
     $("slctNewClase").value='';
     $("slctNewMod").value='';
     $("slctNewDias").value='';
@@ -176,7 +174,7 @@ function enviarParametrosGET(servidor,funcionARealizar){
                 funcionARealizar(xmlhttp.responseText);
             }
             else{
-                alert("Ocurrio un error");
+                swal("Error", "revise los datos cargados", "error");
             }
         }
     }
@@ -212,7 +210,7 @@ function enviarInfoDeClase(servidor, funcionARealizar){
             if(xmlhttp.status==200){
                 funcionARealizar(xmlhttp.response);
             }else{
-                alert("Ocurrió un error");
+                swal("Error", "revise los datos cargados", "error");
             };
         }
     }
@@ -245,7 +243,7 @@ function enviarParametrosPOSTEsp(servidor, funcionARealizar){
             if(xmlhttp.status==200){
                 funcionARealizar(xmlhttp.response);
             }else{
-                alert("ocurrio un error");
+                swal("Error", "revise los datos cargados", "error");
             };
         }
     }

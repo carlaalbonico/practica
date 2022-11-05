@@ -30,7 +30,7 @@ function load(){
     document.getElementById ('slctTipoClase').addEventListener('change',validacionClase); 
     
    // document.getElementById ('tableClases').addEventListener('click',clickModifClase); 
-    document.getElementById('btnGuardarClase').addEventListener("click",click);
+    document.getElementById('btnGuardarClase').addEventListener("click",clickGuardarModClase);
     
 }
 
@@ -232,6 +232,8 @@ function validar(idClase){
     oculta('clasesPorProf'); 
     muestra('formularioModificarClase'); 
     oculta('cartel'); 
+
+    extra=idClase;
     enviarParametrosGET(miBackEnd + 'Clase/Consulta/'+idClase, retornoDelClickModificarClase);
     enviarParametrosGET(miBackEnd + 'Actividad',cargarOpcionesClaseMod);
     enviarParametrosGET(miBackEnd + 'Profesor',cargarOpcionesProf);
@@ -286,43 +288,19 @@ function cargarOpcionesSalon(nro){
 function retornoDelClickModificarClase(valor){
 
     var clases =JSON.parse(valor);
-        var dia ;
-        var horaInicio;
-        var horaFin;
-      
+    
     console.log(clases); 
 
-    /* clases.forEach(element => {
-        if(element.idClase==extra){
-           console.log(element.dias); 
-           console.log(element.horaDeInicio); 
-           console.log(element.horaDeFin); 
-           console.log(element.profesor); 
-           console.log(element.salon); 
-        dia = element.dias;
-        horaInicio = element.horaDeInicio;
-        horaFin= element.horaDeFin;
-        profesor= element.profesor;
-        salon = element.salon;
-       
-        }
-        
-    });
-   
-        $("slctDias").value = dia;
-        $("txtHoraInicio").value = horaInicio;
-        $("txtHoraFin").value = horaFin;*/
-        
 }
 
-function click(){
-    // $("btnGuardarClase").disabled=true;
-    alert(extra);
+function clickGuardarModClase(){
+
      enviarInfoDeClase(miBackEnd + 'Clase/Actualizacion/'+extra, respuestaDeServidor);
  }
  
  function respuestaDeServidor(respuesta){
     swal("Guardado!", '"'+respuesta+'"', "success");
+    clickConsultarClase();
     
  }
 
@@ -398,7 +376,7 @@ function enviarParametrosGET(servidor,funcionARealizar){
                 funcionARealizar(xmlhttp.responseText);
             }
             else{
-                alert("Ocurrio un error");
+                swal("Error al guardar", "revise los datos cargados", "error");
             }
         }
     }
@@ -427,7 +405,7 @@ function enviarParametrosPOSTEsp(servidor, funcionARealizar){
             if(xmlhttp.status==200){
                 funcionARealizar(xmlhttp.response);
             }else{
-                alert("ocurrio un error");
+                swal("Error al guardar", "revise los datos cargados", "error");
             };
         }
     }
@@ -447,6 +425,7 @@ function enviarInfoDeClase(servidor, funcionARealizar){
     //agrega datos para pasar por POST
     var datos = new FormData();
     datos.append("idclase",extra);
+    datos.append("tipoActividad",$("slctClase").value);
     datos.append("dias",$("slctDias").value);
     datos.append("horaDeInicio",$("txtHoraInicio").value);
     datos.append("horaDeFin",$("txtHoraFin").value);
@@ -467,7 +446,7 @@ function enviarInfoDeClase(servidor, funcionARealizar){
             if(xmlhttp.status==200){
                 funcionARealizar(xmlhttp.response);
             }else{
-                alert("Ocurrió un error");
+                swal("Error al guardar", "revise los datos cargados", "error");
             };
         }
     }
