@@ -83,35 +83,38 @@ function clickConsultarRutina(){
     muestra('rutinas');
     oculta('formularioModificarRutina'); 
     oculta('cartel'); 
+    cargarSkeletonTablaRutinas();
     enviarParametrosGET(miBackEnd + 'Rutina',retornoDelClickConsultarRutina);
-    enviarParametrosGET(miBackEnd + 'Salon',cargarOpcionesSalon);
-}
-function cargarOpcionesSalon(nro){
     
-    var salon= JSON.parse(nro);
-    console.log(salon);
-    salon.sort(function (x, y) { return x.nombreSalon.localeCompare(y.nombreSalon) });
-
-    var opciones = []
-
-    salon.forEach(element => {
-        opciones.push('<option value="' + element.idSalon + '">' + element.nombreSalon +' capacidad:'+ element.capacidad + '</option>');
-    });
-    
-    $("slctDatosSalon").innerHTML = opciones;
-
-   
 }
+function cargarSkeletonTablaRutinas(){
+    var opciones = [];
+
+    for(let i=0; i < 5; i++){
+        opciones.push(
+            '<tr>' +
+                '<td><p id="skeletonTablaRutinas">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaRutinas">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaRutinas">' + "-" + '</p></td>' +
+                
+                '<td><p id="skeletonTablaRutinas">' + "-" + '</p></td>' +
+            '</tr>'
+        );
+    }
+
+    $('tableRutina').innerHTML = opciones.join('');
+    
+}
+
 
 
 function retornoDelClickConsultarRutina(valor){
     
-    var rutinas =JSON.parse(valor);
-    console.log(rutinas)
-            var opciones=[]; 
+     rutinas =JSON.parse(valor);
+    opciones=[]; 
             rutinas.forEach(element => {
                 opciones.push('<tr >'+
-                '<td>'+element.nombre+'</td>'+
+                '<th scope="row">'+element.nombre+'</th>'+
                 '<td>'+element.descripcion+'</td>'+
                 '<td>'+element.salon+'</td>'+
              

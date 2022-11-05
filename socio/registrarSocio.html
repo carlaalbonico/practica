@@ -47,7 +47,7 @@
 
 <div class="container-fluid">
     <div class="row">
-      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-secondary sidebar collapse show" >
+      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block  sidebar collapse show" >
         <div class="position-sticky pt-3 sidebar-sticky">
           <ul class="nav flex-column">
               <li class="nav-item">
@@ -122,55 +122,58 @@
                 
                 </button>
             </div>
-    <div class="form-tablas">
-    <div class=" d-flex  justify-content-left  align-items-center">
-        <img src="../imagenes/anadir.png" alt="" width="60" height="60" class=" me-2">
-        <h2 class="mb-1 text-center"> Registrar socio</h2>
+        <div class="form-tablas">
+                <div class=" d-flex  justify-content-left  align-items-center">
+                    <img src="../imagenes/anadir.png" alt="" width="60" height="60" class=" me-2">
+                    <h2 class="mb-1 text-center"> Registrar socio</h2>
+                    
+                </div>
+                    <br>
         
-    </div>
-           <br>
-    
-    <div class="row align-items-center p-1 ">
+            <div class="row align-items-center p-1 ">
 
-        <form>
-            
+                <form class="row py-lg-2 border border-3 rounded-3 bg-light">
+                
+                    <div class="form-group">
+                        <label>Correo Electronico:</label>
+                        <input type="text" class="form-control" id="txtNewEmail" autofocus>
+                        
+                    </div>
+                    <div class="form-group">
+                        <label>Nombre: </label>
+                        <input type="text" class="form-control" id="txtNewNombre" >
+                   
+                    </div>
+                    <div class="form-group">
+                        <label>Apellido: </label>
+                        <input type="text" class="form-control" id="txtNewApellido" >
+                        
+                    </div>
+                    <div class="form-group">
+                        <label>Direccion: </label>
+                        <input type="text" class="form-control" id="txtNewDireccion" >
+                       
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Telefono: </label>
+                        <input type="text" class="form-control" id="numNewTelefono" >
+                        
+                    </div>
+                    <button class="w-100 btn btn-lg btn-primary" type="button" id="btnGuardar" >Guardar</button>
+                    
+                </form>
         
-        
-            <div class="form-floating">
-                <input type="text" class="form-control" id="txtNewEmail" autofocus>
-                <label>Correo Electronico:</label>
+                <div  id="cartel" class="alert alert-danger">
+                    <p id="respuesta"></p>
+                </div>
+
             </div>
-            <div class="form-floating">
-            <input type="text" class="form-control" id="txtNewNombre" >
-            <label>Nombre: </label>
-            </div>
-            <div class="form-floating">
-                <input type="text" class="form-control" id="txtNewApellido" >
-                <label>Apellido: </label>
-            </div>
-            <div class="form-floating">
-                <input type="text" class="form-control" id="txtNewDireccion" >
-                <label>Direccion: </label>
-            </div>
-            
-            <div class="form-floating">
-                <input type="text" class="form-control" id="numNewTelefono" >
-                <label>Telefono: </label>
-            </div>
-            <button class="w-100 btn btn-lg btn-primary" type="button" id="btnGuardar" >Guardar</button>
-            
-        </form>
-       
-        <div  id="cartel" class="alert alert-danger">
-            <p id="respuesta"></p>
         </div>
-
-    </div>
-</div>
            
     
         
-</main>
+    </main>
 </div>
 </div>
 

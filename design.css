@@ -6,6 +6,10 @@ body {
   background-color: rgb(245, 245, 245);
 }
 
+#sidebarMenu{
+  background-color: #adb5bd;
+}
+
 #respuesta{
   align-items: center;
   width: 100%;
@@ -18,7 +22,7 @@ body {
 #cartel {
   display: flex;
   align-items: center;
-  padding-top: 40px;
+  
   
 }
 #contenedor {

@@ -61,7 +61,7 @@
 
 <div class="container-fluid">
     <div class="row">
-      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-secondary sidebar collapse show" >
+      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block  sidebar collapse show" >
         <div class="position-sticky pt-3 sidebar-sticky">
           <ul class="nav flex-column">
               <li class="nav-item">
@@ -127,7 +127,10 @@
       </nav>
   
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-
+            <div  id="cartel" class="alert alert-danger" role="alert">
+                <p id="respuesta"></p>
+            </div>
+            
         <div id="botonAtras" class="text-left">
             <button class="previous btn btn-secondary" type="button" id="btnAtras">
                 
@@ -146,7 +149,7 @@
                     <h2 class="mb-1 text-center">Socios</h2></div>
             
               
-                <button type="button" class="btn btn-sm btn-outline-danger" onclick="menuRegistrarSocio()">Nuevo socio</button>
+                <button type="button" class="btn btn-sm btn-outline-success" onclick="menuRegistrarSocio()">Nuevo socio</button>
             </div>
                         
             <div class="row align-items-center p-1 ">
@@ -438,11 +441,8 @@
             </div>
     
         </div>
-    
+       
         
-        <div  id="cartel" class="alert alert-danger">
-            <p id="respuesta"></p>
-        </div>
         </main>
     </div>
 </div>

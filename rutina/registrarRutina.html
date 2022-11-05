@@ -55,7 +55,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-secondary sidebar collapse show" >
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block  sidebar collapse show" >
             <div class="position-sticky pt-3 sidebar-sticky">
             <ul class="nav flex-column">
                 <li class="nav-item">
@@ -120,51 +120,57 @@
 
         </nav>
     
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 
-    <div id="botonAtras" class="text-left">
-        <button class="previous btn btn-secondary" type="button" id="btnAtras">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        
-        </button>
-    </div>
+            <div id="botonAtras" class="text-left">
+                <button class="previous btn btn-secondary" type="button" id="btnAtras">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                
+                </button>
+            </div>
 
-    <div class="text-left" id="contenedor">
-        <main class="form-abm">
-               
-                <h1 class="p-3 text-center">Registrar Rutina</h1>
-                <form>
-                   
-                    <div class="form-group">
-                        <label>Rutina:</label>
-                        <input type="text" class="form-control" id="txtNewRutina" autofocus>
-                        
-                    </div>
-                   
-                    <div class="form-group">
-                        <label>Descripcion:</label>
-                        <input type="text" class="form-control" id="txtNewDescrip" autofocus>
-                        
-                    </div>
-                     
-                    <div class="form-group"> 
-                        <label>Salon:</label> 
-                        <select class="form-control" id="slctDatosSalon" ></select> 
-                    </div>  
+            <div class="form-tablas">
+                <div class=" d-flex  justify-content-left  align-items-center">
+                    <img src="../imagenes/anadir.png" alt="" width="60" height="60" class=" me-2">
+                    <h2 class="mb-1 text-center"> Registrar Rutina</h2>
                     
-                    
-                
-                    <button class="w-100 btn btn-lg btn-primary" type="button" id="btnGuardarRutina" >Guardar</button>
-                    
-                </form>
-                
-                <div  id="cartel" class="alert alert-danger">
-                    <p id="respuesta"></p>
                 </div>
+                    <br>
+        
+                <div class="row align-items-center p-1 ">
+                        <form class="row py-lg-2 border border-3 rounded-3 bg-light">
+                        
+                            <div class="form-group">
+                                <label>Rutina:</label>
+                                <input type="text" class="form-control" id="txtNewRutina" autofocus>
+                                
+                            </div>
+                        
+                            <div class="form-group">
+                                <label>Descripcion:</label>
+                                <input type="text" class="form-control" id="txtNewDescrip" autofocus>
+                                
+                            </div>
+                            
+                            <div class="form-group"> 
+                                <label>Salon:</label> 
+                                <select class="form-control" id="slctDatosSalon" ></select> 
+                            </div>  
+                            
+                            
+                        
+                            <button class="w-100 btn btn-lg btn-primary" type="button" id="btnGuardarRutina" >Guardar</button>
+                            
+                        </form>
+                        
+                        <div  id="cartel" class="alert alert-danger">
+                            <p id="respuesta"></p>
+                        </div>
+                
+                </div>
+            </div>
         </main>
     </div>
-</main>
-</div>
 </div>
 
 
