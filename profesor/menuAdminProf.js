@@ -14,7 +14,7 @@ function $(nombre)
 function load(){
 
     menuConsultarProf();
-    //oculta('menuConsultarProf');
+    
     oculta('datosParaUnProf'); 
     oculta('formularioModificarProf'); 
     oculta('ordenadoPorEspecialidad'); 
@@ -97,6 +97,7 @@ function clickRegistrarProf(){
 }
 
 function menuConsultarProf(){//oculta la botonera y visualiza el campo para escribir el email 
+   
     muestra('busquedaProfes');
     clickBuscarProf();
    
@@ -116,7 +117,7 @@ function cargarSkeletonTablaProfes(){
                 '<td><p id="skeletonTablaProfes">' + "-" + '</p></td>' +
                 '<td><p id="skeletonTablaProfes">' + "-" + '</p></td>' +
                 
-                '<td><p id="skeletonTablaProfes">' + "-" + '</p></td>' +
+
             '</tr>'
         );
     }
@@ -245,6 +246,7 @@ function buscarPorNombre(){
 function clickConsultarProf(legajo){
 
     oculta('busquedaProfes');
+   
     muestra('cartel');
     $("respuesta").innerHTML = "procesando informacion";
     //pide datos para completar datos del profesor

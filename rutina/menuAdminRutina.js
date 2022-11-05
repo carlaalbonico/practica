@@ -124,7 +124,7 @@ function retornoDelClickConsultarRutina(valor){
                 
             });
 
-        $('tableRutina').innerHTML=opciones; 
+            $('tableRutina').innerHTML = opciones.join('');
  
 }
 

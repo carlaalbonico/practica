@@ -29,7 +29,7 @@ function load(){
     //document.getElementById ('slctDatosClasesxProf').addEventListener('change',validacionClaseClasesxProf);
     document.getElementById ('slctTipoClase').addEventListener('change',validacionClase); 
     
-    document.getElementById ('tableClases').addEventListener('click',clickModifClase); 
+   // document.getElementById ('tableClases').addEventListener('click',clickModifClase); 
     document.getElementById('btnGuardarClase').addEventListener("click",click);
     
 }
@@ -87,9 +87,33 @@ function clickConsultarClase(){
     oculta('clasesPorProf'); 
     oculta('formularioModificarClase'); 
     oculta('cartel'); 
-
+    cargarSkeletonTablaClases();
     enviarParametrosGET(miBackEnd + 'Actividad',cargarOpcionesClase); 
     enviarParametrosGET(miBackEnd + 'Clase', retornoDelClickConsultarClase);
+    
+}
+function cargarSkeletonTablaClases(){
+    var opciones = [];
+
+    for(let i=0; i < 5; i++){
+        opciones.push(
+            '<tr>' +
+                '<td><p id="skeletonTablaClases">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaClases">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaClases">' + "-" + '</p></td>' +
+                
+                '<td><p id="skeletonTablaClases">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaClases">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaClases">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaClases">' + "-" + '</p></td>' +
+                
+                '<td><p id="skeletonTablaClases">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaClases">' + "-" + '</p></td>'+
+            '</tr>'
+        );
+    }
+
+    $('tableClases').innerHTML = opciones.join('');
     
 }
 
@@ -107,7 +131,7 @@ function cargarOpcionesClase(nro){
         opciones.push('<option value="' + element.nombre + '">' + element.nombre + '</option>');
     });
     console.log(opciones); 
-    $("slctTipoClase").innerHTML = opciones;    
+    $("slctTipoClase").innerHTML = opciones.join('');  
     
 }
 
@@ -139,7 +163,7 @@ function retornoDelClickConsultarClase(valor){
                 '<td>'+element.profesor+'</td>'+
                 '<td>'+element.cupos+'</td>'+
                 
-                '<td><button class="btn  btn-danger modificacion" type="button" id="'+element.idClase+'">Modificar</button></td>'+
+                '<td><button class="btn  btn-danger modificacion" type="button" onclick="clickModifClase('+element.idClase+')">Modificar</button></td>'+
 
                 '</tr>' );
                 
@@ -147,7 +171,7 @@ function retornoDelClickConsultarClase(valor){
 
 
             
-        $('tableClases').innerHTML=opciones; 
+        $('tableClases').innerHTML=opciones.join(''); 
                     
 
     }else{
@@ -165,47 +189,50 @@ function retornoDelClickConsultarClase(valor){
             '<td>'+element.profesor+'</td>'+
             '<td>'+element.cupos+'</td>'+
            
-            '<td><button class="btn btn-danger modificacion"  id="'+element.idClase+'">Modificar</button></td>'+
+            '<td><button class="btn btn-danger modificacion"  onclick="clickModifClase('+element.idClase+')">Modificar</button></td>'+
 
             '</tr>' );
             
         });
-        $('tableClases').innerHTML=opciones; 
+        $('tableClases').innerHTML=opciones.join(''); 
     }
 }
 
-function clickModifClase(){
+function clickModifClase(idClase){
     
-    let modificacion = document.querySelectorAll(".modificacion"); 
-    var idDeBoton=0; 
-    modificacion.forEach((boton) => {
-      boton.addEventListener("click", function(e){
-        e.preventDefault();
-        
-        console.log(boton.id); 
-        idDeBoton= boton.id; 
-        extra=  idDeBoton;
-       
-        if (idDeBoton!=0){
+
+        swal({
+            title: "Modificar",
+            text: "¿Esta seguro que desea modificar a esta clase?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+                validar(idClase); 
+            } 
+          });
+
+       /* if (idDeBoton!=0){
             if(confirm('¿Esta seguro que desea modificar esta clase?')){
             validar(); 
             }}      
-       return  idDeBoton; 
-      })
-    });
+       return  idDeBoton; */
     
     
+  
 
 }
 
-function validar(){
+function validar(idClase){
+    console.log(idClase);
     muestra('botonAtras');
-    
-    muestra('clases'); 
+    oculta('clases'); 
     oculta('clasesPorProf'); 
     muestra('formularioModificarClase'); 
     oculta('cartel'); 
-    enviarParametrosGET(miBackEnd + 'Clase', retornoDelClickModificarClase);
+    enviarParametrosGET(miBackEnd + 'Clase/Consulta/'+idClase, retornoDelClickModificarClase);
     enviarParametrosGET(miBackEnd + 'Actividad',cargarOpcionesClaseMod);
     enviarParametrosGET(miBackEnd + 'Profesor',cargarOpcionesProf);
     enviarParametrosGET(miBackEnd + 'Salon',cargarOpcionesSalon);
@@ -265,7 +292,7 @@ function retornoDelClickModificarClase(valor){
       
     console.log(clases); 
 
-     clases.forEach(element => {
+    /* clases.forEach(element => {
         if(element.idClase==extra){
            console.log(element.dias); 
            console.log(element.horaDeInicio); 
@@ -284,7 +311,7 @@ function retornoDelClickModificarClase(valor){
    
         $("slctDias").value = dia;
         $("txtHoraInicio").value = horaInicio;
-        $("txtHoraFin").value = horaFin;
+        $("txtHoraFin").value = horaFin;*/
         
 }
 
@@ -295,8 +322,7 @@ function click(){
  }
  
  function respuestaDeServidor(respuesta){
-     muestra('cartel');
-     $("respuesta").innerHTML=respuesta;
+    swal("Guardado!", '"'+respuesta+'"', "success");
     
  }
 
@@ -425,7 +451,6 @@ function enviarInfoDeClase(servidor, funcionARealizar){
     datos.append("horaDeInicio",$("txtHoraInicio").value);
     datos.append("horaDeFin",$("txtHoraFin").value);
     datos.append("fechaDeInicio",$("txtFechaInicio").value);
-    datos.append("fechaDeFin",$("txtFechaFin").value);
     datos.append("cupos",$("txtCupos").value);
     datos.append("profesor",$("slctDatosProf").value);
     datos.append("salon",$("slctDatosSalon").value);
