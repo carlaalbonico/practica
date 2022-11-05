@@ -20,6 +20,7 @@ function load(){
     oculta('ordenadoPorEspecialidad'); 
     oculta('cartel');
     oculta('botonAtras');
+    oculta('ClasesACargo');
     
 
     //boton para cerrar sesion 
@@ -249,7 +250,7 @@ function clickConsultarProf(legajo){
     //pide datos para completar datos del profesor
     enviarParametrosGET(miBackEnd + 'Profesor/'+legajo, retornoDelClickConsultarProf);
     //pide datos para completar el cuadro del costado de los datos del profesor FALTA
-    enviarParametrosGET(miBackEnd + 'Profesor/Clase/'+legajo, retornoDelClickConsultarClasesXProf);
+    //enviarParametrosGET(miBackEnd + 'Profesor/Clase/'+legajo, retornoDelClickConsultarClasesXProf);
 }
  
 function retornoDelClickConsultarProf(respuesta){
@@ -290,8 +291,8 @@ function retornoDelClickConsultarProf(respuesta){
 
     //$("respuesta").innerHTML=respuesta;
     if(profe['legajo'] == 0){
-        
-        $("respuesta").innerHTML="Seleccione un profesor";
+        swal("Precaucion!", "Seleccione un profesor", "info");
+        //$("respuesta").innerHTML="Seleccione un profesor";
     }
      
 }
@@ -322,17 +323,29 @@ function retornoDelClickConsultarClasesXProf(valor){
 function clickModificarProf(){
 
     //enviarMensajeAlServidor("/Provincias/Backend/?provincia="+ valorProvincia,cargarOpcionesLocalidad);
-    var legajo= document.getElementById("slctDatosProf").value; 
+    var legajo= document.getElementById("legajoProf").innerText; 
+    swal({
+        title: "Modificar",
+        text: "¿Esta seguro que desea modificar a este profesor?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+            enviarParametrosGET(miBackEnd + 'Profesor/'+legajo, retornoDelClickModificarProf);
+        }
+      });
     
-    enviarParametrosGET(miBackEnd + 'Profesor/'+legajo, retornoDelClickModificarProf);
+    
    
 }
 function retornoDelClickModificarProf(respuesta){
    
-    oculta('menuConsultarProf'); 
+     
     oculta('datosParaUnProf'); 
     muestra('formularioModificarProf'); 
-    oculta('ordenadoPorEspecialidad'); 
+    
     oculta('cartel');
     muestra('botonAtras');
     
@@ -369,40 +382,70 @@ function validarProfModificar(){
 }
 
 function clickGuardarModSocio(){
-    var legajo= document.getElementById("slctDatosProf").value; 
-    
+    var legajo= document.getElementById("legajoProf").innerText; 
+    $('btnModificarGuardar').disabled = true;
     enviarParametrosPOSTActualizar(miBackEnd + 'Profesor/Actualizacion/'+legajo, retornoDelServMod);
 
 }
 
 function retornoDelServMod(respuesta){
-    muestra('cartel');
-    $("respuesta").innerHTML=respuesta;
+    swal("Genial!", '"'+respuesta+'"', "success");
+    muestra('datosParaUnProf'); 
+    oculta('formularioModificarProf'); 
+    oculta('ordenadoPorEspecialidad'); 
+    oculta('cartel');
+    muestra('botonAtras');
 }
 
 function clickHabilitarProf(legajo){
-    var legajo= document.getElementById("slctDatosProf").value;
+    var legajo= document.getElementById("legajoProf").innerText;
 
-    if(confirm('¿Esta seguro que desea habilitar a este profesor?')){
+    swal({
+        title: "Modificar",
+        text: "¿Esta seguro que desea habilitar a este profesor?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+            enviarParametrosPOSTBorrar(miBackEnd + 'Profesor/Habilitacion/'+legajo, retornoDelServHabBorrar);  
+        } 
+      });
+
+
+    //if(confirm('¿Esta seguro que desea habilitar a este profesor?')){
         //pasar los parametros para borrar 
-        enviarParametrosPOSTBorrar(miBackEnd + 'Profesor/Habilitacion/'+legajo, retornoDelServHabBorrar);  
-    }
+        //enviarParametrosPOSTBorrar(miBackEnd + 'Profesor/Habilitacion/'+legajo, retornoDelServHabBorrar);  
+    //}
 }
 
 
 function clickBorrarProf(legajo){
-    var legajo= document.getElementById("slctDatosProf").value;
+    var legajo= document.getElementById("legajoProf").innerText;
 
-    if(confirm('¿Esta seguro que desea borrar a este profesor?')){
+    swal({
+        title: "Borrar",
+        text: "¿Esta seguro que desea borrar a este profesor?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+            enviarParametrosPOSTBorrar(miBackEnd + 'Profesor/Borrar/'+legajo,retornoDelServHabBorrar);
+        } 
+      });
+
+    //if(confirm('¿Esta seguro que desea borrar a este profesor?')){
         //pasar los parametros para borrar 
-        enviarParametrosPOSTBorrar(miBackEnd + 'Profesor/Borrar/'+legajo,retornoDelServHabBorrar)
-    }
+        //enviarParametrosPOSTBorrar(miBackEnd + 'Profesor/Borrar/'+legajo,retornoDelServHabBorrar)
+   // }
 }
 function retornoDelServHabBorrar(respuesta){
    
 
-    muestra('cartel');
-    $("respuesta").innerHTML=respuesta;
+    swal("Genial!", '"'+respuesta+'"', "success");
     //confirmacion de borrado
    
     oculta('menuConsultarProf'); 
@@ -442,7 +485,7 @@ function enviarParametrosGET(servidor,funcionARealizar){
                 funcionARealizar(xmlhttp.responseText);
             }
             else{
-                alert("Ocurrio un error");
+                swal("Error al guardar", "revise los datos cargados", "error");
             }
         }
     }
@@ -457,7 +500,7 @@ function enviarParametrosPOSTBorrar(servidor, funcionARealizar){
 
     //agrega datos para pasar por POST
     var datos = new FormData();
-    datos.append("legajo",$("slctDatosProf").value);
+    datos.append("legajo",$("legajoProf").innerText);
     
    
 
@@ -472,7 +515,7 @@ function enviarParametrosPOSTBorrar(servidor, funcionARealizar){
             if(xmlhttp.status==200){
                 funcionARealizar(xmlhttp.response);
             }else{
-                alert("ocurrio un error");
+                swal("Error al guardar", "revise los datos cargados", "error");
             };
         }
     }
@@ -505,7 +548,7 @@ function enviarParametrosPOSTEsp(servidor, funcionARealizar){
             if(xmlhttp.status==200){
                 funcionARealizar(xmlhttp.response);
             }else{
-                alert("ocurrio un error");
+                swal("Error al guardar", "revise los datos cargados", "error");
             };
         }
     }
@@ -545,7 +588,7 @@ function enviarParametrosPOSTActualizar(servidor, funcionARealizar){
             if(xmlhttp.status==200){
                 funcionARealizar(xmlhttp.response);
             }else{
-                alert("ocurrio un error");
+                swal("Error al guardar", "revise los datos cargados", "error");
             };
         }
     }

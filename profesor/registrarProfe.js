@@ -18,7 +18,7 @@ function load(){
     //boton para ir atras
     document.getElementById("botonAtras").addEventListener("click",atras);
 
-    document.getElementById("btnClose").addEventListener("click",oculta);
+   
     
    
     $('txtNewEmailProf').addEventListener("change", comprobarCorreo);
@@ -69,8 +69,8 @@ function comprobarCorreo(){
         comprobarCorreoEnServidor(miBackEnd + "Usuario/Correo", respuestaDeComprobacion);
     }else{
         $('btnGuardarProf').disabled = true;
-        $("respuesta").style.color = 'red';
-        $('respuesta').innerHTML = "Correo electrónico incompleto";
+        
+        swal("Correo", "Correo electrónico incompleto", "error");
     }
 }
 function respuestaDeComprobacion(respuesta){
@@ -83,6 +83,17 @@ function respuestaDeComprobacion(respuesta){
         $("txtNewTelefonoProf").disabled = true;
         $("txtNewEspProf").disabled = true;
         $('btnGuardarProf').disabled = true;
+        swal("Correo Duplicado!", '"'+respuesta+'"', "error")
+        .then((willDelete) => {
+            if (willDelete) {
+                
+    
+                $("txtNewNombre").disabled = false;
+                $("txtNewApellido").disabled = false;
+                $("txtNewDireccion").disabled = false;
+                $("numNewTelefono").disabled = false;
+            } 
+          });
     }
     else{
         $("txtNewNombreProf").disabled = false;
@@ -90,8 +101,10 @@ function respuestaDeComprobacion(respuesta){
         $("txtNewDireccionProf").disabled = false;
         $("txtNewTelefonoProf").disabled = false;
         $("txtNewEspProf").disabled = false;
+        muestra('cartel');
         $("respuesta").style.color = 'green';
         $("respuesta").innerHTML = respuesta;
+        
     }
 }
 
@@ -109,7 +122,7 @@ function comprobarCorreoEnServidor(servidor, funcionARealizar){
             if(xmlhttp.status==200){
                 funcionARealizar(xmlhttp.response);
             }else{
-                alert("Ocurrió un error");
+                swal("Error al guardar", "revise los datos cargados", "error");
             };
         }
     }
@@ -138,7 +151,7 @@ function click(){
 
 function respuestaDeServidor(respuesta){
    
-    $("respuesta").innerHTML=respuesta;
+    swal("Genial!", '"'+respuesta+'"', "success");
         $("txtNewEmailProf").value='';
         $("txtNewNombreProf").value='';
         $("txtNewApellidoProf").value='';
@@ -172,7 +185,7 @@ function enviarInfoDeProf(servidor, funcionARealizar){
             if(xmlhttp.status==200){
                 funcionARealizar(xmlhttp.response);
             }else{
-                alert("Ocurrió un error");
+                swal("Error al guardar", "revise los datos cargados", "error");
             };
         }
     }

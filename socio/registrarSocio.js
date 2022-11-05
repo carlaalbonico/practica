@@ -59,7 +59,7 @@ function comprobarCorreo(){
         comprobarCorreoEnServidor(miBackEnd + "Usuario/Correo", respuestaDeComprobacion);
     }else{
        $('btnGuardar').disabled = true;
-       swal("Correo Duplicado!", "Correo electrónico incompleto", "error");
+       swal("Correo", "Correo electrónico incompleto", "error");
     }
 }
 
@@ -93,6 +93,7 @@ function respuestaDeComprobacion(respuesta){
         $("txtNewApellido").disabled = false;
         $("txtNewDireccion").disabled = false;
         $("numNewTelefono").disabled = false;
+        muestra('cartel');
         $("respuesta").style.color = 'green';
         $("respuesta").innerHTML = respuesta;
        

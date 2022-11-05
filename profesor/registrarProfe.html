@@ -27,8 +27,9 @@
     <!-- agrego javascript-->
    <script src="registrarProfe.js"></script>
   
+   <!-- ¿script para alert-->
+   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
    
-
     <!-- PARA DISPOSITIVOS CHICOS -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -132,41 +133,51 @@
 
     <div class="form-tablas">
         <div class=" d-flex  justify-content-between  align-items-center">
-            <h2 class="mb-1 text-center"> Registrar profesor</h2>
+            <div class=" d-flex  justify-content-left  align-items-center">
+                <img src="../imagenes/anadir.png" alt="" width="60" height="60" class=" me-2">
+                <h2 class="mb-1 text-center"> Registrar profesor</h2>
+                
+            </div>
             
-        </div><hr>
+        </div>
               <br> 
         
         <div class="row align-items-center p-1 ">
     
-            <form>
+            <form class="row py-lg-2 border border-3 rounded-3 bg-light">
                    
-                    <div class="form-floating">
-                        <input type="text" class="form-control" id="txtNewEmailProf" autofocus>
+                    <div class="form-group">
                         <label>Correo Electronico:</label>
+                        <input type="text" class="form-control" id="txtNewEmailProf" autofocus>
+                        
                     </div>
-                    <div class="form-floating">
-                        <input type="text" class="form-control" id="txtNewNombreProf" >
+                    <div class="form-group">
                         <label>Nombre: </label>
+                        <input type="text" class="form-control" id="txtNewNombreProf" >
+                        
                     </div>
-                    <div class="form-floating">
-                        <input type="text" class="form-control" id="txtNewApellidoProf" >
+                    <div class="form-group">
                         <label>Apellido: </label>
+                        <input type="text" class="form-control" id="txtNewApellidoProf" >
+                        
                     </div>
-                    <div class="form-floating">
-                        <input type="text" class="form-control" id="txtNewDireccionProf" >
+                    <div class="form-group">
                         <label>Direccion: </label>
+                        <input type="text" class="form-control" id="txtNewDireccionProf" >
+                        
                     </div>
                     
-                    <div class="form-floating">
-                        <input type="text" class="form-control" id="txtNewTelefonoProf" >
+                    <div class="form-group">
                         <label>Telefono: </label>
+                        <input type="text" class="form-control" id="txtNewTelefonoProf" >
+                        
                     </div>
 
-                    <div class="form-floating">
-                        <input type="text" class="form-control" id="txtNewEspProf" autofocus>
+                    <div class="form-group">
                         <label>Especialidad:</label>
-                        </div>
+                        <input type="text" class="form-control" id="txtNewEspProf" autofocus>
+                        
+                    </div>
                     <button class="w-100 btn btn-lg btn-primary" type="button" id="btnGuardarProf" disabled>Guardar</button>
                     
                 </form>
