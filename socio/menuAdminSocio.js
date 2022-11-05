@@ -311,8 +311,8 @@ function retornoClickConsultarSocio(respuesta) {
 
     //$("respuesta").innerHTML=respuesta;
     if (socio['nroSocio'] == null) {
-
-        $("respuesta").innerHTML = "Seleccione un socio";
+        swal("Precaucion!", "Seleccione un socio", "info");
+        //$("respuesta").innerHTML = "Seleccione un socio";
     }
 
 }
@@ -386,8 +386,18 @@ function clickGuardarModSocio() {
     enviarParametrosPOSTModificar(miBackEnd + 'Socio/Actualizacion/' + nroSocio, respuestaDeServidorMod);
 }
 function respuestaDeServidorMod(respuesta) {
+    swal("Genial!", '"'+respuesta+'"', "success");
+   // $("respuesta").innerHTML = respuesta;
+   oculta('cartel');    
+   muestra('botonesAdminParaUnSocio');
+   oculta('formularioModificarSocio');
+   oculta('formularioChico');
+   oculta('registrarPago');
 
-    $("respuesta").innerHTML = respuesta;
+   oculta('estadoDeuda');
+   oculta('inscribirSocioClase');
+   oculta('botonAtras');
+
 }
 
 function clickBorrarSocio() {
@@ -439,9 +449,9 @@ function clickHabilitarSocio() {
 function respuestaDeServidorBorrar(respuesta) {
     //muestra('cartel');
     // $("respuesta").innerHTML=respuesta;
-    alert(respuesta);
+    swal("Genial!", '"'+respuesta+'"', "success");
     oculta('cartel');
-    oculta('consultarSocio');
+    
     muestra('botonesAdminParaUnSocio');
     oculta('formularioModificarSocio');
     oculta('formularioChico');
@@ -542,23 +552,7 @@ function respuestaDeServidorPago(respuesta) {
 }
 
 
-function clickGenerarCuota() {
-    oculta('cartel');
-    oculta('botonesAdminParaUnSocio');
-    oculta('formularioModificarSocio');
-    oculta('registrarPago');
-    oculta('formularioChico');
 
-    oculta('estadoDeuda');
-    oculta('inscribirSocioClase');
-    oculta('botonAtras');
-    //hay que arreglarlo
-
-    enviarParametrosGET(miBackEnd + 'Cuota', function () {
-        muestra('cartel')
-        $("respuesta").innerHTML = 'Se generaron las cuotas para los clientes';
-    });
-}
 
 function clickEstadoDeuda() {
     oculta('cartel');
@@ -675,8 +669,8 @@ function clickEnviarInscripcion() {
     enviarParametrosPOSTInscribir(miBackEnd + 'Socio/Inscripcion', respuestaDeServidorInscripcion);
 }
 function respuestaDeServidorInscripcion(respuesta) {
-    muestra('cartel');
-    $("respuesta").innerHTML = respuesta;
+    swal("Guardado!", '"'+respuesta+'"', "success");
+    //$("respuesta").innerHTML = respuesta;
 }
 function enviarParametrosGET(servidor, funcionARealizar) {
 
@@ -695,7 +689,8 @@ function enviarParametrosGET(servidor, funcionARealizar) {
                 funcionARealizar(xmlhttp.responseText);
             }
             else {
-                alert("Ocurrio un error");
+                swal("Error al guardar", "revise los datos cargados", "error");
+                
             }
         }
     }
@@ -724,7 +719,7 @@ function enviarParametrosPOST(servidor, funcionARealizar) {
             if (xmlhttp.status == 200) {
                 funcionARealizar(xmlhttp.response);
             } else {
-                alert("ocurrio un error");
+                swal("Error", "revise los datos cargados", "error");
             };
         }
     }
@@ -761,7 +756,7 @@ function enviarParametrosPOSTModificar(servidor, funcionARealizar) {
             if (xmlhttp.status == 200) {
                 funcionARealizar(xmlhttp.response);
             } else {
-                alert("ocurrio un error");
+                swal("Error", "revise los datos cargados", "error");
             };
         }
     }
@@ -795,7 +790,7 @@ function enviarParametrosPOSTInscribir(servidor, funcionARealizar) {
             if (xmlhttp.status == 200) {
                 funcionARealizar(xmlhttp.response);
             } else {
-                alert("ocurrio un error");
+                swal("Error", "revise los datos cargados", "error");
             };
         }
     }
@@ -828,7 +823,7 @@ function enviarParametrosPOSTBorrar(servidor, funcionARealizar) {
             if (xmlhttp.status == 200) {
                 funcionARealizar(xmlhttp.response);
             } else {
-                alert("ocurrio un error");
+                swal("Error", "revise los datos cargados", "error");
             };
         }
     }
@@ -879,7 +874,7 @@ function enviarParametrosPOSTPago(servidor, funcionARealizar) {
             if (xmlhttp.status == 200) {
                 funcionARealizar(xmlhttp.response);
             } else {
-                alert("ocurrio un error");
+                swal("Error", "revise los datos cargados", "error");
             };
         }
     }

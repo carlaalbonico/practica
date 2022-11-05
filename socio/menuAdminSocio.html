@@ -130,6 +130,7 @@
 
         <div id="botonAtras" class="text-left">
             <button class="previous btn btn-secondary" type="button" id="btnAtras">
+                
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             
             </button>
@@ -140,7 +141,9 @@
         <div class="form-tablas" id="busquedaSocios">
 
             <div class=" d-flex  justify-content-between  align-items-center">
-                <h2 class="mb-1 text-center">Socios</h2>
+                
+                <div class=" d-flex   align-items-center">   <img src="../imagenes/socio.png" alt="" width="60" height="60" class=" me-2">
+                    <h2 class="mb-1 text-center">Socios</h2></div>
             
               
                 <button type="button" class="btn btn-sm btn-outline-danger" onclick="menuRegistrarSocio()">Nuevo socio</button>
@@ -260,52 +263,62 @@
     
     
     
-        <form id="formularioModificarSocio" class="form-menu">
-            <div class="row justify-content-center">
-                <div class="col-md-8 mb-4 ">
-                    <h4 class="d-flex justify-content-between align-items-center mb-3">
-                        <span class="text-muted">DATOS</span>
-                    </h4>
-                    <ul class="list-group mb-3">
-                        
-                        <li class="list-group-item d-flex justify-content-between lh-condensed">
-                            <div>
-                            <h6 class="my-0">Nombre:</h6>
-                            </div>
-                            
-                            <input type="text" class="form-control" name="nombreSocioModificar"id="nombreSocioModificar" placeholder="" value="" required="">
-                            
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between lh-condensed">
-                            <div>
-                            <h6 class="my-0">Apellido:</h6>
-                            </div>
-                            <input type="text" class="form-control" id="apellidoSocioModificar" placeholder="" value="" required="">
-                        </li>
-                        
-                        <li class="list-group-item d-flex justify-content-between lh-condensed">
-                            <div>
-                            <h6 class="my-0">Direccion:</h6>
-                            </div>
-                            <input type="text" class="form-control" id="direccionSocioModificar" placeholder="" value="" required="">
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between lh-condensed">
-                            <div>
-                            <h6 class="my-0">Telefono:</h6>
-                            </div>
-                            <input type="text" class="form-control" id="telefonoSocioModificar" placeholder="" value="" required="">
-                        </li>
-                        
-            
-            
-                        <li class="list-group-item d-flex justify-content-between lh-condensed">
-                            
-                        </li>
-                        <button class="btn btn-lg btn-primary" type="button" id="btnModificarGuardar" >Guardar</button>
-            
-                    </ul>
-            
+        <form id="formularioModificarSocio" >
+
+
+            <div class="form-tablas">
+                <div class=" d-flex  align-items-center">
+                    <img src="../imagenes/editar.png" alt="" width="100" height="100" class=" me-2">
+                    <h2 class="mb-1 text-center"> Modificar socio</h2>
                     
+                </div>
+                <hr>
+                      <br> 
+                
+                <div class="row align-items-center p-1 ">
+            
+                        
+                           
+                            <ul class="list-group mb-3">
+                                
+                                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                    <div>
+                                    <h6 class="my-0">Nombre:</h6>
+                                    </div>
+                                    
+                                    <input type="text" class="form-control" name="nombreSocioModificar"id="nombreSocioModificar" placeholder="" value="" required="">
+                                    
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                    <div>
+                                    <h6 class="my-0">Apellido:</h6>
+                                    </div>
+                                    <input type="text" class="form-control" id="apellidoSocioModificar" placeholder="" value="" required="">
+                                </li>
+                                
+                                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                    <div>
+                                    <h6 class="my-0">Direccion:</h6>
+                                    </div>
+                                    <input type="text" class="form-control" id="direccionSocioModificar" placeholder="" value="" required="">
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                    <div>
+                                    <h6 class="my-0">Telefono:</h6>
+                                    </div>
+                                    <input type="text" class="form-control" id="telefonoSocioModificar" placeholder="" value="" required="">
+                                </li>
+                                
+                    
+                    
+                                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                    
+                                </li>
+                                <button class="btn btn-lg btn-primary" type="button" id="btnModificarGuardar" >Guardar</button>
+                    
+                            </ul>
+                    
+                            
                 </div>
             </div>
             

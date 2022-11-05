@@ -291,7 +291,7 @@ function retornoDelClickModificarClase(valor){
 function click(){
     // $("btnGuardarClase").disabled=true;
     alert(extra);
-     enviarInfoDeClase(miBackEnd + 'Clase/Actualizacion'+extra, respuestaDeServidor);
+     enviarInfoDeClase(miBackEnd + 'Clase/Actualizacion/'+extra, respuestaDeServidor);
  }
  
  function respuestaDeServidor(respuesta){

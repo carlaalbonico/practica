@@ -9,6 +9,7 @@ function $(nombre)
 }
 
 function load(){
+    $('btnGuardar').disabled = false;
     oculta_muestra('cartel');
     //boton para cerrar sesion 
     document.getElementById("logOut").addEventListener("click",cerrarSesion);
@@ -17,7 +18,7 @@ function load(){
     
     document.getElementById("botonAtras").addEventListener("click",atras);
 
-    document.getElementById("btnClose").addEventListener("click",oculta);
+    
     
     $('txtNewEmail').addEventListener("change", comprobarCorreo);
     $('txtNewNombre').addEventListener("keyup", validarCampos);
@@ -57,9 +58,8 @@ function comprobarCorreo(){
         $('btnGuardar').disabled = false;
         comprobarCorreoEnServidor(miBackEnd + "Usuario/Correo", respuestaDeComprobacion);
     }else{
-        $('btnGuardar').disabled = true;
-        $("respuesta").style.color = 'red';
-        $('respuesta').innerHTML = "Correo electrónico incompleto";
+       $('btnGuardar').disabled = true;
+       swal("Correo Duplicado!", "Correo electrónico incompleto", "error");
     }
 }
 
@@ -72,14 +72,31 @@ function respuestaDeComprobacion(respuesta){
         $("txtNewDireccion").disabled = true;
         $("numNewTelefono").disabled = true;
         $('btnGuardar').disabled = true;
+        swal("Correo Duplicado!", '"'+respuesta+'"', "error")
+        .then((willDelete) => {
+            if (willDelete) {
+                
+    
+                $("txtNewNombre").disabled = false;
+                $("txtNewApellido").disabled = false;
+                $("txtNewDireccion").disabled = false;
+                $("numNewTelefono").disabled = false;
+            } 
+          });
+    
+
+        
     }
     else{
+        mostrar('cartel');
         $("txtNewNombre").disabled = false;
         $("txtNewApellido").disabled = false;
         $("txtNewDireccion").disabled = false;
         $("numNewTelefono").disabled = false;
         $("respuesta").style.color = 'green';
         $("respuesta").innerHTML = respuesta;
+       
+
     }
 }
 
@@ -97,7 +114,7 @@ function comprobarCorreoEnServidor(servidor, funcionARealizar){
             if(xmlhttp.status==200){
                 funcionARealizar(xmlhttp.response);
             }else{
-                alert("Ocurrió un error");
+                swal("Error al guardar", "revise los datos cargados", "error");
             };
         }
     }
@@ -132,8 +149,10 @@ function click(){
 }
 
 function respuestaDeServidor(respuesta){
-    
-    $("respuesta").innerHTML=respuesta;
+
+    swal("Genial!", '"'+respuesta+'"', "success");
+    //muestra('cartel');
+    //$("respuesta").innerHTML=respuesta;
     $("txtNewEmail").value='';
     $("txtNewNombre").value='';
     $("txtNewApellido").value='';
@@ -166,7 +185,7 @@ function enviarInfoDeSocio(servidor, funcionARealizar){
             if(xmlhttp.status==200){
                 funcionARealizar(xmlhttp.response);
             }else{
-                alert("Ocurrió un error");
+                swal("Error al guardar", "revise los datos cargados", "error");
             };
         }
     }
