@@ -31,6 +31,7 @@ function load(){
     
    // document.getElementById ('tableClases').addEventListener('click',clickModifClase); 
     document.getElementById('btnGuardarClase').addEventListener("click",clickGuardarModClase);
+    //document.getElementById('slctModClase').addEventListener('change',usarSelectClase);
     
 }
 
@@ -108,7 +109,7 @@ function cargarSkeletonTablaClases(){
                 '<td><p id="skeletonTablaClases">' + "-" + '</p></td>' +
                 
                 '<td><p id="skeletonTablaClases">' + "-" + '</p></td>' +
-                '<td><p id="skeletonTablaClases">' + "-" + '</p></td>'+
+                
             '</tr>'
         );
     }
@@ -210,6 +211,8 @@ function clickModifClase(idClase){
           })
           .then((willDelete) => {
             if (willDelete) {
+                
+                
                 validar(idClase); 
             } 
           });
@@ -239,6 +242,12 @@ function validar(idClase){
     enviarParametrosGET(miBackEnd + 'Profesor',cargarOpcionesProf);
     enviarParametrosGET(miBackEnd + 'Salon',cargarOpcionesSalon);
 }
+
+function usarSelectClase(){
+    enviarParametrosGET(miBackEnd + 'Actividad',cargarOpcionesClaseMod);
+}
+
+
 function cargarOpcionesClaseMod(nro){
     var clase= JSON.parse(nro);
     console.log(clase);
@@ -250,7 +259,7 @@ function cargarOpcionesClaseMod(nro){
         opciones.push('<option value="' + element.idActividad + '">' + element.nombre + '</option>');
     });
     
-    $("slctClase").innerHTML = opciones; 
+    $("slctModClase").innerHTML = opciones; 
 }
 
 function cargarOpcionesProf(nroProf){
@@ -265,7 +274,7 @@ function cargarOpcionesProf(nroProf){
         opciones.push('<option value="' + element.legajo + '">' + element.nombre +' '+ element.apellido + '</option>');
     });
     
-    $("slctDatosProf").innerHTML = opciones;
+    $("slctModDatosProf").innerHTML = opciones;
     
    
 }
@@ -281,15 +290,25 @@ function cargarOpcionesSalon(nro){
         opciones.push('<option value="' + element.idSalon + '">' + element.nombreSalon +' capacidad:'+ element.capacidad + '</option>');
     });
     
-    $("slctDatosSalon").innerHTML = opciones;
+    $("slctModDatosSalon").innerHTML = opciones;
 
    
 }
 function retornoDelClickModificarClase(valor){
 
-    var clases =JSON.parse(valor);
+    var clase =JSON.parse(valor);
+    console.log(clase);
+    $("slctModClase").value = clase["nombre"];
+    $("slctModDias").value = clase["dias"];
+    $("txtModHoraInicio").value = clase["horaDeInicio"];
+    $("txtModHoraFin").value = clase["horaDeFin"];
+    $("slctModDatosProf").value = clase["profesor"];
+    $("slctModDatosSalon").value = clase["salon"];
+    $("slctModMod").value = clase["modalidad"];
+    $("txtModCupos").value = clase["cupos"];
+    $("txtModFechaInicio").value = clase["fechaDeInicio"];
+
     
-    console.log(clases); 
 
 }
 

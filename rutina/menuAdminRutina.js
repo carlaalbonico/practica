@@ -26,7 +26,7 @@ function load(){
     document.getElementById("botonAtras").addEventListener("click",atras);
 
    
-    document.getElementById ('tableRutina').addEventListener('click',clickModifRutina); 
+    
     document.getElementById('btnGuardarRutina').addEventListener("click",click);
    
 }
@@ -118,8 +118,8 @@ function retornoDelClickConsultarRutina(valor){
                 '<td>'+element.descripcion+'</td>'+
                 '<td>'+element.salon+'</td>'+
              
-                '<td><button class="btn  btn-danger modificacion" type="button" id="'+element.idRutina+'">Modificar</button></td>'+
-
+                '<td><button class="btn  btn-danger modificacion" type="button" onclick="clickModifRutina('+element.idRutina+')">Modificar</button></td>'+
+            
                 '</tr>' );
                 
             });
@@ -128,19 +128,9 @@ function retornoDelClickConsultarRutina(valor){
  
 }
 
-function clickModifRutina(){
+function clickModifRutina(idRutina){
     
-    let modificacion = document.querySelectorAll(".modificacion"); 
-    var idDeBoton=0; 
-    modificacion.forEach((boton) => {
-      boton.addEventListener("click", function(e){
-        e.preventDefault();
-        
-        console.log(boton.id); 
-        idDeBoton= boton.id; 
-        extra=  idDeBoton;
-       
-        if (idDeBoton!=0){
+    
             
             swal({
                 title: "Modificar",
@@ -151,33 +141,39 @@ function clickModifRutina(){
               })
               .then((willDelete) => {
                 if (willDelete) {
+
+                    extra= idRutina;
                     validar(); 
                 } 
               });
-
-
-
-
-
-           // if(confirm('¿Esta seguro que desea modificar esta rutina?')){
-           // validar(); 
-           // }
-        }      
-       return  idDeBoton; 
-      })
-    });
-    
-    
+  
 
 }
 
+
 function validar(){
     muestra('botonAtras');
-   
     oculta('rutinas'); 
     muestra('formularioModificarRutina'); 
     oculta('cartel');
     enviarParametrosGET(miBackEnd + 'Rutina', retornoDelClickModificarRutina);
+    enviarParametrosGET(miBackEnd + 'Salon',cargarOpcionesSalon);
+}
+
+function cargarOpcionesSalon(nro){
+    
+    var salon= JSON.parse(nro);
+    console.log(salon);
+    salon.sort(function (x, y) { return x.nombreSalon.localeCompare(y.nombreSalon) });
+
+    var opciones = []
+
+    salon.forEach(element => {
+        opciones.push('<option value="' + element.idSalon + '">' + element.nombreSalon +' capacidad:'+ element.capacidad + '</option>');
+    });
+    
+    $("slctDatosSalon").innerHTML = opciones;
+  
 }
 
 
@@ -186,6 +182,7 @@ function validar(){
         var rutinas =JSON.parse(valor);
             var nombre;
             var descripcion;
+            var idsalon; 
     
         console.log(rutinas); 
          
@@ -194,27 +191,27 @@ function validar(){
             
             nombre = element.nombre;
             descripcion = element.descripcion;
-
+            idsalon=element.salon; 
             }
             
         });
        
             $("txtNombre").value = nombre;
             $("txtDescripcion").value = descripcion;
-            
+            $("slctDatosSalon").value=idsalon;
             
     }
     
-    function click(){
+function click(){
   
          enviarInfo(miBackEnd + 'Rutina/Actualizacion/'+extra, respuestaDeServidor);
-     }
+}
      
-     function respuestaDeServidor(respuesta){
+function respuestaDeServidor(respuesta){
         swal("Genial!", '"'+respuesta+'"', "success");
         clickConsultarRutina();
         
-     }
+}
 
 
 function enviarParametrosGET(servidor,funcionARealizar){

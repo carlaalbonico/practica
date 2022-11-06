@@ -23,8 +23,9 @@ function load(){
     document.getElementById("perfil").addEventListener("click",mostrarPerfil);
 
     document.getElementById("botonAtras").addEventListener("click",atras);
-
- 
+    //para que ande el filtro
+    document.getElementById ('actividadBuscado').addEventListener('change',validacionActividad); 
+    
     document.getElementById('btnGuardarSusc').addEventListener("click",clickGuardarModSusc);
     
 }
@@ -82,16 +83,35 @@ function clickConsultarSusc(){
     
     oculta('formularioModSusc'); 
     oculta('cartel'); 
-
+    cargarSkeletonTablaSusc();
     enviarParametrosGET(miBackEnd + 'Actividad',cargarOpcionesClase); 
     enviarParametrosGET(miBackEnd + 'Suscripcion', retornoDelClickConsultarSusc);
    
     
 }
+function cargarSkeletonTablaSusc(){
+    var opciones = [];
 
-//function validacionClase(){
- //   enviarParametrosGET(miBackEnd + 'Clase', retornoDelClickConsultarSusc);
-//}
+    for(let i=0; i < 5; i++){
+        opciones.push(
+            '<tr>' +
+                '<td><p id="skeletonTablaSusc">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaSusc">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaSusc">' + "-" + '</p></td>' +
+                
+                '<td><p id="skeletonTablaSusc">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaSusc">' + "-" + '</p></td>' +
+            '</tr>'
+        );
+    }
+
+    $('tableSuscripciones').innerHTML = opciones.join('');
+    
+}
+
+function validacionActividad(){
+  enviarParametrosGET(miBackEnd + 'Suscripcion', retornoDelClickConsultarSusc);
+}
 function cargarOpcionesClase(nro){
     var clase= JSON.parse(nro);
     console.log(clase);
@@ -103,12 +123,12 @@ function cargarOpcionesClase(nro){
         opciones.push('<option value="' + element.nombre + '">' + element.nombre + '</option>');
     });
     console.log(opciones); 
-    $("slctTipoClase").innerHTML = opciones;    
+    $("actividadBuscado").innerHTML = opciones.join('');    
     
 }
 
 function retornoDelClickConsultarSusc(valor){
- var tipoClase= document.getElementById("slctTipoClase").value; 
+ var tipoClase= document.getElementById("actividadBuscado").value; 
 
  console.log(valor);
     var suscrip =JSON.parse(valor);
@@ -133,13 +153,15 @@ console.log(suscrip);
                 '<td>'+element.cantClases+'</td>'+
                 '<td>'+element.descSuscripcion+'</td>'+
                 '<td>'+element.actividad+'</td>'+
-                '<td>$'+element.precio+'</td><td><button class="btn btn-danger modificacion"  onclick="clickModifSuscripcion(' + element.idSuscripcion + ')">Modificar</button></td></tr>' );
+                '<td>$'+element.precio+'</td>'+
+                '<td><button class="btn btn-danger modificacion"  onclick="clickModifSuscripcion(' + element.idSuscripcion + ')">Modificar</button></td></tr>' );
                 
             });
 
 
             
-        $('tableSuscripciones').innerHTML=opciones; 
+        $('tableSuscripciones').innerHTML=opciones.join('');
+    
                     
 
     }else{
@@ -151,11 +173,13 @@ console.log(suscrip);
                 '<td>'+element.cantClases+'</td>'+
                 '<td>'+element.descSuscripcion+'</td>'+
                 '<td>'+element.actividad+'</td>'+
-                '<td>$'+element.precio+'</td><td><button class="btn btn-danger modificacion"  onclick="clickModifSuscripcion(' + element.idSuscripcion + ')">Modificar</button></td></tr>' );
+                '<td>$'+element.precio+'</td>'+
+                '<td><button class="btn btn-danger modificacion"  onclick="clickModifSuscripcion(' + element.idSuscripcion + ')">Modificar</button></td></tr>' );
             
         });
 
-        $('tableSuscripciones').innerHTML=opciones; 
+        $('tableSuscripciones').innerHTML=opciones.join('');
+    
     }
 }
 
@@ -182,9 +206,6 @@ function clickModifSuscripcion(idSuscripcion){
         } 
       });
 
-
-
-
 }
 
 
@@ -207,8 +228,8 @@ function cargarOpcionesClaseMod(nro){
 
  
  function respuestaDeServidor(respuesta){
-     muestra('cartel');
-     $("respuesta").innerHTML=respuesta;
+    swal("Genial!", '"'+respuesta+'"', "success");
+    clickConsultarSusc();
     
  }
 

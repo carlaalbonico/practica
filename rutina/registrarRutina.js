@@ -76,7 +76,7 @@ function cargarOpcionesSalon(nro){
 
 
 function click(){
-    swal("Genial!", '"'+respuesta+'"', "success");
+    swal("Genial!", "Se registro rutina correctamente.", "success");
 }
 
 function respuestaDeServidor(respuesta){
