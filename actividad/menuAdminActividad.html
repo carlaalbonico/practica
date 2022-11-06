@@ -28,6 +28,7 @@
     <!-- agrego javascript-->
    <script src="menuAdminActividad.js"></script>
   
+   <link href="menuAdmin.css"  rel="stylesheet">
    <!-- ¿script para alert-->
    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
    
@@ -135,32 +136,27 @@
                 </button>
             </div>
 
-            <div class="form-tablas" >
+            <div class="form-tablas" id="actividad" >
                 <div class=" d-flex  justify-content-between  align-items-center">
-                    <h2 class="mb-1 text-center">Actividad</h2>
-                
+                    <div class=" d-flex   align-items-center">   
+                        <img src="../imagenes/actividades.png" alt="" width="60" height="60" class=" me-2">
+                        <h2 class="mb-1 text-center">Actividades</h2>
+                    </div>
                   
                     <button type="button" class="btn btn-sm btn-outline-danger" onclick="">Nueva actividad</button>
                 </div>
                             
                 <div class="row align-items-center p-1 ">
     
-                    
-                  <div class="d-flex">
-                    <label>Filtro:</label>
-                    <select class="form-select"  id="slctTipoClase"  placeholder="Buscar por clase..."></select>
-                  </div>  
                   
                     <table class="table" >
     
                         <thead>
                             <tr>
-                                <th scope="col">Actividad:</th>
+                                <th scope="col">Id Actividad:</th>
                                 <th scope="col">Nombre:</th>
-                                <th scope="col">Descripcion:</th>
                                 
-                                
-                                <th scope="col"></th>
+                                 <th scope="col"></th>
                                 
                             </tr>
                             </thead>
@@ -175,10 +171,6 @@
             </div>
 
 
-            
-        
-            
-             
         
             <div  id="cartel" class="alert alert-danger">
                 <p id="respuesta"></p>
