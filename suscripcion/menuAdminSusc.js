@@ -274,7 +274,7 @@ function validarModificar() {
 function clickGuardarModSusc() {
     
     $("btnGuardarSusc").disabled = true;
-    alert(extra);
+   
     enviarInfoDeSusc(miBackEnd + 'Suscripcion/Actualizacion/'+extra, respuestaDeServidor);
 }
 function respuestaDeServidorMod(respuesta) {

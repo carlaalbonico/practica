@@ -17,13 +17,10 @@ function load(){
     document.getElementById("perfil").addEventListener("click",mostrarPerfil);
     document.getElementById("botonAtras").addEventListener("click",atras);
 
-    enviarParametrosGET(miBackEnd + 'TipoClase',cargarOpcionesClase);
-    document.getElementById ('slctNewClase').addEventListener('change',traerProfesoresPorEspecialidad);
-    enviarParametrosGET(miBackEnd + 'Salon',cargarOpcionesSalon);
-    // preguntar por el email! 
+    enviarParametrosGET(miBackEnd + 'Actividad',cargarOpcionesActividades); 
    
     
-    document.getElementById('btnGuardarClase').addEventListener("click",click);
+    document.getElementById('btnGuardarSusc').addEventListener("click",click);
     
 }
 
@@ -61,101 +58,57 @@ function cerrarSesion() {
 function mostrarPerfil(){
     window.location.assign("http://localhost/practica/perfilUsuario.html");
 }
-function cargarOpcionesClase(nro){
+function cargarOpcionesActividades(nro){
     var clase= JSON.parse(nro);
     console.log(clase);
     clase.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
 
-    var opciones = ['<option value="0">Seleccione una clase</option>']
+    var opciones = []
 
    clase.forEach(element => {
-        opciones.push('<option value="' + element.idTipoClase +'">' + element.nombre + '</option>');
+        opciones.push('<option value="' + element.idActividad + '">' + element.nombre + '</option>');
     });
     
-    $("slctNewClase").innerHTML = opciones; 
+    $("slctAct").innerHTML = opciones; 
 }
 
 
-function devuelveTextoDelSelect(campo){
-    var el= document.getElementById(campo);
 
-   //para obtener el valor del select
-   var seleccionada = el.options[el.selectedIndex].textContent;
-   
-   console.log(seleccionada); 
 
-   return seleccionada; 
-   
-}
-function traerProfesoresPorEspecialidad(){
-    enviarParametrosPOSTEsp(miBackEnd + 'Profesor/Especialidad',cargarOpcionesProf);}
-
-function cargarOpcionesProf(nroProf){
-    
-    var profes= JSON.parse(nroProf);
-    console.log(profes);
-    profes.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
-
-    var opciones = []
-
-    profes.forEach(element => {
-        opciones.push('<option value="' + element.legajo + '">' + element.nombre +' '+ element.apellido + '</option>');
-    });
-    
-    $("slctDatosProf").innerHTML = opciones;
-
-   
-}
-function cargarOpcionesSalon(nro){
-    
-    var salon= JSON.parse(nro);
-    console.log(salon);
-    salon.sort(function (x, y) { return x.nombreSalon.localeCompare(y.nombreSalon) });
-
-    var opciones = []
-
-    salon.forEach(element => {
-        opciones.push('<option value="' + element.idSalon + '">' + element.nombreSalon +' capacidad:'+ element.capacidad + '</option>');
-    });
-    
-    $("slctDatosSalon").innerHTML = opciones;
-
-   
-}
 function validarCampos(){
-    var NewClase = $("txtNewClase").value.length;
-    var NewMod = $("txtNewMod").value.length;
-    var NewDias = $("txtNewDias").value.length;
-    var NewHoraInicio = $("txtNewHoraInicio").value.length;
-    var NewHoraFin = $("txtNewHoraFin").value.length;
+    var NewSusc = $("txtNombre").value.length;
+    var NewCant = $("txtCant").value.length;
+    var NewDesc = $("txtDesc").value.length;
+    var NewPrecio = $("txtPrecio").value.length;
     
-    var validarSlctProf = document.getElementById("slctDatosProf").value;
-    var validarSlctSalon= document.getElementById("slctDatosSalon").value;
     
-    if( NewClase >=2 && NewMod >=2   && NewCupos>=1 && validarSlctProf != '' && validarSlctProf != '' ){
-        $('btnGuardarClase').disabled = false;
+    var validarSlct= document.getElementById("slctAct").value;
+   
+    
+    if( NewSusc >=2 && NewCant >=1   && NewDesc>=10 && validarSlct != '' && NewPrecio >2 ){
+        $('btnGuardarSusc').disabled = false;
     }else{
-        $('btnGuardarClase').disabled = true;
+        $('btnGuardarSusc').disabled = true;
     }
     
 }
 
 function click(){
    // $("btnGuardarClase").disabled=true;
-    enviarInfoDeClase(miBackEnd + 'Clase/Registro', respuestaDeServidor);
+    enviarInfoDeSusc(miBackEnd + 'Suscripcion/Registro', respuestaDeServidor);
 }
 
 function respuestaDeServidor(respuesta){
     swal("Genial!", '"'+respuesta+'"', "success");
     
-    $("slctNewClase").value='';
-    $("slctNewMod").value='';
-    $("slctNewDias").value='';
-    $("txtNewHoraInicio").value='';
-    $("txtNewHoraFin").value='';
-    $("txtNewCupos").value='';
+    $("txtNombre").value='';
+    $("txtCant").value='';
+    $("txtDesc").value='';
+    $("slctAct").value='';
+    $("txtPrecio").value='';
+   
     
-    $('btnGuardarClase').disabled = false;
+    $('btnGuardarSusc').disabled = false;
 }
 
 function enviarParametrosGET(servidor,funcionARealizar){
@@ -183,23 +136,19 @@ function enviarParametrosGET(servidor,funcionARealizar){
     xmlhttp.send();
 }
 
-function enviarInfoDeClase(servidor, funcionARealizar){
+function enviarInfoDeSusc(servidor, funcionARealizar){
 
     //declaro el objeto
     var xmlhttp = new XMLHttpRequest(); 
 
     //agrega datos para pasar por POST
     var datos = new FormData();
-    datos.append("tipoClase",$("slctNewClase").value);
-    datos.append("modalidad",$("slctNewMod").value);
-    datos.append("dias",$("slctNewDias").value);
-    datos.append("horaDeInicio",$("txtNewHoraInicio").value);
-    datos.append("horaDeFin",$("txtNewHoraFin").value);
-    datos.append("fechaDeInicio",$("txtNewFechaInicio").value);
-    datos.append("fechaDeFin",$("txtNewFechaFin").value);
-    datos.append("cupos",$("txtNewCupos").value);
-    datos.append("profesor",$("slctDatosProf").value);
-    datos.append("salon",$("slctDatosSalon").value);
+    datos.append("nombre",$("txtNombre").value);
+    datos.append("cantClases",$("txtCant").value);
+    datos.append("descSuscripcion",$("txtDesc").value);
+    datos.append("actividad",$("slctAct").value);
+    datos.append("precio",$("txtPrecio").value);
+    
         //indico hacia donde va el mensaje
     xmlhttp.open ("POST", servidor, true); 
 
@@ -221,38 +170,3 @@ function enviarInfoDeClase(servidor, funcionARealizar){
     xmlhttp.send(datos);
 }
 
-function enviarParametrosPOSTEsp(servidor, funcionARealizar){
-
-
-    var especialidad=devuelveTextoDelSelect("slctNewClase"); 
-    //declaro el objeto
-    var xmlhttp = new XMLHttpRequest(); 
-
-    //agrega datos para pasar por POST
-    var datos = new FormData();
-    datos.append('especialidad',especialidad);
-   
-
-    //indico hacia donde va el mensaje
-    xmlhttp.open ("POST", servidor, true); 
-
-    //seteo el evento
-    xmlhttp.onreadystatechange = function(){
-        //veo si llego la respuesta del servidor
-        if(xmlhttp.readyState==XMLHttpRequest.DONE){
-            //reviso si la respuesta del servidor es la correcta
-            if(xmlhttp.status==200){
-                funcionARealizar(xmlhttp.response);
-            }else{
-                swal("Error", "revise los datos cargados", "error");
-            };
-        }
-    }
-    //esto va siempre cuando se hace un formulario
-    xmlhttp.setRequestHeader("enctype","multipart/form-data");
-
-    //envio el mensaje 
-    xmlhttp.send(datos);
-
-
-}
