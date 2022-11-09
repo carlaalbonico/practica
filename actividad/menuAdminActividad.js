@@ -140,7 +140,7 @@ function clickModif(id){
               .then((willDelete) => {
                 if (willDelete) {
 
-                    extra= idRutina;
+                    extra= idActividad;
                     validar(); 
                 } 
               });

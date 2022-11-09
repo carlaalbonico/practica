@@ -66,7 +66,7 @@ function mostrarHorario(dia){
                 '<div class="card">' +
                     '<div class="row">' +
                         '<div class="col-4">' +
-                            '<h5 class="card-title">' + clase.horaDeInicio + 'HS' + '</h5>' +
+                            '<h5 class="card-title d-flex">' + clase.horaDeInicio + 'HS' + '</h5>' +
                         '</div>' +
                         '<div class="col-8">' +
                             '<h5 class="card-title">' + clase.nombre + '</h5>' +
