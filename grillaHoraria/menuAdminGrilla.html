@@ -138,7 +138,7 @@
                 </button>
             </div>
         
-            <div class="mt-2" id="listadoHorarios">
+            <div class="mt-2" id="grillaHorarios">
 
               
                 <div class=" d-flex  justify-content-between  align-items-center">
@@ -152,10 +152,7 @@
                             
                 <div class="row align-items-center p-1 ">
     
-                    
-                   
-                    
-                    <div class="container">
+                    <div class="container" >
                         <div class="row" id="semana">
                            
                             
@@ -164,16 +161,41 @@
                     </div>
 
 
-
-                   
-                    
-                    <table class="table" id="tablaGrilla">
     
-                        <thead id="headGrilla">
-                        
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center" id="pages">
+    
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="form-tablas" id="sociosInscriptos">
+
+                <div class=" d-flex  justify-content-between  align-items-center mt-2">
+                    
+                    <div class=" d-flex   align-items-center">   <img src="../imagenes/inscriptos.png" alt="" width="60" height="60" class=" me-2">
+                        <h2 class="mb-1 text-center">Inscriptos a clase</h2></div>
+            
+                </div>
+                            
+                <div class="row align-items-center p-1 ">
+    
+                   
+        
+                    <table class="table" id="tablaSociosInscrip">
+    
+                        <thead>
+                        <tr>
+                            <th scope="col">Socio N°</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Correo</th>
+                            <th scope="col"></th>         
+                        </tr>
                         </thead>
     
-                       
+                        <tbody id="infoSociosInscrip">
+                            
+                        </tbody>
     
                     </table>
     
@@ -184,8 +206,8 @@
                     </nav>
                 </div>
             </div>
-           
             
+
         
         </main>
     </div>

@@ -13,10 +13,27 @@ function $(nombre) {
 }
 
 function load() {
+
    oculta('botonAtras');
+   oculta('sociosInscriptos');
     traerClases(miBackEnd + 'ClasePorDia', verClases);
     TraerFechaHoy();
-   
+
+
+     //boton para cerrar sesion 
+     document.getElementById("logOut").addEventListener("click", cerrarSesion);
+     //boton para perfil usuario logueado
+     document.getElementById("perfil").addEventListener("click", mostrarPerfil);
+ 
+     document.getElementById("botonAtras").addEventListener("click", atras);
+}
+
+function cerrarSesion() {
+    sessionStorage.clear();
+    window.location.assign("http://localhost/practica/login.html");
+}
+function mostrarPerfil() {
+    window.location.assign("http://localhost/practica/perfilUsuario.html");
 }
 
 function oculta(id) {
@@ -25,6 +42,23 @@ function oculta(id) {
         el.style.display = 'none';
 
     }
+
+}
+function muestra(id) {
+    if (document.getElementById) { //se obtiene el id
+        var el = document.getElementById(id); //se define la variable "el" igual a nuestro div
+
+        el.style.display = "block";
+
+    }
+
+}
+
+function atras() {
+     
+    muestra('grillaHorarios');
+   oculta('botonAtras');
+   oculta('sociosInscriptos');
 
 }
 
@@ -89,10 +123,7 @@ function verClases(respuesta){
     mostrarHorario(clases);
 }
 
-function armarCuadroSemana(clases){
 
-
-}
 
 
 
@@ -241,9 +272,9 @@ function armaColumnaPorDia(clases, dia, fecha){
    
     //pone en la columna el dia de la semana + la fecha
     columnaDia.push('<div class="col-2" >'+
-            ' <div class="row" id="'+dia+'">'+
-                '<div class="col">'+
-                    '<div class="d-flex h-100 text-white bg-dark rounded-3 badge bg-primary text-wrap" >'+
+            ' <div class="row " id="'+dia+'">'+
+                '<div class="col mb-2">'+
+                    '<div class="d-flex h-100 text-white bg-dark  bg-opacity-75 rounded-3 badge bg-primary text-wrap " >'+
                     '<p class="fs-3">' +dia+' '+formato(fecha)+'</p>'+
                     '</div>'+
                 '</div>'
@@ -267,7 +298,7 @@ function armaColumnaPorDia(clases, dia, fecha){
                     '<div class="card-body text-dark">'+
                         '<h5 class="card-title">'+clase.actividad+'</h5>'+
                         '<p class="card-text"> <b> Profe: </b> '+clase.profesor+' <br><b>Cupos libres: </b> '+clase.cupoDisponible+'</p>'+
-                        '<button class="btn btn-success modificacion"  onclick="clickClase(' + clase.idClase + ')">Ver más</button>'+
+                        '<div class=" d-flex  justify-content-end"><button class="btn bg-primary bg-opacity-50 "  onclick="clickClase(' + clase.idClase + ')">Ver</button></div>'+
                     '</div>'+            
             '</div>'+
         '</div>'
@@ -283,7 +314,25 @@ function armaColumnaPorDia(clases, dia, fecha){
 }
 
 function clickClase(idClase){
- alert(idClase);
+    traerClases(miBackEnd + 'ClasePorDia/'+idClase, inscriptosAClase);
+
+}
+
+
+
+
+function inscriptosAClase(rta){
+    muestra('botonAtras');
+    oculta('grillaHorarios');
+    muestra('sociosInscriptos');
+    console.log(rta);
+    inscriptos = JSON.parse(rta);
+    if(inscriptos.length === 0){
+        console.log("sin inscriptos")
+        $('infoSociosInscrip').innerHTML = '<div class=" d-flex justify-content-center">no hay socios inscriptos</div>';
+    }
+
+
 
 }
 
