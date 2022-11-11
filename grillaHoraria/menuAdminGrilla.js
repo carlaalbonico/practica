@@ -6,19 +6,20 @@ var todasSemanas = [];
 var paginas;
 var pagina = [];
 var paginaActual = 1;
-
+var salon = "Principal";; 
 
 function $(nombre) {
     return document.getElementById(nombre);
 }
 
 function load() {
-
+     
    oculta('botonAtras');
    oculta('sociosInscriptos');
+   muestra('grillaHorarios');
     traerClases(miBackEnd + 'ClasePorDia', verClases);
     TraerFechaHoy();
-
+     console.log(salon);
 
      //boton para cerrar sesion 
      document.getElementById("logOut").addEventListener("click", cerrarSesion);
@@ -61,6 +62,14 @@ function atras() {
    oculta('sociosInscriptos');
 
 }
+function clasesSalonPpal(){
+    salon = "Principal"; 
+    mostrarHorario(clases,salon);
+  }
+  function clasesSalonMusc(){
+       salon = "Musculacion"; 
+       mostrarHorario(clases,salon);
+  }
 
 
 
@@ -120,9 +129,8 @@ function verClases(respuesta){
     console.log(clases);
     cargarSkeletonTabla();
     diasFechas(clases);
-    mostrarHorario(clases);
+    mostrarHorario(clases,salon);
 }
-
 
 
 
@@ -151,10 +159,10 @@ return todosDias;
 }
 
 
-function mostrarHorario(clases){
+function mostrarHorario(clases, salon){
     todasSemanas= [];
     pagina = [];
-    
+     
     
     var todosDias=[];
     //crea un array con los objetos de todos las fechas y dia de la semana
@@ -177,7 +185,7 @@ function mostrarHorario(clases){
     console.log(JSON.stringify(todosDias));
   //arma cada columna con una fecha y dia 
     todosDias.forEach( element =>{
-        todasSemanas.push(armaColumnaPorDia(clases, element.nombre,element.fecha))
+        todasSemanas.push(armaColumnaPorDia(clases, element.nombre,element.fecha, salon))
 
     });
     
@@ -185,6 +193,7 @@ function mostrarHorario(clases){
    
  console.log(todosDias);
  console.log(todasSemanas);
+ console.log(salon);
 
  for(let i=0; i < 6; i++){
         
@@ -263,26 +272,27 @@ function cambiarPagina(pag){
     $('semana').innerHTML = pagina.join('');
 }
 
-function armaColumnaPorDia(clases, dia, fecha){
+function armaColumnaPorDia(clases, dia, fecha, salon){
 
     var seleccionPorDia = [];
     var columnaDia=[];
     var dia; 
     var fecha;
+     salon; 
    
     //pone en la columna el dia de la semana + la fecha
     columnaDia.push('<div class="col-2" >'+
             ' <div class="row " id="'+dia+'">'+
                 '<div class="col mb-2">'+
-                    '<div class="d-flex h-100 text-white bg-dark  bg-opacity-75 rounded-3 badge bg-primary text-wrap " >'+
-                    '<p class="fs-3">' +dia+' '+formato(fecha)+'</p>'+
+                    '<div class="d-flex h-100 text-white bg-dark   fs-4 fw-bold justify-content-center rounded-3  align-items-center" style="width: 235px;  height: 80px;>'+
+                    '<p class="fs-1 fw-bold">' +dia+'  '+formato(fecha)+'</p>'+
                     '</div>'+
                 '</div>'
                     );
     //Procesa el json y lo separa por dia
     clases.forEach(clase => {
         
-        if(clase.dias == dia && clase.fecha==fecha){
+        if(clase.dias == dia && clase.fecha==fecha && clase.nombreSalon == salon){
             seleccionPorDia.push(clase);
             
         }
