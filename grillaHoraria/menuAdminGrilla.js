@@ -76,19 +76,7 @@ function clasesSalonPpal(){
 function cargarSkeletonTabla(){
     var opciones = [];
 
-    for(let i=0; i < 5; i++){
-        opciones.push(
-            '<tr>' +
-                '<td><p id="skeletonTabla">' + "-" + '</p></td>' +
-                '<td><p id="skeletonTabla">' + "-" + '</p></td>' +
-                '<td><p id="skeletonTabla">' + "-" + '</p></td>' +
-                
-                '<td><p id="skeletonTabla">' + "-" + '</p></td>' +
-                '<td><p id="skeletonTabla">' + "-" + '</p></td>' +
-                '<td><p id="skeletonTabla">' + "-" + '</p></td>' +
-            '</tr>'
-        );
-    }
+   
 
     $('semana').innerHTML = opciones.join('');
     
@@ -162,7 +150,8 @@ return todosDias;
 function mostrarHorario(clases, salon){
     todasSemanas= [];
     pagina = [];
-     
+    var fecha1; 
+    
     
     var todosDias=[];
     //crea un array con los objetos de todos las fechas y dia de la semana
@@ -173,7 +162,7 @@ function mostrarHorario(clases, salon){
          
         return todosDias;
     });
-// filtra el array con los objetos de todos las fechas y dia de la semana para que tenga una sola fecha y dia
+    // filtra el array con los objetos de todos las fechas y dia de la semana para que tenga una sola fecha y dia
     var hash ={};
 
     todosDias= todosDias.filter( function(current){
@@ -182,8 +171,16 @@ function mostrarHorario(clases, salon){
     return exists;
     });
 
+    //muestra las fechas
+    todosDias.forEach( element =>{
+        console.log(element.fecha);
+
+    });
+
+
+
     console.log(JSON.stringify(todosDias));
-  //arma cada columna con una fecha y dia 
+    //arma cada columna con una fecha y dia y las guarda en todasSemanas
     todosDias.forEach( element =>{
         todasSemanas.push(armaColumnaPorDia(clases, element.nombre,element.fecha, salon))
 
@@ -194,17 +191,18 @@ function mostrarHorario(clases, salon){
  console.log(todosDias);
  console.log(todasSemanas);
  console.log(salon);
-
+// para separar todas las columnas en 6 
  for(let i=0; i < 6; i++){
-        
+      
     pagina.push(todasSemanas[i]);
 }    
+
 
 $('semana').innerHTML = pagina.join('');
  //inserta en el container
 //$('semana').innerHTML = todasSemanas.join('');
     
-
+// calcula la cantidad de paginas
 paginas = Math.ceil(todasSemanas.length / 6);
     
 
@@ -284,8 +282,8 @@ function armaColumnaPorDia(clases, dia, fecha, salon){
     columnaDia.push('<div class="col-2" >'+
             ' <div class="row " id="'+dia+'">'+
                 '<div class="col mb-2">'+
-                    '<div class="d-flex h-100 text-white bg-dark   fs-4 fw-bold justify-content-center rounded-3  align-items-center" style="width: 235px;  height: 80px;>'+
-                    '<p class="fs-1 fw-bold">' +dia+'  '+formato(fecha)+'</p>'+
+                    '<div class="d-flex h-100 text-white bg-dark    justify-content-center rounded-3  align-items-center" style="width: 235px;  height: 80px;">'+
+                    '<p class="fs-4 fw-bold">' +dia+'  '+formato(fecha)+'</p>'+
                     '</div>'+
                 '</div>'
                     );
