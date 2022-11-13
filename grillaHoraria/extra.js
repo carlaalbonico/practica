@@ -1,47 +1,137 @@
-function mostrarHorario(clases,dia, fecha){
+function mostrarTablaRegistrarPago(valor) {
 
-    var seleccionPorDia = [];
-    var columnaDia=[];
-    var clases=[];
+    $('btnRegistrarPagoCuota').disabled = true;
+    var analiza = JSON.parse(valor);
+    console.log(analiza);
 
-    //pone en la columna el dia de la semana + la fecha
-    columnaDia.push(' <div class="row" id="'+dia+'">'+
-                '<div class="col">'+
-                    '<div class="d-flex h-100 text-white bg-dark rounded-3" >'+
-                                    '<h3>'+dia +'</h3>'+
-                                    '<h2> '+fecha+'</h2>'+
-                    '</div>'+
-                '</div>'
-                    );
-    //Procesa el json y lo separa por dia
-    clases.forEach(clase => {
-        
-        if(clase.dias == dia && clase.fecha==fecha){
-            seleccionPorDia.push(clase);
-            
+
+   
+    console.log(salida);
+
+
+    var opciones = [];
+
+
+    analiza.forEach(element => {
+
+        opciones.push('<tr >' +
+            '<th scope="row">' + element.mes + '</th>' +
+            '<td>' + element.importe + '</td>' +
+            '<td>' + formato(element.fechaVencimiento) + '</td>' +
+            '<td><input type="checkbox" name="checkBox" class="importes" id="' + element.idCuota + '" value="' + element.importe + '"></td>' +
+
+            '</tr>');
+
+    });
+
+    $('tableRegistrarPago').innerHTML = opciones;
+
+}
+function calcularTotalPago() {
+
+    //solo se usa para calcular el total y mostrarlo en pantalla; 
+    var checkboxes = document.querySelectorAll(".importes");
+    var Total = 0;
+    let checked = [];
+    checkboxes.forEach((element) => {
+        if (element.checked == true) {
+            checked.push(element.id);
+            Total = parseFloat(Total) + parseFloat(element.value);
         }
     });
 
-    
 
-    seleccionPorDia.forEach(clase => {
-        columnaDia.push(
-        ' <div class="col">'+
-            '<div class="card border-dark mb-1" style="max-width: 18rem;">'+
-                    '<div class="card-header">'+clase.horaDeInicio+'</div>'+
-                    '<div class="card-body text-dark">'+
-                        '<h5 class="card-title">'+clase.actividad+'</h5>'+
-                        '<p class="card-text"> <b> Profe: </b> '+clase.profesor+' <br><b>Cupos libres: </b> '+clase.cupoDisponible+'</p>'+
-                        
-                    '</div>'+            
-            '</div>'+
-        '</div>'
-            
-              );
+    $('precioTotal').innerHTML = Total;
+
+    var validarTotal = document.getElementById('precioTotal').value;
+    if (validarTotal != 0) {
+        $('btnRegistrarPagoCuota').disabled = false;
+    }
+}
+
+function clickEstadoDeuda() {
+    oculta('cartel');
+    oculta('botonesAdminParaUnSocio');
+    oculta('formularioModificarSocio');
+    oculta('registrarPago');
+
+    muestra('formularioChico');
+    muestra('estadoDeuda');
+    oculta('inscribirSocioClase');
+    muestra('botonAtras');
+    //manda los datos para cargar el formularioChico
+    var idSocio = document.getElementById("nroSocio").innerText;
+
+    enviarParametrosGET(miBackEnd + 'Socio/' + idSocio, cargarFormularioChico);
+
+    //manda a llamar a los estados de cuenta del socio
+    enviarParametrosGET(miBackEnd + 'Cuota/Estado/' + idSocio, mostrarTablaEstadoDeuda);
+}
+
+function mostrarTablaEstadoDeuda(valor) {
+
+
+    var analiza = JSON.parse(valor);
+    console.log(analiza);
+
+    var opciones = [];
+
+
+    analiza.forEach(element => {
+        opciones.push('<tr >' +
+            '<th scope="row">' + element.mes + '</th>' +
+            '<td>' + element.importe + '</td>' +
+            '<td>' + formato(element.fechaVencimiento) + '</td>' +
+            '<td>' + element.estado + '</td>' +
+            '</tr>');
+
     });
 
-    columnaDia.push('</div>');
 
-    //console.log(columnaDia.join(''));
-    return columnaDia.join('');
+
+    $('tableEstadoDeuda').innerHTML = opciones;
+
+
+
 }
+function cargarOpcionesClase(valor) {
+
+
+    var clases = JSON.parse(valor);
+    clases.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
+
+    var opciones = ['<option value=0>Seleccione una clase</option>']
+
+    clases.forEach(element => {
+        opciones.push('<option value="' + element.idTipoClase + '">' + element.nombre + '</option>');
+    });
+
+    $("slctTipoClase").innerHTML = opciones;
+}
+function clickContinuarTipoClase() {
+
+
+
+    //manda los datos para cargar el select
+    enviarParametrosGET(miBackEnd + 'Clase/' + tipoClase, cargarOpcionesTipoClases);
+
+
+}
+
+function cargarOpcionesTipoClases(valores) {
+    muestra('continuarClase');
+    var tipoClases = JSON.parse(valores);
+    console.log(tipoClases);
+    tipoClases.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
+
+    var opciones = ['<option value=0>Seleccione un tipo de clase</option>']
+
+    tipoClases.forEach(element => {
+        opciones.push('<option value="' + element.idClase + '">' + element.dias + ' ' + element.horaDeInicio + '-' + element.horaDeFin + '</option>');
+    });
+
+    $("slctNumClase").innerHTML = opciones;
+    //tengo que agregar mensaje de error
+}
+
+

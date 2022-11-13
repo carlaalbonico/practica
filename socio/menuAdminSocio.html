@@ -71,7 +71,7 @@
                   </a>
               </li>
               <li>
-                  <a href="#" class="nav-link text-dark" id="navBtnHorarios">
+                  <a href="http://localhost/practica/grillaHoraria/menuAdminGrilla.html" class="nav-link text-dark" id="navBtnHorarios">
                       <img src="../imagenes/horario.png" alt="" width="32" height="32" class=" me-2">
                   Grilla Horaria
                   </a>
@@ -127,7 +127,7 @@
       </nav>
   
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <div  id="cartel" class="alert alert-danger" role="alert">
+            <div  id="cartel" >
                 <p id="respuesta"></p>
             </div>
             
@@ -141,7 +141,7 @@
     
         
         
-        <div class="form-tablas" id="busquedaSocios">
+        <div class="mt-2" id="busquedaSocios">
 
             <div class=" d-flex  justify-content-between  align-items-center mt-2">
                 
@@ -149,7 +149,7 @@
                     <h2 class="mb-1 text-center">Socios</h2></div>
             
               
-                <button type="button" class="btn btn-sm btn-outline-danger" onclick="menuRegistrarSocio()">Nuevo socio</button>
+                <button type="button" class="btn btn-sm btn-danger" onclick="menuRegistrarSocio()">Nuevo socio</button>
             </div>
                         
             <div class="row align-items-center p-1 ">
@@ -191,9 +191,16 @@
                         
                     </div>
                     <div class="form-boton text-center">
-                        <button class="btn btn-lg btn-primary btn-block" type="button" id="btnRegistrarPago" >Registrar pago</button>
-                        <button class="btn btn-lg btn-primary btn-block" type="button" id="btnEstadoDeuda" >Ver estado de deuda</button>
-                        <button class="btn btn-lg btn-primary btn-block" type="button" id="btnInscribirSocioClase" >Inscribir a clase</button>
+                        <button class="btn btn-lg btn-primary btn-block" type="button" id="btnRegistrarSuscripcion" onclick="clickRegistrarSuscripcion()">Agregar Suscripcion</button>
+                        
+                        <button class="btn btn-lg btn-primary btn-block" type="button" id="btnInscribirSocioClase" onclick="clickInscribirSocioClase()" >Inscribir a clase</button>
+                    </div>
+                    <div class=" border border-primary bg-ligth rounded-3">
+                        <h4 class="d-flex justify-content-center align-items-center m-3 text-wrap" id="suscripcionActiva">
+                            <div class="spinner-grow" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div> 
+                        </h4>
                     </div>
                 </div>
     
@@ -274,8 +281,8 @@
 
             <div class="form-tablas">
                 <div class="d-flex  align-items-center ">
-                    <img src="../imagenes/editar.png" alt="" width="100" height="100" class=" rounded-4 border border-info bg-info bg-opacity-10">
-                    <h2 class="mb-1 text-center p-2  border-bottom border-info"> Modificar socio</h2>  
+                    <img src="../imagenes/editar.png" alt="" width="100" height="100" class=" rounded-4 border border-primary bg-primary bg-opacity-10">
+                    <h2 class="mb-1 text-center p-2  border-bottom border-primary"> Modificar socio</h2>  
                 </div>
                 <br>
                 <div class="row align-items-center p-1 ">
@@ -329,115 +336,88 @@
     
     
     
-        <div id="formularioChico" class="form-tablas">
-        <h1 class="mb-1 text-center">SOCIO: </h1>
-            <ul class="list-group mb-3">
-                    
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 class="my-0">Numero de SOCIO:</h6>
+        <div id="formularioChico" class="">
+            <div class="row align-items-center justify-content-center ">
+                <div class="col-md-4 order-md-1  d-flex  align-items-center justify-content-center">
+                    <div class=" ms-3 d-flex  align-items-center">
+                        <img src="../imagenes/socio.png" alt="" width="100" height="100" class="me-2">
+                        <h2 class="mb-1 text-center ">SOCIO</h2>
+                        
                     </div>
-                        <span class="text-muted" id="nroSocioForm"></span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 class="my-0">Nombre:</h6>
-                    </div>
-                        <span class="text-muted" id="nombreSocioForm"></span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 class="my-0">Apellido:</h6>
-                    </div>
-                        <span class="text-muted" id="apellidoSocioForm"></span>
-                </li>
-            </ul>
-        </div>
-    
-        <div id="registrarPago" class="form-tablas">
-            
-            <h1 class="mb-1 text-center">REGISTRAR PAGO:  </h1>
-            <h3 class="mb-1 text-center">Seleccionar cuota a pagar:  </h3>
-            <form name="tablaRegistrarPago">
-                    <table class="table" >
-                        <thead>
-                        <tr>
-                            <th scope="col">Mes</th>
-                            <th scope="col">Valor</th>
-                            <th scope="col">Fecha de Vencimiento</th>
-                            <th scope="col">Pagar</th>
-                        </tr>
-                        </thead>
-                        <tbody id="tableRegistrarPago">
-    
-                           
-                            
-                        </tbody>
-                       
-    
-                    </table>
-            </form> 
-                <div >
-                <h5 class="d-inline-block"> TOTAL:</h5> <p class="d-inline-block" id="precioTotal">
-                </div>
-                <div class="text-right">
-                    <button class="btn btn-lg btn-primary" type="button" id="btnRegistrarPagoCuota" > Registrar pago</button>
-                </div>
-                <div >
-                    <h5 id="respuestaPago"></h5>
-                </div>
-    
-        </div>
-        
-        
-        <div id="estadoDeuda" class="form-tablas">
-            
-            <h1 class="mb-1 text-center">ESTADO DE DEUDA: </h1>
-            
-    
-            <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Mes</th>
-                    <th scope="col">Valor</th>
-                    <th scope="col">Fecha de Vencimiento</th>
-                    <th scope="col">Estado</th>
-                  </tr>
-                </thead>
-                <tbody id="tableEstadoDeuda">
-            
-                    
-                </tbody>
                 
-              </table>
-              <div class="text-right">
-                <button class="btn btn-lg btn-primary" type="button" id="btnIrRegistrarPago" >Ir a registrar pago</button>
-              </div>
-              
-        </div>
-    
-        <div id="inscribirSocioClase" class="form-tablas">
-            <h1 class="mb-1 text-center">INSCRIBIR SOCIO A CLASE: </h1>
-            <div class="row">
-                <h3 class="mb-1 text-center">Tipo de clase:  </h3>
+                </div>
+
             
-                <div class="col-md-9">
-                    <select class="form-control" id="slctTipoClase" placeholder="Seleccione una clase"></select>
+                <br>  
+            
+                <div class="col-md-6 order-md-2">
+                    <ul class="list-group ">
+                        
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                                <h6 class="my-0">Numero de SOCIO:</h6>
+                            </div>
+                                <span class="fw-bold fs-4" id="nroSocioForm"></span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                                <h6 class="my-0">Nombre:</h6>
+                            </div>
+                                <span class="fw-bold fs-4" id="nombreSocioForm"></span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                                <h6 class="my-0">Apellido:</h6>
+                            </div>
+                                <span class="fw-bold fs-4" id="apellidoSocioForm"></span>
+                        </li>
+                    </ul>
                 </div>
-                
-                <div class="col -md-3">
-                    <button class="w-100 btn btn-lg btn-primary" type="button" id="btnContinuarClase" >Continuar</button>
-                </div>
-                
             </div>
             
-    
-            <div id="continuarClase">
-                <h3 class="mb-1 text-center">Clase:  </h3>
-                <select class="form-control" id="slctNumClase" placeholder="Días y horarios de la clases disponibles"></select>
+           
+        </div>
+        <div id="agregarSuscSocio" class="mt-2">
+           
+            <div class="container">
+                <div class=" ms-1 d-flex  align-items-center">
+               
+                    <h2 class="mb-3 text-center ">SUSCRIPCIONES:</h2>
                 
-                <button class="w-100 btn btn-lg btn-primary" type="button" id="btnEnviarInscripcion" >Inscribir</button>
+                   
+                </div>
+                <div class="d-flex align-items-center">
+                    <label class="fw-bold">Filtro: </label>
+                    <select class="form-select"  id="slctTipoClase"  placeholder="Buscar por clase..." onchange="selectActividad()"></select>
+                </div>  
+                <br>
+                <div class="row" id="suscripciones">
+                    <div class="d-flex justify-content-center mt-2">
+                        <div class="spinner-grow" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div><br>
+                        <div><p class="fw-bold">cargando...</p></div>
+
+                    </div>
+                </div>
+            </div>
     
+        </div>
+        
+    
+        <div id="inscribirSocioClase" class="mt-3">
+            <div class="container">
+                <h1 class="mb-1 d-flex  align-items-center">INSCRIBIR SOCIO A CLASE: </h1>
+            </div>
+           
+            <div class="row" id="clasesHabilitadas">
+                <div class="d-flex justify-content-center mt-2">
+                    <div class="spinner-grow" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div><br>
+                    <div><p class="fw-bold">cargando...</p></div>
+
+                </div>
             </div>
     
         </div>

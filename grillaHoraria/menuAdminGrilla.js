@@ -6,7 +6,9 @@ var todasSemanas = [];
 var paginas;
 var pagina = [];
 var paginaActual = 1;
-var salon = "Principal";; 
+var salon = "Principal";
+var fechaDomingo;
+
 
 function $(nombre) {
     return document.getElementById(nombre);
@@ -17,8 +19,12 @@ function load() {
    oculta('botonAtras');
    oculta('sociosInscriptos');
    muestra('grillaHorarios');
+   cargando();
+   calcularSemanaActual();
+   //calcularSemanaAnterior()
     traerClases(miBackEnd + 'ClasePorDia', verClases);
-    TraerFechaHoy();
+    //TraerFechaHoy();
+    
      console.log(salon);
 
      //boton para cerrar sesion 
@@ -27,6 +33,17 @@ function load() {
      document.getElementById("perfil").addEventListener("click", mostrarPerfil);
  
      document.getElementById("botonAtras").addEventListener("click", atras);
+}
+
+function cargando(){
+    var opciones=[];
+    opciones.push('<div class="d-flex justify-content-center mt-5">'+
+    '<div class="spinner-grow" role="status">'+
+        '<span class="visually-hidden">Loading...</span>'+
+    '</div>'+'</div><div class="d-flex justify-content-center mt-2">'+
+    ' <div><p class="fw-bold">Cargando...</p></div>'+
+'</div>');
+$('semana').innerHTML = opciones.join(''); 
 }
 
 function cerrarSesion() {
@@ -64,14 +81,23 @@ function atras() {
 }
 function clasesSalonPpal(){
     salon = "Principal"; 
-    mostrarHorario(clases,salon);
+    mostrarHorario(clases,salon,fechaDomingo);
   }
-  function clasesSalonMusc(){
+function clasesSalonMusc(){
        salon = "Musculacion"; 
-       mostrarHorario(clases,salon);
+       mostrarHorario(clases,salon,fechaDomingo);
   }
+ function estaSemana(){
+    calcularSemanaActual();
+   
+    traerClases(miBackEnd + 'ClasePorDia', verClases);
+ }
 
-
+ function anteriorSemana(){
+    calcularSemanaAnterior();
+   
+    traerClases(miBackEnd + 'ClasePorDia', verClases);
+ }
 
 function cargarSkeletonTabla(){
     var opciones = [];
@@ -84,9 +110,83 @@ function cargarSkeletonTabla(){
 function TraerFechaHoy(){
     const fecha = new Date();
     let diaDeSemana = fecha.getDay();
-    let dia = fecha.getDate();
-    let mes = fecha.getMonth();
+    let dia = fecha.getDate()+1;
+    let mes = fecha.getMonth()+1;
+    let año = fecha.getFullYear();
+    var fechaCompleta; 
+    return fechaCompleta= año+'-'+mes+'-'+dia; 
 
+}
+function sumarDias(fecha, dias){
+    fecha.setDate(fecha.getDate() + dias);
+    return fecha;
+  }
+
+
+function calcularSemanaActual(){
+    const fecha = new Date();
+    let diaDeSemana = fecha.getDay();
+    let dia = fecha.getDate();
+    let mes = fecha.getMonth()+1;
+    let año = fecha.getFullYear();
+    var fechaCompleta; 
+    var fechaDom;
+    var diaDomingo; 
+
+    fechaCompleta= new Date(año+'-'+mes+'-'+dia); 
+
+    console.log(fechaCompleta);
+    switch (diaDeSemana){
+        case 0: diaDomingo=sumarDias(fechaCompleta,-6);
+        case 1: diaDomingo=sumarDias(fechaCompleta,-0);
+        case 2: diaDomingo=sumarDias(fechaCompleta,-1);
+        case 3: diaDomingo=sumarDias(fechaCompleta,-2);
+        case 4: diaDomingo=sumarDias(fechaCompleta,-3);
+        case 5: diaDomingo=sumarDias(fechaCompleta,-4);
+        case 6: diaDomingo=sumarDias(fechaCompleta,-5);
+
+    }
+    
+
+    fechaDom=new Date(diaDomingo);
+
+    fechaDomingo= fechaDom;
+    console.log('dia domingo: '+fechaDomingo);
+}
+
+
+//Arreglar porqe no me funciona si 
+function calcularSemanaAnterior(){
+    const fecha = new Date();
+    let diaDeSemana = fecha.getDay();
+    let dia = fecha.getDate();
+    let mes = fecha.getMonth()+1;
+    let año = fecha.getFullYear();
+    var fechaCompleta; 
+    var fechaDom;
+    var diaDomingo; 
+
+
+    fechaCompleta= new Date(año+'-'+mes+'-'+dia); 
+
+    fechaCompleta= sumarDias(fechaCompleta,-7);
+    console.log(fechaCompleta);
+    switch (diaDeSemana){
+        case 0: diaDomingo=sumarDias(fechaCompleta,-6);
+        case 1: diaDomingo=sumarDias(fechaCompleta,-0);
+        case 2: diaDomingo=sumarDias(fechaCompleta,-1);
+        case 3: diaDomingo=sumarDias(fechaCompleta,-2);
+        case 4: diaDomingo=sumarDias(fechaCompleta,-3);
+        case 5: diaDomingo=sumarDias(fechaCompleta,-4);
+        case 6: diaDomingo=sumarDias(fechaCompleta,-5);
+
+    }
+    
+
+    fechaDom=new Date(diaDomingo);
+    fechaDomingo= fechaDom;
+    //fechaDomingo= fechaDom;
+    console.log('dia domingo anterior: '+fechaDomingo);
 }
 
 
@@ -96,33 +196,26 @@ function formato(texto){
   }
 
 
-function fechas(clases){
-    var fechas =[];
 
-    clases.forEach(clase => {
-         if(!diasFechas.includes(clase.fecha))
-        fechas.push(clase.fecha);
-    });
-
-    console.log(fechas);
-    return fechas;
-
-}
 
 
 function verClases(respuesta){
-     console.log(respuesta);
+    //console.log(respuesta);
     clases = JSON.parse(respuesta); 
    
-    console.log(clases);
+   //console.log(clases);
     cargarSkeletonTabla();
-    diasFechas(clases);
-    mostrarHorario(clases,salon);
+   
+    
+    mostrarHorario(clases,salon,fechaDomingo);
+    
 }
 
 
 
 
+
+//calcula las  fechas unicas  pero no se usa
 function diasFechas(clases){
     var todosDias=[];
     
@@ -147,39 +240,41 @@ return todosDias;
 }
 
 
-function mostrarHorario(clases, salon){
+function mostrarHorario(clases, salon,fechaLunes){
     todasSemanas= [];
     pagina = [];
-    var fecha1; 
-    
-    
-    var todosDias=[];
+    todosDias= [];
+   
+    var semana=[]; 
     //crea un array con los objetos de todos las fechas y dia de la semana
     clases.forEach(elemento => {
         let objeto={nombre:elemento.dias,fecha:elemento.fecha}
-        var fechaDia= todosDias.fecha;
-        todosDias.push(objeto);
-         
-        return todosDias;
+        
+        semana.push(objeto); 
     });
     // filtra el array con los objetos de todos las fechas y dia de la semana para que tenga una sola fecha y dia
     var hash ={};
 
-    todosDias= todosDias.filter( function(current){
+    semana= semana.filter( function(current){
     var exists= !hash[current.fecha];
     hash[current.fecha]= true;
     return exists;
     });
+    console.log(semana);
+    //tendria que traer las fechas mayores o igual a tal fecha (revisar igual)
+    semana.forEach( element =>{
+        let objeto={nombre:element.nombre,fecha:element.fecha}
+        var fechaElemento = new Date(element.fecha);
+         
+        if(fechaElemento>=fechaLunes){
+           
+            todosDias.push(objeto);}
+        });
 
-    //muestra las fechas
-    todosDias.forEach( element =>{
-        console.log(element.fecha);
-
-    });
-
-
+        
 
     console.log(JSON.stringify(todosDias));
+
     //arma cada columna con una fecha y dia y las guarda en todasSemanas
     todosDias.forEach( element =>{
         todasSemanas.push(armaColumnaPorDia(clases, element.nombre,element.fecha, salon))
@@ -233,6 +328,7 @@ var listaPaginas = [];
 
     $('pages').innerHTML = listaPaginas.join('');
 }
+
 
 
 
@@ -301,11 +397,11 @@ function armaColumnaPorDia(clases, dia, fecha, salon){
     seleccionPorDia.forEach(clase => {
         columnaDia.push(
         ' <div class="col">'+
-            '<div class="card border-dark mb-1" style="max-width: 18rem;">'+
+            '<div class="card border-dark mb-1" >'+
                     '<div class="card-header">'+clase.horaDeInicio+'</div>'+
-                    '<div class="card-body text-dark">'+
+                    '<div class="card-body text-dark text-wrap  " style=" height: 194px;">'+
                         '<h5 class="card-title">'+clase.actividad+'</h5>'+
-                        '<p class="card-text"> <b> Profe: </b> '+clase.profesor+' <br><b>Cupos libres: </b> '+clase.cupoDisponible+'</p>'+
+                        '<p class="card-text"  style=" height: 72px;"> <b> Profe: </b> '+clase.profesor+' <br><b>Cupos libres: </b> '+clase.cupoDisponible+'</p>'+
                         '<div class=" d-flex  justify-content-end"><button class="btn bg-primary bg-opacity-50 "  onclick="clickClase(' + clase.idClase + ')">Ver</button></div>'+
                     '</div>'+            
             '</div>'+

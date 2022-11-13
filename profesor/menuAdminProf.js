@@ -85,11 +85,14 @@ function oculta(id){
 function atras(){ 
    
 
-    muestra('datosParaUnProf'); 
+    
+    muestra('busquedaProfes');
+    oculta('datosParaUnProf'); 
     oculta('formularioModificarProf'); 
     oculta('ordenadoPorEspecialidad'); 
     oculta('cartel');
     oculta('botonAtras');
+    oculta('ClasesACargo');
 }
 
 function clickRegistrarProf(){
@@ -248,7 +251,14 @@ function clickConsultarProf(legajo){
     oculta('busquedaProfes');
    
     muestra('cartel');
-    $("respuesta").innerHTML = "procesando informacion";
+    var opciones=[];
+    opciones.push('<div class="d-flex justify-content-center mt-5">'+
+    '<div class="spinner-grow" role="status">'+
+        '<span class="visually-hidden">Loading...</span>'+
+    '</div>'+'</div><div class="d-flex justify-content-center mt-2">'+
+    ' <div><p class="fw-bold">Cargando...</p></div>'+
+    '</div>');
+    $('respuesta').innerHTML = opciones.join('');   
     //pide datos para completar datos del profesor
     enviarParametrosGET(miBackEnd + 'Profesor/'+legajo, retornoDelClickConsultarProf);
     //pide datos para completar el cuadro del costado de los datos del profesor FALTA

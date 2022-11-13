@@ -116,7 +116,7 @@ function retornoDelClickConsultar(valor){
                 '<td>'+element.nombre+'</td>'+
                 
              
-                '<td><button class="btn  btn-danger modificacion" type="button" onclick="clickModif('+element.idActividad+')">Modificar</button></td>'+
+                '<td><button class="btn  btn-primary modificacion" type="button" onclick="clickModif('+element.idActividad+')">Modificar</button></td>'+
             
                 '</tr>' );
                 
@@ -126,7 +126,7 @@ function retornoDelClickConsultar(valor){
  
 }
 
-function clickModif(id){
+function clickModif(idActividad){
     
     
             

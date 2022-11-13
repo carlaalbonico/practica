@@ -23,8 +23,7 @@ function load() {
     oculta('formularioModificarSocio');
     oculta('formularioChico');
     oculta('inscribirSocioClase');
-    oculta('registrarPago');
-    oculta('estadoDeuda');
+    oculta('agregarSuscSocio');
     oculta('botonAtras');
    
 
@@ -35,27 +34,13 @@ function load() {
     document.getElementById("logOut").addEventListener("click", cerrarSesion);
     //boton para perfil usuario logueado
     document.getElementById("perfil").addEventListener("click", mostrarPerfil);
-
-    //cuando elige la opcion de consultar socio en el menu
-    //document.getElementById("btnMenuConsultarSocio").addEventListener("click", menuConsultarSocio);
-    //cuando elige la opcion de registrar socio en el menu
-    //document.getElementById("btnMenuRegistrarSocio").addEventListener("click", menuRegistrarSocio);
-
+    document.getElementById("botonAtras").addEventListener("click", atras);
+    
     document.getElementById("btnModificar").addEventListener("click", clickModificarSocio);
     document.getElementById("btnBorrar").addEventListener("click", clickBorrarSocio);
     document.getElementById("btnHabilitar").addEventListener("click", clickHabilitarSocio);
 
-    document.getElementById("btnIrRegistrarPago").addEventListener("click", clickRegistrarPago);
-    document.getElementById("btnRegistrarPago").addEventListener("click", clickRegistrarPago);
-    //document.getElementById("btnGenerarCuota").addEventListener("click", clickGenerarCuota);
-    document.getElementById("btnEstadoDeuda").addEventListener("click", clickEstadoDeuda);
-    document.getElementById("btnInscribirSocioClase").addEventListener("click", clickInscribirSocioClase);
-    document.getElementById("btnContinuarClase").addEventListener("click", clickContinuarTipoClase);
-    document.getElementById("botonAtras").addEventListener("click", atras);
-    document.getElementById('btnEnviarInscripcion').addEventListener("click", clickEnviarInscripcion);
-
-    document.getElementById('btnRegistrarPagoCuota').addEventListener("click", clickRegistrarPagoCuota);
-    document.getElementById('tableRegistrarPago').addEventListener('change', calcularTotalPago);
+   
 }
 
 
@@ -99,9 +84,7 @@ function atras() {
     muestra('botonesAdminParaUnSocio');
     oculta('formularioModificarSocio');
     oculta('formularioChico');
-    oculta('registrarPago');
-
-    oculta('estadoDeuda');
+    oculta('agregarSuscSocio');
     oculta('inscribirSocioClase');
     oculta('botonAtras');
 
@@ -165,7 +148,7 @@ function cargarTablaSocios(socios){
             '<td>' + socio.nombre + ' ' + socio.apellido + '</td>' +
             '<td>' + socio.email + '</td>' +
 
-            '<td><button class="btn btn-success modificacion"  onclick="clickConsultarSocio(' + socio.nroSocio + ')">Ver más</button></td>' +
+            '<td><button class="btn btn-primary modificacion"  onclick="clickConsultarSocio(' + socio.nroSocio + ')">Ver más</button></td>' +
 
             '</tr>'
         );
@@ -260,9 +243,18 @@ function buscarPorNombre(){
 function clickConsultarSocio(nroSocio) {
 
     enviarParametrosGET(miBackEnd + 'Socio/' + nroSocio, retornoClickConsultarSocio);
+    enviarParametrosGET(miBackEnd + 'Socio/Suscripciones/' + nroSocio, retornarSuscripcionesActivas);
     oculta('busquedaSocios');
     muestra('cartel');
-    $("respuesta").innerHTML = "procesando informacion";
+   
+    var opciones=[];
+    opciones.push('<div class="d-flex justify-content-center mt-5">'+
+    '<div class="spinner-grow" role="status">'+
+        '<span class="visually-hidden">Loading...</span>'+
+    '</div>'+'</div><div class="d-flex justify-content-center mt-2">'+
+    ' <div><p class="fw-bold">Cargando...</p></div>'+
+'</div>');
+$('respuesta').innerHTML = opciones.join(''); 
 }
 
 function retornoClickConsultarSocio(respuesta) {
@@ -270,9 +262,7 @@ function retornoClickConsultarSocio(respuesta) {
     muestra('botonesAdminParaUnSocio');
     oculta('formularioModificarSocio');
     oculta('formularioChico');
-    oculta('registrarPago');
 
-    oculta('estadoDeuda');
     oculta('inscribirSocioClase');
     oculta('botonAtras');
 
@@ -316,6 +306,18 @@ function retornoClickConsultarSocio(respuesta) {
     }
 
 }
+function retornarSuscripcionesActivas(rta){
+ console.log(rta);
+ respuesta=[];
+ suscripcionActiva= JSON.parse(rta);
+ if(suscripcionActiva.length==0){
+    respuesta.push('No posee una suscripcion activa');
+ }else{
+    respuesta.push(suscripcionActiva); 
+ }
+ 
+ $('suscripcionActiva').innerHTML = respuesta.join('');
+}
 
 function formato(texto){
     return texto.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3/$2/$1');
@@ -346,8 +348,7 @@ function clickModificarSocio() {
 function retornoClickModificarSocio(respuesta) {
     oculta('cartel');
     oculta('botonesAdminParaUnSocio');
-    oculta('registrarPago');
-    oculta('estadoDeuda');
+   
     oculta('inscribirSocioClase');
     muestra('formularioModificarSocio');
     oculta('formularioChico');
@@ -450,146 +451,135 @@ function cargarFormularioChico(respuesta) {
     $("nombreSocioForm").innerHTML = socioFC.nombre;
     $("apellidoSocioForm").innerHTML = socioFC.apellido;
 }
-function clickRegistrarPago() {
+function clickRegistrarSuscripcion() {
     oculta('cartel');
     oculta('botonesAdminParaUnSocio');
     oculta('formularioModificarSocio');
     muestra('formularioChico');
-    muestra('registrarPago');
-
-    oculta('estadoDeuda');
+    muestra('agregarSuscSocio');
     oculta('inscribirSocioClase');
     muestra('botonAtras');
     //manda los datos para cargar el formularioChico
     var idSocio = document.getElementById("nroSocio").innerText;
 
     enviarParametrosGET(miBackEnd + 'Socio/' + idSocio, cargarFormularioChico);
-
-    //manda a llamar a los estados de cuenta del socio
-    enviarParametrosGET(miBackEnd + 'Cuota/' + idSocio, mostrarTablaRegistrarPago);
-
+    enviarParametrosGET(miBackEnd + 'Actividad',cargarOpcionesClase); 
+    enviarParametrosGET(miBackEnd + 'Suscripcion/',cargarSuscripciones)
+    
 }
-function mostrarTablaRegistrarPago(valor) {
+function cargarOpcionesClase(nro){
+    var clase= JSON.parse(nro);
+    console.log(clase);
+    clase.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
 
-    $('btnRegistrarPagoCuota').disabled = true;
-    var analiza = JSON.parse(valor);
-    console.log(analiza);
+    var opciones = ['<option value="0">Todas</option>']
 
-
-   
-    console.log(salida);
-
-
-    var opciones = [];
-
-
-    analiza.forEach(element => {
-
-        opciones.push('<tr >' +
-            '<th scope="row">' + element.mes + '</th>' +
-            '<td>' + element.importe + '</td>' +
-            '<td>' + formato(element.fechaVencimiento) + '</td>' +
-            '<td><input type="checkbox" name="checkBox" class="importes" id="' + element.idCuota + '" value="' + element.importe + '"></td>' +
-
-            '</tr>');
-
+   clase.forEach(element => {
+        opciones.push('<option value="' + element.nombre + '">' + element.nombre + '</option>');
     });
-
-    $('tableRegistrarPago').innerHTML = opciones;
-
+    console.log(opciones); 
+    $("slctTipoClase").innerHTML = opciones.join('');  
+    
 }
 
-function calcularTotalPago() {
+function selectActividad(){
+    enviarParametrosGET(miBackEnd + 'Suscripcion/',cargarSuscripciones)
+    var opciones=[];
+    opciones.push('<div class="d-flex justify-content-center mt-2">'+
+    '<div class="spinner-grow" role="status">'+
+        '<span class="visually-hidden">Loading...</span>'+
+    '</div>'+
+'</div>');
+$('suscripciones').innerHTML = opciones.join(''); 
+}
 
-    //solo se usa para calcular el total y mostrarlo en pantalla; 
-    var checkboxes = document.querySelectorAll(".importes");
-    var Total = 0;
-    let checked = [];
-    checkboxes.forEach((element) => {
-        if (element.checked == true) {
-            checked.push(element.id);
-            Total = parseFloat(Total) + parseFloat(element.value);
-        }
-    });
+function cargarSuscripciones(rta){
+    console.log(rta);
+    var tipoClase= document.getElementById("slctTipoClase").value; 
+    suscripciones=  JSON.parse(rta); 
+ console.log(tipoClase)
+    if (tipoClase!=0){
+            
 
+        suscripciones.sort(function (x, y) { return x.actividad.localeCompare(y.actividad) });
+        var suscripcionesFiltradas= suscripciones.filter( item =>{
+            var nombreMin= item.actividad.toLowerCase();
+            return nombreMin.includes(tipoClase.toLowerCase()); 
+            
+        }); 
+    
+        var opciones=[];
+        suscripcionesFiltradas.forEach(suscripcion =>{
+            opciones.push(' <div class="col-4">'+
+            '<div class="card border-dark mb-1" style="max-width: 25rem;">'+
+                    '<div class="card-header">'+suscripcion.actividad+'</div>'+
+                    '<div class="card-body text-dark">'+
+                        '<h5 class="card-title">'+suscripcion.nombre+'</h5>'+
+                        '<p class="card-text"><b> Descripcion: </b> '+suscripcion.descSuscripcion+' <br> <b>Cant de clases: </b> '+suscripcion.cantClases+' <br> <b>Precio: </b> '+suscripcion.precio+'</p>'+
+                        '<div class=" d-flex  justify-content-end"><button class="btn bg-primary bg-opacity-50 "  onclick="clickSuscripcion(' + suscripcion.idSuscripcion + ')">adquirir</button></div>'+
+                    '</div>'+            
+            '</div>'+
+            '</div>')
+    
+    })
+    $('suscripciones').innerHTML = opciones.join('');
+        
+    } else {
+        var opciones=[];
+        suscripciones.forEach(suscripcion =>{
+            opciones.push(' <div class="col-4">'+
+            '<div class="card border-primary mb-1" style="max-width: 25rem;">'+
+                    '<div class="card-header bg-primary bg-opacity-25">'+suscripcion.actividad+'</div>'+
+                    '<div class="card-body text-dark">'+
+                        '<h5 class="card-title">'+suscripcion.nombre+'</h5>'+
+                        '<p class="card-text"><b> Descripcion: </b> '+suscripcion.descSuscripcion+' <br> <b>Cant de clases: </b> '+suscripcion.cantClases+' <br> <b>Precio: </b> '+suscripcion.precio+'</p>'+
+                        '<div class=" d-flex  justify-content-end"><button class="btn bg-primary bg-opacity-50 "  onclick="clickAdquirirSuscripcion(' + suscripcion.idSuscripcion + ')">adquirir</button></div>'+
+                    '</div>'+            
+            '</div>'+
+            '</div>')
+        
+        })
 
-    $('precioTotal').innerHTML = Total;
-
-    var validarTotal = document.getElementById('precioTotal').value;
-    if (validarTotal != 0) {
-        $('btnRegistrarPagoCuota').disabled = false;
+        $('suscripciones').innerHTML = opciones.join('');
     }
-}
-function clickRegistrarPagoCuota() {
-
-    enviarParametrosPOSTPago(miBackEnd + 'Pago', respuestaDeServidorPago);
-
-
-
-}
-function respuestaDeServidorPago(respuesta) {
-
-    $("respuestaPago").innerHTML = respuesta;
+    
+    
 }
 
+function clickAdquirirSuscripcion(idSuscripcion){
 
+    swal({
+        title: "Adquirir suscripcion",
+        text: "¿Esta seguro que desea adquirir la suscripcion para este socio?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+            
 
+            enviarParametrosPOSTAdquirirSuscripcion(miBackEnd + 'Compra/Suscripcion', rtaAdquiriSuscripcion, idSuscripcion); 
+        } 
+      });
 
-function clickEstadoDeuda() {
-    oculta('cartel');
-    oculta('botonesAdminParaUnSocio');
-    oculta('formularioModificarSocio');
-    oculta('registrarPago');
-
-    muestra('formularioChico');
-    muestra('estadoDeuda');
-    oculta('inscribirSocioClase');
-    muestra('botonAtras');
-    //manda los datos para cargar el formularioChico
-    var idSocio = document.getElementById("nroSocio").innerText;
-
-    enviarParametrosGET(miBackEnd + 'Socio/' + idSocio, cargarFormularioChico);
-
-    //manda a llamar a los estados de cuenta del socio
-    enviarParametrosGET(miBackEnd + 'Cuota/Estado/' + idSocio, mostrarTablaEstadoDeuda);
+ console.log(idSuscripcion);
+ 
+}
+function rtaAdquiriSuscripcion(rta){
+    swal("Genial!", '"'+rta+'"', "success");
+   registrarPago(); 
 }
 
-function mostrarTablaEstadoDeuda(valor) {
-
-
-    var analiza = JSON.parse(valor);
-    console.log(analiza);
-
-    var opciones = [];
-
-
-    analiza.forEach(element => {
-        opciones.push('<tr >' +
-            '<th scope="row">' + element.mes + '</th>' +
-            '<td>' + element.importe + '</td>' +
-            '<td>' + formato(element.fechaVencimiento) + '</td>' +
-            '<td>' + element.estado + '</td>' +
-            '</tr>');
-
-    });
-
-
-
-    $('tableEstadoDeuda').innerHTML = opciones;
-
-
-
+function registrarPago(){
+    console.log('pago')
 }
-
-
 
 function clickInscribirSocioClase() {
     oculta('cartel');
     oculta('botonesAdminParaUnSocio');
     oculta('formularioModificarSocio');
-    oculta('registrarPago');
-
-    oculta('estadoDeuda');
+ 
     muestra('formularioChico');
     muestra('inscribirSocioClase');
     muestra('botonAtras');
@@ -598,52 +588,19 @@ function clickInscribirSocioClase() {
 
     enviarParametrosGET(miBackEnd + 'Socio/' + idSocio, cargarFormularioChico);
     //manda los datos para cargar el select
-    enviarParametrosGET(miBackEnd + 'TipoClase', cargarOpcionesClase);
+    enviarParametrosGET(miBackEnd + 'Socio/ClasesHabilitadas/' + idSocio, cargarClasesHabilitadas);
 
-    oculta('continuarClase');
+   
 }
+function cargarClasesHabilitadas(rta){
+console.log(rta); // no trae nada 
+//agregar mensaje de que no posee clases habilitadas
+clasesHabilitadas= JSON.parse(rta);
+    if(clasesHabilitadas.length === 0){
+        console.log("sin clases")
+        $('clasesHabilitadas').innerHTML = '<div class=" d-flex justify-content-center">no hay clases habilitadas para este socio.</div>';
+    }
 
-
-function cargarOpcionesClase(valor) {
-
-
-    var clases = JSON.parse(valor);
-    clases.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
-
-    var opciones = ['<option value=0>Seleccione una clase</option>']
-
-    clases.forEach(element => {
-        opciones.push('<option value="' + element.idTipoClase + '">' + element.nombre + '</option>');
-    });
-
-    $("slctTipoClase").innerHTML = opciones;
-}
-function clickContinuarTipoClase() {
-
-    //manda los datos para cargar el formularioChico
-    var tipoClase = document.getElementById("slctTipoClase").value;
-
-
-    //manda los datos para cargar el select
-    enviarParametrosGET(miBackEnd + 'Clase/' + tipoClase, cargarOpcionesTipoClases);
-
-
-}
-
-function cargarOpcionesTipoClases(valores) {
-    muestra('continuarClase');
-    var tipoClases = JSON.parse(valores);
-    console.log(tipoClases);
-    tipoClases.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
-
-    var opciones = ['<option value=0>Seleccione un tipo de clase</option>']
-
-    tipoClases.forEach(element => {
-        opciones.push('<option value="' + element.idClase + '">' + element.dias + ' ' + element.horaDeInicio + '-' + element.horaDeFin + '</option>');
-    });
-
-    $("slctNumClase").innerHTML = opciones;
-    //tengo que agregar mensaje de error
 }
 
 function clickEnviarInscripcion() {
@@ -748,6 +705,39 @@ function enviarParametrosPOSTModificar(servidor, funcionARealizar) {
     //envio el mensaje 
     xmlhttp.send(datos);
 
+
+}
+function enviarParametrosPOSTAdquirirSuscripcion(servidor, funcionARealizar, idSuscripcion) {
+ var idSuscripcion; 
+    //declaro el objeto
+    var xmlhttp = new XMLHttpRequest();
+
+    //agrega datos para pasar por POST
+    var datos = new FormData();
+    datos.append("nroSocio", $("nroSocio").innerText);
+    datos.append("idSuscripcion", idSuscripcion);
+
+
+    //indico hacia donde va el mensaje
+    xmlhttp.open("POST", servidor, true);
+
+    //seteo el evento
+    xmlhttp.onreadystatechange = function () {
+        //veo si llego la respuesta del servidor
+        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+            //reviso si la respuesta del servidor es la correcta
+            if (xmlhttp.status == 200) {
+                funcionARealizar(xmlhttp.response);
+            } else {
+                swal("Error", "revise los datos cargados", "error");
+            };
+        }
+    }
+    //esto va siempre cuando se hace un formulario
+    xmlhttp.setRequestHeader("enctype", "multipart/form-data");
+
+    //envio el mensaje 
+    xmlhttp.send(datos);
 
 }
 function enviarParametrosPOSTInscribir(servidor, funcionARealizar) {
@@ -867,3 +857,4 @@ function enviarParametrosPOSTPago(servidor, funcionARealizar) {
     xmlhttp.send(datos);
 
 }
+
