@@ -159,9 +159,9 @@ function retornoDelClick(respuesta){
         $("respuesta").innerHTML="Correo o contraseña errónea";
     }
 
-    if(objetoUsuario['email'] != null && objetoUsuario['idPerfil'] == 'ADMIN' && objetoUsuario['origenDeContrasena'] == 'USU'){
-        //document.cookie = "email="+objetoUsuario['email'];
+    if(objetoUsuario['email'] != null && objetoUsuario['idPerfil'] == 'ADMIN' && objetoUsuario['origenDeContrasena'] == 'USU'){        
         sessionStorage.setItem("usuario",objetoUsuario['email']);
+        sessionStorage.setItem("nombre",objetoUsuario['nombreCompleto']);
         window.location.assign("http://localhost/practica/socio/menuAdminSocio.html");
     }
     
@@ -172,15 +172,19 @@ function retornoDelClick(respuesta){
         $("emailUsuario").innerHTML=email;
         oculta_muestra('cuadroContrasenaNueva');
         oculta_muestra('cuadroLogin');
-        
     }
 
     if(objetoUsuario['email'] != null && objetoUsuario['idPerfil'] == 'SOC' && objetoUsuario['origenDeContrasena'] == 'USU'){
-        
+        sessionStorage.setItem("usuario",objetoUsuario['email']);
+        sessionStorage.setItem("nombre",objetoUsuario['nombreCompleto']);
         $("respuesta").innerHTML="socio ingreso correctamente";
-        
     }
 
+    if(objetoUsuario['email'] != null && objetoUsuario['idPerfil'] == 'PRO' && objetoUsuario['origenDeContrasena'] == 'USU'){
+        sessionStorage.setItem("usuario",objetoUsuario['email']);
+        sessionStorage.setItem("nombre",objetoUsuario['nombreCompleto']);
+        $("respuesta").innerHTML="profesor ingreso correctamente";
+    }
 }
 
 function enviarMsjeServidor(servidor, funcionARealizar){
