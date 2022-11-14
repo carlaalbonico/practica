@@ -1,6 +1,6 @@
 //agrega funcion load a HTML; 
 addEventListener("load",load)
- 
+var usuario= sessionStorage.getItem('nombre');
 //variable del servidor
 var miBackEnd = 'http://localhost:555/';
 
@@ -12,7 +12,7 @@ function $(nombre)
 
 
 function load(){
-
+    cargarBienvenido(usuario);
     menuConsultarProf();
     
     oculta('datosParaUnProf'); 
@@ -46,6 +46,9 @@ function load(){
     document.getElementById("btnHabilitarProf").addEventListener("click",clickHabilitarProf);
    
     document.getElementById("botonAtras").addEventListener("click",atras);
+}
+function cargarBienvenido(usuario){
+    $('bienvenido').innerHTML='Bienvenido, '+usuario
 }
 
 function cerrarSesion() {
@@ -153,7 +156,7 @@ function cargarTablaProfes(profes){
             '<tr >' +
             '<th scope="row">' + profe.legajo+ '</th>' +
             '<td>' + profe.nombre + ' ' + profe.apellido + '</td>' +
-            '<td><button class="btn btn-success modificacion"  onclick="clickConsultarProf(' + profe.legajo + ')">Ver más</button></td>' +
+            '<td><button class="btn bg-danger bg-opacity-75 modificacion"  onclick="clickConsultarProf(' + profe.legajo + ')">Ver más</button></td>' +
 
             '</tr>'
         );

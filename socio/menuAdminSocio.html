@@ -51,6 +51,7 @@
   
   <div class="navbar-nav">
     <ul>
+        <span class="fs-4 me-2 text-light" id="bienvenido"></span>
         <button class="btn btn-outline-light my-2 my-sm-0" type="button" id="perfil">Perfil</button>
         <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="logOut">Cerrar Sesión</button>
     
@@ -149,7 +150,7 @@
                     <h2 class="mb-1 text-center">Socios</h2></div>
             
               
-                <button type="button" class="btn btn-sm btn-danger" onclick="menuRegistrarSocio()">Nuevo socio</button>
+                <button type="button" class="btn btn-sm bg-primary bg-opacity-75" onclick="menuRegistrarSocio()">Nuevo socio</button>
             </div>
                         
             <div class="row align-items-center p-1 ">
@@ -193,14 +194,16 @@
                     <div class="form-boton text-center">
                         <button class="btn btn-lg btn-primary btn-block" type="button" id="btnRegistrarSuscripcion" onclick="clickRegistrarSuscripcion()">Agregar Suscripcion</button>
                         
-                        <button class="btn btn-lg btn-primary btn-block" type="button" id="btnInscribirSocioClase" onclick="clickInscribirSocioClase()" >Inscribir a clase</button>
+                        <button  class="btn btn-lg btn-primary btn-block" type="button" id="btnInscribirSocioClase" onclick="clickInscribirSocioClase()" >Inscribir a clase</button>
                     </div>
-                    <div class=" border border-primary bg-ligth rounded-3">
-                        <h4 class="d-flex justify-content-center align-items-center m-3 text-wrap" id="suscripcionActiva">
+                    <div class="ms-4">
+                        <h3>SUSCRIPCION ACTIVA: </h3>
+                        <div class="p-2" id="suscripcionActiva">
+                            
                             <div class="spinner-grow" role="status">
                                 <span class="visually-hidden">Loading...</span>
                             </div> 
-                        </h4>
+                        </div>
                     </div>
                 </div>
     

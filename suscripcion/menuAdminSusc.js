@@ -1,6 +1,6 @@
 //agrega funcion load a HTML; 
 addEventListener("load",load)
- 
+var usuario= sessionStorage.getItem('nombre'); 
 //variable del servidor
 var miBackEnd = 'http://localhost:555/';
 var extra= 0; 
@@ -12,6 +12,7 @@ function $(nombre)
 
 
 function load(){
+    cargarBienvenido(usuario);
     clickConsultarSusc();
     oculta('botonAtras');
     oculta('formularioModSusc'); 
@@ -28,6 +29,9 @@ function load(){
     
     document.getElementById('btnGuardarSusc').addEventListener("click",clickGuardarModSusc);
     
+}
+function cargarBienvenido(usuario){
+    $('bienvenido').innerHTML='Bienvenido, '+usuario
 }
 
 function cerrarSesion() {
@@ -154,7 +158,7 @@ console.log(suscrip);
                 '<td>'+element.descSuscripcion+'</td>'+
                 '<td>'+element.actividad+'</td>'+
                 '<td>$'+element.precio+'</td>'+
-                '<td><button class="btn btn-danger modificacion"  onclick="clickModifSuscripcion(' + element.idSuscripcion + ')">Modificar</button></td></tr>' );
+                '<td><button class="btn bg-danger bg-opacity-75 modificacion"  onclick="clickModifSuscripcion(' + element.idSuscripcion + ')">Modificar</button></td></tr>' );
                 
             });
 
@@ -174,7 +178,7 @@ console.log(suscrip);
                 '<td>'+element.descSuscripcion+'</td>'+
                 '<td>'+element.actividad+'</td>'+
                 '<td>$'+element.precio+'</td>'+
-                '<td><button class="btn btn-danger modificacion"  onclick="clickModifSuscripcion(' + element.idSuscripcion + ')">Modificar</button></td></tr>' );
+                '<td><button class="btn bg-danger bg-opacity-75 modificacion"  onclick="clickModifSuscripcion(' + element.idSuscripcion + ')">Modificar</button></td></tr>' );
             
         });
 

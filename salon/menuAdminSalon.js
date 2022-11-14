@@ -1,6 +1,6 @@
 //agrega funcion load a HTML; 
 addEventListener("load",load)
- 
+var usuario= sessionStorage.getItem('nombre');
 //variable del servidor
 var miBackEnd = 'http://localhost:555/';
 var extra= 0; 
@@ -12,6 +12,7 @@ function $(nombre)
 
 
 function load(){
+    cargarBienvenido(usuario);
     muestra('Salon'); 
     oculta('botonAtras');
     oculta('formularioModificarSalon');
@@ -26,6 +27,9 @@ function load(){
     
     document.getElementById ('tableSalon').addEventListener('click',clickModifSalon); 
     document.getElementById('btnGuardarSalon').addEventListener("click",click);
+}
+function cargarBienvenido(usuario){
+    $('bienvenido').innerHTML='Bienvenido, '+usuario
 }
 
 function cerrarSesion() {

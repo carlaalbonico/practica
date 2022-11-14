@@ -1,6 +1,6 @@
 //agrega funcion load a HTML; 
 addEventListener("load",load)
- 
+var usuario= sessionStorage.getItem('nombre'); 
 //variable del servidor
 var miBackEnd = 'http://localhost:555/';
 var extra= 0; 
@@ -12,6 +12,7 @@ function $(nombre)
 
 
 function load(){
+    cargarBienvenido(usuario);
     clickConsultarRutina();
     oculta('botonAtras');
     
@@ -29,6 +30,9 @@ function load(){
     
     document.getElementById('btnGuardarRutina').addEventListener("click",click);
    
+}
+function cargarBienvenido(usuario){
+    $('bienvenido').innerHTML='Bienvenido, '+usuario
 }
 
 function cerrarSesion() {
@@ -118,7 +122,7 @@ function retornoDelClickConsultarRutina(valor){
                 '<td>'+element.descripcion+'</td>'+
                 '<td>'+element.salon+'</td>'+
              
-                '<td><button class="btn  btn-danger modificacion" type="button" onclick="clickModifRutina('+element.idRutina+')">Modificar</button></td>'+
+                '<td><button class="btn  bg-danger bg-opacity-75 modificacion" type="button" onclick="clickModifRutina('+element.idRutina+')">Modificar</button></td>'+
             
                 '</tr>' );
                 

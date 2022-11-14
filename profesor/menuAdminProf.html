@@ -48,6 +48,7 @@
   
   <div class="navbar-nav">
     <ul>
+        <span class="fs-4 me-2 text-light" id="bienvenido"></span>
         <button class="btn btn-outline-light my-2 my-sm-0" type="button" id="perfil">Perfil</button>
         <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="logOut">Cerrar Sesión</button>
     
@@ -140,42 +141,44 @@
 
 
 
-            <div class="mt-2" id="busquedaProfes">
+            <div class="container" id="busquedaProfes">
 
                 <div class=" d-flex  justify-content-between  align-items-center  mt-2">
                     <div class=" d-flex   align-items-center">   <img src="../imagenes/profesor.png" alt="" width="60" height="60" class=" me-2">
                         <h2 class="mb-1 text-center">Profesores</h2></div>
                 
                   
-                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="clickRegistrarProf()">Nuevo profesor</button>
+                    <button type="button" class="btn btn-sm bg-primary bg-opacity-75" onclick="clickRegistrarProf()">Nuevo profesor</button>
                 </div>
-                            
-                <div class="row align-items-center p-1 ">
+                <div class=" d-flex justify-content-center">
+                    <div class="row" style="width: 750px;">
     
-                    <input type="text" id="nombreBuscado" onkeyup="buscarPorNombre()" placeholder="Buscar por nombre..." autofocus>
+                        <input type="text" id="nombreBuscado" onkeyup="buscarPorNombre()" placeholder="Buscar por nombre..." autofocus>
+            
+                        <table class="table" id="tablaProfes">
         
-                    <table class="table" id="tablaProfes">
-    
-                        <thead>
-                        <tr>
-                            <th scope="col">Legajo</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col"></th>         
-                        </tr>
-                        </thead>
-    
-                        <tbody id="infoProfes">
-                            
-                        </tbody>
-    
-                    </table>
-    
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center" id="pages">
-    
-                        </ul>
-                    </nav>
-                </div>
+                            <thead>
+                            <tr>
+                                <th scope="col">Legajo</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col"></th>         
+                            </tr>
+                            </thead>
+        
+                            <tbody id="infoProfes">
+                                
+                            </tbody>
+        
+                        </table>
+        
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center" id="pages">
+        
+                            </ul>
+                        </nav>
+                    </div>
+                </div>         
+                
             </div>
            
              

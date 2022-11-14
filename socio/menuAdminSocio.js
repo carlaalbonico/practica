@@ -1,6 +1,6 @@
 //agrega funcion load a HTML; 
 addEventListener("load", load)
-
+var usuario= sessionStorage.getItem('nombre');
 //variable del servidor
 var miBackEnd = 'http://localhost:555/';
 var sociosDB;
@@ -8,6 +8,8 @@ var tablaSocios = [];
 var paginas;
 var pagina = [];
 var paginaActual = 1;
+var precio; 
+var idSocio; 
 
 //DOM
 function $(nombre) {
@@ -16,7 +18,8 @@ function $(nombre) {
 
 
 function load() {
-    
+    sessionStorage.removeItem('idSocio');
+    cargarBienvenido(usuario);
     //para ocultar los menus
     menuConsultarSocio();
     oculta('botonesAdminParaUnSocio');
@@ -42,7 +45,9 @@ function load() {
 
    
 }
-
+function cargarBienvenido(usuario){
+    $('bienvenido').innerHTML='Bienvenido, '+usuario
+}
 
 
 function cerrarSesion() {
@@ -148,7 +153,7 @@ function cargarTablaSocios(socios){
             '<td>' + socio.nombre + ' ' + socio.apellido + '</td>' +
             '<td>' + socio.email + '</td>' +
 
-            '<td><button class="btn btn-primary modificacion"  onclick="clickConsultarSocio(' + socio.nroSocio + ')">Ver más</button></td>' +
+            '<td><button class="btn bg-danger bg-opacity-75 modificacion"  onclick="clickConsultarSocio(' + socio.nroSocio + ')">Ver más</button></td>' +
 
             '</tr>'
         );
@@ -241,7 +246,9 @@ function buscarPorNombre(){
 }
 
 function clickConsultarSocio(nroSocio) {
-
+    console.log(nroSocio);
+    idSocio=nroSocio; 
+    console.log(idSocio);
     enviarParametrosGET(miBackEnd + 'Socio/' + nroSocio, retornoClickConsultarSocio);
     enviarParametrosGET(miBackEnd + 'Socio/Suscripciones/' + nroSocio, retornarSuscripcionesActivas);
     oculta('busquedaSocios');
@@ -306,22 +313,34 @@ function retornoClickConsultarSocio(respuesta) {
     }
 
 }
+function formato(texto){
+    return texto.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3/$2/$1');
+  }
 function retornarSuscripcionesActivas(rta){
  console.log(rta);
  respuesta=[];
  suscripcionActiva= JSON.parse(rta);
+ console.log(suscripcionActiva);
  if(suscripcionActiva.length==0){
-    respuesta.push('No posee una suscripcion activa');
+    respuesta.push('  <h5 class="fw-bold">No posee una suscripcion activa</h5>');
  }else{
-    respuesta.push(suscripcionActiva); 
+    suscripcionActiva.forEach(element=>{
+        respuesta.push('<div class="card border-danger mb-3" style="max-width: 18rem;">'+
+        '<div class="card-header bg-danger bg-opacity-10">'+element.nombreActividad+'</div>'+
+        '<div class="card-body text-danger">'+
+          '<h5 class="card-title">'+element.nombreSuscripcion+'</h5>'+
+          '<p class="card-text"> <b>Cant de clases: </b> '+element.cantClases+' <br><b>Fecha de Vencimiento:</b>'+formato(element.fechaVencimiento)+'</p>'+
+        '</div>'+
+        '</div>'
+        )
+    })
+    
  }
  
  $('suscripcionActiva').innerHTML = respuesta.join('');
 }
 
-function formato(texto){
-    return texto.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3/$2/$1');
-  }
+
 function clickModificarSocio() {
 
     var idSocioMod = document.getElementById("nroSocio").innerText;
@@ -532,8 +551,8 @@ function cargarSuscripciones(rta){
                     '<div class="card-header bg-primary bg-opacity-25">'+suscripcion.actividad+'</div>'+
                     '<div class="card-body text-dark">'+
                         '<h5 class="card-title">'+suscripcion.nombre+'</h5>'+
-                        '<p class="card-text"><b> Descripcion: </b> '+suscripcion.descSuscripcion+' <br> <b>Cant de clases: </b> '+suscripcion.cantClases+' <br> <b>Precio: </b> '+suscripcion.precio+'</p>'+
-                        '<div class=" d-flex  justify-content-end"><button class="btn bg-primary bg-opacity-50 "  onclick="clickAdquirirSuscripcion(' + suscripcion.idSuscripcion + ')">adquirir</button></div>'+
+                        '<p class="card-text"><b> Descripcion: </b> '+suscripcion.descSuscripcion+' <br> <b>Cant de clases: </b> '+suscripcion.cantClases+' <br> <b>Precio: $ </b> '+suscripcion.precio+'</p>'+
+                        '<div class=" d-flex  justify-content-end"><button class="btn bg-primary bg-opacity-50 "  onclick="clickAdquirirSuscripcion(' + suscripcion.idSuscripcion +','+suscripcion.precio+ ')">adquirir</button></div>'+
                     '</div>'+            
             '</div>'+
             '</div>')
@@ -546,7 +565,7 @@ function cargarSuscripciones(rta){
     
 }
 
-function clickAdquirirSuscripcion(idSuscripcion){
+function clickAdquirirSuscripcion(idSuscripcion,valorPrecio){
 
     swal({
         title: "Adquirir suscripcion",
@@ -558,59 +577,30 @@ function clickAdquirirSuscripcion(idSuscripcion){
       .then((willDelete) => {
         if (willDelete) {
             
-
             enviarParametrosPOSTAdquirirSuscripcion(miBackEnd + 'Compra/Suscripcion', rtaAdquiriSuscripcion, idSuscripcion); 
+            precio=valorPrecio; 
         } 
       });
 
  console.log(idSuscripcion);
  
 }
-function rtaAdquiriSuscripcion(rta){
-    swal("Genial!", '"'+rta+'"', "success");
-   registrarPago(); 
+function rtaAdquiriSuscripcion(idCompra){
+    console.log(precio);
+    enviarParametrosPOSTPago(miBackEnd + 'Pago', registrarPago, precio,idCompra); 
 }
 
-function registrarPago(){
-    console.log('pago')
+function registrarPago(rta){
+    swal("Genial!", '"'+rta+'"', "success");
 }
 
 function clickInscribirSocioClase() {
-    oculta('cartel');
-    oculta('botonesAdminParaUnSocio');
-    oculta('formularioModificarSocio');
- 
-    muestra('formularioChico');
-    muestra('inscribirSocioClase');
-    muestra('botonAtras');
-    //manda los datos para cargar el formularioChico
-    var idSocio = document.getElementById("nroSocio").innerText;
-
-    enviarParametrosGET(miBackEnd + 'Socio/' + idSocio, cargarFormularioChico);
-    //manda los datos para cargar el select
-    enviarParametrosGET(miBackEnd + 'Socio/ClasesHabilitadas/' + idSocio, cargarClasesHabilitadas);
-
-   
-}
-function cargarClasesHabilitadas(rta){
-console.log(rta); // no trae nada 
-//agregar mensaje de que no posee clases habilitadas
-clasesHabilitadas= JSON.parse(rta);
-    if(clasesHabilitadas.length === 0){
-        console.log("sin clases")
-        $('clasesHabilitadas').innerHTML = '<div class=" d-flex justify-content-center">no hay clases habilitadas para este socio.</div>';
-    }
+    sessionStorage.setItem('idSocio', idSocio);
+    window.location.assign("http://localhost/practica/socio/inscribirSocioClase.html");
 
 }
 
-function clickEnviarInscripcion() {
-    enviarParametrosPOSTInscribir(miBackEnd + 'Socio/Inscripcion', respuestaDeServidorInscripcion);
-}
-function respuestaDeServidorInscripcion(respuesta) {
-    swal("Guardado!", '"'+respuesta+'"', "success");
-    
-    //$("respuesta").innerHTML = respuesta;
-}
+
 function enviarParametrosGET(servidor, funcionARealizar) {
 
     //Declaro el objeto
@@ -740,39 +730,7 @@ function enviarParametrosPOSTAdquirirSuscripcion(servidor, funcionARealizar, idS
     xmlhttp.send(datos);
 
 }
-function enviarParametrosPOSTInscribir(servidor, funcionARealizar) {
 
-    //declaro el objeto
-    var xmlhttp = new XMLHttpRequest();
-
-    //agrega datos para pasar por POST
-    var datos = new FormData();
-    datos.append("nroSocio", $("nroSocio").innerText);
-    datos.append("idClase", $("slctNumClase").value);
-
-
-    //indico hacia donde va el mensaje
-    xmlhttp.open("POST", servidor, true);
-
-    //seteo el evento
-    xmlhttp.onreadystatechange = function () {
-        //veo si llego la respuesta del servidor
-        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-            //reviso si la respuesta del servidor es la correcta
-            if (xmlhttp.status == 200) {
-                funcionARealizar(xmlhttp.response);
-            } else {
-                swal("Error", "revise los datos cargados", "error");
-            };
-        }
-    }
-    //esto va siempre cuando se hace un formulario
-    xmlhttp.setRequestHeader("enctype", "multipart/form-data");
-
-    //envio el mensaje 
-    xmlhttp.send(datos);
-
-}
 function enviarParametrosPOSTBorrar(servidor, funcionARealizar) {
 
     //declaro el objeto
@@ -806,34 +764,18 @@ function enviarParametrosPOSTBorrar(servidor, funcionARealizar) {
     xmlhttp.send(datos);
 
 }
-function enviarParametrosPOSTPago(servidor, funcionARealizar) {
-
-    //calcula el total de los checks y lo envia 
-    //arma el array para las cuotas
-    var checkboxes = document.querySelectorAll(".importes");
-    var Total = 0;
-    let checked = [];
-    checkboxes.forEach((element) => {
-        if (element.checked == true) {
-            checked.push(element.id);
-            Total = parseFloat(Total) + parseFloat(element.value);
-        }
-    });
-
-    var myJSON = JSON.stringify(checked);
-
-
-
+function enviarParametrosPOSTPago(servidor, funcionARealizar,importe,idCompra) {
+ var importe; 
+ var idCompra;
     //declaro el objeto
-    var xmlhttp = new XMLHttpRequest();
+ var xmlhttp = new XMLHttpRequest();
 
-    //agrega datos para pasar por POST
-    var datos = new FormData();
+ //agrega datos para pasar por POST
+ var datos = new FormData();
+ datos.append("importe", importe);
+ datos.append("idCompra", idCompra);
 
-    datos.append("importe", Total);
-
-    datos.append("cuotas", myJSON);
-
+    
 
     //indico hacia donde va el mensaje
     xmlhttp.open("POST", servidor, true);
@@ -846,7 +788,7 @@ function enviarParametrosPOSTPago(servidor, funcionARealizar) {
             if (xmlhttp.status == 200) {
                 funcionARealizar(xmlhttp.response);
             } else {
-                swal("Error", "revise los datos cargados", "error");
+                swal("Error", "revise el pago.", "error");
             };
         }
     }

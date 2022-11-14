@@ -1,6 +1,6 @@
 //agrega funcion load a HTML; 
 addEventListener("load",load)
- 
+var usuario= sessionStorage.getItem('nombre');
 //variable del servidor
 var miBackEnd = 'http://localhost:555/';
 var idPerfil; 
@@ -13,6 +13,7 @@ function $(nombre)
 
 
 function load(){
+    cargarBienvenido(usuario);
     oculta('cartel');
     oculta('formularioModificarPerfil'); 
     muestra('perfilUsuario');
@@ -29,6 +30,9 @@ function load(){
     document.getElementById("perfil").addEventListener("click",mostrarPerfil);
     
     
+}
+function cargarBienvenido(usuario){
+    $('bienvenido').innerHTML='Bienvenido, '+usuario
 }
 
 function cerrarSesion() {

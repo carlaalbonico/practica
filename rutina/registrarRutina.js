@@ -1,5 +1,5 @@
 addEventListener("load",load)
-
+var usuario= sessionStorage.getItem('nombre');
 //var miBackEnd = '/practica/serv/';
 var miBackEnd = 'http://localhost:555/';
 
@@ -9,6 +9,7 @@ function $(nombre)
 }
 
 function load(){
+    cargarBienvenido(usuario);
     oculta('cartel'); 
     
     enviarParametrosGET(miBackEnd + 'Salon',cargarOpcionesSalon);
@@ -20,6 +21,9 @@ function load(){
 
     document.getElementById('btnGuardarRutina').addEventListener("click",click);
     
+}
+function cargarBienvenido(usuario){
+    $('bienvenido').innerHTML='Bienvenido, '+usuario
 }
 
 function muestra(id){

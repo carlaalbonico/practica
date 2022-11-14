@@ -1,5 +1,5 @@
 addEventListener("load",load)
-
+var usuario= sessionStorage.getItem('nombre');
 //var miBackEnd = '/practica/serv/';
 var miBackEnd = 'http://localhost:555/';
 
@@ -9,6 +9,7 @@ function $(nombre)
 }
 
 function load(){
+    cargarBienvenido(usuario);
     $('btnGuardar').disabled = false;
     oculta_muestra('cartel');
     //boton para cerrar sesion 
@@ -27,6 +28,9 @@ function load(){
     $('numNewTelefono').addEventListener("keyup", validarCampos);
     $('btnGuardar').addEventListener("click",click);
     
+}
+function cargarBienvenido(usuario){
+    $('bienvenido').innerHTML='Bienvenido, '+usuario
 }
 
 

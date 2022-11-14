@@ -1,54 +1,57 @@
+
+//agrega funcion load a HTML; 
 addEventListener("load", load)
-
 var usuario= sessionStorage.getItem('nombre');
+//variable del servidor
 var miBackEnd = 'http://localhost:555/';
-
 var todasSemanas = [];
 var paginas;
 var pagina = [];
 var paginaActual = 1;
 var salon = "Principal";
-var fechaDomingo;
+var fechaHoy;
+var idSocio= sessionStorage.getItem('idSocio');
 
-
+//DOM
 function $(nombre) {
     return document.getElementById(nombre);
 }
 
+
 function load() {
     cargarBienvenido(usuario);
-   oculta('botonAtras');
-   oculta('sociosInscriptos');
-   muestra('grillaHorarios');
-   cargando();
-   calcularSemanaActual();
-   //calcularSemanaAnterior()
-    traerClases(miBackEnd + 'ClasePorDia', verClases);
-    //TraerFechaHoy();
-    
-     console.log(salon);
+    //para ocultar los menus
+    console.log(idSocio);
+    muestra('formularioChico');
+    muestra('inscribirSocioClase');
+  
+    oculta('botonAtras');
+   
 
-     //boton para cerrar sesion 
-     document.getElementById("logOut").addEventListener("click", cerrarSesion);
-     //boton para perfil usuario logueado
-     document.getElementById("perfil").addEventListener("click", mostrarPerfil);
- 
-     document.getElementById("botonAtras").addEventListener("click", atras);
+    TraerFechaHoy();
+
+
+    //para ocultar cartel del mensaje
+    oculta_muestra('cartel');
+
+    //boton para cerrar sesion 
+    document.getElementById("logOut").addEventListener("click", cerrarSesion);
+    //boton para perfil usuario logueado
+    document.getElementById("perfil").addEventListener("click", mostrarPerfil);
+    document.getElementById("botonAtras").addEventListener("click", atras);
+    
+    enviarParametrosGET(miBackEnd + 'Socio/' + idSocio, cargarFormularioChico);
+    
+    enviarParametrosGET(miBackEnd + 'Socio/ClasesHabilitadas/' + idSocio, cargarClasesHabilitadas);
+
+  
+   
 }
 function cargarBienvenido(usuario){
     $('bienvenido').innerHTML='Bienvenido, '+usuario
 }
 
-function cargando(){
-    var opciones=[];
-    opciones.push('<div class="d-flex justify-content-center mt-5">'+
-    '<div class="spinner-grow" role="status">'+
-        '<span class="visually-hidden">Loading...</span>'+
-    '</div>'+'</div><div class="d-flex justify-content-center mt-2">'+
-    ' <div><p class="fw-bold">Cargando...</p></div>'+
-'</div>');
-$('semana').innerHTML = opciones.join(''); 
-}
+
 
 function cerrarSesion() {
     sessionStorage.clear();
@@ -58,14 +61,15 @@ function mostrarPerfil() {
     window.location.assign("http://localhost/practica/perfilUsuario.html");
 }
 
-function oculta(id) {
+function oculta_muestra(id) {
     if (document.getElementById) { //se obtiene el id
         var el = document.getElementById(id);
-        el.style.display = 'none';
+        el.style.display = (el.style.display == 'none') ? 'block' : 'none';
 
     }
 
 }
+
 function muestra(id) {
     if (document.getElementById) { //se obtiene el id
         var el = document.getElementById(id); //se define la variable "el" igual a nuestro div
@@ -75,176 +79,73 @@ function muestra(id) {
     }
 
 }
+function oculta(id) {
+    if (document.getElementById) { //se obtiene el id
+        var el = document.getElementById(id);
+        el.style.display = 'none';
 
-function atras() {
-     
-    muestra('grillaHorarios');
-   oculta('botonAtras');
-   oculta('sociosInscriptos');
+    }
 
 }
-function clasesSalonPpal(){
-    salon = "Principal"; 
-    mostrarHorario(clases,salon,fechaDomingo);
-  }
-function clasesSalonMusc(){
-       salon = "Musculacion"; 
-       mostrarHorario(clases,salon,fechaDomingo);
-  }
- function estaSemana(){
-    calcularSemanaActual();
-   
-    traerClases(miBackEnd + 'ClasePorDia', verClases);
- }
+function atras() {
+    oculta('cartel');    
+    muestra('botonesAdminParaUnSocio');
+    oculta('formularioModificarSocio');
+    oculta('formularioChico');
+    oculta('agregarSuscSocio');
+    oculta('inscribirSocioClase');
+    oculta('botonAtras');
 
- function anteriorSemana(){
-    calcularSemanaAnterior();
-   
-    traerClases(miBackEnd + 'ClasePorDia', verClases);
- }
+}
 
-function cargarSkeletonTabla(){
-    var opciones = [];
 
-   
-
-    $('semana').innerHTML = opciones.join('');
-    
+function cargarFormularioChico(respuesta) {
+    var socioFC = JSON.parse(respuesta);
+    $("nroSocioForm").innerHTML = socioFC.nroSocio;
+    $("nombreSocioForm").innerHTML = socioFC.nombre;
+    $("apellidoSocioForm").innerHTML = socioFC.apellido;
 }
 function TraerFechaHoy(){
     const fecha = new Date();
     let diaDeSemana = fecha.getDay();
-    let dia = fecha.getDate()+1;
-    let mes = fecha.getMonth()+1;
-    let año = fecha.getFullYear();
-    var fechaCompleta; 
-    return fechaCompleta= año+'-'+mes+'-'+dia; 
-
-}
-function sumarDias(fecha, dias){
-    fecha.setDate(fecha.getDate() + dias);
-    return fecha;
-  }
-
-
-function calcularSemanaActual(){
-    const fecha = new Date();
-    let diaDeSemana = fecha.getDay();
     let dia = fecha.getDate();
     let mes = fecha.getMonth()+1;
     let año = fecha.getFullYear();
     var fechaCompleta; 
-    var fechaDom;
-    var diaDomingo; 
-
     fechaCompleta= new Date(año+'-'+mes+'-'+dia); 
-
-    console.log(fechaCompleta);
-    switch (diaDeSemana){
-        case 0: diaDomingo=sumarDias(fechaCompleta,-6);
-        case 1: diaDomingo=sumarDias(fechaCompleta,-0);
-        case 2: diaDomingo=sumarDias(fechaCompleta,-1);
-        case 3: diaDomingo=sumarDias(fechaCompleta,-2);
-        case 4: diaDomingo=sumarDias(fechaCompleta,-3);
-        case 5: diaDomingo=sumarDias(fechaCompleta,-4);
-        case 6: diaDomingo=sumarDias(fechaCompleta,-5);
-
-    }
-    
-
-    fechaDom=new Date(diaDomingo);
-
-    fechaDomingo= fechaDom;
-    console.log('dia domingo: '+fechaDomingo);
+    fechaHoy= fechaCompleta;
 }
-
-
-//Arreglar porqe no me funciona si 
-function calcularSemanaAnterior(){
-    const fecha = new Date();
-    let diaDeSemana = fecha.getDay();
-    let dia = fecha.getDate();
-    let mes = fecha.getMonth()+1;
-    let año = fecha.getFullYear();
-    var fechaCompleta; 
-    var fechaDom;
-    var diaDomingo; 
-
-
-    fechaCompleta= new Date(año+'-'+mes+'-'+dia); 
-
-    fechaCompleta= sumarDias(fechaCompleta,-7);
-    console.log(fechaCompleta);
-    switch (diaDeSemana){
-        case 0: diaDomingo=sumarDias(fechaCompleta,-6);
-        case 1: diaDomingo=sumarDias(fechaCompleta,-0);
-        case 2: diaDomingo=sumarDias(fechaCompleta,-1);
-        case 3: diaDomingo=sumarDias(fechaCompleta,-2);
-        case 4: diaDomingo=sumarDias(fechaCompleta,-3);
-        case 5: diaDomingo=sumarDias(fechaCompleta,-4);
-        case 6: diaDomingo=sumarDias(fechaCompleta,-5);
-
-    }
-    
-
-    fechaDom=new Date(diaDomingo);
-    fechaDomingo= fechaDom;
-    //fechaDomingo= fechaDom;
-    console.log('dia domingo anterior: '+fechaDomingo);
-}
-
-
-
 function formato(texto){
     return texto.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3/$2');
-  }
+}
 
-
-
-
-
-function verClases(respuesta){
-    //console.log(respuesta);
-    clases = JSON.parse(respuesta); 
-   
-   //console.log(clases);
-    cargarSkeletonTabla();
-   
-    
-    mostrarHorario(clases,salon,fechaDomingo);
-    
+function clasesSalonPpal(){
+    salon = "Principal"; 
+    mostrarHorario(clasesHabilitadas,salon,fechaHoy);
+}
+function clasesSalonMusc(){
+       salon = "Musculacion"; 
+       mostrarHorario(clasesHabilitadas,salon,fechaHoy);
 }
 
 
+function cargarClasesHabilitadas(rta){
 
 
+clasesHabilitadas= JSON.parse(rta);
 
-//calcula las  fechas unicas  pero no se usa
-function diasFechas(clases){
-    var todosDias=[];
-    
-    clases.forEach(elemento => {
-        let objeto={nombre:elemento.dias,fecha:elemento.fecha}
-        var fechaDia= todosDias.fecha;
-        todosDias.push(objeto);
-         
-        return todosDias;
-    });
+console.log(clasesHabilitadas);
 
-    var hash ={};
+    if(clasesHabilitadas.length === 0){
+        console.log("sin clases")
+        $('semana').innerHTML = '<div class=" d-flex justify-content-center">no hay clases habilitadas para este socio.</div>';
+    }else{
+        mostrarHorario(clasesHabilitadas,salon,fechaHoy);
+    }
 
-todosDias= todosDias.filter( function(current){
-    var exists= !hash[current.fecha];
-    hash[current.fecha]= true;
-    return exists;
-});
-
-console.log(JSON.stringify(todosDias));
-return todosDias; 
 }
 
-
-function mostrarHorario(clases, salon,fechaLunes){
+function mostrarHorario(clases, salon,fecha){
     todasSemanas= [];
     pagina = [];
     todosDias= [];
@@ -270,7 +171,7 @@ function mostrarHorario(clases, salon,fechaLunes){
         let objeto={nombre:element.nombre,fecha:element.fecha}
         var fechaElemento = new Date(element.fecha);
          
-        if(fechaElemento>=fechaLunes){
+        if(fechaElemento>=fecha){
            
             todosDias.push(objeto);}
         });
@@ -404,9 +305,9 @@ function armaColumnaPorDia(clases, dia, fecha, salon){
             '<div class="card border-dark mb-1" >'+
                     '<div class="card-header">'+clase.horaDeInicio+'</div>'+
                     '<div class="card-body text-dark text-wrap  " style=" height: 194px;">'+
-                        '<h5 class="card-title">'+clase.actividad+'</h5>'+
+                        '<h5 class="card-title">'+clase.nombreActividad+'</h5>'+
                         '<p class="card-text"  style=" height: 72px;"> <b> Profe: </b> '+clase.profesor+' <br><b>Cupos libres: </b> '+clase.cupoDisponible+'</p>'+
-                        '<div class=" d-flex  justify-content-end"><button class="btn bg-primary bg-opacity-50 "  onclick="clickClase(' + clase.idClase + ')">Ver</button></div>'+
+                        '<div class=" d-flex  justify-content-end"><button class="btn bg-primary bg-opacity-50 "  onclick="clickEnviarInscripcion(' + clase.idClase + ')">Inscribir</button></div>'+
                     '</div>'+            
             '</div>'+
         '</div>'
@@ -421,48 +322,77 @@ function armaColumnaPorDia(clases, dia, fecha, salon){
     return columnaDia.join('');
 }
 
-function clickClase(idClase){
-    traerClases(miBackEnd + 'ClasePorDia/'+idClase, inscriptosAClase);
 
+
+
+
+
+
+function clickEnviarInscripcion(idClase) {
+    enviarParametrosPOSTInscribir(miBackEnd + 'Socio/Inscripcion', respuestaDeServidorInscripcion,idSocio,idClase);
+}
+function respuestaDeServidorInscripcion(respuesta) {
+    swal("Guardado!", '"'+respuesta+'"', "success");
+    
+    //$("respuesta").innerHTML = respuesta;
 }
 
+function enviarParametrosGET(servidor, funcionARealizar) {
 
-
-
-function inscriptosAClase(rta){
-    muestra('botonAtras');
-    oculta('grillaHorarios');
-    muestra('sociosInscriptos');
-    console.log(rta);
-    inscriptos = JSON.parse(rta);
-    if(inscriptos.length === 0){
-        console.log("sin inscriptos")
-        $('infoSociosInscrip').innerHTML = '<div class=" d-flex justify-content-center">no hay socios inscriptos</div>';
-    }
-
-
-
-}
-
-
-function traerClases(servidor, funcionARealizar) {
-
+    //Declaro el objeto
     var xmlhttp = new XMLHttpRequest();
-    
-    xmlhttp.open("GET", servidor, true);
-    
-    xmlhttp.onreadystatechange = function () {
-        
-        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-            
-            if (xmlhttp.status == 200) {                
-                funcionARealizar(xmlhttp.responseText);
 
-            } else {
-                swal("Error", "revise los datos cargados", "error");
+    //Indico hacia donde va el mensaje
+    xmlhttp.open("GET", servidor, true);
+
+    xmlhttp.onreadystatechange = function () {
+
+        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+
+            if (xmlhttp.status == 200) {
+                //console.log(xmlhttp.responseText);
+                funcionARealizar(xmlhttp.responseText);
+            }
+            else {
+                swal("Error al guardar", "revise los datos cargados", "error");
+                
             }
         }
     }
-    
+    //Envio el mensaje
     xmlhttp.send();
+}
+
+function enviarParametrosPOSTInscribir(servidor, funcionARealizar,idSocio,idClase) {
+
+    //declaro el objeto
+    var xmlhttp = new XMLHttpRequest();
+
+    //agrega datos para pasar por POST
+    var datos = new FormData();
+    datos.append("nroSocio", idSocio);
+    datos.append("idClasePorDia", idClase);
+
+
+    //indico hacia donde va el mensaje
+    xmlhttp.open("POST", servidor, true);
+
+    //seteo el evento
+    xmlhttp.onreadystatechange = function () {
+        //veo si llego la respuesta del servidor
+        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+            //reviso si la respuesta del servidor es la correcta
+            if (xmlhttp.status == 200) {
+                funcionARealizar(xmlhttp.response);
+            } else {
+                swal("Error", "revise los datos cargados", "error");
+            };
+        }
+    }
+    //esto va siempre cuando se hace un formulario
+    xmlhttp.setRequestHeader("enctype", "multipart/form-data");
+
+    //envio el mensaje 
+    xmlhttp.send(datos);
+
 }

@@ -1,6 +1,7 @@
 //agrega funcion load a HTML; 
 addEventListener("load",load)
  
+var usuario= sessionStorage.getItem('nombre');
 //variable del servidor
 var miBackEnd = 'http://localhost:555/';
 var extra= 0; 
@@ -12,8 +13,9 @@ function $(nombre)
 
 
 function load(){
+    cargarBienvenido(usuario);
     clickConsultar();
-    oculta('botonAtras');
+   
     
     oculta('cartel'); 
     //boton para cerrar sesion 
@@ -21,12 +23,15 @@ function load(){
     //boton para perfil usuario logueado
     document.getElementById("perfil").addEventListener("click",mostrarPerfil);
 
-    document.getElementById("botonAtras").addEventListener("click",atras);
+ 
 
    
     
     //document.getElementById('btnGuardar').addEventListener("click",click);
    
+}
+function cargarBienvenido(usuario){
+    $('bienvenido').innerHTML='Bienvenido, '+usuario
 }
 
 function cerrarSesion() {
@@ -63,20 +68,11 @@ function oculta(id){
     }
 
 }
-function atras(){ 
-    oculta('botonAtras');
-   
-    muestra('actividad');
-   
-    oculta('cartel'); 
 
-}
-function clickRegistrarRutina(){
-    window.location.assign("http://localhost/practica/rutina/registrarRutina.html");//aca va el enlace de la pagina registrar; 
-}
+
 
 function clickConsultar(){
-    oculta('botonAtras');
+    
    
     muestra('actividad');
     
@@ -115,9 +111,6 @@ function retornoDelClickConsultar(valor){
                 '<th scope="row">'+element.idActividad+'</th>'+
                 '<td>'+element.nombre+'</td>'+
                 
-             
-                '<td><button class="btn  btn-primary modificacion" type="button" onclick="clickModif('+element.idActividad+')">Modificar</button></td>'+
-            
                 '</tr>' );
                 
             });
@@ -125,74 +118,21 @@ function retornoDelClickConsultar(valor){
             $('tableActividad').innerHTML = opciones.join('');
  
 }
-
-function clickModif(idActividad){
-    
-    
-            
-            swal({
-                title: "Modificar",
-                text: "¿Esta seguro que desea modificar esta actividad?",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-              })
-              .then((willDelete) => {
-                if (willDelete) {
-
-                    extra= idActividad;
-                    validar(); 
-                } 
-              });
-  
-
+function agregarActividad(){
+    var nombre; 
+    swal("Ingrese el nombre de la nueva actividad",{
+        content: "input",
+      }).then((value) => {
+        nombre=value;
+        enviarInfo(miBackEnd + 'Actividad/Registro',respuestaDeServidor,nombre);
+      });
 }
-
-
-function validar(){
-    muestra('botonAtras');
-    oculta('actividad'); 
-    
-    oculta('cartel');
-    enviarParametrosGET(miBackEnd + 'Actividad', retornoDelClickModificarRutina);
-    
-}
-
-
-
-
-    function retornoDelClickModificar(valor){
-
-        var actividad =JSON.parse(valor);
-        var id;  
-        var nombre;
-            
-    
-        console.log(actividad); 
-         
-            actividad.forEach(element => {
-            if(element.idActividad==extra){
-            id=element.idActividad;
-            nombre = element.nombre;
-             
-            }
-            
-        });
-       
-            $("txtNombre").value = nombre;
-            
-    }
-    
-function click(){
-  
-         enviarInfo(miBackEnd + 'Actividad'+extra, respuestaDeServidor);
-}
-     
 function respuestaDeServidor(respuesta){
-        swal("Genial!", '"'+respuesta+'"', "success");
-        clickConsultarRutina();
-        
-}
+    swal("Guardado!", '"'+respuesta+'"', "success");
+    clickConsultar();
+    
+ }
+
 
 
 function enviarParametrosGET(servidor,funcionARealizar){
@@ -219,16 +159,15 @@ function enviarParametrosGET(servidor,funcionARealizar){
     //Envio el mensaje
     xmlhttp.send();
 }
-
-function enviarInfo(servidor, funcionARealizar){
+function enviarInfo(servidor, funcionARealizar,nombre){
 
     //declaro el objeto
     var xmlhttp = new XMLHttpRequest(); 
 
     //agrega datos para pasar por POST
     var datos = new FormData();
-    datos.append("nombre",$("txtNombre").value);
-   
+    datos.append("nombre",nombre);
+
         //indico hacia donde va el mensaje
     xmlhttp.open ("POST", servidor, true); 
 
@@ -240,7 +179,7 @@ function enviarInfo(servidor, funcionARealizar){
             if(xmlhttp.status==200){
                 funcionARealizar(xmlhttp.response);
             }else{
-                swal("Error", "revise los datos cargados", "error");
+                alert("Ocurrió un error");
             };
         }
     }
