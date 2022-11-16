@@ -51,6 +51,16 @@ function oculta_muestra(id){
     }
 
 }
+function cargando(){
+    var opciones=[];
+    opciones.push('<div class="d-flex justify-content-center mt-5">'+
+    '<div class="spinner-grow" role="status">'+
+        '<span class="visually-hidden">Loading...</span>'+
+    '</div>'+'</div><div class="d-flex justify-content-center mt-2">'+
+    ' <div><p class="fw-bold">Cargando...</p></div>'+
+'</div>');
+$('respuesta').innerHTML = opciones.join(''); 
+}
 
 function muestra(id){
     if (document.getElementById){ //se obtiene el id
@@ -89,7 +99,14 @@ function clickConsultarRutina(){
     oculta('cartel'); 
     cargarSkeletonTablaRutinas();
     enviarParametrosGET(miBackEnd + 'Rutina',retornoDelClickConsultarRutina);
-    
+    var opciones=[];
+    opciones.push('<div class="d-flex justify-content-center mt-5">'+
+    '<div class="spinner-grow" role="status">'+
+        '<span class="visually-hidden">Loading...</span>'+
+    '</div>'+'</div><div class="d-flex justify-content-center mt-2">'+
+    ' <div><p class="fw-bold">Cargando...</p></div>'+
+'</div>');
+$('respuesta').innerHTML = opciones.join(''); 
 }
 function cargarSkeletonTablaRutinas(){
     var opciones = [];
@@ -156,16 +173,20 @@ function clickModifRutina(idRutina){
 
 
 function validar(){
-    muestra('botonAtras');
+    oculta('botonAtras');
     oculta('rutinas'); 
-    muestra('formularioModificarRutina'); 
-    oculta('cartel');
+    oculta('formularioModificarRutina'); 
+    muestra('cartel');
+    cargando();
     enviarParametrosGET(miBackEnd + 'Rutina', retornoDelClickModificarRutina);
     enviarParametrosGET(miBackEnd + 'Salon',cargarOpcionesSalon);
 }
 
 function cargarOpcionesSalon(nro){
-    
+    muestra('botonAtras');
+    oculta('rutinas'); 
+    muestra('formularioModificarRutina'); 
+    oculta('cartel');
     var salon= JSON.parse(nro);
     console.log(salon);
     salon.sort(function (x, y) { return x.nombreSalon.localeCompare(y.nombreSalon) });

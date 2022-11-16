@@ -34,6 +34,17 @@ function cargarBienvenido(usuario){
     $('bienvenido').innerHTML='Bienvenido, '+usuario
 }
 
+
+function cargando(){
+    var opciones=[];
+    opciones.push('<div class="d-flex justify-content-center mt-5">'+
+    '<div class="spinner-grow" role="status">'+
+        '<span class="visually-hidden">Loading...</span>'+
+    '</div>'+'</div><div class="d-flex justify-content-center mt-2">'+
+    ' <div><p class="fw-bold">Cargando...</p></div>'+
+'</div>');
+$('respuesta').innerHTML = opciones.join(''); 
+}
 function cerrarSesion() {
     sessionStorage.clear();
     window.location.assign("http://localhost/practica/login.html");
@@ -205,7 +216,7 @@ function clickModifSuscripcion(idSuscripcion){
             enviarParametrosGET(miBackEnd + 'Suscripcion/' + idSuscripcion, retornoDelClickModificarSusc);
             oculta('suscripcion');
             muestra('cartel');
-            $("respuesta").innerHTML = "procesando informacion";
+            cargando();
             enviarParametrosGET(miBackEnd + 'Actividad',cargarOpcionesClaseMod);
         } 
       });

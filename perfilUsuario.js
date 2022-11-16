@@ -14,9 +14,12 @@ function $(nombre)
 
 function load(){
     cargarBienvenido(usuario);
-    oculta('cartel');
+    muestra('cartel');
+    oculta('formulario');
     oculta('formularioModificarPerfil'); 
     muestra('perfilUsuario');
+    cargando();
+
     
     enviarParametrosPOST(miBackEnd + 'Administrativo/Perfil', cargarPerfil);
     //para ocultar cartel del mensaje
@@ -29,11 +32,21 @@ function load(){
     //boton para perfil usuario logueado
     document.getElementById("perfil").addEventListener("click",mostrarPerfil);
     
-    
 }
 function cargarBienvenido(usuario){
     $('bienvenido').innerHTML='Bienvenido, '+usuario
 }
+function cargando(){
+    var opciones=[];
+    opciones.push('<div class="d-flex justify-content-center mt-5">'+
+    '<div class="spinner-grow" role="status">'+
+        '<span class="visually-hidden">Loading...</span>'+
+    '</div>'+'</div><div class="d-flex justify-content-center mt-2">'+
+    ' <div><p class="fw-bold">Cargando...</p></div>'+
+'</div>');
+$('respuesta').innerHTML = opciones.join(''); 
+}
+
 
 function cerrarSesion() {
     sessionStorage.clear();
@@ -70,6 +83,8 @@ function oculta(id){
 
 }
 function cargarPerfil(respuesta){
+    oculta('cartel');
+    muestra('formulario');
     var administrativo = JSON.parse(respuesta);
 
     console.log(administrativo);
@@ -92,7 +107,14 @@ function clickModificar(){
     console.log(idPerfil); 
     
     enviarParametrosPOST(miBackEnd + 'Administrativo/Perfil', retornoClickModificar);
-   
+    var opciones=[];
+    opciones.push('<div class="d-flex justify-content-center mt-5">'+
+    '<div class="spinner-grow" role="status">'+
+        '<span class="visually-hidden">Loading...</span>'+
+    '</div>'+'</div><div class="d-flex justify-content-center mt-2">'+
+    ' <div><p class="fw-bold">Cargando...</p></div>'+
+'</div>');
+$('respuesta').innerHTML = opciones.join(''); 
 }
 function retornoClickModificar(respuesta){
     muestra('formularioModificarPerfil'); 

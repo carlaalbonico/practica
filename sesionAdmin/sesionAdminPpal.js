@@ -1,7 +1,7 @@
-//localhost/practica/sesionAdmin/sesionAdminPpal.html
-
+//agrega funcion load a HTML; 
 addEventListener("load",load)
  
+var usuario= sessionStorage.getItem('nombre');
 //variable del servidor
 var miBackEnd = 'http://localhost:555/';
 var extra= 0; 
@@ -13,30 +13,36 @@ function $(nombre)
 
 
 function load(){
+    cargarBienvenido(usuario);
+  
+   
     
-    oculta('clases');
-    oculta('formularioModificarClase'); 
-    oculta('extra');
-    
+    oculta('cartel'); 
     //boton para cerrar sesion 
     document.getElementById("logOut").addEventListener("click",cerrarSesion);
     //boton para perfil usuario logueado
     document.getElementById("perfil").addEventListener("click",mostrarPerfil);
 
-    //barra nav 
-     document.getElementById("navBtnInicio").addEventListener("click",navInicio);
-     document.getElementById("navBtnHorarios").addEventListener("click",navHorarios);
-     document.getElementById("navBtnSocios").addEventListener("click",navSocios);
-     document.getElementById("navBtnProfesores").addEventListener("click",navProfesores);
-     document.getElementById("navBtnClases").addEventListener("click",navClases);
-     document.getElementById("navBtnRutinas").addEventListener("click",navRutinas);
-     document.getElementById("navBtnSuscripcion").addEventListener("click",navSuscripcion);
-     document.getElementById("navBtnActividades").addEventListener("click",navActividades);
-     document.getElementById("navBtnInformes").addEventListener("click",navInformes);
+ 
 
+   
+    
+    //document.getElementById('btnGuardar').addEventListener("click",click);
+   
 }
-
-
+function cargarBienvenido(usuario){
+    $('bienvenido').innerHTML='Bienvenido, '+usuario
+}
+function cargando(){
+    var opciones=[];
+    opciones.push('<div class="d-flex justify-content-center mt-5">'+
+    '<div class="spinner-grow" role="status">'+
+        '<span class="visually-hidden">Loading...</span>'+
+    '</div>'+'</div><div class="d-flex justify-content-center mt-2">'+
+    ' <div><p class="fw-bold">Cargando...</p></div>'+
+'</div>');
+$('respuesta').innerHTML = opciones.join(''); 
+}
 
 function cerrarSesion() {
     sessionStorage.clear();
@@ -73,34 +79,5 @@ function oculta(id){
 
 }
 
-function navInicio(){
-
-}
-function navHorarios(){
-
-}
-function navSocios(){
-
-}
-function navProfesores(){
-
-}
-function navClases(){
-    muestra('clases');
-    clickConsultarClase;
-}
-function navRutinas(){
-
-}
-function navSuscripcion(){
-
-}
-function navActividades(){
-
-}
-
-function navInformes(){
-
-}
 
 

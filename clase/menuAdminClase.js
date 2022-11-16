@@ -302,6 +302,15 @@ function validar(idClase){
     enviarParametrosGET(miBackEnd + 'Actividad',cargarOpcionesClaseMod);
     enviarParametrosGET(miBackEnd + 'Profesor',cargarOpcionesProf);
     enviarParametrosGET(miBackEnd + 'Salon',cargarOpcionesSalon);
+    var opciones=[];
+    opciones.push('<div class="d-flex justify-content-center mt-5">'+
+    '<div class="spinner-grow" role="status">'+
+        '<span class="visually-hidden">Loading...</span>'+
+    '</div>'+'</div><div class="d-flex justify-content-center mt-2">'+
+    ' <div><p class="fw-bold">Cargando...</p></div>'+
+'</div>');
+$('respuesta').innerHTML = opciones.join(''); 
+
 }
 
 function usarSelectClase(){

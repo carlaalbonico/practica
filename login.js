@@ -49,6 +49,17 @@ function contact(){
     window.location.assign("http://localhost/practica/contacto.html");
 }
 
+
+function cargando(){
+    var opciones=[];
+    opciones.push('<div class="d-flex justify-content-center mt-5">'+
+    '<div class="spinner-grow" role="status">'+
+        '<span class="visually-hidden">Loading...</span>'+
+    '</div>'+'</div><div class="d-flex justify-content-center mt-2">'+
+    ' <div><p class="fw-bold">Cargando...</p></div>'+
+'</div>');
+$('respuesta').innerHTML = opciones.join(''); 
+}
 function oculta_muestra(id){
     if (document.getElementById){ //se obtiene el id
     var el = document.getElementById(id); 
@@ -105,9 +116,12 @@ function validarLogin(){
 function click(){
     
     $("btnEnviar").disabled=true;
-    enviarParametrosPOST(miBackEnd + 'Usuario', retornoDelClick);
+    oculta('cuadroLogin');
     muestra('cartel'); 
-    $("respuesta").innerHTML="procesando informacion";
+   
+    cargando();
+    enviarParametrosPOST(miBackEnd + 'Usuario', retornoDelClick);
+   
 
 }
 
@@ -132,7 +146,9 @@ function validarContrasenia(){
 
 function clickGuardar(){
     muestra('cartel');
-    $("respuesta").innerHTML="procesando informacion";
+   
+    oculta('cuadroContrasenaNueva');
+    cargando();
     $("btnGuardar").disabled=true;
     enviarParamCambiarContraseñaPOST(miBackEnd + 'Usuario/CambioDeContrasena', retornoDelClickGuardar);
    
@@ -149,6 +165,9 @@ function retornoDelClickGuardar(respuesta){
     
 
 function retornoDelClick(respuesta){
+    muestra('cuadroLogin');
+    oculta('cartel'); 
+   
     $("txtEmail").value = "";
     $("txtPass").value = "";
     
@@ -177,6 +196,7 @@ function retornoDelClick(respuesta){
     if(objetoUsuario['email'] != null && objetoUsuario['idPerfil'] == 'SOC' && objetoUsuario['origenDeContrasena'] == 'USU'){
         sessionStorage.setItem("usuario",objetoUsuario['email']);
         sessionStorage.setItem("nombre",objetoUsuario['nombreCompleto']);
+        window.location.assign("http://localhost/practica/sesionSocio/sesionSocioPpal.html");
         $("respuesta").innerHTML="socio ingreso correctamente";
     }
 

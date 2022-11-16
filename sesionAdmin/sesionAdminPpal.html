@@ -1,393 +1,158 @@
 <script>
 
-    var sesion = sessionStorage.getItem("usuario");
-    
-    if(sesion==null){
-        window.location.assign("http://localhost/practica/login.html");
-    }
+  var sesion = sessionStorage.getItem("usuario");
+  
+  if(sesion==null){
+      window.location.assign("http://localhost/practica/login.html");
+  }
 
 </script>
 
 <!DOCTYPE html>
 
 <head>
-    <meta charset="UTF-8">
-   
-   
-   <!-- agrego css-->
-   <link rel="stylesheet" href="../design.css">
-  
+  <meta charset="UTF-8">
+ 
+ 
+ <!-- agrego css-->
+ <link rel="stylesheet" href="../design.css">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-   
-   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-   
-    <!-- agrego javascript-->
-   <script src="sesionAdminPpal.js"></script>
-  
-   
+ <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+ <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+ 
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+ 
+  <!-- agrego javascript-->
+ <script src="menuAdminActividad.js"></script>
 
-    <!-- PARA DISPOSITIVOS CHICOS -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <title>Push UP</title>
-    
+ <link href="menuAdmin.css"  rel="stylesheet">
+ <!-- ¿script para alert-->
+ <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+ 
+
+  <!-- PARA DISPOSITIVOS CHICOS -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>Push UP</title>
+  
 </head>
 <body id="fondo">
+  
+  <!--barra horizontal-->
+  <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+      <img src="../imagenes/pushup1.png" class="" alt="..."  width="100" height="92">
+    <button class="navbar-toggler position-absolute d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="true" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
     
-        <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-            <img src="../imagenes/pushup1.png" class="" alt="..."  width="100" height="92">
-          <button class="navbar-toggler position-absolute d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="true" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          
-          <div class="navbar-nav">
-            <ul>
-                <button class="btn btn-outline-light my-2 my-sm-0" type="button" id="perfil">Perfil</button>
-                <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="logOut">Cerrar Sesión</button>
-            
-            </ul>
-          </div>
-        </header>
-        
-        <div class="container-fluid">
-          <div class="row">
-            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse show" >
-              <div class="position-sticky pt-3 sidebar-sticky">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link text-dark" aria-current="page" id="navBtnInicio">
-                            <img src="../imagenes/home.png" alt="" width="32" height="32" class="  me-2">
-                        Inicio
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link text-dark" id="navBtnHorarios">
-                            <img src="../imagenes/horario.png" alt="" width="32" height="32" class=" me-2">
-                        Grilla Horaria
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link text-dark" id="navBtnSocios">
-                            <img src="../imagenes/socio.png" alt="" width="32" height="32" class=" me-2">
-                        Socios
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link text-dark" id="navBtnProfesores">
-                            <img src="../imagenes/profesor.png" alt="" width="32" height="32" class=" me-2">
-                        Profesores
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link text-dark" id="navBtnClases">
-                            <img src="../imagenes/freeboxx.png" alt="" width="32" height="32" class=" me-2">
-                        Clases
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link text-dark" id="navBtnRutinas">
-                            <img src="../imagenes/rutinas.png" alt="" width="32" height="32" class=" me-2">
-                        Rutinas
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link text-dark" id="navBtnSuscripcion">
-                            <img src="../imagenes/suscripcion.png" alt="" width="32" height="32" class=" me-2">
-                        Suscripcion
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link text-dark" id="navBtnActividades">
-                            <img src="../imagenes/actividades.png" alt="" width="32" height="32" class=" me-2">
-                        Actividades
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link text-dark" id="navBtnInformes">
-                            <img src="../imagenes/informes.png" alt="" width="32" height="32" class=" me-2">
-                        Informes
-                        </a>
-                    </li>
-
-                    
-                </ul>
-                <hr>
-                <div class="dropdown">
-                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                      <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                      <strong>mdo</strong>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                      <li><a class="dropdown-item" href="#">New project...</a></li>
-                      <li><a class="dropdown-item" href="#">Settings</a></li>
-                      <li><a class="dropdown-item" href="#">Profile</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="#">Sign out</a></li>
-                    </ul>
-
-                    <li class="mb-1">
-                      <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
-                        Account
-                      </button>
-                      <div class="collapse show" id="account-collapse" >
-                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                          <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">New...</a></li>
-                          <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Profile</a></li>
-                          <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Settings</a></li>
-                          <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Sign out</a></li>
-                        </ul>
-                      </div>
-                    </li>
-              </div>
-
-            </nav>
-        
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            
-              <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Socios</h1>
-                <div class="btn-toolbar mb-2 mb-md-0">
-                  <div class="btn-group me-2">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-                  </div>
-                  <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar align-text-bottom" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                    This week
-                  </button>
-                </div>
-              </div>
-        
-              
-        
-              <h2>Section title</h2>
-              <div class="table-responsive">
-                <table class="table table-striped table-sm">
-                  <thead>
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Header</th>
-                      <th scope="col">Header</th>
-                      <th scope="col">Header</th>
-                      <th scope="col">Header</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1,001</td>
-                      <td>random</td>
-                      <td>data</td>
-                      <td>placeholder</td>
-                      <td>text</td>
-                    </tr>
-                    <tr>
-                      <td>1,002</td>
-                      <td>placeholder</td>
-                      <td>irrelevant</td>
-                      <td>visual</td>
-                      <td>layout</td>
-                    </tr>
-                    <tr>
-                      <td>1,003</td>
-                      <td>data</td>
-                      <td>rich</td>
-                      <td>dashboard</td>
-                      <td>tabular</td>
-                    </tr>
-                    <tr>
-                      <td>1,003</td>
-                      <td>information</td>
-                      <td>placeholder</td>
-                      <td>illustrative</td>
-                      <td>data</td>
-                    </tr>
-                    <tr>
-                      <td>1,004</td>
-                      <td>text</td>
-                      <td>random</td>
-                      <td>layout</td>
-                      <td>dashboard</td>
-                    </tr>
-                    <tr>
-                 
-                  </tbody>
-                </table>
-              </div>
-            </main>
-          </div>
-        </div>
-        
-        <div class="form-tablas" id= "clases">
-          <h1 class="mb-1 text-center">Clases:  </h1>
-          
-          
-          <div class="row align-items-center p-1 ">
-              <div class="control-label col-sm-2  d-flex justify-content-end">
-                  <label>Filtro:</label>
-              </div>
-              <div class="col-sm-5">
-                  <select class="form-select"  id="slctTipoClase"></select>
-              </div>
-  
-              <table class="table" id="tabla-clases" >
-                  <thead>
-                  <tr>
-                      <th scope="col">Clase:</th>
-                      <th scope="col">Nombre:</th>
-                      <th scope="col">Dias:</th>
-                      <th scope="col">Horario Inicio: </th>
-                      <th scope="col">Horario Fin: </th>
-                      <th scope="col">Salon:</th>
-                      <th scope="col">Profesor:</th>
-                      <th scope="col">Cupos:</th>
-                      
-                      <th scope="col"></th>
-                      
-                  </tr>
-                  </thead>
-                  <tbody id="tableClases">
-  
-                  
-                      
-                  </tbody>
-              
-  
-              </table>
-          </div>
-  
-  
-      </div> 
-      <div id="formularioModificarClase">
-        <form  class="form-menu">
-          <h1 class="p-3">Modificar Clase</h1>
-                  <div class="row align-items-center p-1 ">
-                      <div class="control-label col-sm-2  d-flex justify-content-end">
-                          <label>Clase:</label>
-                      </div>
-                      <div class="col-sm-10">
-                          <select class="form-select" aria-label="Default select example" id="slctNewClase"></select>
-                      <!-- <input type="text" class="form-control" id="txtNewClase" autofocus>-->
-                      </div>
-                      
-                      
-                  </div>
-                      
-                      
-                      <div class="row align-items-center p-1 justify-content-between">
-                          <div class="control-label col-sm-2 d-flex justify-content-end">
-                              <label>Días: </label>
-                          </div>
-                         <div class="col-sm-10">
-                          <select class="form-select" s id="slctDias">
-                              
-                              <option value="0">Lunes</option>
-                              <option value="1">Martes</option>
-                              <option value="2">Miercoles</option>
-                              <option value="3">Jueves</option>
-                              <option value="4">Viernes</option>
-                              <option value="5">Sabado</option>
-                              
-                            </select>
-                          <!--<input type="text" class="form-control" id="txtNewDias" >-->
-                         </div>
-                         
-                         
-                      </div>
-                      <div class="row align-items-center p-1 justify-content-between">
-                          <div class="control-label col-sm-2 d-flex justify-content-end">
-                              <label>Hora de Inicio: </label>
-                          </div>
-                          <div class="col-sm-10">
-                              <input type="text" class="form-control" id="txtHoraInicio" >
-                          </div>
-                          
-                          
-                      </div>
-                      
-                      <div class="row align-items-center p-1 justify-content-between">
-                          <div class="control-label col-sm-2 d-flex justify-content-end">
-                              <label>Hora de Fin: </label>
-                          </div>
-                          <div class="col-sm-10">
-                              <input type="text" class="form-control" id="txtHoraFin" >
-                          </div>
-                          
-                          
-                      </div>
-  
-                      <div class="row align-items-center p-1 justify-content-between">
-                          <div class="control-label col-sm-2 d-flex justify-content-end">
-                              <label>Profesor:</label>
-                          </div>
-                          
-                          <div class="col-sm-10">
-                              <select class="form-control" id="slctDatosProf" > </select>    
-                      
-                          </div>
-                      </div>    
-                      <div class="row align-items-center p-1 justify-content-between">
-                          <div class="control-label col-sm-2 d-flex justify-content-end">
-                              <label>Salon:</label>
-                          </div>
-                          
-                          <div class="col-sm-10">
-                              
-                              <select class="form-control" id="slctDatosSalon" placeholder="Salon: "></select>
-                          </div>
-                          
-                      </div>
-                      <div class="row align-items-center p-1 ">
-                          <div class="control-label col-sm-2 d-flex justify-content-end">
-                              <label>Modalidad: </label>
-                          </div>
-                          <div class="col-sm-10">
-                              <select class="form-select" aria-label="Default select example" id="slctMod">
-                              
-                                  <option value="1">Presencial</option>
-                                  <option value="2">Virtual</option>
-                                  
-                                </select>
-                              <!--<input type="text" class="form-control" id="txtNewMod" -->
-                          </div>
-                          
-                          
-                      </div>
-  
-                      <div class="row align-items-center p-1 justify-content-between">
-                          <div class="control-label col-sm-2 d-flex justify-content-end">
-                              <label>Fecha de Inicio:</label>
-                          </div>
-                          
-                          <div class="col-sm-10">
-                              <input type="date" class="form-control" id="txtFechaInicio" autofocus>
-                          </div>
-                          
-                      </div>
-  
-                      <div class="row align-items-center p-1 justify-content-between">
-                          <div class="control-label col-sm-2 d-flex justify-content-end ">
-                              <label>Fecha de Fin:</label>
-                          </div>
-                          
-                          <div class="col-sm-10">
-                              <input type="date" class="form-control" id="txtFechaFin" autofocus>
-                          </div>
-                      </div>
-  
-                    
-                      <button class="w-100 btn btn-lg btn-primary" type="button" id="btnGuardarClase" >Guardar</button>
-                      
-                  
-        </form>
-       </div>
-      
-            
+    <div class="navbar-nav">
      
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+      <ul>
+          <span class="fs-4 me-2 text-light" id="bienvenido"></span>
+          <button class="btn btn-outline-light my-2 my-sm-0" type="button" id="perfil">Perfil</button>
+          <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="logOut">Cerrar Sesión</button>
+      
+      </ul>
+    </div>
+  </header>
+  
+  
+  <div class="container-fluid">
+      <div class="row">
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block  sidebar collapse show" >
+          <div class="position-sticky pt-3 sidebar-sticky">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-dark" aria-current="page" id="navBtnInicio">
+                        <img src="../imagenes/home.png" alt="" width="32" height="32" class="  me-2">
+                    Inicio
+                    </a>
+                </li>
+                <li>
+                    <a href="http://localhost/practica/grillaHoraria/menuAdminGrilla.html" class="nav-link text-dark" id="navBtnHorarios">
+                        <img src="../imagenes/horario.png" alt="" width="32" height="32" class=" me-2">
+                    Grilla Horaria
+                    </a>
+                </li>
+                <li>
+                    <a href="http://localhost/practica/socio/menuAdminSocio.html" class="nav-link text-dark" id="navBtnSocios" onclick="menuConsultarSocio()">
+                        <img src="../imagenes/socio.png" alt="" width="32" height="32" class=" me-2">
+                    Socios
+                    </a>
+                </li>
+                <li>
+                    <a href="http://localhost/practica/profesor/menuAdminProf.html" class="nav-link text-dark" id="navBtnProfesores" onclick="menuConsultarProf()">
+                        <img src="../imagenes/profesor.png" alt="" width="32" height="32" class=" me-2">
+                    Profesores
+                    </a>
+                </li>
+                <li>
+                    <a href="http://localhost/practica/clase/menuAdminClase.html" class="nav-link text-dark" id="navBtnClases" onclick="clickConsultarClase();">
+                        <img src="../imagenes/freeboxx.png" alt="" width="32" height="32" class=" me-2">
+                    Clases
+                    </a>
+                </li>
+                <li>
+                    <a href="http://localhost/practica/rutina/menuAdminRutina.html" class="nav-link text-dark" id="navBtnRutinas" onclick="clickConsultarRutina()">
+                        <img src="../imagenes/rutinas.png" alt="" width="32" height="32" class=" me-2">
+                    Rutinas
+                    </a>
+                </li>
+                <li>
+                    <a href="http://localhost/practica/suscripcion/menuAdminSusc.html" class="nav-link text-dark" id="navBtnSuscripcion">
+                        <img src="../imagenes/suscripcion.png" alt="" width="32" height="32" class=" me-2">
+                    Suscripcion
+                    </a>
+                </li>
+                <li>
+                    <a href="http://localhost/practica/actividad/menuAdminActividad.html" class="nav-link text-dark" id="navBtnActividades">
+                        <img src="../imagenes/actividades.png" alt="" width="32" height="32" class=" me-2">
+                    Actividades
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-dark" id="navBtnInformes">
+                        <img src="../imagenes/informes.png" alt="" width="32" height="32" class=" me-2">
+                    Informes
+                    </a>
+                </li>
+
+                
+            </ul>
+            <hr>
        
+
+        </nav>
+    
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+         
+         
+          <div  id="cartel" class="">
+              <p id="respuesta"></p>
+          </div>
+             
+          
+
+
+
+
+
+
+
+
+          
+          
+        </main>
+      </div>
+  </div>
+    
+   
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+     
+      
 </body>
 
 
