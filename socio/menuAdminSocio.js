@@ -10,6 +10,7 @@ var pagina = [];
 var paginaActual = 1;
 var precio; 
 var idSocio; 
+var validacionFecha=0; 
 
 //DOM
 function $(nombre) {
@@ -25,10 +26,10 @@ function load() {
     oculta('botonesAdminParaUnSocio');
     oculta('formularioModificarSocio');
     oculta('formularioChico');
-    oculta('inscribirSocioClase');
+    oculta('historialInscripcion');
     oculta('agregarSuscSocio');
     oculta('botonAtras');
-   
+   oculta('historialSuscripcion');
 
     //para ocultar cartel del mensaje
     oculta_muestra('cartel');
@@ -90,7 +91,7 @@ function atras() {
     oculta('formularioModificarSocio');
     oculta('formularioChico');
     oculta('agregarSuscSocio');
-    oculta('inscribirSocioClase');
+    oculta('historialInscripcion');
     oculta('botonAtras');
 
 }
@@ -153,7 +154,7 @@ function cargarTablaSocios(socios){
             '<td>' + socio.nombre + ' ' + socio.apellido + '</td>' +
             '<td>' + socio.email + '</td>' +
 
-            '<td><button class="btn bg-danger bg-opacity-75 modificacion"  onclick="clickConsultarSocio(' + socio.nroSocio + ')">Ver más</button></td>' +
+            '<td><button class="btn bg-danger  modificacion"  onclick="clickConsultarSocio(' + socio.nroSocio + ')">Ver más</button></td>' +
 
             '</tr>'
         );
@@ -269,8 +270,8 @@ function retornoClickConsultarSocio(respuesta) {
     muestra('botonesAdminParaUnSocio');
     oculta('formularioModificarSocio');
     oculta('formularioChico');
-
-    oculta('inscribirSocioClase');
+    oculta('historialInscripcion');
+   
     oculta('botonAtras');
 
     var socio = JSON.parse(respuesta);
@@ -367,8 +368,8 @@ function clickModificarSocio() {
 function retornoClickModificarSocio(respuesta) {
     oculta('cartel');
     oculta('botonesAdminParaUnSocio');
-   
-    oculta('inscribirSocioClase');
+    oculta('historialInscripcion');
+
     muestra('formularioModificarSocio');
     oculta('formularioChico');
     muestra('botonAtras');
@@ -476,7 +477,7 @@ function clickRegistrarSuscripcion() {
     oculta('formularioModificarSocio');
     muestra('formularioChico');
     muestra('agregarSuscSocio');
-    oculta('inscribirSocioClase');
+    oculta('historialInscripcion');
     muestra('botonAtras');
     //manda los datos para cargar el formularioChico
     var idSocio = document.getElementById("nroSocio").innerText;
@@ -600,6 +601,39 @@ function clickInscribirSocioClase() {
 
 }
 
+function clickHistorialInscripcion(){
+    oculta('cartel');
+    oculta('botonesAdminParaUnSocio');
+    oculta('formularioModificarSocio');
+    muestra('formularioChico');
+    oculta('agregarSuscSocio');
+   
+    muestra('botonAtras');
+     muestra('historialInscripcion');
+     enviarParametrosGET(miBackEnd + 'Socio/' + idSocio, cargarFormularioChico);
+}
+
+function validarFechaInicio(){
+    validacionFecha=1; 
+    console.log(validacionFecha); 
+}
+function validarFechaFin(){
+    validacionFecha=validacionFecha +1;
+    console.log(validacionFecha); 
+    if(validacionFecha==2){
+        var fechaInicio = document.getElementById("txtFechaInicio").value;
+        var fechaFin= document.getElementById("txtFechaFin").value;
+        console.log( fechaInicio);
+        console.log(fechaFin);
+        enviarParametrosPostHistorial(miBackEnd + 'Socio/HistorialInscripciones/' + idSocio, cargarHistorialInscrip, fechaInicio,fechaFin);
+        
+    }
+}
+
+
+function cargarHistorialInscrip(rta){
+console.log(rta);
+}
 
 function enviarParametrosGET(servidor, funcionARealizar) {
 
@@ -798,5 +832,39 @@ function enviarParametrosPOSTPago(servidor, funcionARealizar,importe,idCompra) {
     //envio el mensaje 
     xmlhttp.send(datos);
 
+}
+
+function enviarParametrosPostHistorial(servidor, funcionARealizar, fechaInicio,fechaFin){
+  
+    //declaro el objeto
+ var xmlhttp = new XMLHttpRequest();
+
+ //agrega datos para pasar por POST
+ var datos = new FormData();
+ datos.append("fechaMin", fechaInicio);
+ datos.append("fechaMax", fechaFin);
+
+    
+
+    //indico hacia donde va el mensaje
+    xmlhttp.open("POST", servidor, true);
+
+    //seteo el evento
+    xmlhttp.onreadystatechange = function () {
+        //veo si llego la respuesta del servidor
+        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+            //reviso si la respuesta del servidor es la correcta
+            if (xmlhttp.status == 200) {
+                funcionARealizar(xmlhttp.response);
+            } else {
+                swal("Error", "revise el periodo de fechas.", "error");
+            };
+        }
+    }
+    //esto va siempre cuando se hace un formulario
+    xmlhttp.setRequestHeader("enctype", "multipart/form-data");
+
+    //envio el mensaje 
+    xmlhttp.send(datos);
 }
 

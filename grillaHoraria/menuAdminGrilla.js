@@ -9,7 +9,7 @@ var pagina = [];
 var paginaActual = 1;
 var salon = "Principal";
 var fechaDomingo;
-
+var fecha;
 
 function $(nombre) {
     return document.getElementById(nombre);
@@ -21,8 +21,7 @@ function load() {
    oculta('sociosInscriptos');
    muestra('grillaHorarios');
    cargando();
-   calcularSemanaActual();
-   //calcularSemanaAnterior()
+   TraerFechaHoy();
     traerClases(miBackEnd + 'ClasePorDia', verClases);
     //TraerFechaHoy();
     
@@ -85,11 +84,11 @@ function atras() {
 }
 function clasesSalonPpal(){
     salon = "Principal"; 
-    mostrarHorario(clases,salon,fechaDomingo);
+    mostrarHorario(clases,salon,fecha);
   }
 function clasesSalonMusc(){
        salon = "Musculacion"; 
-       mostrarHorario(clases,salon,fechaDomingo);
+       mostrarHorario(clases,salon,fecha);
   }
  function estaSemana(){
     calcularSemanaActual();
@@ -112,14 +111,14 @@ function cargarSkeletonTabla(){
     
 }
 function TraerFechaHoy(){
-    const fecha = new Date();
-    let diaDeSemana = fecha.getDay();
-    let dia = fecha.getDate()+1;
-    let mes = fecha.getMonth()+1;
-    let año = fecha.getFullYear();
+    const hoy = new Date();
+    let diaDeSemana = hoy.getDay();
+    let dia = hoy.getDate();
+    let mes = hoy.getMonth()+1;
+    let año = hoy.getFullYear();
     var fechaCompleta; 
-    return fechaCompleta= año+'-'+mes+'-'+dia; 
-
+    fechaCompleta= new Date(año+'-'+mes+'-'+dia); 
+    fecha= fechaCompleta;
 }
 function sumarDias(fecha, dias){
     fecha.setDate(fecha.getDate() + dias);
@@ -206,12 +205,12 @@ function formato(texto){
 function verClases(respuesta){
     //console.log(respuesta);
     clases = JSON.parse(respuesta); 
-   
+   console.log(clases);
    //console.log(clases);
     cargarSkeletonTabla();
    
     
-    mostrarHorario(clases,salon,fechaDomingo);
+    mostrarHorario(clases,salon,fecha);
     
 }
 
@@ -219,32 +218,7 @@ function verClases(respuesta){
 
 
 
-//calcula las  fechas unicas  pero no se usa
-function diasFechas(clases){
-    var todosDias=[];
-    
-    clases.forEach(elemento => {
-        let objeto={nombre:elemento.dias,fecha:elemento.fecha}
-        var fechaDia= todosDias.fecha;
-        todosDias.push(objeto);
-         
-        return todosDias;
-    });
-
-    var hash ={};
-
-todosDias= todosDias.filter( function(current){
-    var exists= !hash[current.fecha];
-    hash[current.fecha]= true;
-    return exists;
-});
-
-console.log(JSON.stringify(todosDias));
-return todosDias; 
-}
-
-
-function mostrarHorario(clases, salon,fechaLunes){
+function mostrarHorario(clases, salon,fecha){
     todasSemanas= [];
     pagina = [];
     todosDias= [];
@@ -264,13 +238,13 @@ function mostrarHorario(clases, salon,fechaLunes){
     hash[current.fecha]= true;
     return exists;
     });
-    console.log(semana);
+   
     //tendria que traer las fechas mayores o igual a tal fecha (revisar igual)
     semana.forEach( element =>{
         let objeto={nombre:element.nombre,fecha:element.fecha}
         var fechaElemento = new Date(element.fecha);
          
-        if(fechaElemento>=fechaLunes){
+        if(fechaElemento>=fecha){
            
             todosDias.push(objeto);}
         });
@@ -287,8 +261,7 @@ function mostrarHorario(clases, salon,fechaLunes){
     
     
    
- console.log(todosDias);
- console.log(todasSemanas);
+
  console.log(salon);
 // para separar todas las columnas en 6 
  for(let i=0; i < 6; i++){
@@ -382,7 +355,7 @@ function armaColumnaPorDia(clases, dia, fecha, salon){
     columnaDia.push('<div class="col-2" >'+
             ' <div class="row " id="'+dia+'">'+
                 '<div class="col mb-2">'+
-                    '<div class="d-flex h-100 text-white bg-danger bg-opacity-75 justify-content-center rounded-3  align-items-center" style="width: 235px;  height: 80px;">'+
+                    '<div class="d-flex h-100 text-white bg-danger  justify-content-center rounded-3  align-items-center" style="width: 235px;  height: 80px;">'+
                     '<p class="fs-4 fw-bold">' +dia+'  '+formato(fecha)+'</p>'+
                     '</div>'+
                 '</div>'
@@ -392,10 +365,13 @@ function armaColumnaPorDia(clases, dia, fecha, salon){
         
         if(clase.dias == dia && clase.fecha==fecha && clase.nombreSalon == salon){
             seleccionPorDia.push(clase);
-            
+            console.log(clase);
         }
     });
-
+    if(seleccionPorDia.length === 0){
+        console.log("sin clases"); 
+        columnaDia.push( '<div class=" d-flex justify-content-center">no hay clases en este salon.</div>');
+    }
     
 
     seleccionPorDia.forEach(clase => {
@@ -406,7 +382,7 @@ function armaColumnaPorDia(clases, dia, fecha, salon){
                     '<div class="card-body text-dark text-wrap  " style=" height: 194px;">'+
                         '<h5 class="card-title">'+clase.actividad+'</h5>'+
                         '<p class="card-text"  style=" height: 72px;"> <b> Profe: </b> '+clase.profesor+' <br><b>Cupos libres: </b> '+clase.cupoDisponible+'</p>'+
-                        '<div class=" d-flex  justify-content-end"><button class="btn bg-primary bg-opacity-50 "  onclick="clickClase(' + clase.idClase + ')">Ver</button></div>'+
+                        '<div class=" d-flex  justify-content-end"><button class="btn bg-primary bg-opacity-75 "  onclick="clickClase(' + clase.clase+ ')">Ver</button></div>'+
                     '</div>'+            
             '</div>'+
         '</div>'
@@ -422,6 +398,7 @@ function armaColumnaPorDia(clases, dia, fecha, salon){
 }
 
 function clickClase(idClase){
+    console.log(idClase);
     traerClases(miBackEnd + 'ClasePorDia/'+idClase, inscriptosAClase);
 
 }
@@ -435,9 +412,26 @@ function inscriptosAClase(rta){
     muestra('sociosInscriptos');
     console.log(rta);
     inscriptos = JSON.parse(rta);
+    tablaSocios = [];
+
     if(inscriptos.length === 0){
         console.log("sin inscriptos")
-        $('infoSociosInscrip').innerHTML = '<div class=" d-flex justify-content-center">no hay socios inscriptos</div>';
+        $('infoSociosInscrip').innerHTML = '<div class=" d-flex justify-content-center mt-2">no hay socios inscriptos</div>';
+    }else{
+        inscriptos.forEach(socio => {
+            tablaSocios.push(
+                '<tr >' +
+                '<th scope="row">' + socio.nroSocio + '</th>' +
+                '<td>' + socio.nombre + ' ' + socio.apellido + '</td>' +
+                
+    
+                '<td><button class="btn bg-danger bg-opacity-75 modificacion"  onclick="(' + socio.nroSocio + ')">presente</button></td>' +
+    
+                '</tr>'
+            );
+        });
+
+        $('infoSociosInscrip').innerHTML = tablaSocios.join('');
     }
 
 

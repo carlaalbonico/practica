@@ -4,6 +4,10 @@ var usuario= sessionStorage.getItem('nombre');
 //variable del servidor
 var miBackEnd = 'http://localhost:555/';
 var extra= 0; 
+var paginas;
+var pagina = [];
+var paginaActual = 1;
+var clasesDB;
 //DOM
 function $(nombre)
 {
@@ -29,7 +33,7 @@ function load(){
 
     //document.getElementById("btnRegistrarClasePorProfesor").addEventListener("click",clickConsultarClasePorProf);
     //document.getElementById ('slctDatosClasesxProf').addEventListener('change',validacionClaseClasesxProf);
-    document.getElementById ('slctTipoClase').addEventListener('change',validacionClase); 
+    //document.getElementById ('slctTipoClase').addEventListener('change',validacionClase); 
     
    // document.getElementById ('tableClases').addEventListener('click',clickModifClase); 
     document.getElementById('btnGuardarClase').addEventListener("click",clickGuardarModClase);
@@ -123,9 +127,7 @@ function cargarSkeletonTablaClases(){
     
 }
 
-function validacionClase(){
-    enviarParametrosGET(miBackEnd + 'Clase', retornoDelClickConsultarClase);
-}
+
 function cargarOpcionesClase(nro){
     var clase= JSON.parse(nro);
     console.log(clase);
@@ -142,47 +144,14 @@ function cargarOpcionesClase(nro){
 }
 
 function retornoDelClickConsultarClase(valor){
-    var tipoClase= document.getElementById("slctTipoClase").value; 
-    var clases =JSON.parse(valor);
    
-        if (tipoClase!=0){
-            
-
-            clases.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
-            var clasesFiltradas= clases.filter( item =>{
-                var nombreMin= item.nombre.toLowerCase();
-                return nombreMin.includes(tipoClase.toLowerCase()); 
-                
-            }); 
-
-            var opciones=[]; 
-
-
-            clasesFiltradas.forEach(element => {
-                opciones.push('<tr >'+
-                '<th scope="row">'+element.idClase+'</th>'+
-                '<td>'+element.nombre+'</td>'+
-                '<td>'+element.dias+'</td>'+
-                '<td>'+element.horaDeInicio+'</td>'+
-                '<td>'+element.horaDeFin+'</td>'+
-                '<td>'+element.salon+'</td>'+
-                '<td>'+element.profesor+'</td>'+
-                '<td>'+element.cupos+'</td>'+
-                
-                '<td><button class="btn  bg-danger bg-opacity-75 modificacion" type="button" onclick="clickModifClase('+element.idClase+')">Modificar</button></td>'+
-
-                '</tr>' );
-                
-            });
-
-
-            
-        $('tableClases').innerHTML=opciones.join(''); 
-                    
-
-    }else{
-        
-        var opciones=[]; 
+  clasesDB =JSON.parse(valor);
+    cargarTabla(clasesDB);
+}
+       
+    function cargarTabla(clases){     
+        pagina=[];   
+        opciones=[]; 
 
         clases.forEach(element => {
             opciones.push('<tr >'+
@@ -195,13 +164,100 @@ function retornoDelClickConsultarClase(valor){
             '<td>'+element.profesor+'</td>'+
             '<td>'+element.cupos+'</td>'+
            
-            '<td><button class="btn bg-danger bg-opacity-75 modificacion"  onclick="clickModifClase('+element.idClase+')">Modificar</button></td>'+
+            '<td><button class="btn bg-danger modificacion"  onclick="clickModifClase('+element.idClase+')">Modificar</button></td>'+
 
             '</tr>' );
             
         });
-        $('tableClases').innerHTML=opciones.join(''); 
+      
+
+
+        for(let i=0; i < 5; i++){
+        
+            pagina.push(opciones[i]);
+        }    
+    
+        $('tableClases').innerHTML= pagina.join('');
+        
+        paginas = Math.ceil(opciones.length / 5);
+    
+        var listaPaginas = [];
+    
+        listaPaginas.push(
+            '<li class="page-item">' +
+                '<button class="page-link" aria-label="Previous" onclick="restarPagina()">' +
+                    '<span aria-hidden="true">&laquo;</span>' +
+                '</button>' +
+            '</li>'
+        )
+        
+        for(let i=1; i <= paginas; i++){
+            listaPaginas.push(
+                '<li class="page-item"><button class="page-link" onclick="cambiarPagina('+ i +')">' + i +'</button></li>'
+            );
+        }
+    
+        listaPaginas.push(
+            '<li class="page-item">' +
+                '<button class="page-link" aria-label="Next" onclick="sumarPagina()">' +
+                    '<span aria-hidden="true">&raquo;</span>' +
+                '</button>' +
+            '</li>'
+        )
+    
+        $('pages').innerHTML = listaPaginas.join('');
     }
+
+    function restarPagina(){
+    
+        if( paginaActual - 1 > 0 ){
+    
+            cambiarPagina(paginaActual - 1);
+        }
+    }
+    
+    function sumarPagina(){
+        
+        if( paginaActual + 1 <= paginas ){
+    
+            cambiarPagina(paginaActual + 1);
+        }
+    }
+    
+    function cambiarPagina(pag){
+    
+        var inicio = (5*pag) - 5;
+        var fin = (5*pag);
+    
+        pagina = [];
+    
+        for(inicio; inicio < fin; inicio++){
+            
+            pagina.push(opciones[inicio]);
+        }
+    
+        paginaActual = pag;
+    
+        $('tableClases').innerHTML= pagina.join('');
+    }
+
+function buscarPorNombre(){
+
+    var tipoClase= document.getElementById("slctTipoClase").value; 
+
+    var clasesFiltradas = [];
+
+    if(tipoClase!=0){
+        clasesDB.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
+        clasesFiltradas= clasesDB.filter( item =>{
+           var nombreMin= item.nombre.toLowerCase();
+           return nombreMin.includes(tipoClase.toLowerCase()); 
+           
+       });
+       cargarTabla(clasesFiltradas);
+    }else{cargarTabla(clasesDB);}
+          
+    
 }
 
 function clickModifClase(idClase){

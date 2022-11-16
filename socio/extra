@@ -26,7 +26,7 @@ function load() {
     muestra('formularioChico');
     muestra('inscribirSocioClase');
   
-    muestra('botonAtras');
+    oculta('botonAtras');
    
 
     TraerFechaHoy();
@@ -90,7 +90,13 @@ function oculta(id) {
 
 }
 function atras() {
-    window.location.assign("http://localhost/practica/socio/menuAdminSocio.html");
+    oculta('cartel');    
+    muestra('botonesAdminParaUnSocio');
+    oculta('formularioModificarSocio');
+    oculta('formularioChico');
+    oculta('agregarSuscSocio');
+    oculta('inscribirSocioClase');
+    oculta('botonAtras');
 
 }
 
@@ -128,7 +134,7 @@ function cargarClasesInscriptas(rta){
 
 console.log(clasesInsc);
 
-
+var clasesInscriptas=[]; 
     //crea un array con los objetos de todos las fechas y dia de la semana
     clasesInsc.forEach(elemento => {
        
@@ -149,7 +155,7 @@ console.log(clasesHabilitadas);
         console.log("sin clases")
         $('semana').innerHTML = '<div class=" d-flex justify-content-center">no hay clases habilitadas para este socio.</div>';
     }else{
-        mostrarHorario(clasesHabilitadas,clasesInscriptas,salon,fechaHoy);
+        mostrarHorario(clasesHabilitadas,salon,fechaHoy);
     }
 
 }
@@ -292,7 +298,7 @@ function armaColumnaPorDia(clases, clasesInscriptas ,dia, fecha, salon){
     columnaDia.push('<div class="col-2" >'+
             ' <div class="row " id="'+dia+'">'+
                 '<div class="col mb-2">'+
-                    '<div class="d-flex h-100 text-white bg-danger  justify-content-center rounded-3  align-items-center" style="width: 235px;  height: 80px;">'+
+                    '<div class="d-flex h-100 text-white bg-danger bg-opacity-75 justify-content-center rounded-3  align-items-center" style="width: 235px;  height: 80px;">'+
                     '<p class="fs-4 fw-bold">' +dia+'  '+formato(fecha)+'</p>'+
                     '</div>'+
                 '</div>'
@@ -306,26 +312,29 @@ function armaColumnaPorDia(clases, clasesInscriptas ,dia, fecha, salon){
         }
     });
 
-
-    console.log("array de clases inscriptas"+clasesInscriptas); 
     if(seleccionPorDia.length === 0){
         console.log("sin clases"); 
         columnaDia.push( '<div class=" d-flex justify-content-center">no hay clases habilitadas en este salon.</div>');
     }
 
+    
+
+
+     
+
     seleccionPorDia.forEach(clase => {
-        console.log( (clasesInscriptas.includes(clase.idClasePorDia)));
+        
         if (clasesInscriptas.includes(clase.idClasePorDia)) {
-            columnaDia.push(' <div class="col">'+
-                    '<div class="card  bg-primary bg-opacity-75 mb-1" >'+
+            ' <div class="col">'+
+                    '<div class="card text-white bg-primary  bg-opacity-50  mb-1" >'+
                             '<div class="card-header">'+clase.horaDeInicio+'</div>'+
                             '<div class="card-body text-dark text-wrap  " style=" height: 194px;">'+
                                 '<h5 class="card-title">'+clase.nombreActividad+'</h5>'+
                                 '<p class="card-text"  style=" height: 72px;"> <b> Profe: </b> '+clase.profesor+' <br><b>Cupos libres: </b> '+clase.cupoDisponible+'</p>'+
-                                '<div class=" d-flex  justify-content-end"><button class="btn bg-light  "  onclick="clickEnviarBorrar(' + clase.idClasePorDia+ ')">Borrar</button></div>'+
+                                '<div class=" d-flex  justify-content-end"><button class="btn bg-light  "  onclick="clickEnviarInscripcion(' + clase.idClasePorDia+ ')">Borrar</button></div>'+
                             '</div>'+            
                     '</div>'+
-                '</div>')
+                '</div>'
             
         } else {
             columnaDia.push(
@@ -335,7 +344,7 @@ function armaColumnaPorDia(clases, clasesInscriptas ,dia, fecha, salon){
                             '<div class="card-body text-dark text-wrap  " style=" height: 194px;">'+
                                 '<h5 class="card-title">'+clase.nombreActividad+'</h5>'+
                                 '<p class="card-text"  style=" height: 72px;"> <b> Profe: </b> '+clase.profesor+' <br><b>Cupos libres: </b> '+clase.cupoDisponible+'</p>'+
-                                '<div class=" d-flex  justify-content-end"><button class="btn bg-primary bg-opacity-75 "  onclick="clickEnviarInscripcion(' + clase.idClasePorDia+ ')">Inscribir</button></div>'+
+                                '<div class=" d-flex  justify-content-end"><button class="btn bg-primary bg-opacity-50 "  onclick="clickEnviarInscripcion(' + clase.idClasePorDia+ ')">Inscribir</button></div>'+
                             '</div>'+            
                     '</div>'+
                 '</div>'
@@ -365,23 +374,7 @@ function clickEnviarInscripcion(idClase) {
 }
 function respuestaDeServidorInscripcion(respuesta) {
     swal("Guardado!", '"'+respuesta+'"', "success");
-    enviarParametrosGET(miBackEnd + 'Socio/Inscripciones/' + idSocio, cargarClasesInscriptas);
     
-    enviarParametrosGET(miBackEnd + 'Socio/ClasesHabilitadas/' + idSocio, cargarClasesHabilitadas);
-    //$("respuesta").innerHTML = respuesta;
-}
-
-
-
-function clickEnviarBorrar(idClase) {
-    console.log(idClase);
-    enviarParametrosPOSTInscribir(miBackEnd + 'Socio/Desinscripcion', respuestaDeServidorBorrar,idSocio,idClase);
-}
-function respuestaDeServidorBorrar(respuesta) {
-    swal("Borrado!", '"'+respuesta+'"', "success");
-    enviarParametrosGET(miBackEnd + 'Socio/Inscripciones/' + idSocio, cargarClasesInscriptas);
-    
-    enviarParametrosGET(miBackEnd + 'Socio/ClasesHabilitadas/' + idSocio, cargarClasesHabilitadas);
     //$("respuesta").innerHTML = respuesta;
 }
 
