@@ -10,6 +10,7 @@ var paginaActual = 1;
 var salon = "Principal";
 var fechaDomingo;
 var fecha;
+var clase;
 
 function $(nombre) {
     return document.getElementById(nombre);
@@ -399,6 +400,7 @@ function armaColumnaPorDia(clases, dia, fecha, salon){
 
 function clickClase(idClase){
     console.log(idClase);
+    clase= idClase; 
     traerClases(miBackEnd + 'ClasePorDia/'+idClase, inscriptosAClase);
 
 }
@@ -425,8 +427,8 @@ function inscriptosAClase(rta){
                 '<td>' + socio.nombre + ' ' + socio.apellido + '</td>' +
                 
     
-                '<td><button class="btn bg-danger bg-opacity-75 modificacion"  onclick="(' + socio.nroSocio + ')">presente</button></td>' +
-    
+                '<td><button class="btn bg-primary bg-opacity-75 modificacion"  onclick="presente(' + socio.nroSocio +')">presente</button></td>' +
+                '<td><button class="btn bg-danger bg-opacity-75 modificacion"  onclick="ausente(' + socio.nroSocio + ')">ausente</button></td>' +
                 '</tr>'
             );
         });
@@ -436,6 +438,26 @@ function inscriptosAClase(rta){
 
 
 
+}
+
+
+function presente(idSocio){
+    var presente= 1; 
+    console.log(presente);
+    enviarParametrosPOSTAsistencia(miBackEnd + 'Socio/Asistencia', respuestaDeServidorPresente,idSocio,clase,presente);
+}
+function respuestaDeServidorPresente(respuesta) {
+    swal("Guardado  presente!", '"'+respuesta+'"', "success");
+    
+}
+
+function ausente(idSocio){
+    var presente= 0; 
+    enviarParametrosPOSTAsistencia(miBackEnd + 'Socio/Asistencia', respuestaDeServidorAusente,idSocio,clase,presente);
+}
+function respuestaDeServidorAusente(respuesta) {
+    swal("Guardado  ausente!", '"'+respuesta+'"', "success");
+    
 }
 
 
@@ -459,4 +481,39 @@ function traerClases(servidor, funcionARealizar) {
     }
     
     xmlhttp.send();
+}
+
+function enviarParametrosPOSTAsistencia(servidor, funcionARealizar,idSocio,clase,presente) {
+    console.log(presente);
+    console.log(clase);
+    //declaro el objeto
+    var xmlhttp = new XMLHttpRequest();
+
+    //agrega datos para pasar por POST
+    var datos = new FormData();
+    datos.append("nroSocio", idSocio);
+    datos.append("idClasePorDia", clase);
+    datos.append("presente", presente);
+
+    //indico hacia donde va el mensaje
+    xmlhttp.open("POST", servidor, true);
+
+    //seteo el evento
+    xmlhttp.onreadystatechange = function () {
+        //veo si llego la respuesta del servidor
+        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+            //reviso si la respuesta del servidor es la correcta
+            if (xmlhttp.status == 200) {
+                funcionARealizar(xmlhttp.response);
+            } else {
+                swal("Error", "revise los datos cargados", "error");
+            };
+        }
+    }
+    //esto va siempre cuando se hace un formulario
+    xmlhttp.setRequestHeader("enctype", "multipart/form-data");
+
+    //envio el mensaje 
+    xmlhttp.send(datos);
+
 }
