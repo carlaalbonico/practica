@@ -356,10 +356,11 @@ function armaColumnaPorDia(clases, dia, fecha, salon){
     columnaDia.push('<div class="col-2" >'+
             ' <div class="row " id="'+dia+'">'+
                 '<div class="col mb-2">'+
-                    '<div class="d-flex h-100 text-white bg-danger  justify-content-center rounded-3  align-items-center" style="width: 235px;  height: 80px;">'+
-                    '<p class="fs-4 fw-bold">' +dia+'  '+formato(fecha)+'</p>'+
+                    '<div class="d-flex h-100 text-white bg-danger  justify-content-center rounded-3  align-items-center" style=" height: 80px;">'+
+                        '<p class="fs-5 fw-bold">' +dia+'  '+formato(fecha)+'</p>'+
                     '</div>'+
-                '</div>'
+                '</div>'+
+            '</div>'
                     );
     //Procesa el json y lo separa por dia
     clases.forEach(clase => {
@@ -377,12 +378,12 @@ function armaColumnaPorDia(clases, dia, fecha, salon){
 
     seleccionPorDia.forEach(clase => {
         columnaDia.push(
-        ' <div class="col">'+
+        ' <div class="col px-0">'+
             '<div class="card border-dark mb-1" >'+
                     '<div class="card-header">'+clase.horaDeInicio+'</div>'+
-                    '<div class="card-body text-dark text-wrap  " style=" height: 194px;">'+
+                    '<div class="card-body text-dark  " style=" height: 230px;">'+
                         '<h5 class="card-title">'+clase.actividad+'</h5>'+
-                        '<p class="card-text"  style=" height: 72px;"> <b> Profe: </b> '+clase.profesor+' <br><b>Cupos libres: </b> '+clase.cupoDisponible+'</p>'+
+                        '<p class="card-text"  style=" height: 100px;"> <b> Profe: </b> '+clase.profesor+' <br><b>Cupos libres: </b> '+clase.cupoDisponible+'</p>'+
                         '<div class=" d-flex  justify-content-end"><button class="btn bg-primary bg-opacity-75 "  onclick="clickClase(' + clase.clase+ ')">Ver</button></div>'+
                     '</div>'+            
             '</div>'+

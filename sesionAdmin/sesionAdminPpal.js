@@ -5,6 +5,7 @@ var usuario= sessionStorage.getItem('nombre');
 //variable del servidor
 var miBackEnd = 'http://localhost:555/';
 var extra= 0; 
+var salon = "Principal";
 //DOM
 function $(nombre)
 {
@@ -14,10 +15,12 @@ function $(nombre)
 
 function load(){
     cargarBienvenido(usuario);
-  
-   
     
+    oculta('verSuscripciones');
+    oculta('botonAtras');
     oculta('cartel'); 
+    muestra('botonesInicio');
+    oculta('verHorarios');
     //boton para cerrar sesion 
     document.getElementById("logOut").addEventListener("click",cerrarSesion);
     //boton para perfil usuario logueado
@@ -79,5 +82,269 @@ function oculta(id){
 
 }
 
+function menuRegistrarSocio() {
+    window.location.assign("http://localhost/practica/socio/registrarSocio.html");//aca va el enlace de la pagina registrar; 
+}
+function clickVerSuscripciones() {
+    oculta('cartel');
+    oculta('botonesInicio');
+    muestra('verSuscripciones');
+    muestra('botonAtras');
+    //manda los datos para cargar el formularioChico
+   
+  
+    enviarParametrosGET(miBackEnd + 'Actividad',cargarOpcionesClase); 
+    enviarParametrosGET(miBackEnd + 'Suscripcion/',cargarSuscripciones);
+    
+}
+function cargarOpcionesClase(nro){
+    var clase= JSON.parse(nro);
+    console.log(clase);
+    clase.sort(function (x, y) { return x.nombre.localeCompare(y.nombre) });
+
+    var opciones = ['<option value="0">Todas</option>']
+
+   clase.forEach(element => {
+        opciones.push('<option value="' + element.nombre + '">' + element.nombre + '</option>');
+    });
+    console.log(opciones); 
+    $("slctTipoClase").innerHTML = opciones.join('');  
+    
+}
 
 
+function selectActividad(){
+    enviarParametrosGET(miBackEnd + 'Suscripcion/',cargarSuscripciones)
+    var opciones=[];
+    opciones.push('<div class="d-flex justify-content-center mt-2">'+
+    '<div class="spinner-grow" role="status">'+
+        '<span class="visually-hidden">Loading...</span>'+
+    '</div>'+
+'</div>');
+$('suscripciones').innerHTML = opciones.join(''); 
+}
+
+function cargarSuscripciones(rta){
+    console.log(rta);
+    var tipoClase= document.getElementById("slctTipoClase").value; 
+    suscripciones=  JSON.parse(rta); 
+ console.log(tipoClase)
+    if (tipoClase!=0){
+            
+
+        suscripciones.sort(function (x, y) { return x.actividad.localeCompare(y.actividad) });
+        var suscripcionesFiltradas= suscripciones.filter( item =>{
+            var nombreMin= item.actividad.toLowerCase();
+            return nombreMin.includes(tipoClase.toLowerCase()); 
+            
+        }); 
+    
+        var opciones=[];
+        suscripcionesFiltradas.forEach(suscripcion =>{
+            opciones.push(' <div class="col-4">'+
+            '<div class="card border-dark mb-1" style="max-width: 25rem;">'+
+                    '<div class="card-header">'+suscripcion.actividad+'</div>'+
+                    '<div class="card-body text-dark">'+
+                        '<h5 class="card-title">'+suscripcion.nombre+'</h5>'+
+                        '<p class="card-text"><b> Descripcion: </b> '+suscripcion.descSuscripcion+' <br> <b>Cant de clases: </b> '+suscripcion.cantClases+' <br> <b>Precio: </b> '+suscripcion.precio+'</p>'+
+                        '<div class=" d-flex  justify-content-end"><button class="btn bg-primary bg-opacity-50 "  onclick="clickSuscripcion(' + suscripcion.idSuscripcion + ')">adquirir</button></div>'+
+                    '</div>'+            
+            '</div>'+
+            '</div>')
+    
+    })
+    $('suscripciones').innerHTML = opciones.join('');
+        
+    } else {
+        var opciones=[];
+        suscripciones.forEach(suscripcion =>{
+            opciones.push(' <div class="col-4">'+
+            '<div class="card border-primary mb-1" style="max-width: 25rem;">'+
+                    '<div class="card-header bg-primary bg-opacity-25">'+suscripcion.actividad+'</div>'+
+                    '<div class="card-body text-dark">'+
+                        '<h5 class="card-title">'+suscripcion.nombre+'</h5>'+
+                        '<p class="card-text"><b> Descripcion: </b> '+suscripcion.descSuscripcion+' <br> <b>Cant de clases: </b> '+suscripcion.cantClases+' <br> <b>Precio: $ </b> '+suscripcion.precio+'</p>'+
+                        '<div class=" d-flex  justify-content-end"><button class="btn bg-primary bg-opacity-50 "  onclick="clickAdquirirSuscripcion(' + suscripcion.idSuscripcion +','+suscripcion.precio+ ')">adquirir</button></div>'+
+                    '</div>'+            
+            '</div>'+
+            '</div>')
+        
+        })
+
+        $('suscripciones').innerHTML = opciones.join('');
+    }
+    
+    
+}
+
+function clasesSalonPpal(){
+    salon = "Principal"; 
+    mostrarHorario(clases,salon);
+  }
+function clasesSalonMusc(){
+       salon = "Musculacion"; 
+       mostrarHorario(clases,salon);
+  }
+
+
+function verHorarios(){
+    oculta('cartel');
+    oculta('botonesInicio');
+    oculta('verSuscripciones');
+    muestra('botonAtras');
+    muestra('verHorarios');
+
+    enviarParametrosGET(miBackEnd + 'Clase', cargarHorario);
+}
+
+
+
+
+function cargarHorario(respuesta){
+    clases = JSON.parse(respuesta); 
+
+    console.log(clases);
+
+    mostrarHorario(clases, salon)
+   /* var horarios = [];
+    var opciones=[];
+    clases.forEach(clase => {
+  
+        opciones.push(
+            '<div class="col-sm-6">' +
+                '<div class="card">' +
+                    '<div class="row">' +
+                        '<div class="col-4">' +
+                            '<h5 class="card-title d-flex">' + clase.horaDeInicio + 'HS' + '</h5>' +
+                        '</div>' +
+                        '<div class="col-8">' +
+                            '<h5 class="card-title">' + clase.nombre + '</h5>' +
+                            '<p class="card-text">' + clase.profesor + '</p>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>' +
+            '</div>'
+        );
+    });
+
+    $('grillaHoraria').innerHTML = opciones.join('');*/
+}
+
+
+function armarSemana(clases){
+    clases.forEach(elemento => {
+    
+    
+        diasSemana.push(elemento.dias); 
+    });
+    console.log(diasSemana);
+    // filtra el array con los objetos de todos las fechas y dia de la semana para que tenga una sola fecha y dia
+    var hash ={};
+    
+    diasSemana= diasSemana.filter( (item,index)=> {
+        return diasSemana.indexOf(item)===index;
+    });
+    
+    console.log(diasSemana);
+}
+
+
+function mostrarHorario(clases, salon){
+    var semana=['Lunes', 'Martes', 'Miercoles','Jueves','Viernes', 'Sabado'];
+   var todaSemana= [];
+
+    
+    semana.forEach( element =>{
+        todaSemana.push(armaColumnaPorDia(clases,  salon, element))
+
+    });
+    
+    
+    $('tableHorario').innerHTML = todaSemana.join('');
+
+
+}
+
+function armaColumnaPorDia(clases, salon,dia){
+
+
+var seleccionPorDia = [];
+var columnaDia=[];
+
+columnaDia.push('<div class="col-2" >'+
+            ' <div class="row " id="'+dia+'">'+
+                '<div class="col mb-2">'+
+                    '<div class="d-flex h-100 text-white bg-danger  justify-content-center rounded-3  align-items-center" style=" height: 80px;">'+
+                        '<p class="fs-5 fw-bold">' +dia+'</p>'+
+                    '</div>'+
+                '</div>'+
+            '</div>'
+                    );
+
+//Procesa el json y lo separa por dia
+clases.forEach(clase => {
+        
+    if(clase.dias == dia && clase.salon == salon){
+        seleccionPorDia.push(clase);
+        console.log(clase);
+    }
+});
+if(seleccionPorDia.length === 0){
+    console.log("sin clases"); 
+    columnaDia.push( '<div class=" d-flex justify-content-center">no hay clases en este salon.</div>');
+}
+
+
+seleccionPorDia.forEach(clase => {
+    columnaDia.push(
+    ' <div class="col px-0">'+
+        '<div class="card border-dark mb-1" >'+
+                '<div class="card-header">'+clase.horaDeInicio+'</div>'+
+                '<div class="card-body text-dark  " style=" height: 100px;">'+
+                    '<h5 class="card-title">'+clase.nombre+'</h5>'+
+                    '<p class="card-text"  style=" height: 50px;"> <b> Profe: </b> '+clase.profesor+'</p>'+
+                    
+                '</div>'+            
+        '</div>'+
+    '</div>'
+        
+          );
+});
+
+columnaDia.push('</div>'+
+'</div>');
+
+//console.log(columnaDia.join(''));
+return columnaDia.join('');
+
+
+}
+
+
+
+
+function enviarParametrosGET(servidor, funcionARealizar) {
+
+    //Declaro el objeto
+    var xmlhttp = new XMLHttpRequest();
+
+    //Indico hacia donde va el mensaje
+    xmlhttp.open("GET", servidor, true);
+
+    xmlhttp.onreadystatechange = function () {
+
+        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+
+            if (xmlhttp.status == 200) {
+                //console.log(xmlhttp.responseText);
+                funcionARealizar(xmlhttp.responseText);
+            }
+            else {
+                swal("Error al guardar", "revise los datos cargados", "error");
+                
+            }
+        }
+    }
+    //Envio el mensaje
+    xmlhttp.send();
+}

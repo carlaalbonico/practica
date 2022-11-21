@@ -164,7 +164,7 @@ function retornoDelClickConsultarClase(valor){
             '<td>'+element.profesor+'</td>'+
             '<td>'+element.cupos+'</td>'+
            
-            '<td><button class="btn bg-danger modificacion"  onclick="clickModifClase('+element.idClase+')">Modificar</button></td>'+
+            '<td><button class="btn btn-primary modificacion"  onclick="clickModifClase('+element.idClase+')">Modificar</button></td>'+
 
             '</tr>' );
             

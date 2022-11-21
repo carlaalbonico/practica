@@ -292,8 +292,9 @@ function armaColumnaPorDia(clases, clasesInscriptas ,dia, fecha, salon){
     columnaDia.push('<div class="col-2" >'+
             ' <div class="row " id="'+dia+'">'+
                 '<div class="col mb-2">'+
-                    '<div class="d-flex h-100 text-white bg-danger  justify-content-center rounded-3  align-items-center" style="width: 235px;  height: 80px;">'+
-                    '<p class="fs-4 fw-bold">' +dia+'  '+formato(fecha)+'</p>'+
+                    '<div class="d-flex h-100 text-white bg-danger  justify-content-center rounded-3  align-items-center" style="  height: 80px;">'+
+                    '<p class="fs-5 fw-bold">' +dia+'  '+formato(fecha)+'</p>'+
+                    '</div>'+
                     '</div>'+
                 '</div>'
                     );
@@ -316,26 +317,26 @@ function armaColumnaPorDia(clases, clasesInscriptas ,dia, fecha, salon){
     seleccionPorDia.forEach(clase => {
         console.log( (clasesInscriptas.includes(clase.idClasePorDia)));
         if (clasesInscriptas.includes(clase.idClasePorDia)) {
-            columnaDia.push(' <div class="col">'+
-                    '<div class="card  bg-primary bg-opacity-75 mb-1" >'+
+            columnaDia.push(' <div class="col px-0 " >'+
+                    '<div class="card  bg-primary bg-opacity-75 mb-1 " style="  height: 250px;" >'+
                             '<div class="card-header">'+clase.horaDeInicio+'</div>'+
-                            '<div class="card-body text-dark text-wrap  " style=" height: 194px;">'+
+                            '<div class="card-body text-dark " >'+
                                 '<h5 class="card-title">'+clase.nombreActividad+'</h5>'+
-                                '<p class="card-text"  style=" height: 72px;"> <b> Profe: </b> '+clase.profesor+' <br><b>Cupos libres: </b> '+clase.cupoDisponible+'</p>'+
-                                '<div class=" d-flex  justify-content-end"><button class="btn bg-light  "  onclick="clickEnviarBorrar(' + clase.idClasePorDia+ ')">Borrar</button></div>'+
+                                '<p class="card-text"  style=" height: 96px;"> <b> Profe: </b> '+clase.profesor+' <br><b>Cupos libres: </b> '+clase.cupoDisponible+'</p>'+
+                                '<div class=" d-flex  justify-content-end align-text-bottom"><button class="btn bg-light  "  onclick="clickEnviarBorrar(' + clase.idClasePorDia+ ')">Borrar</button></div>'+
                             '</div>'+            
                     '</div>'+
                 '</div>')
             
         } else {
             columnaDia.push(
-                ' <div class="col">'+
-                    '<div class="card border-dark mb-1" >'+
+                ' <div class=" col px-0 ">'+
+                    '<div class="card border-dark mb-1" style="  height: 250px;">'+
                             '<div class="card-header">'+clase.horaDeInicio+'</div>'+
-                            '<div class="card-body text-dark text-wrap  " style=" height: 194px;">'+
+                            '<div class="card-body text-dark   " >'+
                                 '<h5 class="card-title">'+clase.nombreActividad+'</h5>'+
-                                '<p class="card-text"  style=" height: 72px;"> <b> Profe: </b> '+clase.profesor+' <br><b>Cupos libres: </b> '+clase.cupoDisponible+'</p>'+
-                                '<div class=" d-flex  justify-content-end"><button class="btn bg-primary bg-opacity-75 "  onclick="clickEnviarInscripcion(' + clase.idClasePorDia+ ')">Inscribir</button></div>'+
+                                '<p class="card-text"  style=" height: 96px;"> <b> Profe: </b> '+clase.profesor+' <br><b>Cupos libres: </b> '+clase.cupoDisponible+'</p>'+
+                                '<div class=" d-flex  justify-content-end align-text-bottom"><button class="btn bg-primary bg-opacity-75 "  onclick="clickEnviarInscripcion(' + clase.idClasePorDia+ ')">Inscribir</button></div>'+
                             '</div>'+            
                     '</div>'+
                 '</div>'
