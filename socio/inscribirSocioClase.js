@@ -306,6 +306,8 @@ function armaColumnaPorDia(clases, clasesInscriptas ,dia, fecha, salon){
             
         }
     });
+    //para ordenar las horas
+    seleccionPorDia.sort((a,b)=>a.horaDeInicio.localeCompare(b.horaDeInicio));
 
 
     console.log("array de clases inscriptas"+clasesInscriptas); 

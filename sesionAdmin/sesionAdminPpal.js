@@ -205,29 +205,8 @@ function cargarHorario(respuesta){
 
     console.log(clases);
 
-    mostrarHorario(clases, salon)
-   /* var horarios = [];
-    var opciones=[];
-    clases.forEach(clase => {
-  
-        opciones.push(
-            '<div class="col-sm-6">' +
-                '<div class="card">' +
-                    '<div class="row">' +
-                        '<div class="col-4">' +
-                            '<h5 class="card-title d-flex">' + clase.horaDeInicio + 'HS' + '</h5>' +
-                        '</div>' +
-                        '<div class="col-8">' +
-                            '<h5 class="card-title">' + clase.nombre + '</h5>' +
-                            '<p class="card-text">' + clase.profesor + '</p>' +
-                        '</div>' +
-                    '</div>' +
-                '</div>' +
-            '</div>'
-        );
-    });
-
-    $('grillaHoraria').innerHTML = opciones.join('');*/
+    mostrarHorario(clases, salon); 
+    ordenar(clases);
 }
 
 
@@ -289,6 +268,13 @@ clases.forEach(clase => {
         console.log(clase);
     }
 });
+
+//para ordenar las horas
+seleccionPorDia.sort((a,b)=>a.horaDeInicio.localeCompare(b.horaDeInicio));
+
+
+console.log(seleccionPorDia);
+
 if(seleccionPorDia.length === 0){
     console.log("sin clases"); 
     columnaDia.push( '<div class=" d-flex justify-content-center">no hay clases en este salon.</div>');
@@ -318,6 +304,18 @@ columnaDia.push('</div>'+
 return columnaDia.join('');
 
 
+}
+
+function ordenar(clases){
+    var semana=[]; 
+    console.log(clases);
+    clases.forEach(elemento => {
+        let objeto={nombre:elemento.dias,hora:elemento.horaDeInicio}
+        
+        semana.push(objeto); 
+    });
+    semana.sort((a,b)=>a.hora.localeCompare(b.hora));
+    console.log('array ordenado: '+JSON.stringify(semana));
 }
 
 

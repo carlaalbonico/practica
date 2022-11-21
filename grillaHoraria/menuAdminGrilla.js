@@ -370,6 +370,9 @@ function armaColumnaPorDia(clases, dia, fecha, salon){
             console.log(clase);
         }
     });
+    //para ordenar las horas
+    seleccionPorDia.sort((a,b)=>a.horaDeInicio.localeCompare(b.horaDeInicio));
+
     if(seleccionPorDia.length === 0){
         console.log("sin clases"); 
         columnaDia.push( '<div class=" d-flex justify-content-center">no hay clases en este salon.</div>');
