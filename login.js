@@ -196,6 +196,7 @@ function retornoDelClick(respuesta){
     if(objetoUsuario['email'] != null && objetoUsuario['idPerfil'] == 'SOC' && objetoUsuario['origenDeContrasena'] == 'USU'){
         sessionStorage.setItem("usuario",objetoUsuario['email']);
         sessionStorage.setItem("nombre",objetoUsuario['nombreCompleto']);
+     
         window.location.assign("http://localhost/practica/sesionSocio/sesionSocioPpal.html");
         $("respuesta").innerHTML="socio ingreso correctamente";
     }
@@ -203,6 +204,7 @@ function retornoDelClick(respuesta){
     if(objetoUsuario['email'] != null && objetoUsuario['idPerfil'] == 'PRO' && objetoUsuario['origenDeContrasena'] == 'USU'){
         sessionStorage.setItem("usuario",objetoUsuario['email']);
         sessionStorage.setItem("nombre",objetoUsuario['nombreCompleto']);
+        
         $("respuesta").innerHTML="profesor ingreso correctamente";
     }
 }

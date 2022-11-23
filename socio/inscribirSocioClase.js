@@ -362,10 +362,6 @@ function armaColumnaPorDia(clases, clasesInscriptas ,dia, fecha, salon){
 
 
 
-
-
-
-
 function clickEnviarInscripcion(idClase) {
     console.log(idClase);
     enviarParametrosPOSTInscribir(miBackEnd + 'Socio/Inscripcion', respuestaDeServidorInscripcion,idSocio,idClase);
