@@ -1,4 +1,7 @@
+
+
 //agrega funcion load a HTML; 
+
 addEventListener("load",load)
  
 var usuario= sessionStorage.getItem('nombre');
@@ -244,6 +247,11 @@ function mostrarHorario(clases, salon){
 
 }
 
+
+function formateoHora(hora){
+    return hora.format('HH:mm');
+   }
+
 function armaColumnaPorDia(clases, salon,dia){
 
 
@@ -285,8 +293,8 @@ seleccionPorDia.forEach(clase => {
     columnaDia.push(
     ' <div class="col px-0">'+
         '<div class="card border-dark mb-1" >'+
-                '<div class="card-header">'+clase.horaDeInicio+'</div>'+
-                '<div class="card-body text-dark  " style=" height: 100px;">'+
+                '<div class="card-header bg-light">'+clase.horaDeInicio +'</div>'+
+                '<div class="card-body text-dark px-1 " >'+
                     '<h5 class="card-title">'+clase.nombre+'</h5>'+
                     '<p class="card-text"  style=" height: 50px;"> <b> Profe: </b> '+clase.profesor+'</p>'+
                     
@@ -317,8 +325,54 @@ function ordenar(clases){
     semana.sort((a,b)=>a.hora.localeCompare(b.hora));
     console.log('array ordenado: '+JSON.stringify(semana));
 }
+function previsualizar(){
+    var tablaHorario = document.getElementById("tableHorario").outerHTML;
+    $('salon').innerHTML = salon; 
+    $('tablaHorario').innerHTML= tablaHorario; console.log('me llamamamamamamamam');
+}
 
 
+function exportarPDF(){
+    
+    var doc = new jsPDF('l', 'pt', 'a4');
+    
+    var tabla = document.getElementById("imprimir");
+    
+    var margin = 20; 
+    var scale = ((doc.internal.pageSize.width - margin * 2) / (document.getElementById("imprimir").clientWidth)); 
+    var scale_mobile = (doc.internal.pageSize.width - margin * 2) / document.body.getBoundingClientRect(); 
+    console.log(tabla);
+
+    console.log(scale);
+    console.log(document.body.clientWidth);
+  
+    
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+        
+        doc.html(tabla, { 
+            x: margin,
+            y: margin,
+            html2canvas:{
+                scale: scale_mobile,
+            },
+            callback: function(doc){
+                doc.output('dataurlnewwindow', {filename: 'pdf.pdf'}); 
+            }
+        });
+    } else{
+         
+        doc.html(tabla, {
+            x: margin,
+            y: margin,
+            html2canvas:{
+                scale: scale,
+            },
+            callback: function(doc){
+                doc.output('dataurlnewwindow', {filename: 'pdf.pdf'}); 
+            }
+        });
+    }
+};
 
 
 function enviarParametrosGET(servidor, funcionARealizar) {

@@ -156,7 +156,7 @@ function cargarTablaProfes(profes){
             '<tr >' +
             '<th scope="row">' + profe.legajo+ '</th>' +
             '<td>' + profe.nombre + ' ' + profe.apellido + '</td>' +
-            '<td><button class="btn bg-danger bg-opacity-75 modificacion"  onclick="clickConsultarProf(' + profe.legajo + ')">Ver más</button></td>' +
+            '<td><button class="btn bg-primary  bg-opacity-75 modificacion"  onclick="clickConsultarProf(' + profe.legajo + ')">Ver más</button></td>' +
 
             '</tr>'
         );

@@ -280,6 +280,10 @@ function cambiarPagina(pag){
     $('semana').innerHTML = pagina.join('');
 }
 
+function formateoHora(hora){
+ return hora.format('HH:mm');
+}
+
 function armaColumnaPorDia(clases, clasesInscriptas ,dia, fecha, salon){
 
     var seleccionPorDia = [];

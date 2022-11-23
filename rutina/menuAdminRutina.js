@@ -139,7 +139,7 @@ function retornoDelClickConsultarRutina(valor){
                 '<td>'+element.descripcion+'</td>'+
                 '<td>'+element.salon+'</td>'+
              
-                '<td><button class="btn  bg-danger bg-opacity-75 modificacion" type="button" onclick="clickModifRutina('+element.idRutina+')">Modificar</button></td>'+
+                '<td><button class="btn  btn-outline-dark  bg-primary  bg-opacity-75 modificacion" type="button" onclick="clickModifRutina('+element.idRutina+')">Modificar</button></td>'+
             
                 '</tr>' );
                 

@@ -181,7 +181,7 @@ function retornoDelClick(respuesta){
     if(objetoUsuario['email'] != null && objetoUsuario['idPerfil'] == 'ADMIN' && objetoUsuario['origenDeContrasena'] == 'USU'){        
         sessionStorage.setItem("usuario",objetoUsuario['email']);
         sessionStorage.setItem("nombre",objetoUsuario['nombreCompleto']);
-        window.location.assign("http://localhost/practica/socio/menuAdminSocio.html");
+        window.location.assign("http://localhost/practica/sesionAdmin/sesionAdminPpal.html");
     }
     
     if(objetoUsuario['email'] != null && objetoUsuario['origenDeContrasena'] == 'SIS'){
