@@ -11,6 +11,8 @@ var paginaActual = 1;
 var precio; 
 var idSocio; 
 var validacionFecha=0; 
+var idSuscripcion;
+var idCompraSusc;
 
 //DOM
 function $(nombre) {
@@ -19,6 +21,9 @@ function $(nombre) {
 
 
 function load() {
+    oculta('cartelModalAceptar');
+    oculta('cartelModalRechazar');
+    
     sessionStorage.removeItem('idSocio');
     cargarBienvenido(usuario);
     //para ocultar los menus
@@ -407,7 +412,9 @@ function clickGuardarModSocio() {
     enviarParametrosPOSTModificar(miBackEnd + 'Socio/Actualizacion/' + nroSocio, respuestaDeServidorMod);
 }
 function respuestaDeServidorMod(respuesta) {
-    swal("Genial!", '"'+respuesta+'"', "success");
+    muestra('cartelModalAceptar');
+    $("titulo").innerHTML='Genial';
+    $("respuesta").innerHTML=rta;
     menuConsultarSocio();
 }
 
@@ -553,7 +560,7 @@ function cargarSuscripciones(rta){
                     '<div class="card-body text-dark">'+
                         '<h5 class="card-title">'+suscripcion.nombre+'</h5>'+
                         '<p class="card-text"><b> Descripcion: </b> '+suscripcion.descSuscripcion+' <br> <b>Cant de clases: </b> '+suscripcion.cantClases+' <br> <b>Precio: $ </b> '+suscripcion.precio+'</p>'+
-                        '<div class=" d-flex  justify-content-end"><button class="btn bg-primary bg-opacity-50 "  onclick="clickAdquirirSuscripcion(' + suscripcion.idSuscripcion +','+suscripcion.precio+ ')">adquirir</button></div>'+
+                        '<div class=" d-flex  justify-content-end"><button class="btn bg-primary bg-opacity-50 "  data-bs-toggle="modal" data-bs-target="#exampleModalToggle" onclick="clickAdquirirSuscripcion(' + suscripcion.idSuscripcion +','+suscripcion.precio+ ')">adquirir</button></div>'+
                     '</div>'+            
             '</div>'+
             '</div>')
@@ -566,9 +573,10 @@ function cargarSuscripciones(rta){
     
 }
 
-function clickAdquirirSuscripcion(idSuscripcion,valorPrecio){
-
-    swal({
+function clickAdquirirSuscripcion(idSusc,valorPrecio){
+    precio=valorPrecio; 
+    idSuscripcion=idSusc; 
+   /* swal({
         title: "Adquirir suscripcion",
         text: "¿Esta seguro que desea adquirir la suscripcion para este socio?",
         icon: "warning",
@@ -578,21 +586,41 @@ function clickAdquirirSuscripcion(idSuscripcion,valorPrecio){
       .then((willDelete) => {
         if (willDelete) {
             
-            enviarParametrosPOSTAdquirirSuscripcion(miBackEnd + 'Compra/Suscripcion', rtaAdquiriSuscripcion, idSuscripcion); 
-            precio=valorPrecio; 
+            
+            
         } 
-      });
+      });*/
 
  console.log(idSuscripcion);
  
 }
-function rtaAdquiriSuscripcion(idCompra){
+
+function confirmSuscripcion(){
+    console.log(idSuscripcion);
     console.log(precio);
-    enviarParametrosPOSTPago(miBackEnd + 'Pago', registrarPago, precio,idCompra); 
+
+
+    enviarParametrosPOSTAdquirirSuscripcion(miBackEnd + 'Compra/Suscripcion', rtaAdquiriSuscripcion, idSuscripcion); 
+}
+function rtaAdquiriSuscripcion(rta){
+    console.log(rta);
+    console.log(precio);
+    idCompraSusc=rta;
+     $("idCompra").innerHTML=idCompraSusc;
+     $("precio").innerHTML=precio;
+      
 }
 
-function registrarPago(rta){
-    swal("Genial!", '"'+rta+'"', "success");
+function registrarPago(){
+    enviarParametrosPOSTPago(miBackEnd + 'Pago', rtaPago, precio,idCompraSusc); 
+}
+
+function rtaPago(rta){
+
+    muestra('cartelModalAceptar');
+    $("titulo").innerHTML='Genial';
+    $("respuesta").innerHTML=rta;
+    //swal("Genial!", '"'+rta+'"', "success");
 }
 
 function clickInscribirSocioClase() {

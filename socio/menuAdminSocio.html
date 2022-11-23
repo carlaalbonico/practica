@@ -488,11 +488,104 @@
             </div>
     
         </div>
+
+
+
+
+        <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalToggleLabel">Adquirir suscripcion</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class=" ms-1 d-flex  align-items-center">
+                        <img src="../imagenes/pregunta.png" alt="" width="60" height="60" class=" me-2" >
+                        <h3 class="mb-3 text-center  ">¿Esta seguro que desea adquirir la suscripcion para este socio?</h3>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                  <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" onclick="confirmSuscripcion()">Confirmar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                    <img src="../imagenes/pagos.png" alt="" width="60" height="60" class=" me-2" >
+                  <h5 class="modal-title" id="exampleModalToggleLabel2">Registrar pago</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex"  style=" height: 50px;"> <b> N° Compra:</b> <p id="idCompra"> <span class="visually-hidden">Loading...</span></p></div>
+                    <div class="d-flex"  style=" height: 50px;"> <b> Precio: $</b> <p id="precio"> <span class="visually-hidden">Loading...</span></p></div>
+                    <div class="d-flex"  style=" height: 50px;"> <b> Forma de pago:</b>
+                        <select class="form-select" aria-label="Default select example" id="slctFormaPago">
+                        <option value="">Efectivo</option>
+                        <option value="">Medio Virtual</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-primary"  data-bs-dismiss="modal" onclick="registrarPago()">Pagar</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    
+                </div>
+              </div>
+            </div>
+          </div>
+           <!--<a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Abrir el primer modal</a>-->
+           <div class="modal" tabindex="-1" id="cartelModalAceptar">
+            <div  class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="titulo"></h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"  onclick="oculta('cartelModal')"></button>
+                </div>
+                <div class="modal-body">
+                    <div class=" ms-1 d-flex  align-items-center">
+                        <img src="../imagenes/aceptar.png" alt="" width="60" height="60" class=" me-2" >
+                        <h3 class="mb-3 text-center  " id="respuesta"><span class="visually-hidden">Loading...</span></h3>
+                    </div>
+                  <p ></p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"  onclick="oculta('cartelModal')">Cerrar</button>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal" tabindex="-1" id="cartelModalRechazar">
+            <div  class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="titulo"></h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"  onclick="oculta('cartelModal')"></button>
+                </div>
+                <div class="modal-body">
+                    <div class=" ms-1 d-flex  align-items-center">
+                        <img src="../imagenes/cancelar.png" alt="" width="60" height="60" class=" me-2" >
+                        <h3 class="mb-3 text-center  " id="respuesta"><span class="visually-hidden">Loading...</span></h3>
+                    </div>
+                  <p ></p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"  onclick="oculta('cartelModal')">Cerrar</button>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+     
         
-        
-    
-        
-       
         
         </main>
     </div>
