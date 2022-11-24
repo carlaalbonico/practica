@@ -23,6 +23,7 @@ function $(nombre)
 }
 
 
+
 function load(){
 
     TraerFechaHoy();
@@ -34,6 +35,7 @@ function load(){
     oculta('inscribirAClase');
     muestra('botonesInicio');
    
+    establecerVisibilidadImagen('bienvenido', true); 
     oculta('botonesSocio');
     oculta('historialInscripcion');
     oculta('historialSuscripcion');
@@ -55,7 +57,19 @@ function load(){
 function cargarBienvenido(usuario){
     $('bienvenido').innerHTML='Bienvenido, '+usuario
 }
+function establecerVisibilidadImagen(id, visibilidad) {
+    var img = document.getElementById(id);
+    img.style.visibility = (visibilidad ? 'visible' : 'hidden');
+    
+    }
+    
 
+    function ocultarVisibilidadImagen(id) {
+        document.getElementById(id).className="d-none";
+       
+        }
+
+    
 
 function rtaIdSocio(respuesta){
     console.log(respuesta);
@@ -89,6 +103,7 @@ function oculta_muestra(id){
     if (document.getElementById){ //se obtiene el id
     var el = document.getElementById(id); 
     el.style.display = (el.style.display == 'none') ? 'block' : 'none'; 
+
     
     }
 
@@ -123,6 +138,7 @@ function clickMiCuenta(){
     oculta('historialSuscripcion');
     oculta('botonAtras');
     oculta('inscribirAClase');
+    ocultarVisibilidadImagen('bienvenido'); 
 }
 function retornoClickConsultarSocio(respuesta) {
      
@@ -474,7 +490,12 @@ function ordenar(clases){
 
 
 function clickInscribirSocioClase() {
+    oculta('botonesSocio');
     muestra('inscribirAClase');
+    ocultarVisibilidadImagen('bienvenido'); 
+
+    
+
     enviarParametrosGET(miBackEnd + 'Socio/Inscripciones/' + nroSocio, cargarClasesInscriptas);
     
     enviarParametrosGET(miBackEnd + 'Socio/ClasesHabilitadas/' + nroSocio, cargarClasesHabilitadas);
