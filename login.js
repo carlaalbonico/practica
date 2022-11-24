@@ -116,13 +116,9 @@ function validarLogin(){
 function click(){
     
     $("btnEnviar").disabled=true;
-    oculta('cuadroLogin');
-    muestra('cartel'); 
-   
+    muestra('cartel');
     cargando();
     enviarParametrosPOST(miBackEnd + 'Usuario', retornoDelClick);
-   
-
 }
 
 function validarContrasenia(){
@@ -145,29 +141,24 @@ function validarContrasenia(){
 }    
 
 function clickGuardar(){
-    muestra('cartel');
-   
-    oculta('cuadroContrasenaNueva');
-    cargando();
+    muestra('cuadroLogin');
+    oculta_muestra('cuadroContrasenaNueva');    
     $("btnGuardar").disabled=true;
-    enviarParamCambiarContraseñaPOST(miBackEnd + 'Usuario/CambioDeContrasena', retornoDelClickGuardar);
-   
-
+    enviarParamCambiarContraseñaPOST(miBackEnd + 'Usuario/CambioDeContrasena', retornoDelClickGuardar);   
 }
+
 function retornoDelClickGuardar(respuesta){
+    muestra('cartel');
     $("txtContrasena").value = "";
     $("txtRepetidaContrasena").value = "";
-    $("respuesta").innerHTML="Las contraseña ha sido cambiada correctamente";
-    
+    $("respuesta").innerHTML="Las contraseña ha sido cambiada correctamente";    
 }
 
 
     
 
 function retornoDelClick(respuesta){
-    muestra('cuadroLogin');
-    oculta('cartel'); 
-   
+
     $("txtEmail").value = "";
     $("txtPass").value = "";
     
@@ -185,11 +176,11 @@ function retornoDelClick(respuesta){
     }
     
     if(objetoUsuario['email'] != null && objetoUsuario['origenDeContrasena'] == 'SIS'){
-        sessionStorage.setItem("usuario",objetoUsuario['email']);
-        //window.location.assign("http://localhost/practica/cambiarContrasena.html");
+        sessionStorage.setItem("usuario",objetoUsuario['email']);        
         let email = sessionStorage.getItem("usuario");
         $("emailUsuario").innerHTML=email;
-        oculta_muestra('cuadroContrasenaNueva');
+        muestra('cuadroContrasenaNueva');
+        oculta_muestra('cartel');
         oculta_muestra('cuadroLogin');
     }
 
@@ -197,15 +188,12 @@ function retornoDelClick(respuesta){
         sessionStorage.setItem("usuario",objetoUsuario['email']);
         sessionStorage.setItem("nombre",objetoUsuario['nombreCompleto']);
      
-        window.location.assign("http://localhost/practica/sesionSocio/sesionSocioPpal.html");
-        $("respuesta").innerHTML="socio ingreso correctamente";
+        window.location.assign("http://localhost/practica/sesionSocio/sesionSocioPpal.html");        
     }
 
     if(objetoUsuario['email'] != null && objetoUsuario['idPerfil'] == 'PRO' && objetoUsuario['origenDeContrasena'] == 'USU'){
         sessionStorage.setItem("usuario",objetoUsuario['email']);
-        sessionStorage.setItem("nombre",objetoUsuario['nombreCompleto']);
-        
-        $("respuesta").innerHTML="profesor ingreso correctamente";
+        sessionStorage.setItem("nombre",objetoUsuario['nombreCompleto']);                
     }
 }
 
