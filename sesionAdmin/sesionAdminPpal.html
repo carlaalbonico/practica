@@ -138,7 +138,7 @@
 
 
           <div id="botonAtras" class="text-left">
-            <button class="previous btn btn-secondary" type="button" id="btnAtras">
+            <button class="previous btn btn-secondary" type="button" id="btnAtras" onclick="atras()">
                 
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             
@@ -149,44 +149,26 @@
 
 
             <h2 class="mt-2 mb-4">Bienvenido!</h2>
+              
               <div class="row mt-2">
-                <div class="col-md-3">
-                  <button  type="button" onclick="menuRegistrarSocio()" class="btn bg-primary bg-opacity-75 btn-lg text-dark w-100"  >  
-                    <img src="../imagenes/socio.png" alt="" width="50" height="50" class=" me-2">
-                    Agregar socio</button>
+                <div class="col-md-4 d-flex">
+                  <button  type="button" onclick="clickVerSuscripciones()" class="btn bg-primary bg-opacity-75 btn-lg text-dark w-100 " >  
+                    <img src="../imagenes/suscripcion.png" alt="" width="50" height="50" class=" me-2">
+                    <div class="text-wrap">Consultar suscripciones</div>
+                    </button>
                 </div>
-                <div class="col-md-3">
-                  <button  type="button" class="btn bg-primary bg-opacity-75 btn-lg text-dark w-100" >  
-                    <img src="../imagenes/evento.png" alt="" width="50" height="50" class=" me-2">
-                    Agregar evento</button>
+                <div class="col-md-4 d-flex">
+                  <button  type="button" onclick="verHorarios()" class="btn bg-primary bg-opacity-75 btn-lg text-dark w-100 " >  
+                    <img src="../imagenes/grillahorario.png" alt="" width="50" height="50" class=" me-2">
+                    <div class="text-wrap"> Consultar horarios</div>
+                   </button>
                 </div>
                 
-                <div class="col-md-3">
-                  <button  type="button" class="btn bg-primary bg-opacity-75 btn-lg text-dark w-100 " >  
-                    <img src="../imagenes/inscriptos.png" alt="" width="50" height="50" class=" me-2">
-                    Tomar Asistencia</button>
-                </div>
-              </div>
-              <div class="row mt-2">
-                <div class="col-md-3">
-                  <button  type="button" onclick="clickVerSuscripciones()" class="btn bg-primary bg-opacity-75 btn-lg text-dark w-100" >  
-                    <img src="../imagenes/suscripcion.png" alt="" width="50" height="50" class=" me-2">
-                    Consultar suscripciones</button>
-                </div>
-                <div class="col-md-3">
-                  <button  type="button" onclick="verHorarios()" class="btn bg-primary bg-opacity-75 btn-lg text-dark w-100" >  
-                    <img src="../imagenes/grillahorario.png" alt="" width="50" height="50" class=" me-2">
-                    Consultar horarios</button>
-                </div>
-                <div class="col-md-3">
-                      <button  type="button" class="btn bg-primary bg-opacity-75 btn-lg text-dark w-100 " >  
-                        <img src="../imagenes/horario.png" alt="" width="50" height="50" class=" me-2">
-                        Consultar clases de hoy</button>
-                </div>
-                  <div class="col-md-3">
+                  <div class="col-md-4 d-flex">
                     <button  type="button" class="btn bg-primary bg-opacity-75 btn-lg text-dark w-100 " >  
                       <img src="../imagenes/cuenta.png" alt="" width="50" height="50" class=" me-2">
-                      Consultar pagos</button>
+                      <div class="text-wrap"> Consultar pagos</div>
+                     </button>
                   </div>
                 
                 

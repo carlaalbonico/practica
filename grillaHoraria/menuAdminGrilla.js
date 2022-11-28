@@ -8,7 +8,7 @@ var paginas;
 var pagina = [];
 var paginaActual = 1;
 var salon = "Principal";
-var fechaDomingo;
+
 var fecha;
 var clase;
 
@@ -23,8 +23,10 @@ function load() {
    muestra('grillaHorarios');
    cargando();
    TraerFechaHoy();
+   console.log(fecha);
+
     traerClases(miBackEnd + 'ClasePorDia', verClases);
-    //TraerFechaHoy();
+    
     
      console.log(salon);
 
@@ -113,85 +115,46 @@ function cargarSkeletonTabla(){
 }
 function TraerFechaHoy(){
     const hoy = new Date();
+    fecha= hoy;
+}
+
+
+function diahoy(){
     let diaDeSemana = hoy.getDay();
     let dia = hoy.getDate();
     let mes = hoy.getMonth()+1;
     let año = hoy.getFullYear();
     var fechaCompleta; 
-    fechaCompleta= new Date(año+'-'+mes+'-'+dia); 
-    fecha= fechaCompleta;
+    fechaCompleta= año+'-'+mes+'-'+dia; 
 }
-function sumarDias(fecha, dias){
-    fecha.setDate(fecha.getDate() + dias);
-    return fecha;
+function sumarDias(dia, dias){
+    dia.setDate(dia.getDate() + dias);
+    return dia;
   }
 
 
-function calcularSemanaActual(){
+function calcularDomingo(){
     const fecha = new Date();
     let diaDeSemana = fecha.getDay();
-    let dia = fecha.getDate();
-    let mes = fecha.getMonth()+1;
-    let año = fecha.getFullYear();
-    var fechaCompleta; 
-    var fechaDom;
+   
+   
+  
     var diaDomingo; 
 
-    fechaCompleta= new Date(año+'-'+mes+'-'+dia); 
-
-    console.log(fechaCompleta);
-    switch (diaDeSemana){
-        case 0: diaDomingo=sumarDias(fechaCompleta,-6);
-        case 1: diaDomingo=sumarDias(fechaCompleta,-0);
-        case 2: diaDomingo=sumarDias(fechaCompleta,-1);
-        case 3: diaDomingo=sumarDias(fechaCompleta,-2);
-        case 4: diaDomingo=sumarDias(fechaCompleta,-3);
-        case 5: diaDomingo=sumarDias(fechaCompleta,-4);
-        case 6: diaDomingo=sumarDias(fechaCompleta,-5);
+   switch (diaDeSemana){
+        case 0: diaDomingo=sumarDias(fecha,0);
+        case 1: diaDomingo=sumarDias(fecha,-1);
+        case 2: diaDomingo=sumarDias(fecha,-2);
+        case 3: diaDomingo=sumarDias(fecha,-3);
+        case 4: diaDomingo=sumarDias(fecha,-4);
+        case 5: diaDomingo=sumarDias(fecha,-5);
+        case 6: diaDomingo=sumarDias(fecha,-6);
 
     }
     
-
-    fechaDom=new Date(diaDomingo);
-
-    fechaDomingo= fechaDom;
-    console.log('dia domingo: '+fechaDomingo);
+    console.log('dia domingo: '+diaDomingo);
 }
 
-
-//Arreglar porqe no me funciona si 
-function calcularSemanaAnterior(){
-    const fecha = new Date();
-    let diaDeSemana = fecha.getDay();
-    let dia = fecha.getDate();
-    let mes = fecha.getMonth()+1;
-    let año = fecha.getFullYear();
-    var fechaCompleta; 
-    var fechaDom;
-    var diaDomingo; 
-
-
-    fechaCompleta= new Date(año+'-'+mes+'-'+dia); 
-
-    fechaCompleta= sumarDias(fechaCompleta,-7);
-    console.log(fechaCompleta);
-    switch (diaDeSemana){
-        case 0: diaDomingo=sumarDias(fechaCompleta,-6);
-        case 1: diaDomingo=sumarDias(fechaCompleta,-0);
-        case 2: diaDomingo=sumarDias(fechaCompleta,-1);
-        case 3: diaDomingo=sumarDias(fechaCompleta,-2);
-        case 4: diaDomingo=sumarDias(fechaCompleta,-3);
-        case 5: diaDomingo=sumarDias(fechaCompleta,-4);
-        case 6: diaDomingo=sumarDias(fechaCompleta,-5);
-
-    }
-    
-
-    fechaDom=new Date(diaDomingo);
-    fechaDomingo= fechaDom;
-    //fechaDomingo= fechaDom;
-    console.log('dia domingo anterior: '+fechaDomingo);
-}
 
 
 
@@ -210,7 +173,7 @@ function verClases(respuesta){
    //console.log(clases);
     cargarSkeletonTabla();
    
-    
+    console.log(fecha);
     mostrarHorario(clases,salon,fecha);
     
 }

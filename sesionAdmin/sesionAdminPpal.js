@@ -84,6 +84,12 @@ function oculta(id){
     }
 
 }
+function atras(){
+oculta('verSuscripciones');
+oculta('botonAtras');
+oculta('cartel'); 
+muestra('botonesInicio');
+oculta('verHorarios');}
 
 function menuRegistrarSocio() {
     window.location.assign("http://localhost/practica/socio/registrarSocio.html");//aca va el enlace de la pagina registrar; 
@@ -150,7 +156,7 @@ function cargarSuscripciones(rta){
                     '<div class="card-body text-dark">'+
                         '<h5 class="card-title">'+suscripcion.nombre+'</h5>'+
                         '<p class="card-text"><b> Descripcion: </b> '+suscripcion.descSuscripcion+' <br> <b>Cant de clases: </b> '+suscripcion.cantClases+' <br> <b>Precio: </b> '+suscripcion.precio+'</p>'+
-                        '<div class=" d-flex  justify-content-end"><button class="btn bg-primary bg-opacity-50 "  onclick="clickSuscripcion(' + suscripcion.idSuscripcion + ')">adquirir</button></div>'+
+                        
                     '</div>'+            
             '</div>'+
             '</div>')
@@ -167,7 +173,7 @@ function cargarSuscripciones(rta){
                     '<div class="card-body text-dark">'+
                         '<h5 class="card-title">'+suscripcion.nombre+'</h5>'+
                         '<p class="card-text"><b> Descripcion: </b> '+suscripcion.descSuscripcion+' <br> <b>Cant de clases: </b> '+suscripcion.cantClases+' <br> <b>Precio: $ </b> '+suscripcion.precio+'</p>'+
-                        '<div class=" d-flex  justify-content-end"><button class="btn bg-primary bg-opacity-50 "  onclick="clickAdquirirSuscripcion(' + suscripcion.idSuscripcion +','+suscripcion.precio+ ')">adquirir</button></div>'+
+                       
                     '</div>'+            
             '</div>'+
             '</div>')

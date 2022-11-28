@@ -13,6 +13,7 @@ var idSocio;
 var validacionFecha=0; 
 var idSuscripcion;
 var idCompraSusc;
+var fecha;
 
 //DOM
 function $(nombre) {
@@ -28,12 +29,17 @@ function load() {
     cargarBienvenido(usuario);
     //para ocultar los menus
     menuConsultarSocio();
+    TraerFechaHoy(); 
+    console.log(fecha);
+
+   
     oculta('botonesAdminParaUnSocio');
     oculta('formularioModificarSocio');
     oculta('formularioChico');
     oculta('historialInscripcion');
     oculta('agregarSuscSocio');
     oculta('botonAtras');
+   oculta('historialSuscripcion');
    oculta('historialSuscripcion');
 
     //para ocultar cartel del mensaje
@@ -54,7 +60,17 @@ function load() {
 function cargarBienvenido(usuario){
     $('bienvenido').innerHTML='Bienvenido, '+usuario
 }
-
+function TraerFechaHoy(){
+    const hoy = new Date();
+    let diaDeSemana = hoy.getDay();
+    let dia = hoy.getDate();
+    let mes = hoy.getMonth()+1;
+    let año = hoy.getFullYear();
+    var fechaCompleta; 
+    fechaCompleta= año+'-'+mes+'-'+dia; 
+    fecha= hoy;
+    
+}
 
 function cerrarSesion() {
     sessionStorage.clear();
@@ -97,6 +113,7 @@ function atras() {
     oculta('formularioChico');
     oculta('agregarSuscSocio');
     oculta('historialInscripcion');
+    oculta('historialSuscripcion');
     oculta('botonAtras');
 
 }
@@ -252,9 +269,9 @@ function buscarPorNombre(){
 }
 
 function clickConsultarSocio(nroSocio) {
-    console.log(nroSocio);
+    
     idSocio=nroSocio; 
-    console.log(idSocio);
+   
     enviarParametrosGET(miBackEnd + 'Socio/' + nroSocio, retornoClickConsultarSocio);
     enviarParametrosGET(miBackEnd + 'Socio/Suscripciones/' + nroSocio, retornarSuscripcionesActivas);
     oculta('busquedaSocios');
@@ -276,7 +293,7 @@ function retornoClickConsultarSocio(respuesta) {
     oculta('formularioModificarSocio');
     oculta('formularioChico');
     oculta('historialInscripcion');
-   
+    oculta('historialSuscripcion');
     oculta('botonAtras');
 
     var socio = JSON.parse(respuesta);
@@ -305,7 +322,7 @@ function retornoClickConsultarSocio(respuesta) {
 
     var texto = socio.fechaDeAlta;
     var salida = formato(texto);
-    console.log(salida);
+   
 
 
     $("altaSocio").innerHTML = salida;
@@ -378,6 +395,7 @@ function retornoClickModificarSocio(respuesta) {
     muestra('formularioModificarSocio');
     oculta('formularioChico');
     muestra('botonAtras');
+    oculta('historialSuscripcion');
     var socioMod = JSON.parse(respuesta);
 
     $("nombreSocioModificar").value = socioMod["nombre"];
@@ -485,6 +503,7 @@ function clickRegistrarSuscripcion() {
     muestra('formularioChico');
     muestra('agregarSuscSocio');
     oculta('historialInscripcion');
+    oculta('historialSuscripcion');
     muestra('botonAtras');
     //manda los datos para cargar el formularioChico
     var idSocio = document.getElementById("nroSocio").innerText;
@@ -630,38 +649,211 @@ function clickInscribirSocioClase() {
 }
 
 function clickHistorialInscripcion(){
+    const hoy = new Date();
+    var fechaAnterior; 
     oculta('cartel');
     oculta('botonesAdminParaUnSocio');
     oculta('formularioModificarSocio');
     muestra('formularioChico');
     oculta('agregarSuscSocio');
-   
+
     muestra('botonAtras');
      muestra('historialInscripcion');
+     oculta('historialSuscripcion');
      enviarParametrosGET(miBackEnd + 'Socio/' + idSocio, cargarFormularioChico);
+
+  
+     console.log(fecha);
+    fechaAnterior=sumarDias(hoy,-30);
+    console.log(fecha);
+    console.log(fechaAnterior);
+    console.log(formatoDia(fecha));
+    console.log(formatoDia(fechaAnterior));
+   
+    var fechaFin=  formatoDia(fecha);
+    var fechaInicio= formatoDia(fechaAnterior);
+    console.log(fechaInicio);
+    console.log(fechaFin);
+   
+    enviarParametrosPostHistorial(miBackEnd + 'Socio/HistorialInscripciones/' + idSocio, cargarHistorialInscrip, fechaInicio,fechaFin);
+    cargarSkeletonHistorial(); 
 }
 
-function validarFechaInicio(){
-    validacionFecha=1; 
-    console.log(validacionFecha); 
+function cargarSkeletonHistorial(){
+    var opciones = [];
+
+    for(let i=0; i < 5; i++){
+        opciones.push(
+            '<tr>' +
+                '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
+              
+            '</tr>'
+        );
+    }
+
+    $('infoHistorialInscrip').innerHTML = opciones.join('');
+    
 }
-function validarFechaFin(){
-    validacionFecha=validacionFecha +1;
-    console.log(validacionFecha); 
-    if(validacionFecha==2){
+
+function padTo2Digits(num) {
+    return num.toString().padStart(2, '0');
+  }
+  
+function formatoDia(element){
+    let dia = element.getDate();
+    let mes = element.getMonth()+1;
+    let año = element.getFullYear();
+    var fechaCompleta; 
+    var fechaElemento;
+    fechaElemento= [
+        año,
+        padTo2Digits(mes),
+        padTo2Digits(dia),
+      ].join('-');
+	return fechaCompleta=fechaElemento; 
+    
+  }
+
+
+function sumarDias(dia, dias){
+    dia.setDate(dia.getDate() + dias);
+    return dia;
+  }
+
+
+
+function validarFecha(){
+    
         var fechaInicio = document.getElementById("txtFechaInicio").value;
         var fechaFin= document.getElementById("txtFechaFin").value;
         console.log( fechaInicio);
         console.log(fechaFin);
         enviarParametrosPostHistorial(miBackEnd + 'Socio/HistorialInscripciones/' + idSocio, cargarHistorialInscrip, fechaInicio,fechaFin);
-        
-    }
+        cargarSkeletonHistorial(); 
+    
 }
 
 
 function cargarHistorialInscrip(rta){
 console.log(rta);
+inscripciones= JSON.parse(rta);
+opciones=[];
+inscripciones.forEach(
+    element =>{
+        opciones.push(
+            '<tr >'+
+                '<th scope="row">'+element.nombreActividad+'</th>'+
+                '<td>'+formato(element.fecha)+'</td>'+
+                '<td>'+element.dias+'</td>'+
+                '<td>'+element.horaDeInicio+'</td>'+
+                '<td>'+element.nombreSalon+'</td>'+
+            
+                '</tr>'
+
+        );
+    }
+); 
+$('infoHistorialInscrip').innerHTML = opciones.join('');
+
+
 }
+function cargarSkeletonHistorialSus(){
+    var opciones = [];
+
+    for(let i=0; i < 5; i++){
+        opciones.push(
+            '<tr>' +
+                '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
+              
+            '</tr>'
+        );
+    }
+
+    $('infoHistorialSuscrip').innerHTML = opciones.join('');
+    
+}
+
+
+
+function clickHistorialSuscripcion(){
+    const hoy = new Date();
+    var fechaAnterior; 
+    oculta('cartel');
+    oculta('botonesAdminParaUnSocio');
+    oculta('formularioModificarSocio');
+    muestra('formularioChico');
+    oculta('agregarSuscSocio');
+
+    muestra('botonAtras');
+     oculta('historialInscripcion');
+     muestra('historialSuscripcion');
+     enviarParametrosGET(miBackEnd + 'Socio/' + idSocio, cargarFormularioChico);
+
+     console.log(fecha);
+    fechaAnterior=sumarDias(hoy,-30);
+    console.log(fecha);
+    console.log(fechaAnterior);
+    console.log(formatoDia(fecha));
+    console.log(formatoDia(fechaAnterior));
+   
+    var fechaFin=  formatoDia(fecha);
+    var fechaInicio= formatoDia(fechaAnterior);
+    console.log(fechaInicio);
+    console.log(fechaFin);
+
+     enviarParametrosPostHistorial(miBackEnd + 'Socio/HistorialSuscripciones/' + idSocio, cargarHistorialSuscrip, fechaInicio,fechaFin);
+     cargarSkeletonHistorialSus(); 
+}
+
+
+
+function validarFechaSus(){
+    
+    var fechaInicio = document.getElementById("txtFechaInicioSus").value;
+    var fechaFin= document.getElementById("txtFechaFinSus").value;
+    console.log( fechaInicio);
+    console.log(fechaFin);
+    enviarParametrosPostHistorial(miBackEnd + 'Socio/HistorialSuscripciones/' + idSocio, cargarHistorialInscrip, fechaInicio,fechaFin);
+    cargarSkeletonHistorialSus(); 
+
+}
+
+function cargarHistorialSuscrip(rta){
+console.log(rta);
+suscripciones= JSON.parse(rta);
+opciones=[];
+suscripciones.forEach(
+    element =>{
+        opciones.push(
+            '<tr >'+
+                '<th scope="row">'+element.nombreSuscripcion+'</th>'+
+                '<th scope="row">'+element.nombreActividad+'</th>'+
+                '<td>'+element.cantClases+'</td>'+
+                '<td>'+formato(element.fechaEmision)+'</td>'+
+                '<td>'+formato(element.fechaVencimiento)+'</td>'+
+                '<td>'+element.nroPago+'</td>'+
+                '<td>'+formato(element.fecha)+'</td>'+
+            
+                '</tr>'
+
+        );
+    }
+); 
+$('infoHistorialSuscrip').innerHTML = opciones.join('');
+
+
+}
+
 
 function enviarParametrosGET(servidor, funcionARealizar) {
 
@@ -863,7 +1055,8 @@ function enviarParametrosPOSTPago(servidor, funcionARealizar,importe,idCompra) {
 }
 
 function enviarParametrosPostHistorial(servidor, funcionARealizar, fechaInicio,fechaFin){
-  
+  console.log(fechaInicio);
+  console.log(fechaFin);
     //declaro el objeto
  var xmlhttp = new XMLHttpRequest();
 

@@ -199,6 +199,8 @@
                         <button  class="btn btn-lg btn-primary btn-block" type="button" id="btnInscribirSocioClase" onclick="clickInscribirSocioClase()" >Inscribir a clase</button>
 
                         <button  class="btn btn-lg btn-primary btn-block" type="button" id="btnHistorialInscripcion" onclick="clickHistorialInscripcion()" >Historial de Inscripciones</button>
+                        
+                        <button  class="btn btn-lg btn-primary btn-block" type="button" id="btnHistorialInscripcion" onclick="clickHistorialSuscripcion()" >Historial de suscripciones</button>
                     </div>
                     <div class="ms-4">
                         <h3>SUSCRIPCION ACTIVA: </h3>
@@ -392,22 +394,25 @@
             
                
             </div>
-            <h4 class="mb-3 text-left ">Ingrese el período a consultar:</h4>
+            <h5 class="mb-3 text-left ">Ingrese el período a consultar:</h5>
             <div class="row">
-                    <div class="col-lg-2 d-flex ">
+                    <div class=" col-2 col-lg-2 d-flex align-items-center">
                     
                         <label>Inicio: </label>
                         
-                        <input type="date" class="form-control" id="txtFechaInicio" oninput="validarFechaInicio()"autofocus>
+                        <input type="date" class="form-control" id="txtFechaInicio" autofocus>
                     
                     </div>
-                    <div class=" col-lg-2 d-flex">
+                    <div class="col-1 col-lg-1 d-flex"></div>
+                    <div class="col-2 col-lg-2 d-flex  align-items-center">
                     
                         <label>Fin:</label>
                         
-                        <input type="date" class="form-control" id="txtFechaFin"  oninput="validarFechaFin()" autofocus>
+                        <input type="date" class="form-control" id="txtFechaFin"   autofocus>
                 
                     </div>
+                    <div class="col-2 col-lg-2 d-flex"><button  class="btn btn-sm btn-outline-primary" onclick="validarFecha()">consultar</button></div>
+                    
             </div>
 
 
@@ -418,14 +423,18 @@
 
                     <thead>
                     <tr>
-                        <th scope="col">Suscripcion</th>
+                        
                         <th scope="col">Actividad</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Dias</th>
+                        <th scope="col">Hora</th>
+                        <th scope="col">Salon</th>
                         
                         <th scope="col"></th>         
                     </tr>
                     </thead>
 
-                    <tbody id="infoSociosInscrip">
+                    <tbody id="infoHistorialInscrip">
                         
                     </tbody>
 
@@ -441,26 +450,54 @@
             
                
             </div>
-           
+            <h5 class="mb-3 text-left ">Ingrese el período a consultar:</h5>
+            <div class="row">
+                    <div class=" col-2 col-lg-2 d-flex align-items-center">
+                    
+                        <label>Inicio: </label>
+                        
+                        <input type="date" class="form-control" id="txtFechaInicioSus" autofocus>
+                    
+                    </div>
+                    <div class="col-1 col-lg-1 d-flex"></div>
+                    <div class="col-2 col-lg-2 d-flex  align-items-center">
+                    
+                        <label>Fin:</label>
+                        
+                        <input type="date" class="form-control" id="txtFechaFinSus"   autofocus>
+                
+                    </div>
+                    <div class="col-2 col-lg-2 d-flex"><button  class="btn btn-sm btn-outline-primary" onclick="validarFechaSus()">consultar</button></div>
+                    
+            </div>
+
+
+
             <div class="row align-items-center p-1 ">
 
                 <table class="table" id="tablaSociosInscrip">
 
                     <thead>
                     <tr>
-                        <th scope="col">Socio N°</th>
-                        <th scope="col">Nombre</th>
+                        <th scope="col">Suscripcion</th>
+                        <th scope="col">Actividad</th>
+                        <th scope="col">Cant.Clases</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Fecha Vencimiento</th>
+                        <th scope="col">Nro. de pago</th>
+                        <th scope="col">Fecha de Pago</th>
                         
-                        <th scope="col"></th>         
+                    
                     </tr>
                     </thead>
 
-                    <tbody id="infoSociosSuscrip">
+                    <tbody id="infoHistorialSuscrip">
                         
                     </tbody>
 
                 </table>
             </div>
+            
         </div>
 
         <div id="agregarSuscSocio" class="mt-2">
