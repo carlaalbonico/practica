@@ -27,7 +27,7 @@ function load(){
     //boton para cerrar sesion 
     document.getElementById("logOut").addEventListener("click",cerrarSesion);
     //boton para perfil usuario logueado
-    document.getElementById("perfil").addEventListener("click",mostrarPerfil);
+    
 
  
 
@@ -54,9 +54,7 @@ function cerrarSesion() {
     sessionStorage.clear();
     window.location.assign("http://localhost/practica/login.html");
 }
-function mostrarPerfil(){
-    window.location.assign("http://localhost/practica/perfilUsuario.html");
-}
+
 
 function oculta_muestra(id){
     if (document.getElementById){ //se obtiene el id
