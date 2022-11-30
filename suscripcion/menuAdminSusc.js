@@ -164,7 +164,7 @@ console.log(suscrip);
 
 
             suscripcionFiltradas.forEach(element => {
-                opciones.push('<tr ><td>'+element.nombre+'</td>'+
+                opciones.push('<tr ><td scope="row">'+element.nombre+'</td>'+
                 '<td>'+element.cantClases+'</td>'+
                 '<td>'+element.descSuscripcion+'</td>'+
                 '<td>'+element.actividad+'</td>'+
@@ -184,12 +184,12 @@ console.log(suscrip);
         var opciones=[]; 
 
         suscrip.forEach(element => {
-            opciones.push('<tr><td>'+element.nombre+'</td>'+
+            opciones.push('<tr><th scope="row">'+element.nombre+'</th>'+
                 '<td>'+element.cantClases+'</td>'+
                 '<td>'+element.descSuscripcion+'</td>'+
                 '<td>'+element.actividad+'</td>'+
                 '<td>$'+element.precio+'</td>'+
-                '<td><button class="btn bg-danger bg-opacity-75 modificacion"  onclick="clickModifSuscripcion(' + element.idSuscripcion + ')">Modificar</button></td></tr>' );
+                '<td><button class="btn bg-primary  btn-outline-dark  bg-opacity-75 modificacion"  onclick="clickModifSuscripcion(' + element.idSuscripcion + ')">Modificar</button></td></tr>' );
             
         });
 

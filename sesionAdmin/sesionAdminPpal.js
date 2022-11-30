@@ -336,6 +336,11 @@ function previsualizar(){
     $('salon').innerHTML = salon; 
     $('tablaHorario').innerHTML= tablaHorario; console.log('me llamamamamamamamam');
 }
+function previsualizarSuscripcion(){
+    var tablaSusc = document.getElementById("suscripciones").outerHTML;
+  
+    $('tablaSuscripcion').innerHTML= tablaSusc; console.log('me llamamamamamamamam');
+}
 
 
 function exportarPDF(){
@@ -346,6 +351,48 @@ function exportarPDF(){
     
     var margin = 20; 
     var scale = ((doc.internal.pageSize.width - margin * 2) / (document.getElementById("imprimir").clientWidth)); 
+    var scale_mobile = (doc.internal.pageSize.width - margin * 2) / document.body.getBoundingClientRect(); 
+    console.log(tabla);
+
+    console.log(scale);
+    console.log(document.body.clientWidth);
+  
+    
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+        
+        doc.html(tabla, { 
+            x: margin,
+            y: margin,
+            html2canvas:{
+                scale: scale_mobile,
+            },
+            callback: function(doc){
+                doc.output('dataurlnewwindow', {filename: 'pdf.pdf'}); 
+            }
+        });
+    } else{
+         
+        doc.html(tabla, {
+            x: margin,
+            y: margin,
+            html2canvas:{
+                scale: scale,
+            },
+            callback: function(doc){
+                doc.output('dataurlnewwindow', {filename: 'pdf.pdf'}); 
+            }
+        });
+    }
+};
+
+function exportarPDFSus(){
+    
+    var doc = new jsPDF('l', 'pt', 'a4');
+    
+    var tabla = document.getElementById("imprimirSus");
+    
+    var margin = 20; 
+    var scale = ((doc.internal.pageSize.width - margin * 2) / (document.getElementById("imprimirSus").clientWidth)); 
     var scale_mobile = (doc.internal.pageSize.width - margin * 2) / document.body.getBoundingClientRect(); 
     console.log(tabla);
 

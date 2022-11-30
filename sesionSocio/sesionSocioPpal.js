@@ -14,8 +14,9 @@ var paginas;
 var pagina = [];
 var paginaActual = 1;
 var salon = "Principal";
-var fechaHoy;
+
 var clasesInscriptas=[];
+var fecha;
 //DOM
 function $(nombre)
 {
@@ -35,12 +36,13 @@ function load(){
     oculta('inscribirAClase');
     muestra('botonesInicio');
    
-    establecerVisibilidadImagen('bienvenido', true); 
+    muestra('fotobienvenido'); 
+    muestra('fotobienvenido1'); 
     oculta('botonesSocio');
     oculta('historialInscripcion');
     oculta('historialSuscripcion');
     oculta('botonAtras');
-
+    oculta('rutinasSocio');
      
     //boton para cerrar sesion 
     document.getElementById("logOut").addEventListener("click",cerrarSesion);
@@ -57,17 +59,6 @@ function load(){
 function cargarBienvenido(usuario){
     $('bienvenido').innerHTML='Bienvenido, '+usuario
 }
-function establecerVisibilidadImagen(id, visibilidad) {
-    var img = document.getElementById(id);
-    img.style.visibility = (visibilidad ? 'visible' : 'hidden');
-    
-    }
-    
-
-    function ocultarVisibilidadImagen(id) {
-        document.getElementById(id).className="d-none";
-       
-        }
 
     
 
@@ -131,14 +122,14 @@ function clickMiCuenta(){
     enviarParametrosGET(miBackEnd + 'Socio/' + nroSocio, retornoClickConsultarSocio);
     
     muestra('botonesInicio');
-  
     oculta('botonAtras'); 
     muestra('botonesSocio');
     oculta('historialInscripcion');
     oculta('historialSuscripcion');
-    oculta('botonAtras');
     oculta('inscribirAClase');
-    ocultarVisibilidadImagen('bienvenido'); 
+    oculta('fotobienvenido'); 
+    oculta('fotobienvenido1'); 
+    oculta('rutinasSocio');
 }
 function retornoClickConsultarSocio(respuesta) {
      
@@ -161,19 +152,28 @@ function retornoClickConsultarSocio(respuesta) {
 
 }
 
+
+
+
+
 function TraerFechaHoy(){
-    const fecha = new Date();
-    let diaDeSemana = fecha.getDay();
-    let dia = fecha.getDate();
-    let mes = fecha.getMonth()+1;
-    let año = fecha.getFullYear();
+    const hoy = new Date();
+    let diaDeSemana = hoy.getDay();
+    let dia = hoy.getDate();
+    let mes = hoy.getMonth()+1;
+    let año = hoy.getFullYear();
     var fechaCompleta; 
-    fechaCompleta= new Date(año+'-'+mes+'-'+dia); 
-    fechaHoy= fechaCompleta;
+    fechaCompleta= año+'-'+mes+'-'+dia; 
+    
+    fecha= hoy;
 }
 
 function formato(texto){
-    return texto.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3/$2/$1');
+    return texto.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3/$2');
+  }
+
+  function formatoAño(texto){
+    return texto.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3/$2/$1S');
   }
 function retornarSuscripcionesActivas(rta){
 
@@ -202,11 +202,11 @@ function retornarSuscripcionesActivas(rta){
 
 function clasesSalonPpal(){
     salon = "Principal"; 
-    mostrarHorario(clasesHabilitadas,clasesInscriptas,salon,fechaHoy);
+    mostrarHorario(clasesHabilitadas,clasesInscriptas,salon,fecha);
 }
 function clasesSalonMusc(){
        salon = "Musculacion"; 
-       mostrarHorario(clasesHabilitadas,clasesInscriptas,salon,fechaHoy);
+       mostrarHorario(clasesHabilitadas,clasesInscriptas,salon,fecha);
 }
 function cargarClasesInscriptas(rta){
     clasesInsc= JSON.parse(rta);
@@ -234,7 +234,7 @@ clasesHabilitadas= JSON.parse(rta);
         console.log("sin clases")
         $('semana').innerHTML = '<div class=" d-flex justify-content-center">no hay clases habilitadas para este socio.</div>';
     }else{
-        mostrarHorario(clasesHabilitadas,clasesInscriptas,salon,fechaHoy);
+        mostrarHorario(clasesHabilitadas,clasesInscriptas,salon,fecha);
     }
 
 }
@@ -382,7 +382,7 @@ function armaColumnaPorDia(clases, clasesInscriptas ,dia, fecha, salon){
             ' <div class="row " id="'+dia+'">'+
                 '<div class="col mb-2">'+
                     '<div class="d-flex h-100 text-white bg-danger  justify-content-center rounded-3  align-items-center" style="  height: 80px;">'+
-                    '<p class="fs-5 fw-bold">' +dia+'  '+formato(fecha)+'</p>'+
+                    '<p class="fw-bold">' +dia+'  '+formato(fecha)+'</p>'+
                     '</div>'+
                     '</div>'+
                 '</div>'
@@ -486,19 +486,325 @@ function ordenar(clases){
     console.log('array ordenado: '+JSON.stringify(semana));
 }
 
+function clickRutinas(){
+    oculta('botonesSocio');
+   oculta('inscribirAClase');
+    oculta('fotobienvenido');
+    oculta('fotobienvenido1'); 
+    oculta('historialInscripcion');
+    oculta('historialSuscripcion');
+    muestra('rutinasSocio');
+    enviarParametrosGET(miBackEnd + 'Rutina',retornoDelClickRutina);
+}
+function retornoDelClickRutina(rta){
+    var rutinas= JSON.parse(rta);
+    console.log(rutinas);
+
+    var opciones=[];
+        rutinas.forEach(rutina =>{
+            opciones.push(' <div class="col-4">'+
+            '<div class="card border-primary mb-1" style="max-width: 25rem;">'+
+                    '<div class="card-header bg-primary bg-opacity-25">'+rutina.salon+'</div>'+
+                    '<div class="card-body text-dark">'+
+                        '<h5 class="card-title">'+rutina.nombre+'</h5>'+
+                        '<p class="card-text"><b> Descripcion: </b> '+rutina.descripcion+'</p>'+
+                        '<div class=" d-flex  justify-content-end"><button class="btn bg-primary bg-opacity-75 " data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="verRutina(/'+rutina.nombre+'/,/'+rutina.descripcion+'/,/'+rutina.salon+'/)">Ver</button></div>'+
+                    '</div>'+            
+            '</div>'+
+            '</div>')
+        
+        })
+
+        $('rutinas').innerHTML = opciones.join('');
+}
+
+function verRutina(pnombre,pdescripcion,psalon){
+    nombre= String(pnombre);
+    descripcion= String(pdescripcion);
+    salon= String(psalon);
+
+    console.log(quitarbarras(nombre) );
+    console.log(quitarbarras(descripcion) );
+    console.log(quitarbarras(salon) );
+    var opciones=[];
+
+    opciones.push('<div class="container">'+
+    '<h2 class=" text-center mb-4">'+quitarbarras(nombre)+'</h2>'+
+    '<p class="">'+quitarbarras(descripcion)+'</p>'+
+    '<div class="d-flex align-items-center"><h4 class=" align-items-center" >Salon: </h4><h5 class="lead">'+quitarbarras(salon)+'</h5></div>'+
+    '</div>');
+
+   
+
+    $('tablaRutinas').innerHTML= opciones.join('');
+}
+
+function quitarbarras(element){
+    return element.slice(1, -1);
+   }
+
+   function exportarPDF(){
+    
+    var doc = new jsPDF('p', 'pt', 'a4');
+    
+    var tabla = document.getElementById("imprimir");
+    
+    var margin = 20; 
+    var scale = ((doc.internal.pageSize.width - margin * 2) / (document.getElementById("imprimir").clientWidth)); 
+    var scale_mobile = (doc.internal.pageSize.width - margin * 2) / document.body.getBoundingClientRect(); 
+    console.log(tabla);
+
+    console.log(scale);
+    console.log(document.body.clientWidth);
+  
+    
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+        
+        doc.html(tabla, { 
+            x: margin,
+            y: margin,
+            html2canvas:{
+                scale: scale_mobile,
+            },
+            callback: function(doc){
+                doc.output('dataurlnewwindow', {filename: 'pdf.pdf'}); 
+            }
+        });
+    } else{
+         
+        doc.html(tabla, {
+            x: margin,
+            y: margin,
+            html2canvas:{
+                scale: scale,
+            },
+            callback: function(doc){
+                doc.output('dataurlnewwindow', {filename: 'pdf.pdf'}); 
+            }
+        });
+    }
+};
 
 
 
 function clickInscribirSocioClase() {
     oculta('botonesSocio');
     muestra('inscribirAClase');
-    ocultarVisibilidadImagen('bienvenido'); 
+    oculta('fotobienvenido');
+    oculta('fotobienvenido1'); 
+    oculta('historialInscripcion');
+    oculta('historialSuscripcion');
+    oculta('rutinasSocio');
 
-    
 
     enviarParametrosGET(miBackEnd + 'Socio/Inscripciones/' + nroSocio, cargarClasesInscriptas);
     
     enviarParametrosGET(miBackEnd + 'Socio/ClasesHabilitadas/' + nroSocio, cargarClasesHabilitadas);
+
+}
+
+
+
+
+function clickHistorialInscripcion(){
+    const hoy = new Date();
+    var fechaAnterior; 
+    oculta('botonesSocio');
+    oculta('inscribirAClase');
+    oculta('fotobienvenido'); 
+    oculta('fotobienvenido1');
+    muestra('historialInscripcion');
+    oculta('historialSuscripcion');
+    oculta('rutinasSocio');
+    
+
+  
+     console.log(fecha);
+    fechaAnterior=sumarDias(hoy,-30);
+    console.log(fecha);
+    console.log(fechaAnterior);
+    console.log(formatoDia(fecha));
+    console.log(formatoDia(fechaAnterior));
+   
+    var fechaFin=  formatoDia(fecha);
+    var fechaInicio= formatoDia(fechaAnterior);
+    console.log(fechaInicio);
+    console.log(fechaFin);
+   
+    enviarParametrosPostHistorial(miBackEnd + 'Socio/HistorialInscripciones/' +nroSocio, cargarHistorialInscrip, fechaInicio,fechaFin);
+    cargarSkeletonHistorial(); 
+}
+
+function cargarSkeletonHistorial(){
+    var opciones = [];
+
+    for(let i=0; i < 5; i++){
+        opciones.push(
+            '<tr>' +
+                '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
+              
+            '</tr>'
+        );
+    }
+
+    $('infoHistorialInscrip').innerHTML = opciones.join('');
+    
+}
+
+function padTo2Digits(num) {
+    return num.toString().padStart(2, '0');
+  }
+  
+function formatoDia(element){
+    let dia = element.getDate();
+    let mes = element.getMonth()+1;
+    let año = element.getFullYear();
+    var fechaCompleta; 
+    var fechaElemento;
+    fechaElemento= [
+        año,
+        padTo2Digits(mes),
+        padTo2Digits(dia),
+      ].join('-');
+	return fechaCompleta=fechaElemento; 
+    
+  }
+
+
+function sumarDias(dia, dias){
+    dia.setDate(dia.getDate() + dias);
+    return dia;
+  }
+
+
+
+function validarFecha(){
+    
+        var fechaInicio = document.getElementById("txtFechaInicio").value;
+        var fechaFin= document.getElementById("txtFechaFin").value;
+        console.log( fechaInicio);
+        console.log(fechaFin);
+        enviarParametrosPostHistorial(miBackEnd + 'Socio/HistorialInscripciones/' +nroSocio, cargarHistorialInscrip, fechaInicio,fechaFin);
+        cargarSkeletonHistorial(); 
+    
+}
+
+
+function cargarHistorialInscrip(rta){
+console.log(rta);
+inscripciones= JSON.parse(rta);
+opciones=[];
+inscripciones.forEach(
+    element =>{
+        opciones.push(
+            '<tr >'+
+                '<th scope="row">'+element.nombreActividad+'</th>'+
+                '<td>'+ formatoAño(element.fecha)+'</td>'+
+                '<td>'+element.dias+'</td>'+
+                '<td>'+element.horaDeInicio+'</td>'+
+                '<td>'+element.nombreSalon+'</td>'+
+            
+                '</tr>'
+
+        );
+    }
+); 
+$('infoHistorialInscrip').innerHTML = opciones.join('');
+
+
+}
+function cargarSkeletonHistorialSus(){
+    var opciones = [];
+
+    for(let i=0; i < 5; i++){
+        opciones.push(
+            '<tr>' +
+                '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
+              
+            '</tr>'
+        );
+    }
+
+    $('infoHistorialSuscrip').innerHTML = opciones.join('');
+    
+}
+
+
+
+function clickHistorialSuscripcion(){
+    const hoy = new Date();
+    var fechaAnterior; 
+    oculta('botonesSocio');
+    oculta('inscribirAClase');
+    oculta('fotobienvenido'); 
+    oculta('fotobienvenido1');
+    oculta('historialInscripcion');
+    muestra('historialSuscripcion');
+    oculta('rutinasSocio');
+    
+
+     console.log(fecha);
+    fechaAnterior=sumarDias(hoy,-30);
+    console.log(fecha);
+    console.log(fechaAnterior);
+    console.log(formatoDia(fecha));
+    console.log(formatoDia(fechaAnterior));
+   
+    var fechaFin=  formatoDia(fecha);
+    var fechaInicio= formatoDia(fechaAnterior);
+    console.log(fechaInicio);
+    console.log(fechaFin);
+
+     enviarParametrosPostHistorial(miBackEnd + 'Socio/HistorialSuscripciones/' + nroSocio, cargarHistorialSuscrip, fechaInicio,fechaFin);
+     cargarSkeletonHistorialSus(); 
+}
+
+
+
+function validarFechaSus(){
+    
+    var fechaInicio = document.getElementById("txtFechaInicioSus").value;
+    var fechaFin= document.getElementById("txtFechaFinSus").value;
+    console.log( fechaInicio);
+    console.log(fechaFin);
+    enviarParametrosPostHistorial(miBackEnd + 'Socio/HistorialSuscripciones/' + nroSocio, cargarHistorialInscrip, fechaInicio,fechaFin);
+    cargarSkeletonHistorialSus(); 
+
+}
+
+function cargarHistorialSuscrip(rta){
+console.log(rta);
+suscripciones= JSON.parse(rta);
+opciones=[];
+suscripciones.forEach(
+    element =>{
+        opciones.push(
+            '<tr >'+
+                '<th scope="row">'+element.nombreSuscripcion+'</th>'+
+                '<th scope="row">'+element.nombreActividad+'</th>'+
+                '<td>'+element.cantClases+'</td>'+
+                '<td>'+ formatoAño(element.fechaEmision)+'</td>'+
+                '<td>'+ formatoAño(element.fechaVencimiento)+'</td>'+
+                '<td>'+element.nroPago+'</td>'+
+                '<td>'+ formatoAño(element.fecha)+'</td>'+
+            
+                '</tr>'
+
+        );
+    }
+); 
+$('infoHistorialSuscrip').innerHTML = opciones.join('');
+
 
 }
 
@@ -597,4 +903,39 @@ function enviarParametrosPOSTInscribir(servidor, funcionARealizar,idSocio,idClas
     xmlhttp.send(datos);
 
 }
+
+function enviarParametrosPostHistorial(servidor, funcionARealizar, fechaInicio,fechaFin){
+    console.log(fechaInicio);
+    console.log(fechaFin);
+      //declaro el objeto
+   var xmlhttp = new XMLHttpRequest();
+  
+   //agrega datos para pasar por POST
+   var datos = new FormData();
+   datos.append("fechaMin", fechaInicio);
+   datos.append("fechaMax", fechaFin);
+  
+      
+  
+      //indico hacia donde va el mensaje
+      xmlhttp.open("POST", servidor, true);
+  
+      //seteo el evento
+      xmlhttp.onreadystatechange = function () {
+          //veo si llego la respuesta del servidor
+          if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+              //reviso si la respuesta del servidor es la correcta
+              if (xmlhttp.status == 200) {
+                  funcionARealizar(xmlhttp.response);
+              } else {
+                  swal("Error", "revise el periodo de fechas.", "error");
+              };
+          }
+      }
+      //esto va siempre cuando se hace un formulario
+      xmlhttp.setRequestHeader("enctype", "multipart/form-data");
+  
+      //envio el mensaje 
+      xmlhttp.send(datos);
+  }
 

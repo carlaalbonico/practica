@@ -492,9 +492,8 @@ function respuestaDeServidorBorrar(respuesta) {
 
 function cargarFormularioChico(respuesta) {
     var socioFC = JSON.parse(respuesta);
-    $("nroSocioForm").innerHTML = socioFC.nroSocio;
-    $("nombreSocioForm").innerHTML = socioFC.nombre;
-    $("apellidoSocioForm").innerHTML = socioFC.apellido;
+    $("nroSocioForm").innerHTML = '#'+socioFC.nroSocio +' - '+socioFC.nombre+' '+socioFC.apellido;
+   
 }
 function clickRegistrarSuscripcion() {
     oculta('cartel');

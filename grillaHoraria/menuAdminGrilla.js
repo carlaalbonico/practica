@@ -346,11 +346,11 @@ function armaColumnaPorDia(clases, dia, fecha, salon){
         columnaDia.push(
         ' <div class="col px-0">'+
             '<div class="card border-dark mb-1" >'+
-                    '<div class="card-header">'+clase.horaDeInicio+'</div>'+
-                    '<div class="card-body text-dark  " style=" height: 230px;">'+
-                        '<h5 class="card-title">'+clase.actividad+'</h5>'+
-                        '<p class="card-text"  style=" height: 100px;"> <b> Profe: </b> '+clase.profesor+' <br><b>Cupos libres: </b> '+clase.cupoDisponible+'</p>'+
-                        '<div class=" d-flex  justify-content-end"><button class="btn bg-primary bg-opacity-75 "  onclick="clickClase(' + clase.clase+ ')">Ver</button></div>'+
+                    '<div class="card-header" id="cardhora">'+clase.horaDeInicio+'</div>'+
+                    '<div class="card-body text-dark  px-1 " >'+
+                        '<h5 class="card-title" id="cardactividad">'+clase.actividad+'</h5>'+
+                        '<div class="card-text "  style="height: 75px; "> <div id="cardprofe"><b> Profe: </b> '+clase.profesor+'</div><div> <b>Cupos libres: </b> '+clase.cupoDisponible+'</div></div>'+
+                        '<div class=" d-flex  justify-content-end"><button class="btn bg-primary bg-opacity-75 "  onclick="clickClase('+clase.clase+',/'+clase.actividad+'/,/'+clase.horaDeInicio+'/)">Ver</button></div>'+
                     '</div>'+            
             '</div>'+
         '</div>'
@@ -365,11 +365,28 @@ function armaColumnaPorDia(clases, dia, fecha, salon){
     return columnaDia.join('');
 }
 
-function clickClase(idClase){
+function clickClase(idClase,actividad,hora){
     console.log(idClase);
+    console.log(actividad);
+    console.log(hora);
     clase= idClase; 
+    
+    cargarFormularioChico(actividad,hora);
     traerClases(miBackEnd + 'ClasePorDia/'+idClase, inscriptosAClase);
+}
+function cargarFormularioChico(actividad,hora) {
+    activity= String(actividad);
+    hour= String(hora);
+ 
+  
+   acti=quitarbarras(activity);
+   horas=quitarbarras(hour);
+    $("claseChico").innerHTML = ''+acti+' - '+horas+' ';
+   
+}
 
+function quitarbarras(element){
+ return element.slice(1, -1);
 }
 
 
