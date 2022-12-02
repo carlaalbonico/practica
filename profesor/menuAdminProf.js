@@ -265,7 +265,7 @@ function clickConsultarProf(legajo){
     //pide datos para completar datos del profesor
     enviarParametrosGET(miBackEnd + 'Profesor/'+legajo, retornoDelClickConsultarProf);
     //pide datos para completar el cuadro del costado de los datos del profesor FALTA
-    //enviarParametrosGET(miBackEnd + 'Profesor/Clase/'+legajo, retornoDelClickConsultarClasesXProf);
+    enviarParametrosGET(miBackEnd + 'Profesor/Clase/'+legajo, retornoDelClickConsultarClasesXProf);
 }
  
 function retornoDelClickConsultarProf(respuesta){
@@ -276,6 +276,7 @@ function retornoDelClickConsultarProf(respuesta){
     oculta('ordenadoPorEspecialidad'); 
     oculta('cartel');
     muestra('botonAtras');
+    muestra('ClasesACargo');
 
     var profe = JSON.parse(respuesta);
     console.log(profe);

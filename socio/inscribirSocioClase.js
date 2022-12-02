@@ -42,18 +42,31 @@ function load() {
     document.getElementById("botonAtras").addEventListener("click", atras);
     
     enviarParametrosGET(miBackEnd + 'Socio/' + idSocio, cargarFormularioChico);
+    enviarParametrosGET(miBackEnd + 'Socio/ClasesRestantes/' + idSocio, cargarClasesRestantes);
     enviarParametrosGET(miBackEnd + 'Socio/Inscripciones/' + idSocio, cargarClasesInscriptas);
     
     enviarParametrosGET(miBackEnd + 'Socio/ClasesHabilitadas/' + idSocio, cargarClasesHabilitadas);
 
-    
+  
+
+
+    $("nroSocioForm").innerHTML = cargando();
    
 }
 function cargarBienvenido(usuario){
     $('bienvenido').innerHTML='Bienvenido, '+usuario
 }
 
-
+function cargando(){
+    var cargando =[];
+    cargando.push('<div class="d-flex justify-content-center mt-2">'+
+    '<div class="spinner-grow" role="status">'+
+        '<span class="visually-hidden">Loading...</span>'+
+    '</div><br>'+
+    '<div><p class="fw-bold">cargando...</p></div>'+
+    '</div>');
+    return cargando;
+}
 
 function cerrarSesion() {
     sessionStorage.clear();
@@ -325,9 +338,9 @@ function armaColumnaPorDia(clases, clasesInscriptas ,dia, fecha, salon){
             columnaDia.push(' <div class="col px-0 " >'+
                     '<div class="card  bg-primary bg-opacity-75 mb-1 " style="  height: 250px;" >'+
                             '<div class="card-header">'+clase.horaDeInicio+'</div>'+
-                            '<div class="card-body text-dark " >'+
+                            '<div class="card-body text-dark px-1" >'+
                                 '<h5 class="card-title">'+clase.nombreActividad+'</h5>'+
-                                '<p class="card-text"  style=" height: 96px;"> <b> Profe: </b> '+clase.profesor+' <br><b>Cupos libres: </b> '+clase.cupoDisponible+'</p>'+
+                                '<p class="card-text "  style=" height: 96px;"> <b> Profe: </b> '+clase.profesor+' <br><b>Cupos libres: </b> '+clase.cupoDisponible+'</p>'+
                                 '<div class=" d-flex  justify-content-end align-text-bottom"><button class="btn bg-light  "  onclick="clickEnviarBorrar(' + clase.idClasePorDia+ ')">Borrar</button></div>'+
                             '</div>'+            
                     '</div>'+
@@ -338,9 +351,9 @@ function armaColumnaPorDia(clases, clasesInscriptas ,dia, fecha, salon){
                 ' <div class=" col px-0 ">'+
                     '<div class="card border-dark mb-1" style="  height: 250px;">'+
                             '<div class="card-header">'+clase.horaDeInicio+'</div>'+
-                            '<div class="card-body text-dark   " >'+
+                            '<div class="card-body text-dark px-1  " >'+
                                 '<h5 class="card-title">'+clase.nombreActividad+'</h5>'+
-                                '<p class="card-text"  style=" height: 96px;"> <b> Profe: </b> '+clase.profesor+' <br><b>Cupos libres: </b> '+clase.cupoDisponible+'</p>'+
+                                '<p class="card-text "  style=" height: 96px;"> <b> Profe: </b> '+clase.profesor+' <br><b>Cupos libres: </b> '+clase.cupoDisponible+'</p>'+
                                 '<div class=" d-flex  justify-content-end align-text-bottom"><button class="btn bg-primary bg-opacity-75 "  onclick="clickEnviarInscripcion(' + clase.idClasePorDia+ ')">Inscribir</button></div>'+
                             '</div>'+            
                     '</div>'+
@@ -359,7 +372,30 @@ function armaColumnaPorDia(clases, clasesInscriptas ,dia, fecha, salon){
     return columnaDia.join('');
 }
 
+function cargarClasesRestantes(rta){
+    console.log(rta);
+    var clases=JSON.parse(rta);
+    console.log(clases);
 
+    var opciones=[];
+
+    clases.forEach(element=>{
+        opciones.push(' <div class="col px-1" >'+
+        '<div class="card  bg-primary bg-opacity-75 " >'+
+                '<div class="card-header">'+element.nombreActividad+'</div>'+
+                '<div class="card-body text-dark " >'+
+                    
+                    '<p class="card-text"  > <b>Clases Restantes: </b> '+element.cantClasesRestantes+'<br><b> Clases Permitidas: </b> '+element.cantClasesPermitidas+' </p>'+
+                    
+                '</div>'+            
+        '</div>'+
+    '</div>'
+
+        )
+    });
+
+    $('clasesPermitidas').innerHTML = opciones.join('');
+}
 
 function clickEnviarInscripcion(idClase) {
     console.log(idClase);
@@ -370,6 +406,7 @@ function respuestaDeServidorInscripcion(respuesta) {
     enviarParametrosGET(miBackEnd + 'Socio/Inscripciones/' + idSocio, cargarClasesInscriptas);
     
     enviarParametrosGET(miBackEnd + 'Socio/ClasesHabilitadas/' + idSocio, cargarClasesHabilitadas);
+    enviarParametrosGET(miBackEnd + 'Socio/ClasesRestantes/' + idSocio, cargarClasesRestantes);
     //$("respuesta").innerHTML = respuesta;
 }
 
@@ -384,6 +421,7 @@ function respuestaDeServidorBorrar(respuesta) {
     enviarParametrosGET(miBackEnd + 'Socio/Inscripciones/' + idSocio, cargarClasesInscriptas);
     
     enviarParametrosGET(miBackEnd + 'Socio/ClasesHabilitadas/' + idSocio, cargarClasesHabilitadas);
+    enviarParametrosGET(miBackEnd + 'Socio/ClasesRestantes/' + idSocio, cargarClasesRestantes);
     //$("respuesta").innerHTML = respuesta;
 }
 
