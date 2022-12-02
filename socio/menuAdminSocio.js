@@ -1027,7 +1027,7 @@ function enviarParametrosPOSTPago(servidor, funcionARealizar,importe,idCompra) {
  var datos = new FormData();
  datos.append("importe", importe);
  datos.append("idCompra", idCompra);
-
+ datos.append("medioPago", $("slctFormaPago").value);
     
 
     //indico hacia donde va el mensaje
