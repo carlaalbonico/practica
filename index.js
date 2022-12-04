@@ -13,7 +13,7 @@ function load(){ oculta('btnvolveract');
     oculta('descSpinning'); 
     oculta('descFreeBox'); 
     oculta('descRutinas'); 
-    
+    oculta('actividadesPpal');
 
     document.getElementById("natural").addEventListener("click",muestraNatural);
     document.getElementById("funcional").addEventListener("click",muestraFuncional);
@@ -41,6 +41,7 @@ function activities(){
     muestra('btnvolveract');
     oculta('cartelPpal');
     oculta('videoPpal');
+    muestra('actividadesPpal');
 
 }
 function schedule(){

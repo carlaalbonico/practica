@@ -173,7 +173,7 @@ function formato(texto){
   }
 
   function formatoAño(texto){
-    return texto.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3/$2/$1S');
+    return texto.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3/$2/$1');
   }
 function retornarSuscripcionesActivas(rta){
 

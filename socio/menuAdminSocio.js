@@ -379,6 +379,7 @@ function clickModificarSocio() {
             
 
             enviarParametrosGET(miBackEnd + 'Socio/' + idSocioMod, retornoClickModificarSocio);
+            //
         } 
       });
 

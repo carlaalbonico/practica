@@ -9,6 +9,9 @@ var usuario= sessionStorage.getItem('nombre');
 var miBackEnd = 'http://localhost:555/';
 var extra= 0; 
 var salon = "Principal";
+var fecha;
+
+var medioPago= "Efectivo";
 //DOM
 function $(nombre)
 {
@@ -19,6 +22,9 @@ function $(nombre)
 function load(){
     cargarBienvenido(usuario);
     
+    
+    TraerFechaHoy();
+    oculta('pagos');
     oculta('verSuscripciones');
     oculta('botonAtras');
     oculta('cartel'); 
@@ -27,8 +33,7 @@ function load(){
     //boton para cerrar sesion 
     document.getElementById("logOut").addEventListener("click",cerrarSesion);
     //boton para perfil usuario logueado
-    
-
+    document.getElementById("perfil").addEventListener("click", mostrarPerfil);
  
 
    
@@ -64,6 +69,9 @@ function oculta_muestra(id){
     }
 
 }
+function mostrarPerfil() {
+    window.location.assign("http://localhost/practica/perfilUsuario.html");
+}
 
 function muestra(id){
     if (document.getElementById){ //se obtiene el id
@@ -87,7 +95,8 @@ oculta('verSuscripciones');
 oculta('botonAtras');
 oculta('cartel'); 
 muestra('botonesInicio');
-oculta('verHorarios');}
+oculta('verHorarios');
+oculta('pagos');}
 
 function menuRegistrarSocio() {
     window.location.assign("http://localhost/practica/socio/registrarSocio.html");//aca va el enlace de la pagina registrar; 
@@ -97,6 +106,7 @@ function clickVerSuscripciones() {
     oculta('botonesInicio');
     muestra('verSuscripciones');
     muestra('botonAtras');
+    oculta('pagos');
     //manda los datos para cargar el formularioChico
    
   
@@ -198,8 +208,10 @@ function verHorarios(){
     oculta('cartel');
     oculta('botonesInicio');
     oculta('verSuscripciones');
+    oculta('pagos');
     muestra('botonAtras');
     muestra('verHorarios');
+    
 
     enviarParametrosGET(miBackEnd + 'Clase', cargarHorario);
 }
@@ -424,8 +436,126 @@ function exportarPDFSus(){
         });
     }
 };
+function cargarSkeleton(){
+    var opciones = [];
+
+    for(let i=0; i < 5; i++){
+        opciones.push(
+            '<tr>' +
+                '<td><p id="skeletonTabla">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTabla">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTabla">' + "-" + '</p></td>' +
+                
+               
+            '</tr>'
+        );
+    }
+
+    $('infoPagos').innerHTML = opciones.join('');
+    
+}
+function TraerFechaHoy(){
+    const hoy = new Date();
+    let diaDeSemana = hoy.getDay();
+    let dia = hoy.getDate();
+    let mes = hoy.getMonth()+1;
+    let año = hoy.getFullYear();
+    var fechaCompleta; 
+    fechaCompleta= año+'-'+mes+'-'+dia; 
+    
+    fecha= hoy;
+}
 
 
+
+function sumarDias(dia, dias){
+    dia.setDate(dia.getDate() + dias);
+    return dia;
+  }
+
+  function padTo2Digits(num) {
+    return num.toString().padStart(2, '0');
+  }
+  
+
+  function formatoDia(element){
+    let dia = element.getDate();
+    let mes = element.getMonth()+1;
+    let año = element.getFullYear();
+    var fechaCompleta; 
+    var fechaElemento;
+    fechaElemento= [
+        año,
+        padTo2Digits(mes),
+        padTo2Digits(dia),
+      ].join('-');
+	return fechaCompleta=fechaElemento; 
+    
+  }
+
+function clickPagos(){
+    oculta('botonesInicio');
+    muestra('pagos');
+    oculta('cartel');
+    oculta('verSuscripciones');
+    muestra('botonAtras');
+    oculta('verHorarios');
+    const hoy = new Date();
+    var fechaAnterior; 
+    console.log(fecha);
+    fechaAnterior=sumarDias(hoy,-30);
+    console.log(fecha);
+    console.log(fechaAnterior);
+    console.log(formatoDia(fecha));
+    console.log(formatoDia(fechaAnterior));
+   
+    var fechaFin=  formatoDia(fecha);
+    var fechaInicio= formatoDia(fechaAnterior);
+    console.log(fechaInicio);
+    console.log(fechaFin);
+   
+    enviarParametrosPostPago(miBackEnd + 'Pago/Historial' , verPagos, fechaInicio,fechaFin,medioPago);
+    cargarSkeleton(); 
+}
+
+function validarFecha(){
+    
+    var fechaInicio = document.getElementById("txtFechaInicio").value;
+    var fechaFin= document.getElementById("txtFechaFin").value;
+    console.log( fechaInicio);
+    console.log(fechaFin);
+    enviarParametrosPostPago(miBackEnd + 'Pago/Historial' , verPagos, fechaInicio,fechaFin,medioPago);
+    cargarSkeleton(); 
+
+}
+function formatoAño(texto){
+    return texto.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3/$2/$1');
+  }
+
+function verPagos(rta){
+var total=0; 
+ console.log(rta)
+var pagos= JSON.parse(rta);
+     var opciones=[];
+pagos.forEach(element=>{total=total+element.importe
+    opciones.push(
+        '<tr >'+
+                '<th scope="row">'+element.medioPago+'</th>'+
+                '<td>'+formatoAño(element.fecha)+'</td>'+
+                '<td> $'+element.importe+'</td>'+
+             
+        '</tr>'
+    )
+});
+console.log(total);
+opciones.push('<tr >'+
+'<th scope="row">TOTAL</th>'+
+'<td></td>'+
+'<td scope="row"> $'+total+'</td>'+
+
+'</tr>');
+ $('infoPagos').innerHTML=opciones.join('');
+}
 function enviarParametrosGET(servidor, funcionARealizar) {
 
     //Declaro el objeto
@@ -451,3 +581,39 @@ function enviarParametrosGET(servidor, funcionARealizar) {
     //Envio el mensaje
     xmlhttp.send();
 }
+
+function enviarParametrosPostPago(servidor, funcionARealizar, fechaInicio,fechaFin,medioPago){
+    console.log(fechaInicio);
+    console.log(fechaFin);
+      //declaro el objeto
+   var xmlhttp = new XMLHttpRequest();
+  
+   //agrega datos para pasar por POST
+   var datos = new FormData();
+   datos.append("fechaMin", fechaInicio);
+   datos.append("fechaMax", fechaFin);
+   datos.append("medioPago", medioPago);
+  
+      
+  
+      //indico hacia donde va el mensaje
+      xmlhttp.open("POST", servidor, true);
+  
+      //seteo el evento
+      xmlhttp.onreadystatechange = function () {
+          //veo si llego la respuesta del servidor
+          if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+              //reviso si la respuesta del servidor es la correcta
+              if (xmlhttp.status == 200) {
+                  funcionARealizar(xmlhttp.response);
+              } else {
+                  swal("Error", "revise el periodo de fechas.", "error");
+              };
+          }
+      }
+      //esto va siempre cuando se hace un formulario
+      xmlhttp.setRequestHeader("enctype", "multipart/form-data");
+  
+      //envio el mensaje 
+      xmlhttp.send(datos);
+  }

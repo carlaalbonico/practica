@@ -116,7 +116,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link text-dark" id="navBtnInformes">
+                    <a href="http://localhost/practica/informes/menuAdminInforme.html" class="nav-link text-dark" id="navBtnInformes">
                         <img src="../imagenes/informes.png" alt="" width="32" height="32" class=" me-2">
                     Informes
                     </a>
@@ -170,7 +170,7 @@
                 </div>
                 
                   <div class="col-md-4 d-flex">
-                    <button  type="button" class="btn bg-primary bg-opacity-75 btn-lg text-dark w-100 " >  
+                    <button  type="button" onclick="clickPagos()" class="btn bg-primary bg-opacity-75 btn-lg text-dark w-100 " >  
                       <img src="../imagenes/cuenta.png" alt="" width="50" height="50" class=" me-2">
                       <div class="text-wrap"> Consultar pagos</div>
                      </button>
@@ -182,7 +182,53 @@
             
            
           </div>
-          
+          <div id="pagos" class="mt-2">
+            <div class="container">
+              <div class=" ms-1 d-flex  align-items-center">
+                <img src="../imagenes/pagos.png" alt="" width="60" height="60" class=" me-2">
+                <h2 class="mb-3 text-center border-bottom border-danger "> HISTORIAL DE PAGOS:</h2>
+              </div>
+              <h5 class="mb-3 text-left ">Ingrese el período a consultar:</h5>
+              <div class="row">
+                      <div class=" col-2 col-lg-2 d-flex align-items-center">
+                      
+                          <label>Inicio: </label>
+                          
+                          <input type="date" class="form-control" id="txtFechaInicio" autofocus>
+                      
+                      </div>
+                      <div class="col-1 col-lg-1 d-flex"></div>
+                      <div class="col-2 col-lg-2 d-flex  align-items-center">
+                      
+                          <label>Fin:</label>
+                          
+                          <input type="date" class="form-control" id="txtFechaFin"   autofocus>
+                  
+                      </div>
+                      <div class="col-2 col-lg-2 d-flex"><button  class="btn btn-sm btn-outline-primary" onclick="validarFecha()">consultar</button></div>
+                      
+              </div>
+              <div class="row align-items-center p-1 ">
+        
+                <table class="table" id="tablaPagos">
+
+                    <thead>
+                    <tr><th scope="col">Tipo</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Importe</th>
+                        
+                    
+                    </tr>
+                    </thead>
+
+                    <tbody id="infoPagos">
+                        
+                    </tbody>
+
+                </table>
+              </div>
+            </div>  
+          </div>
 
 
           <div id="verSuscripciones" class="mt-2">

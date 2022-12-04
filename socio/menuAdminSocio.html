@@ -114,7 +114,7 @@
                   </a>
               </li>
               <li>
-                  <a href="#" class="nav-link text-dark" id="navBtnInformes">
+                  <a href="http://localhost/practica/informes/menuAdminInforme.html" class="nav-link text-dark" id="navBtnInformes">
                       <img src="../imagenes/informes.png" alt="" width="32" height="32" class=" me-2">
                   Informes
                   </a>
@@ -198,7 +198,7 @@
                         
                         <button  class="btn btn-lg btn-primary btn-block" type="button" id="btnInscribirSocioClase" onclick="clickInscribirSocioClase()" >Inscribir a clase</button>
 
-                        <button  class="btn btn-lg btn-primary btn-block" type="button" id="btnHistorialInscripcion" onclick="clickHistorialInscripcion()" >Historial de Inscripciones</button>
+                        <button  class="btn btn-lg btn-primary btn-block" type="button" id="btnHistorialInscripcion" onclick="clickHistorialInscripcion()" >Historial de inscripciones</button>
                         
                         <button  class="btn btn-lg btn-primary btn-block" type="button" id="btnHistorialInscripcion" onclick="clickHistorialSuscripcion()" >Historial de suscripciones</button>
                     </div>
@@ -327,12 +327,15 @@
                                     </div>
                                     <input type="text" class="form-control" id="telefonoSocioModificar" placeholder="" value="" required="">
                                 </li>
-                                
-                    
-                    
                                 <li class="list-group-item d-flex justify-content-between lh-condensed">
-                                    
+                                    <div>
+                                        <h6 class="my-0">Email:</h6>
+                                    </div>
+                                        <span class="text-muted" id="emailSocioModificar"></span>
                                 </li>
+                    
+                    
+                             
                                 <button class="btn btn-lg btn-primary" type="button" id="btnModificarGuardar" >Guardar</button>
                     
                             </ul>
