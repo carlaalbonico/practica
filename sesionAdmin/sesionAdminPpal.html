@@ -32,8 +32,8 @@
  <!-- script para alert-->
  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
- 
- 
+ <!-- script para graficos-->
+ <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <!-- PARA DISPOSITIVOS CHICOS -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -182,7 +182,7 @@
             
            
           </div>
-          <div id="pagos" class="mt-2">
+          <div id="historialPagos" class="mt-2">
             <div class="container">
               <div class=" ms-1 d-flex  align-items-center">
                 <img src="../imagenes/pagos.png" alt="" width="60" height="60" class=" me-2">
@@ -208,6 +208,12 @@
                       <div class="col-2 col-lg-2 d-flex"><button  class="btn btn-sm btn-outline-primary" onclick="validarFecha()">consultar</button></div>
                       
               </div>
+              
+                <div class="col-10 col-sm-8" id="pagos">
+                 
+                </div>
+                
+            
               <div class="row align-items-center p-1 ">
         
                 <table class="table" id="tablaPagos">

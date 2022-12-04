@@ -26,6 +26,7 @@ function load(){
     oculta('cartel'); 
     oculta('botonesInforme');
     oculta('myChart');
+    oculta('reporteTorta');
   
     //boton para cerrar sesion 
     document.getElementById("logOut").addEventListener("click",cerrarSesion);
@@ -153,7 +154,7 @@ function clickPagos(){
 }
 
 function generarJsonSumado(rta){
-   
+    muestra('botonAtras');
     var pagos= JSON.parse(rta); 
     console.log(pagos);
     var fechas=[]; 

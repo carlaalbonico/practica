@@ -10,7 +10,7 @@ var miBackEnd = 'http://localhost:555/';
 var extra= 0; 
 var salon = "Principal";
 var fecha;
-
+let myChart;
 var medioPago= "Efectivo";
 //DOM
 function $(nombre)
@@ -24,7 +24,7 @@ function load(){
     
     
     TraerFechaHoy();
-    oculta('pagos');
+    oculta('historialPagos');
     oculta('verSuscripciones');
     oculta('botonAtras');
     oculta('cartel'); 
@@ -96,7 +96,7 @@ oculta('botonAtras');
 oculta('cartel'); 
 muestra('botonesInicio');
 oculta('verHorarios');
-oculta('pagos');}
+oculta('historialPagos');}
 
 function menuRegistrarSocio() {
     window.location.assign("http://localhost/practica/socio/registrarSocio.html");//aca va el enlace de la pagina registrar; 
@@ -106,7 +106,7 @@ function clickVerSuscripciones() {
     oculta('botonesInicio');
     muestra('verSuscripciones');
     muestra('botonAtras');
-    oculta('pagos');
+    oculta('historialPagos');
     //manda los datos para cargar el formularioChico
    
   
@@ -208,7 +208,7 @@ function verHorarios(){
     oculta('cartel');
     oculta('botonesInicio');
     oculta('verSuscripciones');
-    oculta('pagos');
+    oculta('historialPagos');
     muestra('botonAtras');
     muestra('verHorarios');
     
@@ -495,7 +495,7 @@ function sumarDias(dia, dias){
 
 function clickPagos(){
     oculta('botonesInicio');
-    muestra('pagos');
+    muestra('historialPagos');
     oculta('cartel');
     oculta('verSuscripciones');
     muestra('botonAtras');
@@ -516,6 +516,8 @@ function clickPagos(){
    
     enviarParametrosPostPago(miBackEnd + 'Pago/Historial' , verPagos, fechaInicio,fechaFin,medioPago);
     cargarSkeleton(); 
+    enviarParametrosPostPago(miBackEnd + 'Pago/Historial' , generarJsonSumado, fechaInicio,fechaFin,medioPago);
+    $('pagos').innerHTML=' <canvas id="graficoPagos"></canvas>';
 }
 
 function validarFecha(){
@@ -525,6 +527,7 @@ function validarFecha(){
     console.log( fechaInicio);
     console.log(fechaFin);
     enviarParametrosPostPago(miBackEnd + 'Pago/Historial' , verPagos, fechaInicio,fechaFin,medioPago);
+    enviarParametrosPostPago(miBackEnd + 'Pago/Historial' , generarJsonSumado, fechaInicio,fechaFin,medioPago);
     cargarSkeleton(); 
 
 }
@@ -555,6 +558,77 @@ opciones.push('<tr >'+
 
 '</tr>');
  $('infoPagos').innerHTML=opciones.join('');
+}
+
+
+function generarJsonSumado(rta){
+    muestra('botonAtras');
+    var pagos= JSON.parse(rta); 
+    console.log(pagos);
+    var fechas=[]; 
+    //var sumado=[]; 
+    //crea un array con los objetos de todos las fechas y dia de la semana
+    pagos.forEach(elemento => {
+        let objeto={fecha:elemento.fecha, importe:elemento.importe}
+        
+        fechas.push(objeto); 
+    });
+    // filtra el array con los objetos de todos las fechas y dia de la semana para que tenga una sola fecha y dia
+    const sumado = fechas.reduce((acumulador, valorActual) => {
+        const elementoYaExiste = acumulador.find(elemento => elemento.fecha === valorActual.fecha);
+        if (elementoYaExiste) {
+          return acumulador.map((elemento) => {
+            if (elemento.fecha === valorActual.fecha) {
+              return {
+                ...elemento,
+                importe: elemento.importe + valorActual.importe
+              }
+            }
+      
+            return elemento;
+          });
+        }
+      
+        return [...acumulador, valorActual];
+      }, []);
+      
+      console.log(sumado);
+      
+      var valoresFechas=[]; 
+      var importes=[]; 
+
+sumado.forEach(element=>{
+    valoresFechas.push(formatoAño(element.fecha));
+    importes.push(element.importe)
+}
+    
+);
+console.log(valoresFechas);
+console.log(importes);
+      ctx = document.getElementById('graficoPagos');
+     console.log(ctx);
+     if (myChart) {
+        myChart.destroy();
+    }
+    myChart= new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: valoresFechas,
+    datasets: [{
+      label: 'pago',
+      data: importes,
+      borderWidth: 1
+    }]
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+});
+
 }
 function enviarParametrosGET(servidor, funcionARealizar) {
 
