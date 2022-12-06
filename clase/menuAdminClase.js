@@ -108,7 +108,7 @@ function cargarSkeletonTablaClases(){
     for(let i=0; i < 5; i++){
         opciones.push(
             '<tr>' +
-                '<td><p id="skeletonTablaClases">' + "-" + '</p></td>' +
+                
                 '<td><p id="skeletonTablaClases">' + "-" + '</p></td>' +
                 '<td><p id="skeletonTablaClases">' + "-" + '</p></td>' +
                 
@@ -155,8 +155,8 @@ function retornoDelClickConsultarClase(valor){
 
         clases.forEach(element => {
             opciones.push('<tr >'+
-            '<th scope="row">'+element.idClase+'</th>'+
-            '<td>'+element.nombre+'</td>'+
+            
+            '<th scope="row">'+element.nombre+'</th>'+
             '<td>'+element.dias+'</td>'+
             '<td>'+element.horaDeInicio+'</td>'+
             '<td>'+element.horaDeFin+'</td>'+

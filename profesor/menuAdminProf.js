@@ -105,6 +105,13 @@ function clickRegistrarProf(){
 function menuConsultarProf(){//oculta la botonera y visualiza el campo para escribir el email 
    
     muestra('busquedaProfes');
+    oculta('formularioModificarProf');
+    oculta('datosParaUnProf'); 
+    oculta('formularioModificarProf'); 
+    oculta('ordenadoPorEspecialidad'); 
+    oculta('cartel');
+    oculta('botonAtras');
+    oculta('ClasesACargo');
     clickBuscarProf();
    
     cargarSkeletonTablaProfes();
@@ -143,7 +150,7 @@ function cargarProfes(respuesta){
 
     cargarTablaProfes(profeDB);
 
-   
+   console.log(profeDB);
     
 }
 function cargarTablaProfes(profes){
@@ -362,8 +369,12 @@ function retornoDelClickModificarProf(respuesta){
     oculta('datosParaUnProf'); 
     muestra('formularioModificarProf'); 
     
+    
+    oculta('ordenadoPorEspecialidad'); 
     oculta('cartel');
-    muestra('botonAtras');
+    oculta('botonAtras');
+    oculta('ClasesACargo');
+   
     
      
     var profMod = JSON.parse(respuesta);

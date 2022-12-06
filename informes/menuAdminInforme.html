@@ -189,18 +189,24 @@
 
             <div class="mx-5" id="reporteTorta">
               <div class=" ms-1 d-flex  align-items-center">
-                <img src="../imagenes/pagos.png" alt="" width="60" height="60" class=" me-2">
-                <h2 class="mb-3 text-center border-bottom border-danger "> REPORTE DE INSCRIPTOS POR CLASE:</h2>
+                <img src="../imagenes/dashboard.png" alt="" width="60" height="60" class=" me-2">
+                <h2 class="mb-3 text-center border-bottom border-danger "> DASHBOARD:</h2>
               </div>
              
-              <div class="row  my-2">
-                <div class="col-10 col-sm-8" id="graficoTorta">
-                 
+              <div class="row  my-2 justify-content-center">
+                
+                <div class="col-3 col-sm-3 border rounded border-dark bg-white" >
+                  <h5 class="mb-3 text-center "> Cantidad de inscriptos a clases:</h5>
+                  <div id="graficoTorta"></div>
+                </div>
+                <div class="col-8 col-sm-8 border ms-2 rounded border-dark  bg-white" >
+                  <h4 class="mb-3 text-center "> Cantidad de clases por dia:</h4>
+                  <div id="graficoBarras"></div>
                 </div>
                 
               </div>
             </div>
-            <div class="mx-5" id="reportePago"> 
+            <div class="mx-5 col-4" id="reportePago"> 
               <div class=" ms-1 d-flex  align-items-center">
                 <img src="../imagenes/pagos.png" alt="" width="60" height="60" class=" me-2">
                 <h2 class="mb-3 text-center border-bottom border-danger "> REPORTE DE PAGOS:</h2>

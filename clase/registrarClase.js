@@ -147,6 +147,7 @@ function validarCampos(){
 function click(){
    // $("btnGuardarClase").disabled=true;
     enviarInfoDeClase(miBackEnd + 'Clase/Registro', respuestaDeServidor);
+    swal("Cargando","", "info",{button: false});
 }
 
 function respuestaDeServidor(respuesta){

@@ -10,6 +10,7 @@ var miBackEnd = 'http://localhost:555/';
 var fecha;
 var medioPago= "Efectivo";
 let myChart;
+let barras;
 //DOM
 function $(nombre)
 {
@@ -20,13 +21,16 @@ function $(nombre)
 function load(){
     TraerFechaHoy(); 
     cargarBienvenido(usuario);
-    graficoTorta();
-    clickPagos(); 
+   
+   
+    inscriptosXActividad();
+    actividadXDia(); 
     oculta('botonAtras');
     oculta('cartel'); 
     oculta('botonesInforme');
     oculta('myChart');
-    oculta('reporteTorta');
+    muestra('reporteTorta');
+    oculta('reportePago');
   
     //boton para cerrar sesion 
     document.getElementById("logOut").addEventListener("click",cerrarSesion);
@@ -153,69 +157,51 @@ function clickPagos(){
     $('pagos').innerHTML=' <canvas id="graficoPagos"></canvas>';
 }
 
-function generarJsonSumado(rta){
-    muestra('botonAtras');
-    var pagos= JSON.parse(rta); 
-    console.log(pagos);
-    var fechas=[]; 
-    //var sumado=[]; 
-    //crea un array con los objetos de todos las fechas y dia de la semana
-    pagos.forEach(elemento => {
-        let objeto={fecha:elemento.fecha, importe:elemento.importe}
-        
-        fechas.push(objeto); 
-    });
-    // filtra el array con los objetos de todos las fechas y dia de la semana para que tenga una sola fecha y dia
-    const sumado = fechas.reduce((acumulador, valorActual) => {
-        const elementoYaExiste = acumulador.find(elemento => elemento.fecha === valorActual.fecha);
-        if (elementoYaExiste) {
-          return acumulador.map((elemento) => {
-            if (elemento.fecha === valorActual.fecha) {
-              return {
-                ...elemento,
-                importe: elemento.importe + valorActual.importe
-              }
-            }
-      
-            return elemento;
-          });
-        }
-      
-        return [...acumulador, valorActual];
-      }, []);
-      
-      console.log(sumado);
-      
-      var valoresFechas=[]; 
-      var importes=[]; 
+function actividadXDia(){
+    enviarParametrosGET(miBackEnd + 'Informe/ClasesXDia' , generarJsonSumado)
+    $('graficoBarras').innerHTML=' <canvas id="barras"></canvas>';
+}
 
-sumado.forEach(element=>{
-    valoresFechas.push(formatoAño(element.fecha));
-    importes.push(element.importe)
+function generarJsonSumado(rta){
+  
+    var array= JSON.parse(rta); 
+    console.log(array);
+
+      
+      var valoresDias=[]; 
+      var total=[]; 
+
+array.forEach(element=>{
+    valoresDias.push(element.dias);
+    total.push(element.Total)
 }
     
 );
-console.log(valoresFechas);
-console.log(importes);
-      ctx = document.getElementById('graficoPagos');
-     console.log(ctx);
-     if (myChart) {
-        myChart.destroy();
+console.log(valoresDias);
+console.log(total);
+      ctx = document.getElementById('barras');
+    
+     if (barras) {
+        barras.destroy();
     }
-    myChart= new Chart(ctx, {
+    barras = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: valoresFechas,
+    labels: valoresDias,
     datasets: [{
-      label: 'pago',
-      data: importes,
+      label: 'cantidad de actividades por dia',
+      data: total,
       borderWidth: 1
     }]
   },
   options: {
     scales: {
       y: {
-        beginAtZero: true
+        beginAtZero: true,
+        ticks: {
+            // forces step size to be 50 units
+            stepSize: 1
+          }
       }
     }
   }
@@ -223,29 +209,45 @@ console.log(importes);
 
 }
 
+function inscriptosXActividad(){
+    enviarParametrosGET(miBackEnd + 'Informe/InscriptosXActividad' , graficoTorta)
+    $('graficoTorta').innerHTML=' <canvas id="torta"></canvas>';
+}
 
 
 
+function graficoTorta(rta){
+    var array=JSON.parse(rta);
+    console.log(array);
 
-function graficoTorta(){
-    const ctx = document.getElementById('myChart');
+    var valoresNombre=[]; 
+      var total=[]; 
 
-new Chart(ctx,
+    array.forEach(element=>{
+        valoresNombre.push(element.nombre);
+        total.push(element.Total)
+    })
+    console.log(total);
+    console.log(valoresNombre);
+    const ctx = document.getElementById('torta');
+    if (myChart) {
+        myChart.destroy();
+    }
+    myChart= new Chart(ctx,
     {
         type: 'pie',
         data: {
-        labels: [
-          'Red',
-          'Blue',
-          'Yellow'
-        ],
+        labels: valoresNombre,
         datasets: [{
-          label: 'My First Dataset',
-          data: [300, 50, 100],
+          label: 'cantidad de inscriptos por actividad',
+          data: total,
           backgroundColor: [
-            'rgb(255, 99, 132)',
-            'rgb(54, 162, 235)',
-            'rgb(255, 205, 86)'
+            'red',
+            'green',
+            'blue',
+            'yellow',
+            'orange',
+            'pink'
           ],
           hoverOffset: 4
         }]

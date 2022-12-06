@@ -80,11 +80,12 @@ function cargarOpcionesSalon(nro){
 
 
 function click(){
-    swal("Genial!", "Se registro rutina correctamente.", "success");
+    enviarInfo(miBackEnd + 'Rutina/Registro', respuestaDeServidor);
+    swal("Cargando","", "info",{button: false});
 }
 
 function respuestaDeServidor(respuesta){
-    muestra('cartel');
+    swal("Genial!", '"'+respuesta+'"', "success");
     $("respuesta").innerHTML=respuesta;
     
     $("txtNewRutina").value='';
