@@ -179,7 +179,7 @@ function enviarInfo(servidor, funcionARealizar,nombre){
             if(xmlhttp.status==200){
                 funcionARealizar(xmlhttp.response);
             }else{
-                alert("Ocurrió un error");
+                swal("Error", "revise los datos cargados", "error");
             };
         }
     }

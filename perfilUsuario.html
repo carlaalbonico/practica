@@ -27,6 +27,8 @@
     <!-- agrego javascript-->
    <script src="perfilUsuario.js"></script>
   
+   <!-- ¿script para alert-->
+   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
    
 
     <!-- PARA DISPOSITIVOS CHICOS -->
@@ -61,7 +63,7 @@
         <div class="position-sticky pt-3 sidebar-sticky">
           <ul class="nav flex-column">
               <li class="nav-item">
-                  <a href="#" class="nav-link text-dark" aria-current="page" id="navBtnInicio">
+                  <a href="http://localhost/practica/sesionAdmin/sesionAdminPpal.html" class="nav-link text-dark" aria-current="page" id="navBtnInicio">
                       <img src="imagenes/home.png" alt="" width="32" height="32" class="  me-2">
                   Inicio
                   </a>
@@ -109,7 +111,7 @@
                   </a>
               </li>
               <li>
-                  <a href="#" class="nav-link text-dark" id="navBtnInformes">
+                  <a href="http://localhost/practica/informes/menuAdminInforme.html" class="nav-link text-dark" id="navBtnInformes">
                       <img src="imagenes/informes.png" alt="" width="32" height="32" class=" me-2">
                   Informes
                   </a>
@@ -174,7 +176,7 @@
                     </li>
                     <li class="list-group-item d-flex justify-content-between lh-condensed">
                         <div>
-                        <h6 class="my-0">Correo:</h6>
+                        <h6 class="my-0">Correo Electronico:</h6>
                         </div>
                         <span class="text-muted" id="emailPerfil"></span>
                     </li>
@@ -240,6 +242,10 @@
         
         
                     <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                        <h6 class="my-0">Correo Electronico:</h6>
+                        </div>
+                        <input type="text" class="form-control" id="emailPerfilModificar" placeholder="" value="" required="">
                         
                     </li>
                     <button class="btn btn-lg btn-primary" type="button" id="btnModificarGuardar" >Guardar</button>

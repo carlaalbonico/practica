@@ -9,7 +9,8 @@ function $(nombre)
 {
     return document.getElementById(nombre);
 }
-
+var idUsuario; 
+var flag; 
 
 function load(){
     cargarBienvenido(usuario);
@@ -295,7 +296,9 @@ function retornoDelClickConsultarProf(respuesta){
     $("emailProf").innerHTML = profe.email;
     $("especialidadProf").innerHTML = profe.especialidad;
     $("estadoProf").innerHTML = profe.estado;
-
+    idUsuario=profe.usuario; 
+   
+    console.log(idUsuario);
 
     if(profe.estado=='HAB'){$(
         "estadoProf").innerHTML = 'Habilitado';
@@ -308,7 +311,7 @@ function retornoDelClickConsultarProf(respuesta){
     muestra('btnHabilitarProf');
     console.log('profe deshabilitado');  }
 
-    $("altaProf").innerHTML = profe.fechaDeAlta;
+    $("altaProf").innerHTML = formato(profe.fechaDeAlta);
 
     
 
@@ -364,7 +367,8 @@ function clickModificarProf(){
    
 }
 function retornoDelClickModificarProf(respuesta){
-   
+    flag=0; 
+    console.log(flag);
      
     oculta('datosParaUnProf'); 
     muestra('formularioModificarProf'); 
@@ -384,15 +388,20 @@ function retornoDelClickModificarProf(respuesta){
    $("direccionProfModificar").value = profMod["direccion"];
    $("telefonoProfModificar").value = profMod["telefono"];
    $("especialidadProfModificar").value = profMod["especialidad"];
+   $("emailProfModificar").value = profMod["email"];
 
    $('nombreProfModificar').addEventListener("keyup", validarProfModificar);
    $('apellidoProfModificar').addEventListener("keyup", validarProfModificar);
    $('direccionProfModificar').addEventListener("keyup", validarProfModificar);
    $('telefonoProfModificar').addEventListener("keyup",validarProfModificar);
    $('especialidadProfModificar').addEventListener("keyup",validarProfModificar);
+   $('emailProfModificar').addEventListener("keyup", validarCorreo);
    $('btnModificarGuardar').addEventListener("click",clickGuardarModSocio);
     
 }
+function formato(texto){
+    return texto.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3/$2/$1');
+  }
 function validarProfModificar(){
     var ModNombre = $("nombreProfModificar").value.length;
     var ModApellido = $("apellidoProfModificar").value.length;
@@ -400,25 +409,55 @@ function validarProfModificar(){
     var ModTelefono = $("telefonoProfModificar").value.length;
     var ModEspec = $("especialidadProfModificar").value.length;
 
-    if( ModNombre >=2 && ModApellido >=2  && ModDireccion >=2 && ModTelefono >=8 && ModEspec>3){
+    if( ModNombre >=2 && ModApellido >=2  && ModDireccion >=2 && ModTelefono >=10 && ModEspec>3){
         $('btnModificarGuardar').disabled = false;
     }else{
         $('btnModificarGuardar').disabled = true;
     }
 
 }
+function validarCorreo(){
+
+    var email = document.getElementById('emailProfModificar').value;
+    console.log(email);
+
+    
+    var pattEmail = new RegExp(/^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/);
+
+    
+    var resultadoEmail = pattEmail.test(email);
+
+    if( resultadoEmail ){
+        $('btnModificarGuardar').disabled = false;
+    }else{
+        $('btnModificarGuardar').disabled = true;
+    }
+}
 
 function clickGuardarModSocio(){
     var legajo= document.getElementById("legajoProf").innerText; 
+    var email = document.getElementById('emailProfModificar').value;
+    console.log(email);
     $('btnModificarGuardar').disabled = true;
-    enviarParametrosPOSTActualizar(miBackEnd + 'Profesor/Actualizacion/'+legajo, retornoDelServMod);
-
+    enviarParametrosPOSTActualizar(miBackEnd + 'Profesor/Actualizacion/'+legajo, respuestaDeServidorMod);
+    enviarParametrosPOST(miBackEnd + 'Usuario/EditarCorreo/'+ idUsuario,  respuestaDeServidorModEmail,email);
 }
 
-function retornoDelServMod(respuesta){
-    swal("Genial!", '"'+respuesta+'"', "success");
+
+function respuestaDeServidorMod(respuesta) {
+    console.log(flag);
+   swal("Genial!", '"'+respuesta+'"', "success");
     menuConsultarProf();
+    
 }
+function respuestaDeServidorModEmail() {
+    
+    console.log('correo cambiado');
+    flag=flag+1; 
+    console.log(flag);
+}
+
+
 
 function clickHabilitarProf(legajo){
     var legajo= document.getElementById("legajoProf").innerText;
@@ -514,6 +553,39 @@ function enviarParametrosGET(servidor,funcionARealizar){
     }
     //Envio el mensaje
     xmlhttp.send();
+}
+function enviarParametrosPOST(servidor, funcionARealizar,email) {
+
+    //declaro el objeto
+    var xmlhttp = new XMLHttpRequest();
+
+    //agrega datos para pasar por POST
+    var datos = new FormData();
+    datos.append("email", email);
+
+
+    //indico hacia donde va el mensaje
+    xmlhttp.open("POST", servidor, true);
+
+    //seteo el evento
+    xmlhttp.onreadystatechange = function () {
+        //veo si llego la respuesta del servidor
+        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+            //reviso si la respuesta del servidor es la correcta
+            if (xmlhttp.status == 200) {
+                funcionARealizar(xmlhttp.response);
+            } else {
+                swal("Error", "revise los datos cargados", "error");
+            };
+        }
+    }
+    //esto va siempre cuando se hace un formulario
+    xmlhttp.setRequestHeader("enctype", "multipart/form-data");
+
+    //envio el mensaje 
+    xmlhttp.send(datos);
+
+
 }
 
 function enviarParametrosPOSTBorrar(servidor, funcionARealizar){

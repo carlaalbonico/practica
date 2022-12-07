@@ -116,8 +116,9 @@ function validarLogin(){
 function click(){
     
     $("btnEnviar").disabled=true;
-    muestra('cartel');
-    cargando();
+    //muestra('cartel');
+    //cargando();
+    swal("Cargando","", "info",{button: false});
     enviarParametrosPOST(miBackEnd + 'Usuario', retornoDelClick);
 }
 
@@ -148,10 +149,11 @@ function clickGuardar(){
 }
 
 function retornoDelClickGuardar(respuesta){
-    muestra('cartel');
+    //muestra('cartel');
     $("txtContrasena").value = "";
     $("txtRepetidaContrasena").value = "";
-    $("respuesta").innerHTML="Las contraseña ha sido cambiada correctamente";    
+    //$("respuesta").innerHTML="Las contraseña ha sido cambiada correctamente";    
+    swal("Genial!", "La contraseña ha sido cambiada correctamente.", "success");
 }
 
 
@@ -215,7 +217,7 @@ function enviarMsjeServidor(servidor, funcionARealizar){
                 funcionARealizar(xmlhttp.responseText);
 
             }else{
-                alert("ocurrio un error")
+                swal("Error", "revise los datos cargados", "error");
             };
         }
     }
@@ -248,7 +250,7 @@ function enviarParametrosPOST(servidor, funcionARealizar){
             if(xmlhttp.status==200){
                 funcionARealizar(xmlhttp.response);
             }else{
-                alert("ocurrio un error");
+                swal("Error", "revise los datos cargados", "error");
             };
         }
     }
@@ -281,7 +283,7 @@ function enviarParamCambiarContraseñaPOST(servidor, funcionARealizar){
             if(xmlhttp.status==200){
                 funcionARealizar(xmlhttp.response);
             }else{
-                alert("ocurrio un error");
+                swal("Error", "revise los datos cargados", "error");
             };
         }
     }

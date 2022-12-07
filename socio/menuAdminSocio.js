@@ -14,7 +14,8 @@ var validacionFecha=0;
 var idSuscripcion;
 var idCompraSusc;
 var fecha;
-
+var idUsuario; 
+var flag; 
 //DOM
 function $(nombre) {
     return document.getElementById(nombre);
@@ -39,8 +40,9 @@ function load() {
     oculta('historialInscripcion');
     oculta('agregarSuscSocio');
     oculta('botonAtras');
+    oculta('botonAtras1');
    oculta('historialSuscripcion');
-   oculta('historialSuscripcion');
+  
 
     //para ocultar cartel del mensaje
     oculta_muestra('cartel');
@@ -50,6 +52,7 @@ function load() {
     //boton para perfil usuario logueado
     document.getElementById("perfil").addEventListener("click", mostrarPerfil);
     document.getElementById("botonAtras").addEventListener("click", atras);
+    document.getElementById("botonAtras1").addEventListener("click", atras1);
     
     document.getElementById("btnModificar").addEventListener("click", clickModificarSocio);
     document.getElementById("btnBorrar").addEventListener("click", clickBorrarSocio);
@@ -115,7 +118,20 @@ function atras() {
     oculta('historialInscripcion');
     oculta('historialSuscripcion');
     oculta('botonAtras');
+    muestra('botonAtras1');
 
+}
+function atras1() {
+    oculta('cartel');    
+    oculta('botonesAdminParaUnSocio');
+    oculta('formularioModificarSocio');
+    oculta('formularioChico');
+    oculta('agregarSuscSocio');
+    oculta('historialInscripcion');
+    oculta('historialSuscripcion');
+    oculta('botonAtras');
+    oculta('botonAtras1');
+    muestra('busquedaSocios');
 }
 
 function menuRegistrarSocio() {
@@ -125,6 +141,15 @@ function menuRegistrarSocio() {
 function menuConsultarSocio() {//oculta la botonera y visualiza el campo para escribir el email 
      
     muestra('busquedaSocios');
+    oculta('botonesAdminParaUnSocio');
+    oculta('formularioModificarSocio');
+    oculta('formularioChico');
+    oculta('historialInscripcion');
+    oculta('agregarSuscSocio');
+    oculta('botonAtras');
+    oculta('botonAtras1');
+   oculta('historialSuscripcion');
+  
     clickBuscar();
     cargarSkeletonTablaSocios();
     
@@ -274,6 +299,7 @@ function clickConsultarSocio(nroSocio) {
    
     enviarParametrosGET(miBackEnd + 'Socio/' + nroSocio, retornoClickConsultarSocio);
     enviarParametrosGET(miBackEnd + 'Socio/Suscripciones/' + nroSocio, retornarSuscripcionesActivas);
+
     oculta('busquedaSocios');
     muestra('cartel');
    
@@ -295,6 +321,7 @@ function retornoClickConsultarSocio(respuesta) {
     oculta('historialInscripcion');
     oculta('historialSuscripcion');
     oculta('botonAtras');
+    muestra('botonAtras1');
 
     var socio = JSON.parse(respuesta);
 
@@ -304,7 +331,9 @@ function retornoClickConsultarSocio(respuesta) {
     $("direccionSocio").innerHTML = socio.direccion;
     $("telefonoSocio").innerHTML = socio.telefono;
     $("emailSocio").innerHTML = socio.email;
+    idUsuario=socio.usuario; 
     console.log(socio);
+    console.log(idUsuario);
     if (socio.estado == 'HAB') {
         $(
             "estadoSocio").innerHTML = 'Habilitado';
@@ -367,6 +396,7 @@ function retornarSuscripcionesActivas(rta){
 function clickModificarSocio() {
 
     var idSocioMod = document.getElementById("nroSocio").innerText;
+    
     swal({
         title: "Modificar",
         text: "¿Esta seguro que desea modificar a este socio?",
@@ -379,7 +409,7 @@ function clickModificarSocio() {
             
 
             enviarParametrosGET(miBackEnd + 'Socio/' + idSocioMod, retornoClickModificarSocio);
-            //
+            
         } 
       });
 
@@ -388,7 +418,12 @@ function clickModificarSocio() {
    
 }
 
+
+
+
 function retornoClickModificarSocio(respuesta) {
+    flag=0; 
+    console.log(flag);
     oculta('cartel');
     oculta('botonesAdminParaUnSocio');
     oculta('historialInscripcion');
@@ -396,6 +431,7 @@ function retornoClickModificarSocio(respuesta) {
     muestra('formularioModificarSocio');
     oculta('formularioChico');
     muestra('botonAtras');
+    oculta('botonAtras1');
     oculta('historialSuscripcion');
     var socioMod = JSON.parse(respuesta);
 
@@ -403,11 +439,13 @@ function retornoClickModificarSocio(respuesta) {
     $("apellidoSocioModificar").value = socioMod["apellido"];
     $("direccionSocioModificar").value = socioMod["direccion"];
     $("telefonoSocioModificar").value = socioMod["telefono"];
+    $("emailSocioModificar").value = socioMod["email"];
 
     $('nombreSocioModificar').addEventListener("keyup", validarSocioModificar);
     $('apellidoSocioModificar').addEventListener("keyup", validarSocioModificar);
     $('direccionSocioModificar').addEventListener("keyup", validarSocioModificar);
     $('telefonoSocioModificar').addEventListener("keyup", validarSocioModificar);
+    $('emailSocioModificar').addEventListener("keyup", validarCorreo);
     $('btnModificarGuardar').addEventListener("click", clickGuardarModSocio);
 
 }
@@ -417,25 +455,60 @@ function validarSocioModificar() {
     var ModDireccion = $("direccionSocioModificar").value.length;
     var ModTelefono = $("telefonoSocioModificar").value.length;
 
-    if (ModNombre >= 2 && ModApellido >= 2 && ModDireccion >= 2 && ModTelefono >= 8) {
+    if (ModNombre >= 2 && ModApellido >= 2 && ModDireccion >= 2 && ModTelefono >= 10) {
         $('btnModificarGuardar').disabled = false;//habilitar
     } else {
         $('btnModificarGuardar').disabled = true;
     }
 
 }
+
+function validarCorreo(){
+
+    var email = document.getElementById('emailSocioModificar').value;
+    console.log(email);
+
+    
+    var pattEmail = new RegExp(/^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/);
+
+    
+    var resultadoEmail = pattEmail.test(email);
+
+    if( resultadoEmail ){
+        $('btnModificarGuardar').disabled = false;
+    }else{
+        $('btnModificarGuardar').disabled = true;
+    }
+}
 function clickGuardarModSocio() {
     var nroSocio = document.getElementById("nroSocio").innerText;
+    var email = document.getElementById('emailSocioModificar').value;
+    console.log(email);
     $("btnModificarGuardar").disabled = true;
 
-    enviarParametrosPOSTModificar(miBackEnd + 'Socio/Actualizacion/' + nroSocio, respuestaDeServidorMod);
+    enviarParametrosPOSTModificar(miBackEnd + 'Socio/Actualizacion/' + nroSocio, respuestaDeServidorModVal1);
+    enviarParametrosPOST(miBackEnd + 'Usuario/EditarCorreo/'+ idUsuario,  respuestaDeServidorModEmail,email);
+}
+function respuestaDeServidorModVal1(respuesta) {
+    console.log(flag);
+    flag=flag+1; 
+    respuestaDeServidorMod(respuesta);
 }
 function respuestaDeServidorMod(respuesta) {
-    muestra('cartelModalAceptar');
-    $("titulo").innerHTML='Genial';
-    $("respuesta").innerHTML=rta;
-    menuConsultarSocio();
+    console.log(flag);
+    if(flag==1){swal("Genial!", '"'+respuesta+'"', "success");
+    menuConsultarSocio();}
+    
 }
+function respuestaDeServidorModEmail() {
+    flag=flag+1; 
+   swal("Genial!", 'Datos cambiados', "success");
+    menuConsultarSocio();
+    console.log('correo cambiado');
+   
+    console.log(flag);
+}
+
 
 function clickBorrarSocio() {
     var nroSocio = document.getElementById("nroSocio").innerText;
@@ -505,6 +578,7 @@ function clickRegistrarSuscripcion() {
     oculta('historialInscripcion');
     oculta('historialSuscripcion');
     muestra('botonAtras');
+    oculta('botonAtras1');
     //manda los datos para cargar el formularioChico
     var idSocio = document.getElementById("nroSocio").innerText;
 
@@ -656,7 +730,7 @@ function clickHistorialInscripcion(){
     oculta('formularioModificarSocio');
     muestra('formularioChico');
     oculta('agregarSuscSocio');
-
+    oculta('botonAtras1');
     muestra('botonAtras');
      muestra('historialInscripcion');
      oculta('historialSuscripcion');
@@ -793,7 +867,7 @@ function clickHistorialSuscripcion(){
     oculta('formularioModificarSocio');
     muestra('formularioChico');
     oculta('agregarSuscSocio');
-
+    oculta('botonAtras1');
     muestra('botonAtras');
      oculta('historialInscripcion');
      muestra('historialSuscripcion');
@@ -881,14 +955,14 @@ function enviarParametrosGET(servidor, funcionARealizar) {
     xmlhttp.send();
 }
 
-function enviarParametrosPOST(servidor, funcionARealizar) {
+function enviarParametrosPOST(servidor, funcionARealizar,email) {
 
     //declaro el objeto
     var xmlhttp = new XMLHttpRequest();
 
     //agrega datos para pasar por POST
     var datos = new FormData();
-    datos.append("email", $("txtEmail").value);
+    datos.append("email", email);
 
 
     //indico hacia donde va el mensaje
