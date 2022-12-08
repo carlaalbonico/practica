@@ -1,7 +1,12 @@
 
-html,
+html{
+  height: 200 px;
+}
 body {
   height: 200 px;
+  display: grid;
+  min-height: 100vh;
+  grid-template-rows: auto 1fr auto;
 }
 #fondo{ 
   background-color: rgb(245, 245, 245);
