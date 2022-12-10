@@ -107,12 +107,21 @@ function clickVerSuscripciones() {
     muestra('verSuscripciones');
     muestra('botonAtras');
     oculta('historialPagos');
+    oculta('verHorarios');
     //manda los datos para cargar el formularioChico
    
   
     enviarParametrosGET(miBackEnd + 'Actividad',cargarOpcionesClase); 
     enviarParametrosGET(miBackEnd + 'Suscripcion/',cargarSuscripciones);
     
+}
+function clickEfectivo(){
+    medioPago= "Efectivo";
+    clickPagos();
+}
+function clickMercadoPago(){
+    medioPago= "Mercado Pago";
+    clickPagos();
 }
 function cargarOpcionesClase(nro){
     var clase= JSON.parse(nro);
