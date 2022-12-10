@@ -147,97 +147,103 @@
                
   
   
-            <div class="container-fluid p-0" id="botonesInforme">
-             
-              <div class="container mb-5">
-                 <h1 class="mt-2 mb-4">BIENVENIDO!</h1>
-                
-                <div class="row  my-2">
-                  <div class="col-md-4 d-flex">
-                    <button  type="button" onclick="" class="btn bg-primary bg-opacity-75 btn-lg text-dark w-100 " >  
-                      <img src="../imagenes/pagos.png" alt="" width="50" height="50" class=" me-2">
-                      <div class="text-wrap">Reporte de Pago</div>
-                      </button>
-                  </div>
-                  <div class="col-md-4 d-flex">
-                    <button  type="button" onclick="" class="btn bg-primary bg-opacity-75 btn-lg text-dark w-100 " >  
-                      <img src="../imagenes/grillahorario.png" alt="" width="50" height="50" class=" me-2">
-                      <div class="text-wrap"> Consultar horarios</div>
-                     </button>
-                  </div>
-                  
-                    <div class="col-md-4 d-flex">
-                      <button  type="button" class="btn bg-primary bg-opacity-75 btn-lg text-dark w-100 " >  
-                        <img src="../imagenes/cuenta.png" alt="" width="50" height="50" class=" me-2">
-                        <div class="text-wrap"> Consultar pagos</div>
-                       </button>
-                    </div>
-                  
-                  
-                </div>
-              </div>
-              
-             
-            </div>
             
-            <div class="row  my-2">
-              <div class="col-5">
-                <canvas id="myChart"></canvas>
-              </div>
-              
-            </div>
+            
+          
 
-            <div class="mx-5" id="reporteTorta">
+            <div class="mx-5" >
+            
               <div class=" ms-1 d-flex  align-items-center">
                 <img src="../imagenes/dashboard.png" alt="" width="60" height="60" class=" me-2">
                 <h2 class="mb-3 text-center border-bottom border-danger "> DASHBOARD:</h2>
               </div>
-             
-              <div class="row  my-2 justify-content-center">
+              <div class="row  my-2 justify-content-center align-items-center mh-100">
                 
-                <div class="col-3 col-sm-3 border rounded border-dark bg-white" >
-                  <h5 class="mb-3 text-center "> Cantidad de inscriptos a clases:</h5>
-                  <div id="graficoTorta"></div>
-                </div>
-                <div class="col-8 col-sm-8 border ms-2 rounded border-dark  bg-white" >
-                  <h4 class="mb-3 text-center "> Cantidad de clases por dia:</h4>
-                  <div id="graficoBarras"></div>
-                </div>
-                
-              </div>
-            </div>
-            <div class="mx-5 col-4" id="reportePago"> 
-              <div class=" ms-1 d-flex  align-items-center">
-                <img src="../imagenes/pagos.png" alt="" width="60" height="60" class=" me-2">
-                <h2 class="mb-3 text-center border-bottom border-danger "> REPORTE DE PAGOS:</h2>
-              </div>
-              <h5 class="mb-3 text-left ">Ingrese el período a consultar:</h5>
-              <div class="row">
-                      <div class=" col-2 col-lg-2 d-flex align-items-center">
-                      
-                          <label>Inicio: </label>
-                          
-                          <input type="date" class="form-control" id="txtFechaInicio" autofocus>
-                      
-                      </div>
-                      <div class="col-1 col-lg-1 d-flex"></div>
-                      <div class="col-2 col-lg-2 d-flex  align-items-center">
-                      
-                          <label>Fin:</label>
-                          
-                          <input type="date" class="form-control" id="txtFechaFin"   autofocus>
+                <div class="col-3 col-sm-3 d-flex flex-column mh-100 align-items-center " >
                   
+                  <div class="card mb-3 w-100 border-primary  bg-primary bg-opacity-75 " >
+                    <div class="row g-0">
+                      <div class="col-md-4 p-1">
+                        <img src="../imagenes/socio.png" class="img-fluid rounded-start" alt="...">
                       </div>
-                      <div class="col-2 col-lg-2 d-flex"><button  class="btn btn-sm btn-outline-primary" onclick="validarFecha()">consultar</button></div>
-                      
-              </div>
-              <div class="row  my-2">
-                <div class="col-10 col-sm-8" id="pagos">
-                 
+                      <div class="col-md-8">
+                        <div class="card-body">
+                          <h5 class="card-title">Total:</h5>
+                          <p class="card-text" id="totalSocios"></p>
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card mb-3 w-100 bg-success   border-success bg-opacity-75 " >
+                    <div class="row g-0">
+                      <div class="col-md-4 p-1">
+                        <img src="../imagenes/profesor.png" class="img-fluid rounded-start" alt="...">
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                          <h5 class="card-title">Total:</h5>
+                          <p class="card-text" id="totalProfes"></p>
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card mb-3 w-100 bg-danger bg-opacity-75 " >
+                    <div class="row g-0">
+                      <div class="col-md-4 p-1">
+                        <img src="../imagenes/freeboxx.png" class="img-fluid rounded-start" alt="...">
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                          <h5 class="card-title">Total:</h5>
+                          <p class="card-text" id="totalClases"></p>
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                    <div class="card mb-3 w-100 " >
+                      <div class="row g-0">
+                        <div class="col-md-4 p-1">
+                          <img src="../imagenes/rutinas.png" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                          <div class="card-body">
+                            <h5 class="card-title">Total:</h5>
+                            <p class="card-text" id="totalRutinas"></p>
+                          </div>
+                        </div>
+                      </div>
+                    </div> 
+                  
                 </div>
+                
+                
+              
+                <div class="col-8 col-sm-8 border ms-2 rounded border-dark  bg-white justify-content-center" >
+                  <h4 class="mb-3 text-center "> Cantidad de clases por dia:</h4>
+                  <div id="graficoBarras" class="d-flex justify-content-center"></div>
+                </div>
+              
+                
+              </div>
+              <div class="row  my-2 justify-content-center ">
+                <div class="col-8 col-sm-8 border rounded border-dark  bg-white justify-content-center " >
+                  <h4 class="mb-3 text-center "> Cantidad de suscripciones activas:</h4>
+                  <div id="graficoBarrasSusc" class=" d-flex justify-content-center"></div>
+                </div>
+                <div class="col-3 col-sm-3  ms-2 border rounded border-dark bg-white justify-content-center" >
+                  <h5 class="mb-3 text-center "> Cantidad de inscriptos a clases:</h5>
+                  <div id="graficoTorta" class=" d-flex justify-content-center"></div>
+                </div>
+               
+              
                 
               </div>
             </div>
+            
             
   
   

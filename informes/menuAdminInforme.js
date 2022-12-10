@@ -11,6 +11,7 @@ var fecha;
 var medioPago= "Efectivo";
 let myChart;
 let barras;
+let myChart2;
 //DOM
 function $(nombre)
 {
@@ -19,18 +20,23 @@ function $(nombre)
 
 
 function load(){
+    totalSocios();
+    totalProfes(); 
+    totalClases();
+    totalRutinas();
     TraerFechaHoy(); 
     cargarBienvenido(usuario);
    
    
     inscriptosXActividad();
     actividadXDia(); 
+    inscripcionesActivas();
+   
     oculta('botonAtras');
     oculta('cartel'); 
-    oculta('botonesInforme');
-    oculta('myChart');
-    muestra('reporteTorta');
-    oculta('reportePago');
+   
+    
+    
   
     //boton para cerrar sesion 
     document.getElementById("logOut").addEventListener("click",cerrarSesion);
@@ -104,14 +110,7 @@ function TraerFechaHoy(){
     
     fecha= hoy;
 }
-function validarFecha(){
-    
-    var fechaInicio = document.getElementById("txtFechaInicio").value;
-    var fechaFin= document.getElementById("txtFechaFin").value;
-    console.log( fechaInicio);
-    console.log(fechaFin);
-    enviarParametrosPostPago(miBackEnd + 'Pago/Historial' , generarJsonSumado, fechaInicio,fechaFin,medioPago);
-}
+
 function formatoAño(texto){
     return texto.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3/$2/$1');
   }
@@ -141,21 +140,7 @@ function sumarDias(dia, dias){
     
   }
 
-function clickPagos(){
-   
-    const hoy = new Date();
-    var fechaAnterior; 
-  
-    fechaAnterior=sumarDias(hoy,-30);
-   
-   
-    var fechaFin=  formatoDia(fecha);
-    var fechaInicio= formatoDia(fechaAnterior);
-  
-   
-    enviarParametrosPostPago(miBackEnd + 'Pago/Historial' , generarJsonSumado, fechaInicio,fechaFin,medioPago);
-    $('pagos').innerHTML=' <canvas id="graficoPagos"></canvas>';
-}
+
 
 function actividadXDia(){
     enviarParametrosGET(miBackEnd + 'Informe/ClasesXDia' , generarJsonSumado)
@@ -214,9 +199,79 @@ function inscriptosXActividad(){
     $('graficoTorta').innerHTML=' <canvas id="torta"></canvas>';
 }
 
+function inscripcionesActivas(){
+    enviarParametrosGET(miBackEnd + 'Informe/SuscripcionesActivas' ,  graficoBarrasSus)
+    $('graficoBarrasSusc').innerHTML=' <canvas id="BarrasSusc"></canvas>';
+}
+function totalSocios(){
+    enviarParametrosGET(miBackEnd + 'Informe/TotalSocios' ,  kpiTotalSocios)
+   
+}
+function totalProfes(){
+    enviarParametrosGET(miBackEnd + 'Informe/TotalProfes' ,  kpiTotalProfes)
+   
+}
+function totalClases(){
+    enviarParametrosGET(miBackEnd + 'Informe/TotalClases' , kpiTotalClases)
+   
+}
+function totalRutinas(){
+    enviarParametrosGET(miBackEnd + 'Informe/TotalRutinas' , kpiTotalRutinas)
+   
+}
 
+
+function kpiTotalSocios(rta){
+    var array=JSON.parse(rta);
+    console.log(array);
+    
+      var total=[]; 
+
+    array.forEach(element=>{
+        
+        total.push(element.Total)
+    })
+    $('totalSocios').innerHTML=total+' socios';
+}
+function kpiTotalProfes(rta){
+    var array=JSON.parse(rta);
+    console.log(array);
+    
+      var total=[]; 
+
+    array.forEach(element=>{
+        
+        total.push(element.Total)
+    })
+    $('totalProfes').innerHTML=total+' profesores';
+}
+function kpiTotalClases(rta){
+    var array=JSON.parse(rta);
+    console.log(array);
+    
+      var total=[]; 
+
+    array.forEach(element=>{
+        
+        total.push(element.Total)
+    })
+    $('totalClases').innerHTML=total+' clases';
+}
+function kpiTotalRutinas(rta){
+    var array=JSON.parse(rta);
+    console.log(array);
+    
+      var total=[]; 
+
+    array.forEach(element=>{
+        
+        total.push(element.Total)
+    })
+    $('totalRutinas').innerHTML=total+' rutinas';
+}
 
 function graficoTorta(rta){
+    
     var array=JSON.parse(rta);
     console.log(array);
 
@@ -243,18 +298,77 @@ function graficoTorta(rta){
           data: total,
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
-        'rgba(255, 159, 64, 0.2)',
-        'rgba(255, 205, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-         'rgba(201, 203, 207, 0.2)'
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 205, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(201, 203, 207, 0.2)'
+          ],
+          borderColor: [
+            'rgb(255, 99, 132)',
+            'rgb(255, 159, 64)',
+            'rgb(255, 205, 86)',
+            'rgb(75, 192, 192)',
+            'rgb(54, 162, 235)',
+            'rgb(153, 102, 255)',
+            'rgb(201, 203, 207)'
           ],
           hoverOffset: 4
         }]
       }
     }) ;
 }
+function graficoBarrasSus(rta){
+    var array=JSON.parse(rta);
+    console.log(array);
+
+    var valoresNombre=[]; 
+      var total=[]; 
+
+    array.forEach(element=>{
+        valoresNombre.push(element.nombre);
+        total.push(element.Total)
+    })
+    console.log(total);
+    console.log(valoresNombre);
+    const ctx = document.getElementById('BarrasSusc');
+    if (myChart2) {
+        myChart2.destroy();
+    }
+    myChart2= new Chart(ctx,
+    {
+       
+        
+        type: 'bar',
+        data: {
+        labels: valoresNombre,
+        datasets: [{
+            axis: 'y',  
+          label: 'cantidad de suscripciones activas',
+          data: total,
+          borderWidth: 1,
+          backgroundColor: [
+            'rgba(255, 99, 132)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        scales: {
+            x: {
+              beginAtZero: true,
+              ticks: {
+                  // forces step size to be 50 units
+                  stepSize: 1
+                }
+            }
+          }
+      }
+    }) ;
+}
+
 
 
 function enviarParametrosGET(servidor, funcionARealizar) {

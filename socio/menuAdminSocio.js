@@ -23,8 +23,7 @@ function $(nombre) {
 
 
 function load() {
-    oculta('cartelModalAceptar');
-    oculta('cartelModalRechazar');
+  
     
     sessionStorage.removeItem('idSocio');
     cargarBienvenido(usuario);
@@ -691,7 +690,12 @@ function clickAdquirirSuscripcion(idSusc,valorPrecio){
 function confirmSuscripcion(){
     console.log(idSuscripcion);
     console.log(precio);
-
+    $("idCompra").innerHTML='<div class="spinner-grow" role="status">'+
+    '<span class="visually-hidden">Loading...</span>'+
+'</div>';
+    $("precio").innerHTML='<div class="spinner-grow" role="status">'+
+    '<span class="visually-hidden">Loading...</span>'+
+'</div>';
 
     enviarParametrosPOSTAdquirirSuscripcion(miBackEnd + 'Compra/Suscripcion', rtaAdquiriSuscripcion, idSuscripcion); 
 }
@@ -710,10 +714,8 @@ function registrarPago(){
 
 function rtaPago(rta){
 
-    muestra('cartelModalAceptar');
-    $("titulo").innerHTML='Genial';
-    $("respuesta").innerHTML=rta;
-    //swal("Genial!", '"'+rta+'"', "success");
+   
+    swal("Genial!", '"'+rta+'"', "success");
 }
 
 function clickInscribirSocioClase() {
