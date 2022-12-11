@@ -17,6 +17,8 @@ var salon = "Principal";
 
 var clasesInscriptas=[];
 var fecha;
+var emailNuevo;
+var idUsuario; 
 //DOM
 function $(nombre)
 {
@@ -32,7 +34,7 @@ function load(){
     console.log(email); 
    
     cargarBienvenido(usuario);
-    enviarParametrosPOST(miBackEnd + 'Socio/Correo', rtaIdSocio);
+    enviarParametrosPOST(miBackEnd + 'Socio/Correo', rtaIdSocio,email);
     oculta('inscribirAClase');
     muestra('botonesInicio');
    
@@ -43,11 +45,10 @@ function load(){
     oculta('historialSuscripcion');
     oculta('botonAtras');
     oculta('rutinasSocio');
-     
+    oculta('modificarSocio');
     //boton para cerrar sesion 
     document.getElementById("logOut").addEventListener("click",cerrarSesion);
-    //boton para perfil usuario logueado
-    document.getElementById("perfil").addEventListener("click",mostrarPerfil);
+  
 
  
 
@@ -130,6 +131,7 @@ function clickMiCuenta(){
     oculta('fotobienvenido'); 
     oculta('fotobienvenido1'); 
     oculta('rutinasSocio');
+    oculta('modificarSocio');
 }
 function retornoClickConsultarSocio(respuesta) {
      
@@ -148,11 +150,119 @@ function retornoClickConsultarSocio(respuesta) {
     $("direccionSocio").innerHTML = socio.direccion;
     $("telefonoSocio").innerHTML = socio.telefono;
     $("emailSocio").innerHTML = socio.email;
-    
+    idUsuario=socio.usuario; 
+    console.log(socio);
+    console.log(idUsuario);
 
 }
 
 
+function clickModificarSocio() {
+
+   
+    
+    swal({
+        title: "Modificar",
+        text: "¿Esta seguro que desea modificar a este socio?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+            
+
+            enviarParametrosGET(miBackEnd + 'Socio/' + nroSocio, retornoClickModificarSocio);
+            
+        } 
+      });
+
+
+
+   
+}
+
+function retornoClickModificarSocio(respuesta) {
+   
+    muestra('botonesInicio');
+    oculta('botonAtras'); 
+    oculta('botonesSocio');
+    oculta('historialInscripcion');
+    oculta('historialSuscripcion');
+    oculta('inscribirAClase');
+    oculta('fotobienvenido'); 
+    oculta('fotobienvenido1'); 
+    oculta('rutinasSocio');
+    muestra('modificarSocio');
+
+    var socioMod = JSON.parse(respuesta);
+     console.log(socioMod);
+    $("nombreSocioModificar").value = socioMod["nombre"];
+    $("apellidoSocioModificar").value = socioMod["apellido"];
+    $("direccionSocioModificar").value = socioMod["direccion"];
+    $("telefonoSocioModificar").value = socioMod["telefono"];
+    $("emailSocioModificar").value = socioMod["email"];
+
+    $('nombreSocioModificar').addEventListener("keyup", validarSocioModificar);
+    $('apellidoSocioModificar').addEventListener("keyup", validarSocioModificar);
+    $('direccionSocioModificar').addEventListener("keyup", validarSocioModificar);
+    $('telefonoSocioModificar').addEventListener("keyup", validarSocioModificar);
+    $('emailSocioModificar').addEventListener("keyup", validarCorreo);
+    $('btnModificarGuardar').addEventListener("click", clickGuardarModSocio);
+
+}
+function validarSocioModificar() {
+    var ModNombre = $("nombreSocioModificar").value.length;
+    var ModApellido = $("apellidoSocioModificar").value.length;
+    var ModDireccion = $("direccionSocioModificar").value.length;
+    var ModTelefono = $("telefonoSocioModificar").value.length;
+
+    if (ModNombre >= 2 && ModApellido >= 2 && ModDireccion >= 2 && ModTelefono >= 10) {
+        $('btnModificarGuardar').disabled = false;//habilitar
+    } else {
+        $('btnModificarGuardar').disabled = true;
+    }
+
+}
+
+function validarCorreo(){
+
+    var email = document.getElementById('emailSocioModificar').value;
+    console.log(email);
+
+    
+    var pattEmail = new RegExp(/^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/);
+
+    
+    var resultadoEmail = pattEmail.test(email);
+
+    if( resultadoEmail ){
+        $('btnModificarGuardar').disabled = false;
+    }else{
+        $('btnModificarGuardar').disabled = true;
+    }
+}
+function clickGuardarModSocio() {
+    var nroSocio = document.getElementById("nroSocio").innerText;
+    var email = document.getElementById('emailSocioModificar').value;
+    console.log(email);
+    $("btnModificarGuardar").disabled = true;
+    emailNuevo=email; 
+    enviarParametrosPOSTModificar(miBackEnd + 'Socio/Actualizacion/' + nroSocio, respuestaDeServidorMod);
+    enviarParametrosPOST(miBackEnd + 'Usuario/EditarCorreo/'+ idUsuario,  respuestaDeServidorModEmail,email);
+}
+function respuestaDeServidorMod(respuesta){
+    sessionStorage.setItem("usuario",emailNuevo);
+    swal("Genial!", '"'+respuesta+'"', "success");
+
+    clickMiCuenta()
+}
+function respuestaDeServidorModEmail() {
+   
+    console.log('correo cambiado');
+   
+
+}
 
 
 
@@ -494,6 +604,7 @@ function clickRutinas(){
     oculta('historialInscripcion');
     oculta('historialSuscripcion');
     muestra('rutinasSocio');
+    oculta('modificarSocio');
     enviarParametrosGET(miBackEnd + 'Rutina',retornoDelClickRutina);
 }
 function retornoDelClickRutina(rta){
@@ -595,7 +706,7 @@ function clickInscribirSocioClase() {
     oculta('historialInscripcion');
     oculta('historialSuscripcion');
     oculta('rutinasSocio');
-
+    oculta('modificarSocio');
 
     enviarParametrosGET(miBackEnd + 'Socio/Inscripciones/' + nroSocio, cargarClasesInscriptas);
     
@@ -616,7 +727,7 @@ function clickHistorialInscripcion(){
     muestra('historialInscripcion');
     oculta('historialSuscripcion');
     oculta('rutinasSocio');
-    
+    oculta('modificarSocio');
 
   
      console.log(fecha);
@@ -751,7 +862,7 @@ function clickHistorialSuscripcion(){
     oculta('historialInscripcion');
     muestra('historialSuscripcion');
     oculta('rutinasSocio');
-    
+    oculta('modificarSocio');
 
      console.log(fecha);
     fechaAnterior=sumarDias(hoy,-30);
@@ -835,7 +946,7 @@ function enviarParametrosGET(servidor, funcionARealizar) {
 }
 
 
-function enviarParametrosPOST(servidor, funcionARealizar){
+function enviarParametrosPOST(servidor, funcionARealizar,email){
 
     //declaro el objeto
     var xmlhttp = new XMLHttpRequest(); 
@@ -862,6 +973,42 @@ function enviarParametrosPOST(servidor, funcionARealizar){
     }
     //esto va siempre cuando se hace un formulario
     xmlhttp.setRequestHeader("enctype","multipart/form-data");
+
+    //envio el mensaje 
+    xmlhttp.send(datos);
+
+
+}
+function enviarParametrosPOSTModificar(servidor, funcionARealizar) {
+
+    //declaro el objeto
+    var xmlhttp = new XMLHttpRequest();
+
+    //agrega datos para pasar por POST
+    var datos = new FormData();
+    datos.append("nombre", $("nombreSocioModificar").value);
+    datos.append("apellido", $("apellidoSocioModificar").value);
+    datos.append("direccion", $("direccionSocioModificar").value);
+    datos.append("telefono", $("telefonoSocioModificar").value);
+
+
+    //indico hacia donde va el mensaje
+    xmlhttp.open("POST", servidor, true);
+
+    //seteo el evento
+    xmlhttp.onreadystatechange = function () {
+        //veo si llego la respuesta del servidor
+        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+            //reviso si la respuesta del servidor es la correcta
+            if (xmlhttp.status == 200) {
+                funcionARealizar(xmlhttp.response);
+            } else {
+                swal("Error", "revise los datos cargados", "error");
+            };
+        }
+    }
+    //esto va siempre cuando se hace un formulario
+    xmlhttp.setRequestHeader("enctype", "multipart/form-data");
 
     //envio el mensaje 
     xmlhttp.send(datos);

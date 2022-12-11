@@ -207,7 +207,7 @@
                     
         
             </div>
-            <div  class="col-md-10 order-md-2 border border-3 border-dark rounded-3 bg-white" id="botonesSocio">
+            <div  class="col-md-10 order-md-2 border border-3 border-dark rounded-3 bg-white align-items-center " id="botonesSocio">
             
                 <div class="row mt-3">
                     <div class="col-md-4 order-md-1 mb-4">
@@ -269,7 +269,7 @@
                                 </div>
                                     <span class="text-muted" id="emailSocio"></span>
                             </li>
-                            <button class="btn btn-lg btn-primary" type="button" id="btnModificar" >Modificar datos</button>
+                            <button class="btn btn-lg btn-primary" type="button" id="btnModificar" onclick="clickModificarSocio()" >Modificar datos</button>
                         </ul>
                 
                         
@@ -277,7 +277,64 @@
                 </div>
         
             </div>
-            
+            <div  class="col-md-10 order-md-2 border border-3 border-dark rounded-3 bg-white align-items-center " id="modificarSocio">
+                <div class="form-tablas">
+                    <div class="d-flex  align-items-center ">
+                        <img src="../imagenes/editar.png" alt="" width="100" height="100" class=" ">
+                        <h2 class="mb-1 text-center border-bottom border-primary"> Modificar socio</h2>  
+                    </div>
+                    <br>
+                    <div class="row align-items-center p-1 ">
+                
+                            
+                               
+                                <ul class="list-group mb-3">
+                                    
+                                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                        <div>
+                                        <h6 class="my-0">Nombre:</h6>
+                                        </div>
+                                        
+                                        <input type="text" class="form-control" name="nombreSocioModificar"id="nombreSocioModificar" placeholder="" value="" required="">
+                                        
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                        <div>
+                                        <h6 class="my-0">Apellido:</h6>
+                                        </div>
+                                        <input type="text" class="form-control" id="apellidoSocioModificar" placeholder="" value="" required="">
+                                    </li>
+                                    
+                                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                        <div>
+                                        <h6 class="my-0">Direccion:</h6>
+                                        </div>
+                                        <input type="text" class="form-control" id="direccionSocioModificar" placeholder="" value="" required="">
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                        <div>
+                                        <h6 class="my-0">Telefono:</h6>
+                                        </div>
+                                        <input type="text" class="form-control" id="telefonoSocioModificar" placeholder="" value="" required="">
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                        <div>
+                                            <h6 class="my-0">Correo Electronico:</h6>
+                                        </div>
+                                        <input type="text" class="form-control" id="emailSocioModificar" placeholder="" value="" required="">
+                                            
+                                    </li>
+                        
+                        
+                                 
+                                    <button class="btn btn-lg btn-primary" type="button" id="btnModificarGuardar" >Guardar</button>
+                        
+                                </ul>
+                        
+                                
+                    </div>
+                </div>
+            </div>
 
             <div  class="col-md-10 order-md-2 border border-3 border-dark rounded-3 bg-white" id="historialSuscripcion">
                 <div class=" ms-1 d-flex  align-items-center">
