@@ -6,22 +6,7 @@ function $(nombre)
 }
 
 
-function load(){ oculta('btnvolveract');
-    oculta('descNatural'); 
-    oculta('descFuncional'); 
-    oculta('descStreching'); 
-    oculta('descSpinning'); 
-    oculta('descFreeBox'); 
-    oculta('descRutinas'); 
-    oculta('actividadesPpal');
-
-    document.getElementById("natural").addEventListener("click",muestraNatural);
-    document.getElementById("funcional").addEventListener("click",muestraFuncional);
-    document.getElementById("freebox").addEventListener("click",muestraFreeBox);
-    document.getElementById("streching").addEventListener("click",muestraStreching);
-    document.getElementById("spinning").addEventListener("click",muestraSpinning);
-    document.getElementById("rutinas").addEventListener("click",muestraRutinas);
-
+function load(){ 
     document.getElementById("logIn").addEventListener("click",registrar);
     document.getElementById("home").addEventListener("click",home);
     document.getElementById("activities").addEventListener("click",activities);
@@ -38,10 +23,7 @@ function home(){
     window.location.assign("http://localhost/practica/index.html");
 }
 function activities(){
-    muestra('btnvolveract');
-    oculta('cartelPpal');
-    oculta('videoPpal');
-    muestra('actividadesPpal');
+    window.location.assign("http://localhost/practica/actividades.html");
 
 }
 function schedule(){
@@ -83,77 +65,3 @@ function oculta(id){
     }
 
 }
-function muestraNatural(){
-   oculta('cartelPpal');
-    oculta('descFuncional'); 
-    oculta('descStreching'); 
-    oculta('descSpinning'); 
-    oculta('descFreeBox'); 
-    oculta('descRutinas'); 
-   oculta_muestra('descNatural');
-   oculta('videoPpal');
-   muestra('btnvolveract');
-}
-function muestraFuncional(){
-    oculta('cartelPpal');
-    oculta('descNatural'); 
-  
-    oculta('descStreching'); 
-    oculta('descSpinning'); 
-    oculta('descFreeBox'); 
-    oculta('descRutinas'); 
-    oculta_muestra('descFuncional');
-    oculta('videoPpal');
-    muestra('btnvolveract');
- }
- 
- function muestraStreching(){
-    oculta('cartelPpal');
-    oculta('descNatural'); 
-    oculta('descFuncional'); 
-    
-    oculta('descSpinning'); 
-    oculta('descFreeBox'); 
-    oculta('descRutinas'); 
-    oculta_muestra('descStreching');
-    oculta('videoPpal');
-    muestra('btnvolveract');
-    
- }
- function muestraFreeBox(){
-    oculta('cartelPpal');
-    oculta('descNatural'); 
-    oculta('descFuncional'); 
-    oculta('descStreching'); 
-    oculta('descSpinning'); 
-    
-    oculta('descRutinas'); 
-    oculta_muestra('descFreeBox');
-    oculta('videoPpal');
-    muestra('btnvolveract');
- }
- function muestraRutinas(){
-    oculta('cartelPpal');
-    oculta('descNatural'); 
-    oculta('descFuncional'); 
-    oculta('descStreching'); 
-    oculta('descSpinning'); 
-    oculta('descFreeBox'); 
-    
-    oculta_muestra('descRutinas');
-    oculta('videoPpal');
-    muestra('btnvolveract');
- }
- function muestraSpinning(){
-    oculta('cartelPpal');
-    oculta('descNatural'); 
-    oculta('descFuncional'); 
-    oculta('descStreching'); 
-     
-    oculta('descFreeBox'); 
-    oculta('descRutinas'); 
-    oculta_muestra('descSpinning');
-    oculta('videoPpal');
-    muestra('btnvolveract');
- }
- 

@@ -31,7 +31,7 @@ function home(){
 }
 function activities(){
    
-    window.location.assign("http://localhost/practica/index.html#actividadesPpal");
+    window.location.assign("http://localhost/practica/actividades.html");
 }
 function schedule(){
     window.location.assign("http://localhost/practica/horarios.html");

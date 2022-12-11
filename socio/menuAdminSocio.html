@@ -133,13 +133,20 @@
             </div>
             
             <div id="botonAtras1" class="text-left p-2">
-                <button class="previous btn btn-secondary" type="button" id="btnAtras">
+                <button class="previous btn btn-secondary" type="button" id="btnAtras1">
                     
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 
                 </button>
             </div>
         <div id="botonAtras" class="text-left">
+            <button class="previous btn btn-secondary" type="button" id="btnAtras">
+                
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            
+            </button>
+        </div>
+        <div id="botonAtrasSus" class="text-left">
             <button class="previous btn btn-secondary" type="button" id="btnAtras">
                 
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -575,16 +582,17 @@
                   <h5 class="modal-title" id="exampleModalToggleLabel2">Realizar pago</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <div class="d-flex"  style=" height: 50px;"> <b> N° de pago:</b> <p id="idPago"> 
-                        
-                     </p></div>
-                    <div class="d-flex"  style=" height: 50px;"> <b> Monto a cobrar: $</b> <p id="cobrar"> </p></div>
-                    <div class="d-flex"  style=" height: 50px;"></div>
+                <div class="modal-body align-items-center" id="finPago">
+                    <div class="d-flex justify-content-center mt-5">
+                    <div class="spinner-grow" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div></div><div class="d-flex justify-content-center mt-2">
+                    <div><p class="fw-bold">Cargando...</p></div>
+                </div> 
                    
                 </div>
                 <div class="modal-footer">
-                  <button class="btn btn-primary"  data-bs-dismiss="modal" onclick="registrarPago()">Pagar</button>
+                  
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                     
                 </div>

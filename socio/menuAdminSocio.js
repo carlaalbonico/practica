@@ -41,7 +41,7 @@ function load() {
     oculta('botonAtras');
     oculta('botonAtras1');
    oculta('historialSuscripcion');
-  
+   oculta('botonAtrasSus');
 
     //para ocultar cartel del mensaje
     oculta_muestra('cartel');
@@ -52,7 +52,7 @@ function load() {
     document.getElementById("perfil").addEventListener("click", mostrarPerfil);
     document.getElementById("botonAtras").addEventListener("click", atras);
     document.getElementById("botonAtras1").addEventListener("click", atras1);
-    
+    document.getElementById("botonAtrasSus").addEventListener("click", atrasSus);
     document.getElementById("btnModificar").addEventListener("click", clickModificarSocio);
     document.getElementById("btnBorrar").addEventListener("click", clickBorrarSocio);
     document.getElementById("btnHabilitar").addEventListener("click", clickHabilitarSocio);
@@ -118,8 +118,26 @@ function atras() {
     oculta('historialSuscripcion');
     oculta('botonAtras');
     muestra('botonAtras1');
+    oculta('busquedaSocios');
+    oculta('botonAtrasSus');
 
-}
+}  
+function atrasSus() {
+    oculta('cartel');    
+    muestra('botonesAdminParaUnSocio');
+    oculta('formularioModificarSocio');
+    oculta('formularioChico');
+    oculta('agregarSuscSocio');
+    oculta('historialInscripcion');
+    oculta('historialSuscripcion');
+    oculta('botonAtras');
+    oculta('botonAtrasSus');
+    muestra('botonAtras1');
+    oculta('busquedaSocios');
+    enviarParametrosGET(miBackEnd + 'Socio/' + idSocio, retornoClickConsultarSocio);
+    enviarParametrosGET(miBackEnd + 'Socio/Suscripciones/' + idSocio, retornarSuscripcionesActivas);
+
+}  
 function atras1() {
     oculta('cartel');    
     oculta('botonesAdminParaUnSocio');
@@ -130,7 +148,9 @@ function atras1() {
     oculta('historialSuscripcion');
     oculta('botonAtras');
     oculta('botonAtras1');
+    oculta('botonAtrasSus');
     muestra('busquedaSocios');
+   
 }
 
 function menuRegistrarSocio() {
@@ -147,6 +167,7 @@ function menuConsultarSocio() {//oculta la botonera y visualiza el campo para es
     oculta('agregarSuscSocio');
     oculta('botonAtras');
     oculta('botonAtras1');
+    oculta('botonAtrasSus');
    oculta('historialSuscripcion');
   
     clickBuscar();
@@ -321,6 +342,7 @@ function retornoClickConsultarSocio(respuesta) {
     oculta('historialSuscripcion');
     oculta('botonAtras');
     muestra('botonAtras1');
+    oculta('botonAtrasSus');
 
     var socio = JSON.parse(respuesta);
 
@@ -432,6 +454,7 @@ function retornoClickModificarSocio(respuesta) {
     muestra('botonAtras');
     oculta('botonAtras1');
     oculta('historialSuscripcion');
+    oculta('botonAtrasSus');
     var socioMod = JSON.parse(respuesta);
 
     $("nombreSocioModificar").value = socioMod["nombre"];
@@ -454,7 +477,7 @@ function validarSocioModificar() {
     var ModDireccion = $("direccionSocioModificar").value.length;
     var ModTelefono = $("telefonoSocioModificar").value.length;
 
-    if (ModNombre >= 2 && ModApellido >= 2 && ModDireccion >= 2 && ModTelefono >= 10) {
+    if (ModNombre >= 2 && ModApellido >= 2 && ModDireccion >= 2 && ModTelefono >= 8) {
         $('btnModificarGuardar').disabled = false;//habilitar
     } else {
         $('btnModificarGuardar').disabled = true;
@@ -576,8 +599,9 @@ function clickRegistrarSuscripcion() {
     muestra('agregarSuscSocio');
     oculta('historialInscripcion');
     oculta('historialSuscripcion');
-    muestra('botonAtras');
+    oculta('botonAtras');
     oculta('botonAtras1');
+    muestra('botonAtrasSus');
     //manda los datos para cargar el formularioChico
     var idSocio = document.getElementById("nroSocio").innerText;
 
@@ -709,13 +733,37 @@ function rtaAdquiriSuscripcion(rta){
 }
 
 function registrarPago(){
-    enviarParametrosPOSTPago(miBackEnd + 'Pago', rtaPago, precio,idCompraSusc); 
+    var medioPago= document.getElementById("slctFormaPago").value; 
+    
+if(medioPago=="Efectivo"){
+    console.log('efectivo');
+    enviarParametrosPOSTPago(miBackEnd + 'Pago',rtaPagoEfectivo, precio,idCompraSusc); 
+}
+else{
+    console.log('mercado pago'); 
+    enviarParametrosPOSTPago(miBackEnd + 'Pago',rtaPagoMercadoPago, precio,idCompraSusc); 
+}
 }
 
-function rtaPago(rta){
-
+function rtaPagoEfectivo(rta){
+    var opciones= [];
+    opciones.push('<div class="d-flex"  style=" height: 50px;"> <b>'+rta+ 
+                        
+    '</b></div>'+
+   '<div class="d-flex"  style=" height: 50px;"> <b> Monto: $'+precio+'</b></div>');
+    $("finPago").innerHTML=opciones.join('');
    
-    swal("Genial!", '"'+rta+'"', "success");
+   // swal("Genial!", '"'+rta+'"', "success");
+}
+function rtaPagoMercadoPago(rta){
+    var opciones= [];
+    opciones.push(
+   '<div class="d-flex"  style=" height: 50px;"> <b> Monto a pagar: $'+precio+'</b></div>'+
+   '<div class="d-flex"  style=" height: 50px;"> <b> Escaneá y paga con tu celular</b></div>'+
+   ' <img src="../imagenes/qr.jpg" alt="" width="120" height="120" class=" me-2" >');
+    $("finPago").innerHTML=opciones.join('');
+   
+   // swal("Genial!", '"'+rta+'"', "success");
 }
 
 function clickInscribirSocioClase() {
@@ -733,6 +781,7 @@ function clickHistorialInscripcion(){
     muestra('formularioChico');
     oculta('agregarSuscSocio');
     oculta('botonAtras1');
+    oculta('botonAtrasSus');
     muestra('botonAtras');
      muestra('historialInscripcion');
      oculta('historialSuscripcion');
@@ -871,6 +920,7 @@ function clickHistorialSuscripcion(){
     oculta('agregarSuscSocio');
     oculta('botonAtras1');
     muestra('botonAtras');
+    oculta('botonAtrasSus');
      oculta('historialInscripcion');
      muestra('historialSuscripcion');
      enviarParametrosGET(miBackEnd + 'Socio/' + idSocio, cargarFormularioChico);

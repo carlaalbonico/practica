@@ -53,7 +53,7 @@ function oculta_muestra(id){
 
 }
 function atras(){
-    window.location.assign("http://localhost/practica/clase/menuAdminClase.html");//aca va el enlace de la pagina registrar; 
+    window.location.assign("http://localhost/practica/suscripcion/menuAdminSusc.html");//aca va el enlace de la pagina registrar; 
 }
 function cerrarSesion() {
     sessionStorage.clear();

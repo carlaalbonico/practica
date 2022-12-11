@@ -93,7 +93,7 @@ function clickRegistrarSusc(){
 }
 
 function clickConsultarSusc(){
-    muestra('botonAtras');
+    oculta('botonAtras');
     muestra('suscripcion'); 
     
     oculta('formularioModSusc'); 
@@ -249,7 +249,7 @@ function cargarOpcionesClaseMod(nro){
  }
 
  function retornoDelClickModificarSusc(valor){
-
+    $('btnGuardarSusc').disabled = true;
     oculta('cartel');
     oculta('suscripcion');
     
@@ -264,10 +264,10 @@ function cargarOpcionesClaseMod(nro){
     $("slctAct").value = suscrip["actividad"];
     $("txtModPrecio").value = suscrip["precio"];
 
-   // $('txtModNombre').addEventListener("keyup", validarModificar);
-   // $('txModCant').addEventListener("keyup", validarModificar);
-    //$('txtModDesc').addEventListener("keyup", validarModificar);
-   // $('txtModPrecio').addEventListener("keyup", validarModificar);
+    $('txtModNombre').addEventListener("keyup", validarModificar);
+    $('txModCant').addEventListener("keyup", validarModificar);
+    $('txtModDesc').addEventListener("keyup", validarModificar);
+    $('txtModPrecio').addEventListener("keyup", validarModificar);
    
       
         
@@ -278,7 +278,7 @@ function validarModificar() {
     var ModDesc = $("txtModDesc").value.length;
     var ModPrecio = $("txtModPrecio").value.length;
 
-    if (ModNombre <= 20 && Modcant >= 2 && ModDesc < 200 && ModPrecio <= 8) {
+    if (ModNombre <= 15  && ModDesc < 200 && ModPrecio <= 8) {
        $('btnGuardarSusc').disabled = false;//habilitar
     } else {
         $('btnGuardarSusc').disabled = true;
@@ -292,10 +292,7 @@ function clickGuardarModSusc() {
    
     enviarInfoDeSusc(miBackEnd + 'Suscripcion/Actualizacion/'+extra, respuestaDeServidor);
 }
-function respuestaDeServidorMod(respuesta) {
 
-    $("respuesta").innerHTML = respuesta;
-}
 
 
 

@@ -19,21 +19,20 @@
     <script src="actividades.js"></script>
   
    
-                                                                                                                                                                                                 
+
     <!-- PARA DISPOSITIVOS CHICOS -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Pushup</title>
 </head>
 
 <body>
-        <header class="bg-dark ">
+        <header class="p-1 bg-dark ">
             <div class="container">
                 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 ">
                     
                       
-                    
                     <div class="col-md-3 ">
-                        <a href="#" class="nav-link px-2 " id="home" >
+                        <a href="http://localhost/practica/index.html" class="nav-link px-2 link-secondary" id="home" >
                             <img src="imagenes/pushup1.png" class="" alt="..."  width="100" height="92">
                             <!--<span class="fs-4 text-white">PUSH UP</span>-->
                           </a>
@@ -43,16 +42,16 @@
                     
                     
                     
-                    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                      
-                        <li><a href="#" class="btn btn-outline-primary"id="activities">Actividades</a></li>
-                        <li><a href="#" class="btn btn-outline-primary" id="schedule">Horarios</a></li>
-                        <li><a href="#" class="btn btn-outline-primary" id="contact">Contacto</a></li>
-                    </ul>
+                    <div class="nav col-12 col-md-auto mb-2 d-flex justify-content-between mb-md-0">
+                        <button class="btn btn-outline-primary"id="activities">Actividades</button>
+                        <button class="btn btn-outline-primary" id="schedule">Horarios</button>
+                        <button class="btn btn-outline-primary"id="contact">Contacto</button>
+                        
+                    </div>
 
                     <div class="col-md-3 text-end">
                         <button type="button" class="btn btn-outline-success me-2" id="logIn">Ingresar</button>
-                        
+                       
                     </div>
                 </div>
             </div>
@@ -60,91 +59,185 @@
     
        
         <main>
-           
             
             
-            <div id="menuActividades">
+            <div class="container" id="actividadesPpal">
+                <div class="d-flex mb-3">
+                    <div class="pt-3"> <a href="./index.html" class="btn btn-outline-primary" id="btnvolveract"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+                      </svg></a></div>
+                      <div class=" d-flex   align-items-center ms-3">   
+                        <img src="imagenes/actividades.png" alt="" width="60" height="60" class=" me-2">
+                        <h2 class="mb-1 text-center border-bottom border-danger">Actividades</h2>
+                    </div>
+                </div>
+               
 
-                <div class=" container justify-content-center g-3"><h3>NUESTRAS ACTIVIDADES</h3></div>
+                 <div class="row"> 
+                    
+                    <div class="col-12 col-lg-4 ">
+                        <button  type="button"  href="#descNatural" class="btn border border-secondary h-100 w-100 bg-light w-100  d-flex align-items-center justify-content-center " id="natural">  
+                            <img class=" me-3" width="100" height="100" src="imagenes/natural cross.png" alt="...">
+                           <div class="text-wrap"><h2>NATURAL CROSS</h2></div> 
+                        </button>
+                     
+                    </div>
+                    <div class=" col-12 col-lg-4" >
+                        <button  type="button" href="#descFuncional" class="btn border border-secondary h-100 w-100 bg-light w-100 d-flex align-items-center justify-content-center"  id="funcional">  
+                            <img class=" me-3" width="100" height="100" src="imagenes/funcional.png" alt="...">
+                           <div class="text-wrap "><h2>FUNCIONAL</h2></div> 
+                        </button>
+
+                    
+                    </div>
+                    <div class=" col-12 col-lg-4" >
+
+                        <button  type="button" href="#descStreching" class="btn border border-secondary h-100 w-100 bg-light w-100 d-flex align-items-center justify-content-center " id="streching">  
+                            <img class=" me-3" width="100" height="100" src="imagenes/streching.png" alt="...">
+                           <div class="text-wrap"><h2>STRETCHING</h2></div> 
+                        </button>
+                        
+                    </div>
+                </div>
+                <div class="row py-4">
+                    <div class=" col-12 col-lg-4" >
+                        <button  type="button" href="#descSpinning" class="btn border border-secondary h-100 w-100 bg-light w-100 d-flex align-items-center justify-content-center"  id="spinning">  
+                            <img class=" me-3" width="100" height="100" src="imagenes/spinning.png" alt="...">
+                           <div class="text-wrap"><h2>SPINNING</h2></div> 
+                        </button>
+                        
+                    </div>
+                    
+
+                    <div class=" col-12 col-lg-4">
+                        <button  type="button"   href="#descFreeBox"  class="btn border border-secondary h-100 w-100 bg-light w-100 d-flex align-items-center  justify-content-center" id="freebox">  
+                            <img class=" me-3" width="100" height="100" src="imagenes/freebox.png" alt="...">
+                           <div class="text-wrap"><h2>MUSCULACION</h2></div> 
+                        </button>
+                        
+                        
+                    </div>
+                    <div class=" col-12 col-lg-4" >
+                        <button  type="button"   href="#descRutinas" class="btn border border-secondary h-100 w-100 bg-light w-100 d-flex align-items-center justify-content-center"  id="rutinas">  
+                            <img class=" me-3" width="100" height="100" src="imagenes/rutinas.PNG" alt="...">
+                           <div class="text-wrap"><h2>RUTINAS</h2></div> 
+                        </button>
+                        
+                       
+                    </div>
+                   
+                   
+                </div>
+                        
+                    
+                            
+                        
+            
+            <div class=" py-3 text-left py-lg-1 border border-3 rounded-3 bg-primary bg-opacity-75 " id="descNatural">
+                <div class="p-4">
+                    <div class=""><h2>NATURAL CROSS</h2></div>
+                    <p> <span class="fw-bold">Resistencia, fuerza física, flexibilidad, potencia, equilibrio… ¿Todo en uno?</span></p>
+                    <p > Si buscas un deporte que te ayude a conseguir esto y más, anotate!.</p>
+                    <p class="fst-italic"> El CrossFit es una técnica de entrenamiento que concatena movimientos de diferentes disciplinas, tales como la halterofilia, el entrenamiento metabólico o el gimnástico.Consiste en acometer un programa de ejercicios (flexiones, tracción, etc), en un tiempo determinado y con un número definido de veces. </p>
+                    <p class="fst-italic" >Esta noción tiene como principio mantener intacta la motivación de los deportistas a largo plazo. Se puede realizar de manera individual o en grupo, y las sesiones suelen ser cortas, variadas y adaptables en función del nivel de cada participante.
+
+                      <p class="fs-6"> En el <span class="fw-bold"> Natural Cross</span> integramos éstas técnicas con un nuevo movimiento que plantea la mejora del estilo de vida de los individuos que los relaciona con el mundo natural. Esta idea ha hecho posible la creación de este espacio alternativo <span class="fw-bold"> "PUSH UP"</span>  , que propone a partir de transformar un medio original  artificial dandole un nuevo aspecto natural. </p>
+                    <p class="fw-light">En este espacio el ritmo de ejecución lo impone el propio sujeto que las realiza y en las que se buscan sensaciones y emociones como vivencias. Un lugar donde tu coach te guiará correctamente para lograr los resultados que estás buscando.
+                    </p>
+                    </div>
+                          
+            </div>
+            <div class="py-3 text-left py-lg-1 border border-3 rounded-3 bg-primary bg-opacity-75 " id="descFuncional">
+                <div class=" p-4">
+                    <div class=""><h2>FUNCIONAL</h2></div>
                 
-                <div class="container d-flex bg-primary justify-content-between">
+                    <p> <span class="fw-bold">El entrenamiento que se basa en movimientos y no en músculos.</span></p>
+                    <p class="fst-italic"> El  entrenamiento funcional es un tipo de entrenamiento que se basa en movimientos y no en músculos, permitiéndonos mejorar gestos y habilidades muy frecuentemente usadas en el día a día. </p>
+                    <p class="fst-italic">Se centra en trabajar aspectos aplicables a otros deportes y a acciones de la vida cotidiana: saltar, tirar, empujar, agacharse, etc. Se trabaja  los  músculos en forma conjunta y no en forma aislada.  </p>
+                    <p> Se pretende aumentar el esfuerzo de los movimientos comunes adaptados a cada persona.</p>
+                    <p>Así, el<span class="fw-bold"> entrenamiento funcional </span> se basa en ejercicios compuestos o multiarticulares y recrea movimientos de uso habitual tales como levantamiento de un peso del suelo, trasladar objetos pesados, agacharnos, empujar o jalar objetos varios.
                     
-                    <button type="button" class="btn btn-outline-dark" id="btnnatural"><h4>NATURAL CROSS</h4></button>
-                    <button type="button" class="btn btn-outline-dark" id="btnfuncional"><h4>FUNCIONAL</h4></button>
-                    <button type="button"   class="btn btn-outline-dark" id="btnstreching"><h4>STRECHING</h4></button>
-                    <button type="button" class="btn btn-outline-dark" id="btnspinning"><h4>SPINNING</h4></button>
-                    <button type="button"  class="btn btn-outline-dark" id="btnfreebox"><h4>FREE BOX</h4></button>
-                    <button type="button"  class="btn btn-outline-dark" id="btnrutinas"><h4>RUTINAS</h4></button>
-                                  
-                </div>
-            </div>
-            
-          <div class="container">
-            <div class="" id="descNatural">
-                <div class="ps-3">
-                    <div class="h-50 p-3"><h2>NATURAL CROSS</h2></div>
-                    <p>Resistencia, fuerza física, flexibilidad, potencia, equilibrio… ¿Todo en uno? Si buscas un deporte que te ayude a conseguir esto y más, anotate!.El CrossFit es una técnica de entrenamiento que concatena movimientos de diferentes disciplinas, tales como la halterofilia, el entrenamiento metabólico o el gimnástico.Consiste en acometer un programa de ejercicios (flexiones, tracción, etc), en un tiempo determinado y con un número definido de veces.Esta noción tiene como principio mantener intacta la motivación de los deportistas a largo plazo. Se puede realizar de manera individual o en grupo, y las sesiones suelen ser cortas, variadas y adaptables en función del nivel de cada participante.
-
-                        En el NaturalCross integramos éstas técnicas con un nuevo movimiento que plantea la mejora del estilo de vida de los individuos que los relaciona con el mundo natural. Esta idea ha hecho posible la creación de este espacio alternativo "PUSH UP" , que propone a partir de transformar un medio original  artificial dandole un nuevo aspecto natural. En este espacio el ritmo de ejecución lo impone el propio sujeto que las realiza y en las que se buscan sensaciones y emociones como vivencias. Un lugar donde tu coach te guiará correctamente para lograr los resultados que estás buscando.</p>
+                    <p> Su práctica puede ofrecer muchos beneficios: desde ayudarnos a prevenir lesiones hasta incrementar el rendimiento deportivo y desarrollar una mejor condición física general. </p></p> 
+                
+                    <span class="fw-bold">¡Te esperamos!</span></p>
                 </div>
                           
             </div>
-            <div class="" id="descFuncional">
-                <div class="h-50 p-3"><h2>FUNCIONAL</h2></div>
-                <div class="ps-3"><p>El entrenamiento funcional es un tipo de entrenamiento que se basa en movimientos y no en músculos, permitiéndonos mejorar gestos y habilidades muy frecuentemente usadas en el día a día. Se centra en trabajar aspectos aplicables a otros deportes y a acciones de la vida cotidiana: saltar, tirar, empujar, agacharse, etc Se trabaja  los  músculos en forma conjunta y no en forma aislada.  Se pretende aumentar el esfuerzo de los movimientos comunes adaptados a cada persona.
+            <div  class="py-3 text-left py-lg-1 border border-3 rounded-3 bg-primary bg-opacity-75" id="descStreching">
+                <div class=" p-4">
+                <div class=""><h2>STRETCHING</h2></div>
+                    <p class="fst-italic">El stretching es una disciplina que cada día es más común en los gimnasios.
+                        Básicamente, consiste en una rutina de diferentes ejercicios derivados del yoga, de la gimnasia tradicional y de la danza clásica. 
+                    </p> 
+                    <p class="fst-italic"> Son movimientos suaves que, con el tiempo, mejoran la flexibilidad de los músculos.</p> 
+                        En <span class="fw-bold"> PUSH UP </span>te ayudamos a mejorar la flexibilidad de los músculos. 
+                    </p> 
+                    <p> Aunque parezca una actividad sencilla, los ejercicios son relativamente complejos y requieren de una correcta respiración, concentración, calma y relajación. 
+                        Todo esto es importante porque una buena oxigenación atenúa el estado de tensión.
+                    </p> 
+                    <p>   
+                        Este tipo de ejercicio es ideal para quienes tengan una vida sedentaria y tienen dificultades para empezar de cero alguna actividad física. Además, su bajo impacto hace que puedan practicarlo personas mayores o con lesiones.  </p>
+                </div>
+                   
+            </div>
+            <div class="py-3 text-left py-lg-1 border border-3 rounded-3 bg-primary bg-opacity-75" id="descSpinning">
+                <div class=" p-4">
+                    <div class=""><h2>SPINNING</h2></div>
+                    <p>Puede parecer que el spinning es simplemente hacer ejercicio sobre una bicicleta estática, pero hay muchos aspectos de esta disciplina que están especialmente pensados para que realices un gran progreso en tu entrenamiento sin que apenas te des cuenta.
 
-                    Así, el entrenamiento funcional se basa en ejercicios compuestos o multiarticulares y recrea movimientos de uso habitual tales como levantamiento de un peso del suelo, trasladar objetos pesados, agacharnos, empujar o jalar objetos varios.
-                    
-                    Su práctica puede ofrecer muchos beneficios: desde ayudarnos a prevenir lesiones hasta incrementar el rendimiento deportivo y desarrollar una mejor condición física general. 
-                    
-                    ¡Te esperamos!</p></div>
+                        La motivación que supone ir en un grupo durante las clases de spinning es solo comparable a otras disciplinas de coreografía, ya que se trata de un ejercicio muy energético que se refuerza por el sentimiento de grupo. El monitor, además, debe preparar las clases con objetivos de entrenamiento concretos: para mejorar la resistencia cardiovascular, el trabajo interválico, etc…</p>
+                </div>
                           
             </div>
-            <div  id="descStreching">
-                <div class="h-50 p-3"><h2>STRECHING</h2></div>
-                <div class="ps-3"><p>El stretching es una disciplina que cada día es más común en los gimnasios. Básicamente, consiste en una rutina de diferentes ejercicios derivados del yoga, de la gimnasia tradicional y de la danza clásica. Son movimientos suaves que, con el tiempo, mejoran la flexibilidad de los músculos.
+            <div class="py-3 text-left py-lg-1 border border-3 rounded-3 bg-primary bg-opacity-75" id="descFreeBox">
+                <div class=" p-4">
+                <div class=""><h2>FREEBOX</h2></div>
+                
+                    <p>Ahora en <span class="fw-bold"> PUSH UP </span>, tenes un espacio para entrenar musculacion. 
+                        <p class="fst-italic"> La musculación es una disciplina que requiere tiempo, dedicación y esfuerzo. Como su propio nombre indica, su objetivo es el desarrollo de los músculos.</p>
+                        <p class="fst-italic"> En la actualidad, la práctica de la musculación es uno de los recursos más utilizados por todo tipo de personas ya sea para mejorar su físico, ganar masa muscular, perder peso o simplemente como complemento para todo tipo de deportes.</p>
 
-                    Precisamente, al mejorar la flexibilidad de los músculos, es una Dos personas practicando stretchingdisciplina que se debe practicar casi a diario. Además, aunque parezca una actividad sencilla, los ejercicios son relativamente complejos y requieren de una correcta respiración, concentración, calma y relajación. Todo esto es importante porque una buena oxigenación atenúa el estado de tensión.
-                    
-                    Este tipo de ejercicio es ideal para quienes tengan una vida sedentaria y tienen dificultades para empezar de cero alguna actividad física. Además, su bajo impacto hace que puedan practicarlo personas mayores o con lesiones.  </p></div>
+                    </p> 
+                    <p>
+                        El éxito del proceso de musculación depende de tres pilares básicos: La dieta, el entrenamiento con rutinas de gimnasio adecuadas y el descanso. Si cuidas estos tres pilares tu éxito a la hora de alcanzar tus objetivos está asegurado.
+                    </p>
+                        
+                         
+                     
+                    <p>Acercate y consulta</p></div>
                           
             </div>
-            <div class="" id="descSpinning">
-                <div class="h-50 p-3"><h2>SPINNING</h2></div>
-                <div class="ps-3"><p>Puede parecer que el spinning es simplemente hacer ejercicio sobre una bicicleta estática, pero hay muchos aspectos de esta disciplina que están especialmente pensados para que realices un gran progreso en tu entrenamiento sin que apenas te des cuenta.
-
-                    La motivación que supone ir en un grupo durante las clases de spinning es solo comparable a otras disciplinas de coreografía, ya que se trata de un ejercicio muy energético que se refuerza por el sentimiento de grupo. El monitor, además, debe preparar las clases con objetivos de entrenamiento concretos: para mejorar la resistencia cardiovascular, el trabajo interválico, etc…</p></div>
-                          
-            </div>
-            <div class="" id="descFreeBox">
-                <div class="h-50 p-3"><h2>FREEBOX</h2></div>
-                <div class="ps-3">
-                    <p>Ahora en PUSHUP, tenes un espacio para poder entenar solo. Vos decidis como, nosotros te damos toda la infraestructura que necesitas. Acercate y consulta</p></div>
-                          
-            </div>
-            <div class="" id="descRutinas">
-                <div class="h-50 p-3"><h2>RUTINAS</h2></div>
-                <div class="ps-3"><p>¿Por qué planificar el entrenamiento?
+            <div class="py-3 text-left py-lg-1 border border-3 rounded-3 bg-primary bg-opacity-75" id="descRutinas">
+                <div class=" p-4">
+                <div class=""><h2>RUTINAS</h2></div>
+                <p> <span class="fw-bold">¿Por qué planificar el entrenamiento?</span>
+                </p> 
+                <p class="fst-italic" > 
 
                     La planificación es una herramienta muy importante para poder avanzar en la consolidación de metas, en el plano deportivo, marca la diferencia entre el desarrollo de las capacidades y la conquista de los éxitos
-                    
+                </p> 
+                <p class="fst-italic">    
                     Cualquiera que sea el tiempo del que dispongas, será crucial desarrollar el programa más eficiente para ti. Identificar las prioridades y determina los principios funcionales.
-                    
+                </p> 
+                <p class="fst-italic">     
                     Estructurar los entrenamientos hace que estos sean más efectivos, se busque la prevención de lesiones y le den un rumbo al mismo. 
-                    
-                    A la hora de diseñar una planificación debemos tener en cuenta una serie de premisas: el tipo de deporte,el deportista (sus características, su nivel y su disponibilidad para entrenar), el material y las instalaciones disponibles.
-                    
-                    Luego de la realizacion de un diagnostico, recibiras una planificacion que puede ser de 4, 8 o 12 clases, adaptado a tus necesidades, espacio e instalaciones disponibles. Las mismas abarcaràn un perìodo de 30 dias. Podras realizar consultas y tendras un seguimiento del avance y progreso del entrenamiento. </p></div>
+                </p> 
+                <p>    
+                    <p>En <span class="fw-bold"> PUSH UP </span> a la hora de diseñar una planificación,  tenemos en cuenta una serie de premisas: el tipo de deporte,el deportista: sus características, su nivel y su disponibilidad para entrenar.
+                </p> 
+                <p>     
+                    Luego de la realizacion de un diagnostico, recibiras una planificacion que puede ser de 4, 8 o 12 clases, adaptado a tus necesidades, espacio e instalaciones disponibles. Las mismas abarcaràn un perìodo de 30 dias. Podras realizar consultas y tendras un seguimiento del avance y progreso del entrenamiento. </p>
+                
+                </div>
                           
             </div>
           </div>
-            
-
-
         
     
         
 
+        
+      
         
             
     </main>

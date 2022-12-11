@@ -411,8 +411,8 @@ function inscriptosAClase(rta){
                 '<td>' + socio.nombre + ' ' + socio.apellido + '</td>' +
                 
     
-                '<td><button class="btn bg-primary bg-opacity-75 modificacion"  onclick="presente(' + socio.nroSocio +')">presente</button></td>' +
-                '<td><button class="btn bg-danger bg-opacity-75 modificacion"  onclick="ausente(' + socio.nroSocio + ')">ausente</button></td>' +
+                '<td><button class="btn bg-primary bg-opacity-75 modificacion" id="presente' + socio.nroSocio +'" onclick="presente(' + socio.nroSocio +')">presente</button></td>' +
+                '<td><button class="btn bg-danger bg-opacity-75 modificacion" id="ausente' + socio.nroSocio +'"  onclick="ausente(' + socio.nroSocio + ')">ausente</button></td>' +
                 '</tr>'
             );
         });
@@ -429,15 +429,21 @@ function presente(idSocio){
     var presente= 1; 
     console.log(presente);
     enviarParametrosPOSTAsistencia(miBackEnd + 'Socio/Asistencia', respuestaDeServidorPresente,idSocio,clase,presente);
+    var nombreBton= "presente"+idSocio;
+    console.log(nombreBton);
+    $(nombreBton).disabled = true; 
 }
 function respuestaDeServidorPresente(respuesta) {
     swal("Guardado  presente!", '"'+respuesta+'"', "success");
-    
+     
 }
 
 function ausente(idSocio){
     var presente= 0; 
     enviarParametrosPOSTAsistencia(miBackEnd + 'Socio/Asistencia', respuestaDeServidorAusente,idSocio,clase,presente);
+    var nombreBton= "ausente"+idSocio;
+    console.log(nombreBton);
+    $(nombreBton).disabled = true; 
 }
 function respuestaDeServidorAusente(respuesta) {
     swal("Guardado  ausente!", '"'+respuesta+'"', "success");
