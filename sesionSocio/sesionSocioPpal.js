@@ -18,7 +18,9 @@ var salon = "Principal";
 var clasesInscriptas=[];
 var fecha;
 var emailNuevo;
-var idUsuario; 
+var idUsuario;
+var idRutina; 
+
 //DOM
 function $(nombre)
 {
@@ -606,6 +608,7 @@ function clickRutinas(){
     muestra('rutinasSocio');
     oculta('modificarSocio');
     enviarParametrosGET(miBackEnd + 'Rutina',retornoDelClickRutina);
+    
 }
 function retornoDelClickRutina(rta){
     var rutinas= JSON.parse(rta);
@@ -619,7 +622,7 @@ function retornoDelClickRutina(rta){
                     '<div class="card-body text-dark">'+
                         '<h5 class="card-title">'+rutina.nombre+'</h5>'+
                         '<p class="card-text"><b> Descripcion: </b> '+rutina.descripcion+'</p>'+
-                        '<div class=" d-flex  justify-content-end"><button class="btn bg-primary bg-opacity-75 " data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="verRutina(/'+rutina.nombre+'/,/'+rutina.descripcion+'/,/'+rutina.salon+'/)">Ver</button></div>'+
+                        '<div class=" d-flex  justify-content-end"><button class="btn bg-primary bg-opacity-75 " data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="verRutina('+rutina.idRutina+')">Ver</button></div>'+
                     '</div>'+            
             '</div>'+
             '</div>')
@@ -627,27 +630,45 @@ function retornoDelClickRutina(rta){
         })
 
         $('rutinas').innerHTML = opciones.join('');
+       
 }
 
-function verRutina(pnombre,pdescripcion,psalon){
-    nombre= String(pnombre);
-    descripcion= String(pdescripcion);
-    salon= String(psalon);
+function verRutinaID(rta){
+    console.log(rta);
+    var rutinas= JSON.parse(rta);
+    console.log(rutinas);
+    var rutina=[];
+    rutinas.forEach(element=>{
+        if(element.idRutina==idRutina){
+            let objeto={nombre:element.nombre,descripcion:element.descripcion, salon:element.salon}
+        
+            rutina.push(objeto); 
+        }
+    }
+        )
 
-    console.log(quitarbarras(nombre) );
-    console.log(quitarbarras(descripcion) );
-    console.log(quitarbarras(salon) );
-    var opciones=[];
-
-    opciones.push('<div class="container">'+
-    '<h2 class=" text-center mb-4">'+quitarbarras(nombre)+'</h2>'+
-    '<p class="">'+quitarbarras(descripcion)+'</p>'+
-    '<div class="d-flex align-items-center"><h4 class=" align-items-center" >Salon: </h4><h5 class="lead">'+quitarbarras(salon)+'</h5></div>'+
+        console.log(rutina);
+        opciones=[];
+        rutina.forEach(element=>{
+            opciones.push('<div class="container">'+
+    '<h2 class=" text-center mb-4">'+element.nombre+'</h2>'+
+    '<p class="text-break fs-3">'+element.descripcion+'</p>'+
+    '<div class="d-flex align-items-center"><h4 class=" align-items-center" >Salon: </h4><h5 class="lead">'+element.salon+'</h5></div>'+
     '</div>');
+        })
+         
 
    
 
     $('tablaRutinas').innerHTML= opciones.join('');
+        
+}
+
+function verRutina(id){
+   idRutina= id; 
+   enviarParametrosGET(miBackEnd + 'Rutina',verRutinaID);
+     
+
 }
 
 function quitarbarras(element){
