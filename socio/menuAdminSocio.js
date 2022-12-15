@@ -221,7 +221,7 @@ function cargarTablaSocios(socios){
             '<td>' + socio.nombre + ' ' + socio.apellido + '</td>' +
             '<td>' + socio.email + '</td>' +
 
-            '<td><button class="btn btn-outline-dark bg-primary  bg-opacity-75 modificacion"  onclick="clickConsultarSocio(' + socio.nroSocio + ')">Ver más</button></td>' +
+            '<td><button class="btn btn-outline-dark bg-primary  bg-opacity-25 modificacion"  onclick="clickConsultarSocio(' + socio.nroSocio + ')">Ver más</button></td>' +
 
             '</tr>'
         );

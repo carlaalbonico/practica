@@ -521,11 +521,11 @@ function armaColumnaPorDia(clases, clasesInscriptas ,dia, fecha, salon){
         console.log( (clasesInscriptas.includes(clase.idClasePorDia)));
         if (clasesInscriptas.includes(clase.idClasePorDia)) {
             columnaDia.push(' <div class="col px-0 " >'+
-                    '<div class="card  bg-primary bg-opacity-75 mb-1 " style="  height: 250px;" >'+
+                    '<div class="card  bg-primary bg-opacity-25 mb-1 " style="  height: 250px;" >'+
                             '<div class="card-header">'+clase.horaDeInicio+'</div>'+
-                            '<div class="card-body text-dark " >'+
-                                '<h5 class="card-title">'+clase.nombreActividad+'</h5>'+
-                                '<p class="card-text"  style=" height: 96px;"> <b> Profe: </b> '+clase.profesor+' <br><b>Cupos libres: </b> '+clase.cupoDisponible+'</p>'+
+                            '<div class="card-body text-dark p-1" >'+
+                                '<p class="card-title"><b>'+clase.nombreActividad+'</b></p>'+
+                                '<p class="card-text"  style=" height: 110px;"> <b> Profe: </b> '+clase.profesor+' <br><b>Cupos libres: </b> '+clase.cupoDisponible+'</p>'+
                                 '<div class=" d-flex  justify-content-end align-text-bottom"><button class="btn bg-light  "  onclick="clickEnviarBorrar(' + clase.idClasePorDia+ ')">Borrar</button></div>'+
                             '</div>'+            
                     '</div>'+
@@ -536,10 +536,10 @@ function armaColumnaPorDia(clases, clasesInscriptas ,dia, fecha, salon){
                 ' <div class=" col px-0 ">'+
                     '<div class="card border-dark mb-1" style="  height: 250px;">'+
                             '<div class="card-header">'+clase.horaDeInicio+'</div>'+
-                            '<div class="card-body text-dark   " >'+
-                                '<h5 class="card-title">'+clase.nombreActividad+'</h5>'+
-                                '<p class="card-text"  style=" height: 96px;"> <b> Profe: </b> '+clase.profesor+' <br><b>Cupos libres: </b> '+clase.cupoDisponible+'</p>'+
-                                '<div class=" d-flex  justify-content-end align-text-bottom"><button class="btn bg-primary bg-opacity-75 "  onclick="clickEnviarInscripcion(' + clase.idClasePorDia+ ')">Inscribir</button></div>'+
+                            '<div class="card-body text-dark  p-1" >'+
+                                '<p class="card-title"><b>'+clase.nombreActividad+' </b></p>'+
+                                '<p class="card-text"  style=" height: 110px;"> <b> Profe: </b> '+clase.profesor+' <br><b>Cupos libres: </b> '+clase.cupoDisponible+'</p>'+
+                                '<div class=" d-flex  justify-content-end align-text-bottom"><button class="btn bg-primary bg-opacity-25 "  onclick="clickEnviarInscripcion(' + clase.idClasePorDia+ ')">Inscribir</button></div>'+
                             '</div>'+            
                     '</div>'+
                 '</div>'

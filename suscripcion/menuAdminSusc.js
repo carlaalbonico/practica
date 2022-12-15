@@ -169,7 +169,7 @@ console.log(suscrip);
                 '<td>'+element.descSuscripcion+'</td>'+
                 '<td>'+element.actividad+'</td>'+
                 '<td>$'+element.precio+'</td>'+
-                '<td><button class="btn bg-danger bg-opacity-75 modificacion"  onclick="clickModifSuscripcion(' + element.idSuscripcion + ')">Modificar</button></td></tr>' );
+                '<td><button class="btn bg-danger bg-opacity-25 modificacion"  onclick="clickModifSuscripcion(' + element.idSuscripcion + ')">Modificar</button></td></tr>' );
                 
             });
 
@@ -189,7 +189,7 @@ console.log(suscrip);
                 '<td>'+element.descSuscripcion+'</td>'+
                 '<td>'+element.actividad+'</td>'+
                 '<td>$'+element.precio+'</td>'+
-                '<td><button class="btn bg-primary  btn-outline-dark  bg-opacity-75 modificacion"  onclick="clickModifSuscripcion(' + element.idSuscripcion + ')">Modificar</button></td></tr>' );
+                '<td><button class="btn bg-primary  btn-outline-dark  bg-opacity-25 modificacion"  onclick="clickModifSuscripcion(' + element.idSuscripcion + ')">Modificar</button></td></tr>' );
             
         });
 

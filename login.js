@@ -40,7 +40,7 @@ function home(){
     window.location.assign("http://localhost/practica/index.html");
 }
 function activities(){
-    window.location.assign("http://localhost/practica/index.html#actividadesPpal");
+    window.location.assign("http://localhost/practica/actividades.html");
 }
 function schedule(){
     window.location.assign("http://localhost/practica/horarios.html");
@@ -84,9 +84,9 @@ function muestra(id){
     }
 
 }
-function oculta(){
+function oculta(id){
     if (document.getElementById){ //se obtiene el id
-    var el = document.getElementById('cartel'); 
+    var el = document.getElementById(id); 
     el.style.display = (el.style.display == 'none') ? 'block' : 'none'; 
     
     }
@@ -116,9 +116,10 @@ function validarLogin(){
 function click(){
     
     $("btnEnviar").disabled=true;
-    //muestra('cartel');
-    //cargando();
-    swal("Cargando","", "info",{button: false});
+    muestra('cartel');
+    oculta('cuadroLogin');
+    cargando();
+    //swal("Cargando"," ", "info",{button: false});
     enviarParametrosPOST(miBackEnd + 'Usuario', retornoDelClick);
 }
 
@@ -131,7 +132,7 @@ function validarContrasenia(){
 
     var resultadoPass = pattPass.test(pass1);
     if( pass1 !== pass2){
-    
+        muestra('cartel');
     $("respuesta").innerHTML="Las contraseñas no coinciden";
     }
     if( pass1 == pass2 && resultadoPass ){
@@ -167,8 +168,14 @@ function retornoDelClick(respuesta){
     var objetoUsuario = JSON.parse(respuesta);
 
     if(objetoUsuario['email'] == null){
-        $("respuesta").style.color = 'red';
-        $("respuesta").innerHTML="Correo o contraseña errónea";
+       // muestra('cartel');
+        //$("respuesta").style.color = 'red';
+        //$("respuesta").innerHTML="Correo o contraseña errónea";
+        
+       swal("Revisar", "Correo o contraseña errónea", "warning");
+        console.log('no se puede loguear, contraseña o email incorrecto');
+       oculta('cartel');
+        muestra('cuadroLogin');
     }
 
     if(objetoUsuario['email'] != null && objetoUsuario['idPerfil'] == 'ADMIN' && objetoUsuario['origenDeContrasena'] == 'USU'){        

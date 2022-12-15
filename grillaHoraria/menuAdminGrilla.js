@@ -350,7 +350,7 @@ function armaColumnaPorDia(clases, dia, fecha, salon){
                     '<div class="card-body text-dark  px-1 " >'+
                         '<h5 class="card-title" id="cardactividad">'+clase.actividad+'</h5>'+
                         '<div class="card-text "  style="height: 75px; "> <div id="cardprofe"><b> Profe: </b> '+clase.profesor+'</div><div> <b>Cupos libres: </b> '+clase.cupoDisponible+'</div></div>'+
-                        '<div class=" d-flex  justify-content-end"><button class="btn bg-primary bg-opacity-75 "  onclick="clickClase('+clase.clase+',/'+clase.actividad+'/,/'+clase.horaDeInicio+'/)">Ver</button></div>'+
+                        '<div class=" d-flex  justify-content-end"><button class="btn bg-primary bg-opacity-25 "  onclick="clickClase('+clase.clase+',/'+clase.actividad+'/,/'+clase.horaDeInicio+'/)">Ver</button></div>'+
                     '</div>'+            
             '</div>'+
         '</div>'
@@ -411,8 +411,8 @@ function inscriptosAClase(rta){
                 '<td>' + socio.nombre + ' ' + socio.apellido + '</td>' +
                 
     
-                '<td><button class="btn bg-primary bg-opacity-75 modificacion" id="presente' + socio.nroSocio +'" onclick="presente(' + socio.nroSocio +')">presente</button></td>' +
-                '<td><button class="btn bg-danger bg-opacity-75 modificacion" id="ausente' + socio.nroSocio +'"  onclick="ausente(' + socio.nroSocio + ')">ausente</button></td>' +
+                '<td><button class="btn bg-primary bg-opacity-25 modificacion" id="presente' + socio.nroSocio +'" onclick="presente(' + socio.nroSocio +')">presente</button></td>' +
+                '<td><button class="btn bg-danger bg-opacity-25 modificacion" id="ausente' + socio.nroSocio +'"  onclick="ausente(' + socio.nroSocio + ')">ausente</button></td>' +
                 '</tr>'
             );
         });
