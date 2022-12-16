@@ -454,6 +454,7 @@ function cargarSkeleton(){
                 '<td><p id="skeletonTabla">' + "-" + '</p></td>' +
                 '<td><p id="skeletonTabla">' + "-" + '</p></td>' +
                 '<td><p id="skeletonTabla">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTabla">' + "-" + '</p></td>' +
                 
                
             '</tr>'
@@ -546,15 +547,18 @@ function formatoAño(texto){
 
 function verPagos(rta){
 var total=0; 
- console.log(rta)
+ 
 var pagos= JSON.parse(rta);
+console.log(pagos);
      var opciones=[];
 pagos.forEach(element=>{total=total+element.importe
     opciones.push(
         '<tr >'+
                 '<th scope="row">'+element.medioPago+'</th>'+
                 '<td>'+formatoAño(element.fecha)+'</td>'+
+                '<td>'+element.nombre+' '+element.apellido+'</td>'+
                 '<td> $'+element.importe+'</td>'+
+                
              
         '</tr>'
     )
@@ -562,6 +566,7 @@ pagos.forEach(element=>{total=total+element.importe
 console.log(total);
 opciones.push('<tr >'+
 '<th scope="row">TOTAL</th>'+
+'<td></td>'+
 '<td></td>'+
 '<td scope="row"> $'+total+'</td>'+
 
