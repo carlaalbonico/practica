@@ -57,8 +57,13 @@ function mostrarHorario(dia){
             horarios.push(clase);
         }
     });
-
+    horarios.sort((a,b)=>a.horaDeInicio.localeCompare(b.horaDeInicio));
     var opciones=[];
+    if(horarios.length === 0){
+        
+        opciones.push( '<div class=" d-flex justify-content-center">no hay clases habilitadas en este salon.</div>');
+    }
+    
 
     horarios.forEach(clase => {
         opciones.push(

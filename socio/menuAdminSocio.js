@@ -899,6 +899,7 @@ function cargarSkeletonHistorialSus(){
                 '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
                 '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
                 '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
               
             '</tr>'
         );
@@ -969,6 +970,7 @@ suscripciones.forEach(
                 '<td>'+formato(element.fechaVencimiento)+'</td>'+
                 '<td>'+element.nroPago+'</td>'+
                 '<td>'+formato(element.fecha)+'</td>'+
+                '<td>$'+element.importe+'</td>'+
             
                 '</tr>'
 

@@ -296,9 +296,9 @@ function retornarSuscripcionesActivas(rta){
     respuesta.push('  <h5 class="fw-bold">No posee una suscripcion activa</h5>');
  }else{
     suscripcionActiva.forEach(element=>{
-        respuesta.push('<div class="card border-danger mb-3" style="max-width: 18rem;">'+
+        respuesta.push('<div class="card border-danger mb-3 px-0" style="max-width: 18rem;">'+
         '<div class="card-header bg-danger bg-opacity-10">'+element.nombreActividad+'</div>'+
-        '<div class="card-body text-danger">'+
+        '<div class="card-body text-danger p-1">'+
           '<h5 class="card-title">'+element.nombreSuscripcion+'</h5>'+
           '<p class="card-text"> <b>Cant de clases: </b> '+element.cantClases+' <br><b>Fecha de Vencimiento:</b>'+formato(element.fechaVencimiento)+'</p>'+
         '</div>'+
@@ -862,6 +862,7 @@ function cargarSkeletonHistorialSus(){
                 '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
                 '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
                 '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
+                '<td><p id="skeletonTablaSocios">' + "-" + '</p></td>' +
               
             '</tr>'
         );
@@ -915,8 +916,9 @@ function validarFechaSus(){
 }
 
 function cargarHistorialSuscrip(rta){
-console.log(rta);
+
 suscripciones= JSON.parse(rta);
+console.log(suscripciones);
 opciones=[];
 suscripciones.forEach(
     element =>{
@@ -929,6 +931,7 @@ suscripciones.forEach(
                 '<td>'+ formatoAño(element.fechaVencimiento)+'</td>'+
                 '<td>'+element.nroPago+'</td>'+
                 '<td>'+ formatoAño(element.fecha)+'</td>'+
+                '<td>$'+ element.importe+'</td>'+
             
                 '</tr>'
 
