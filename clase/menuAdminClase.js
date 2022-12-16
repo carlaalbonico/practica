@@ -514,15 +514,15 @@ function enviarInfoDeClase(servidor, funcionARealizar){
     //agrega datos para pasar por POST
     var datos = new FormData();
     datos.append("idclase",extra);
-    datos.append("tipoActividad",$("slctClase").value);
-    datos.append("dias",$("slctDias").value);
-    datos.append("horaDeInicio",$("txtHoraInicio").value);
-    datos.append("horaDeFin",$("txtHoraFin").value);
-    datos.append("fechaDeInicio",$("txtFechaInicio").value);
-    datos.append("cupos",$("txtCupos").value);
-    datos.append("profesor",$("slctDatosProf").value);
-    datos.append("salon",$("slctDatosSalon").value);
-    datos.append("modalidad",$("slctMod").value);
+    datos.append("tipoActividad",$("slctModClase").value);
+    datos.append("dias",$("slctModDias").value);
+    datos.append("horaDeInicio",$("txtModHoraInicio").value);
+    datos.append("horaDeFin",$("txtModHoraFin").value);
+    datos.append("fechaDeInicio",$("txtModFechaInicio").value);
+    datos.append("cupos",$("txtModCupos").value);
+    datos.append("profesor",$("slctModDatosProf").value);
+    datos.append("salon",$("slctModDatosSalon").value);
+    datos.append("modalidad",$("slctModMod").value);
         //indico hacia donde va el mensaje
         
     xmlhttp.open ("POST", servidor, true); 
