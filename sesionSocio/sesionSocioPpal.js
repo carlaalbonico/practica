@@ -48,6 +48,7 @@ function load(){
     oculta('botonAtras');
     oculta('rutinasSocio');
     oculta('modificarSocio');
+   
     //boton para cerrar sesion 
     document.getElementById("logOut").addEventListener("click",cerrarSesion);
   
