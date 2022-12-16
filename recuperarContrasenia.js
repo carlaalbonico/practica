@@ -38,6 +38,19 @@ function muestra(id){
     }
 
 }
+function home(){
+    window.location.assign("http://localhost/practica/index.html");
+}
+function activities(){
+    window.location.assign("http://localhost/practica/actividades.html");
+}
+function schedule(){
+    window.location.assign("http://localhost/practica/horarios.html");
+}
+function contact(){
+    window.location.assign("http://localhost/practica/contacto.html");
+}
+
 
 function comprobarCorreo(){
     var Email = $('txtEmail').value;

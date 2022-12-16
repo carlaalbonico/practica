@@ -397,6 +397,9 @@ function cargarClasesRestantes(rta){
     $('clasesPermitidas').innerHTML = opciones.join('');
 }
 
+
+
+
 function clickEnviarInscripcion(idClase) {
     console.log(idClase);
     enviarParametrosPOSTInscribir(miBackEnd + 'Socio/Inscripcion', respuestaDeServidorInscripcion,idSocio,idClase);

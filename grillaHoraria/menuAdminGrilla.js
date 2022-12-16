@@ -115,7 +115,8 @@ function cargarSkeletonTabla(){
 }
 function TraerFechaHoy(){
     const hoy = new Date();
-    fecha= hoy;
+    fecha=sumarDias(hoy,-1);
+    console.log (fecha); 
 }
 
 

@@ -265,7 +265,7 @@ function cargarOpcionesClaseMod(nro){
     $("txtModPrecio").value = suscrip["precio"];
 
     $('txtModNombre').addEventListener("keyup", validarModificar);
-    $('txModCant').addEventListener("keyup", validarModificar);
+    $('txtModCant').addEventListener("keyup", validarModificar);
     $('txtModDesc').addEventListener("keyup", validarModificar);
     $('txtModPrecio').addEventListener("keyup", validarModificar);
    
@@ -278,10 +278,11 @@ function validarModificar() {
     var ModDesc = $("txtModDesc").value.length;
     var ModPrecio = $("txtModPrecio").value.length;
 
-    if (ModNombre <= 15  && ModDesc < 200 && ModPrecio <= 8) {
+    if (ModNombre <= 20  && ModDesc < 200 && ModPrecio <= 8) {
        $('btnGuardarSusc').disabled = false;//habilitar
     } else {
         $('btnGuardarSusc').disabled = true;
+        console.log('no cumple')
     }
 
 }
